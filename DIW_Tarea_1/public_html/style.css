@@ -1,0 +1,30 @@
+/*
+ Copyright (C) 2014 Luis Cabrerizo Gómez
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+.general {}
+td.pie {height:50px; text-align:center; background-color: #ffd23c; border-style: groove; font-family: 'Open Sans', sans-serif; font-size: 14px}            
+td.contenido {text-align:center; background-color: #ffd23c; border-style: groove }            
+.contenido table {background-image: url('images/animacion.gif'); background-attachment: fixed; background-repeat: no-repeat; background-size: cover; background-position: center}            
+.contenido tr {height: 200px}
+td.categorias {height:50px; text-align:center; background-color:#ffd23c; font-family: 'Lobster', cursive; font-size: 30px; border-style: groove }            
+td.ajuste {width: 20%; vertical-align: central; }
+td.ajusteder {width: 20%; vertical-align: central; float: right; padding-right: 50px; }
+td.ajusteizq {width: 20%; vertical-align: central; float: left; padding-left: 50px; }
+td.ajustesub {width: 20%; text-decoration:underline ;}
+td.cabecera {height:100px; text-align:center; background-image: url('images/logo.png'); background-repeat: no-repeat;background-position: center; border-style: groove }
+td.direccion {width: 20%; background-image: url('images/house.png'); background-repeat: no-repeat; background-position: left; vertical-align: central; }
+td.telefono {width: 20%; background-image: url('images/phone.png'); background-repeat: no-repeat; background-position: center; vertical-align: central; }
+td.mapa {width: 20%; background-image: url('images/map.png'); background-repeat: no-repeat; background-position: center; vertical-align: central; }
