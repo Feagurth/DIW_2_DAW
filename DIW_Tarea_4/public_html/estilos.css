@@ -1,0 +1,125 @@
+/*
+Copyright (C) 2014 Luis Cabrerizo GÃ³mez
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/* 
+    Created on : 08-ene-2015, 14:37:31
+    Author     : Luis Cabrerizo GÃ³mez
+*/
+
+/* DefiniciÃ³n de estilos generales para toda la pÃ¡gina */
+
+a{
+    color: #3e9722;
+}
+
+/* DefiniciÃ³n de estilos para la cabecera de la pÃ¡gina */
+
+#cabecera {
+    width: 920px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: block;
+    float: left;
+    background-color: #3e9722;
+}
+
+#cabecera ul { 
+    margin: 0; 
+    padding: 0; 
+    list-style: none; 
+    float:right;      
+    background-color: #cae646; } 
+
+#cabecera ul li { 
+    text-align: center;
+    width: 150px;
+    float: left; 
+} 
+
+#cabecera ul li a { 
+    display: block; 
+    padding: 0 1em; 
+    line-height: 2.1em; 
+    text-decoration: none; 
+    color: black;
+} 
+
+#cabecera ul li a:hover {
+    background-color: #e58c24;
+}
+
+/* DefiniciÃ³n de estilos para el cuerpo de la pÃ¡gina */
+
+#cuerpo {
+    display: block;
+    float: left;
+    width: 960px;
+}
+
+#izquierda {
+    display: block;
+    float: left;
+    width: 220px;    
+}
+
+#izquierda section *{
+    margin-bottom: 15px;
+    margin-left: 20px;
+}
+
+#izquierda.unidades {
+        size: 500000000px;
+    
+}
+
+#centro {
+    display: block;
+    float: left;
+    width: 480px;
+    padding-left: 20px;
+}
+
+#derecha {
+    display: block;
+    float: left;
+    width: 180px;
+    padding-left: 20px;    
+}
+
+#derecha img {
+    alignment-adjust: central;
+    
+    align-content: center;
+}
+
+img {}
+
+.titulo {
+    background-color: #3c74e6;
+    text-align: center;
+    color: white;
+    padding: 5px;
+}
+
+/* DefiniciÃ³n de estilos para el pie de la pÃ¡gina */
+
+#pie {
+    display: block;
+    float: left;
+    width: 960px;
+    text-align: center;
+}
