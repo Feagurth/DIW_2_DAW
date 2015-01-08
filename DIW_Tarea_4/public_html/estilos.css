@@ -19,13 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     Author     : Luis Cabrerizo GÃ³mez
 */
 
-/* DefiniciÃ³n de estilos generales para toda la pÃ¡gina */
+/* Definicion de estilos generales para toda la pagina */
 
 a{
     color: #3e9722;
 }
 
-/* DefiniciÃ³n de estilos para la cabecera de la pÃ¡gina */
+/* Definicion de estilos para la cabecera de la pagina */
 
 #cabecera {
     width: 920px;
@@ -62,7 +62,7 @@ a{
     background-color: #e58c24;
 }
 
-/* DefiniciÃ³n de estilos para el cuerpo de la pÃ¡gina */
+/* Definicion de estilos para el cuerpo de la pagina */
 
 #cuerpo {
     display: block;
@@ -101,9 +101,8 @@ a{
 }
 
 #derecha img {
-    alignment-adjust: central;
-    
-    align-content: center;
+    display: block;
+    margin: auto;
 }
 
 img {}
@@ -115,7 +114,7 @@ img {}
     padding: 5px;
 }
 
-/* DefiniciÃ³n de estilos para el pie de la pÃ¡gina */
+/* Definicion de estilos para el pie de la pagina */
 
 #pie {
     display: block;
