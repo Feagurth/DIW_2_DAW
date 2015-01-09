@@ -44,6 +44,7 @@ body  {
     margin: 0 auto;
     text-align: left;
     background-color: #FFFFFF;
+    width: 100%;
 } 
 
 #navigation {
@@ -163,7 +164,32 @@ body  {
 .sidebar .module_text div {
     border: 1px solid #CCC;
     padding: 3px;
+    text-align: center;    
 }
+
+.sidebar .module img{
+    margin:0; 
+    border:0; 
+} 
+
+.sidebar .module table{
+     margin: 3px; 
+     text-align: center; 
+     width: 90%;    
+}
+
+.sidebar .module table tbody {
+    text-align: center;
+}
+
+.sidebar .module table .moduletrleft{
+    text-align: left;
+}
+
+.sidebar .module table .moduletdright{
+    text-align: right;
+}
+
 .sidebar .module div div, 
 .sidebar .module_menu div div,
 .sidebar .module_text div div {
@@ -351,7 +377,7 @@ body  {
     background-color: #FFFFFF;
     color: #FFFFFF;
 }
-#copyright {
+.copyright {
     height: 30px;
     line-height: 30px;
     background-color: #174350;
@@ -370,12 +396,24 @@ body  {
     border-bottom: 1px solid #ccc;
     color: #336699;
     padding: 0 0 3px 0;
+    width: 100% !important;
+}
+
+.contentheadingseparator{
+    width: 100%;
+    text-align: right;
 }
 
 .contentpaneopen {
     padding: 0px 2px;
     width: 100%;
 }
+
+.contentpaneopen td{
+    width: 70%;
+    vertical-align: top;
+}
+
 .small  {
     font-size: 11px;
     color: #999999;
@@ -449,6 +487,38 @@ fieldset {
 .modulefondoamarillo {
     background:#fff75e;
 }
+
+.modulefondoamarillo p { 
+     text-align: center;
+}
+
+
 .modulefondorojo {
     background:#ad2e11;
+}
+
+
+#table1{
+    border: 0;
+    width: 121;
+}
+
+hr{
+    width: 90%;
+}
+
+.aligncenter{
+    text-align: center;
+}
+
+.justify{
+    text-align: justify;
+}
+
+#zindex1810{
+    z-index: 1810;
+}
+
+#zindez1850{
+    z-index: 1850;
 }
