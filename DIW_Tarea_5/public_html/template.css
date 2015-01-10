@@ -19,6 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     Author     : Luis Cabrerizo Gómez
 */
 
+/*
+--------------------------------------------------------------------
+created by Fio, www.vonfio.de
+Date: 07.02.2008
+--------------------------------------------------------------------
+*/
+
 p, tr, td, div  {
     padding: 0;
     margin: 0;
@@ -37,71 +44,28 @@ body  {
     margin: 0 auto;
     text-align: left;
     background-color: #FFFFFF;
-} 
-#header {
-    height: 100px;
-    background-color: #174350;
-    background-image: url(../images/logo.png);
-    background-repeat: no-repeat;
-    overflow: hidden;
-    background-position: left;
-}
-#bannerarea {
-    height: 70px;
-    background-image: url(../images/logo.jpg);
-    color: #FFFFFF;
-    background-repeat: no-repeat;
     width: 100%;
-    float: left;
-    padding-top: 10px;
-}
-#banner {
-    height: 70px;
-    padding-right: 20px;
-    padding-left: 200px;
-    float: right;
-}
-#topmenu {
-    color: #FFFFFF;
-    float: right;
-    padding: 0px 20px;
-}
-#topmenu     ul, #topmenu li   {
-    list-style-type: none;
-    display: inline;
-    padding: 0;
-    margin: 0;
-}
-#topmenu  a {
-    font-size: 11px;
-    color: #FFFFFF;
-    padding: 0 10px;
-    font-weight: bold;
-    border-left: 1px solid #fff;
-}
-#topmenu  a:hover {
-    color: #8B8B8B;
-    text-decoration: underline;
-}
+} 
+
 #navigation {
     height: 80px;
 }
 #navleft {
-    background-image: url(../images/navleft.jpg);
+    background-image: url(imagenes/navleft.jpg);
     height: 80px;
     background-repeat: no-repeat;
     padding-left: 20px;
 }
 #navright {
     height: 80px;
-    background-image: url(../images/navright.jpg);
+    background-image: url(imagenes/navright.jpg);
     background-repeat: no-repeat;
     background-position: right;
     padding-right: 20px;
 }
 #menubar {
     height: 80px;
-    background-image: url(../images/navback.jpg);
+    background-image: url(imagenes/navback.jpg);
     background-repeat: repeat-x;
 
 }
@@ -134,7 +98,7 @@ body  {
 #menubar1 #active_menu {
     color: #FFFFFF;
     text-decoration: none;
-    background-image: url(../images/navover.jpg);
+    background-image: url(imagenes/navover.jpg);
     background-repeat: repeat-x;
     background-position: 0px -4px;
 }
@@ -160,7 +124,7 @@ body  {
 #headerimage {
     height: 140px;
     background-color: #597FAC;
-    background-image: url(../images/banner.jpg);
+    background-image: url(imagenes/banner.jpg);
     margin: 5px 10px;
 }
 #maincontent {
@@ -200,7 +164,37 @@ body  {
 .sidebar .module_text div {
     border: 1px solid #CCC;
     padding: 3px;
+    text-align: center;    
 }
+
+.sidebar .module img{
+    margin:0; 
+    border:0; 
+    width: 80%;
+} 
+
+.sidebar .module .counter{
+    width: 8%;
+}
+
+.sidebar .module table{
+    margin: 3px; 
+    text-align: center; 
+    width: 90%;    
+}
+
+.sidebar .module table tbody {
+    text-align: center;
+}
+
+.sidebar .module table .moduletrleft{
+    text-align: left;
+}
+
+.sidebar .module table .moduletdright{
+    text-align: right;
+}
+
 .sidebar .module div div, 
 .sidebar .module_menu div div,
 .sidebar .module_text div div {
@@ -246,6 +240,7 @@ body  {
     text-decoration: none;
     margin: 2px 0px;
 }
+
 #left_out ul.menu a:hover, 
 #right_out ul.menu a:hover,
 #left_out a.mainlevel:hover, 
@@ -306,28 +301,22 @@ body  {
     width: 98%;
     height: 180px;
 }
-.user_bg .topmodule_userone {
-    width: 91%;
-    margin: 0px;
-    float: left;
-    border: 1px solid #CCC;
-    background:#71a10b url(../images/bggreen.jpg) top left repeat-x;        
-}
+
 .user_bg .topmodule_usertwo {
     margin: 0px;
     float: left;
     border: 1px solid #CCC;
     width: 49%;
-    background:#d02e2e url(../images/bggreen.jpg) top left repeat-x;
+    background:#d02e2e url(imagenes/bggreen.jpg) top left repeat-x;
     color:#fff;
-    font-color: #FFFFFF;
+    color: #FFFFFF;
 }
 .user_bg .topmodule_user2two {
     margin: 0px;
     float: right;
     border: 1px solid #CCC;
     width: 49%;
-    background:#d02e2e url(../images/bgred.jpg) top left repeat-x;
+    background:#d02e2e url(imagenes/bgred.jpg) top left repeat-x;
     color:#fff;
 }
 .user_bg a:link {color:#fff;}
@@ -339,9 +328,19 @@ body  {
     height: 155px;
     overflow: hidden;
 }
+
+.user_inside .tablescroll .colscroll{
+     width:100%;
+     vertical-align: top;
+}
+
+.user_inside marquee{
+    
+}
+
 .user_bg th, 
 .user_bg h3 {
-    background-image: url(../images/navback.jpg);
+    background-image: url(imagenes/navback.jpg);
     background-repeat: repeat-x;
     height: 34px;
     line-height: 34px;
@@ -363,34 +362,37 @@ body  {
     list-style-type: square;
 }
 
-#content_outleft, 
-#content_outmiddle, 
-#content_outright {
+#content_outmiddle{
     margin: 0 0 10px 0;
-}
-#content_outleft {
-    margin: 0 0 0 216px;
 }
 #content_outmiddle {
     margin: 0 216px;
 }
-#content_outright {
-    margin: 0 216px 0 0;
-}
+
 #content {
     width: 98%;
     border: 1px solid #CCC;
     padding: 3px;
 }
+
+#content td{
+    vertical-align: top;
+}
+
+#content td.centrado{
+    text-align: center;
+}
+
+
 #bottom_left {
-    background-image: url(../images/footer_left.gif);
+    background-image: url(imagenes/footer_left.gif);
     height: 15px;
     background-repeat: no-repeat;
     text-align: center;
     color: #8B8B8B;
 }
 #bottom_right {
-    background-image: url(../images/footer_right.gif);
+    background-image: url(imagenes/footer_right.gif);
     background-position: right;
     height: 15px;
     background-repeat: no-repeat;
@@ -401,13 +403,18 @@ body  {
     background-color: #FFFFFF;
     color: #FFFFFF;
 }
-#copyright {
+.copyright {
     height: 30px;
     line-height: 30px;
     background-color: #174350;
     color: #FFFFFF;
     text-align: center;
 }
+
+.copyright img{
+    width: 4em;
+}
+
 .clr {
     clear:both;
     height:0;
@@ -420,21 +427,54 @@ body  {
     border-bottom: 1px solid #ccc;
     color: #336699;
     padding: 0 0 3px 0;
+    width: 100% !important;
 }
-.componentheading {
-    background-image: url(../images/navback.jpg);
-    background-position: 0px -4px;
-    color: #fff;
-    padding: 5px 10px;
-    margin-bottom: 10px;
+
+.contentheadingseparator{
+    width: 100%;
+    text-align: right;
 }
-.contentdescription {
-    padding: 10px 0px;
-}
+
 .contentpaneopen {
     padding: 0px 2px;
     width: 100%;
 }
+
+.contentpaneopen td{
+    width: 70%;
+    vertical-align: top;
+}
+
+.contentpaneopen .justify img{
+    width: 8em;
+    height: 8em;
+    float: left;
+    display: block;
+    padding-right: 1.5em;
+}
+
+.contentpaneopen .imagenboton{
+    padding: 0em 1em 1em 1em;
+}
+
+.contentpaneopen .imagenboton img{
+    width: 3em;
+    height: 3em;
+    display: block;
+    float: left;
+    padding-right: 1em;
+}
+
+
+.contentpaneopen #zindez1850 img{
+    width: 8em;
+    height: 8em;
+    float: left;
+    display: block;
+    padding-right: 1.5em;
+}
+
+
 .small  {
     font-size: 11px;
     color: #999999;
@@ -467,7 +507,7 @@ a:hover {
     margin-right: 2px;
 }
 .button {
-    background-image: url(../images/button.jpg);
+    background-image: url(imagenes/button.jpg);
     background-repeat: no-repeat;
     background-color: #5079A7;
     width: 99px;
@@ -478,22 +518,6 @@ a:hover {
     border: none;
     font: 14px Tahoma, Arial, Verdana bold;
     margin: 10px 0px;
-}
-.sectiontableheader {
-    padding: 3px 5px;
-    background-color: #666;
-    color: #FFFFFF;
-    font-size: 15px;
-    color: #FFFFFF;
-}
-.sectiontableentry1, 
-.sectiontableentry2 {
-    height: 26px;
-    line-height: 26px;
-    font-size: 12px;
-    text-indent: 5px;
-    background-position: bottom;
-    background-color: #FFFFFF;
 }
 fieldset {
     border: none;
@@ -506,9 +530,8 @@ fieldset {
     border: none;
     padding: 0;
     margin: 0;
+    
 }
-.sidebar .inputbox#mod_login_password, 
-.sidebar .inputbox#mod_login_username,
 .sidebar .inputbox#modlgn_username, 
 .sidebar .inputbox#modlgn_passwd {
     width: 192px;
@@ -516,12 +539,6 @@ fieldset {
 .modulefondonaranja {
     background:#fcc800;
 }
-.modulefondonaranja2 {
-    background:#fcc800;
-}
-.modulefondonaranja2 a:link {color:#fff;}
-.modulefondonaranja2 a:visited {color:#fff;}
-.modulefondonaranja2 a:active {color:#fff;}
 
 .modulefondoverde {
     background:#009944;
@@ -529,9 +546,81 @@ fieldset {
 .modulefondoazul {
     background:#4198d9;
 }
+
+.modulefondoazul .columna1{
+    width: 50%;
+    text-align: center;
+}
+
+.modulefondoazul .columna2{
+    width: 50%;    
+    text-align: center;
+}
+
+
+
 .modulefondoamarillo {
     background:#fff75e;
 }
+
+.modulefondoamarillo p { 
+    text-align: center;
+}
+
+.modulefondoamarillo img{
+    width: 10%;
+}
+
 .modulefondorojo {
     background:#ad2e11;
+}
+
+#table1{
+    border: 0;
+    width: 100%;
+}
+
+#table1 img {
+    width: 5em;
+    height: 5em;
+}
+
+hr{
+    width: 90%;
+}
+
+.aligncenter{
+    text-align: center;
+}
+
+.justify{
+    text-align: justify;
+    padding-right: 1em;
+}
+
+#zindex1810{
+    z-index: 1810;
+}
+
+#zindez1850{
+    z-index: 1850;
+}
+
+#form-login-remember{
+    text-align: left;
+}
+
+img#logo {
+    width: 100%;
+}
+
+.vidyoutube{
+    width: 30em;
+    height: 20em;
+}
+
+.iconoenlaces{
+    display: inline;
+    float: left;
+    
 }
