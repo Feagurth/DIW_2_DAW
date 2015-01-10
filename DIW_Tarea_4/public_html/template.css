@@ -170,12 +170,17 @@ body  {
 .sidebar .module img{
     margin:0; 
     border:0; 
+    width: 80%;
 } 
 
+.sidebar .module .counter{
+    width: 8%;
+}
+
 .sidebar .module table{
-     margin: 3px; 
-     text-align: center; 
-     width: 90%;    
+    margin: 3px; 
+    text-align: center; 
+    width: 90%;    
 }
 
 .sidebar .module table tbody {
@@ -235,6 +240,7 @@ body  {
     text-decoration: none;
     margin: 2px 0px;
 }
+
 #left_out ul.menu a:hover, 
 #right_out ul.menu a:hover,
 #left_out a.mainlevel:hover, 
@@ -303,7 +309,7 @@ body  {
     width: 49%;
     background:#d02e2e url(imagenes/bggreen.jpg) top left repeat-x;
     color:#fff;
-    font-color: #FFFFFF;
+    color: #FFFFFF;
 }
 .user_bg .topmodule_user2two {
     margin: 0px;
@@ -322,6 +328,16 @@ body  {
     height: 155px;
     overflow: hidden;
 }
+
+.user_inside .tablescroll .colscroll{
+     width:100%;
+     vertical-align: top;
+}
+
+.user_inside marquee{
+    
+}
+
 .user_bg th, 
 .user_bg h3 {
     background-image: url(imagenes/navback.jpg);
@@ -358,6 +374,16 @@ body  {
     border: 1px solid #CCC;
     padding: 3px;
 }
+
+#content td{
+    vertical-align: top;
+}
+
+#content td.centrado{
+    text-align: center;
+}
+
+
 #bottom_left {
     background-image: url(imagenes/footer_left.gif);
     height: 15px;
@@ -384,6 +410,11 @@ body  {
     color: #FFFFFF;
     text-align: center;
 }
+
+.copyright img{
+    width: 4em;
+}
+
 .clr {
     clear:both;
     height:0;
@@ -413,6 +444,36 @@ body  {
     width: 70%;
     vertical-align: top;
 }
+
+.contentpaneopen .justify img{
+    width: 8em;
+    height: 8em;
+    float: left;
+    display: block;
+    padding-right: 1.5em;
+}
+
+.contentpaneopen .imagenboton{
+    padding: 0em 1em 1em 1em;
+}
+
+.contentpaneopen .imagenboton img{
+    width: 3em;
+    height: 3em;
+    display: block;
+    float: left;
+    padding-right: 1em;
+}
+
+
+.contentpaneopen #zindez1850 img{
+    width: 8em;
+    height: 8em;
+    float: left;
+    display: block;
+    padding-right: 1.5em;
+}
+
 
 .small  {
     font-size: 11px;
@@ -469,6 +530,7 @@ fieldset {
     border: none;
     padding: 0;
     margin: 0;
+    
 }
 .sidebar .inputbox#modlgn_username, 
 .sidebar .inputbox#modlgn_passwd {
@@ -484,23 +546,43 @@ fieldset {
 .modulefondoazul {
     background:#4198d9;
 }
+
+.modulefondoazul .columna1{
+    width: 50%;
+    text-align: center;
+}
+
+.modulefondoazul .columna2{
+    width: 50%;    
+    text-align: center;
+}
+
+
+
 .modulefondoamarillo {
     background:#fff75e;
 }
 
 .modulefondoamarillo p { 
-     text-align: center;
+    text-align: center;
 }
 
+.modulefondoamarillo img{
+    width: 10%;
+}
 
 .modulefondorojo {
     background:#ad2e11;
 }
 
-
 #table1{
     border: 0;
-    width: 121;
+    width: 100%;
+}
+
+#table1 img {
+    width: 5em;
+    height: 5em;
 }
 
 hr{
@@ -513,6 +595,7 @@ hr{
 
 .justify{
     text-align: justify;
+    padding-right: 1em;
 }
 
 #zindex1810{
@@ -521,4 +604,23 @@ hr{
 
 #zindez1850{
     z-index: 1850;
+}
+
+#form-login-remember{
+    text-align: left;
+}
+
+img#logo {
+    width: 100%;
+}
+
+.vidyoutube{
+    width: 30em;
+    height: 20em;
+}
+
+.iconoenlaces{
+    display: inline;
+    float: left;
+    
 }
