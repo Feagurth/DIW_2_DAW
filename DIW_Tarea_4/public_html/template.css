@@ -25,19 +25,18 @@ created by Fio, www.vonfio.de
 Date: 07.02.2008
 --------------------------------------------------------------------
 */
-
 p, tr, td, div  {
     padding: 0;
     margin: 0;
-    font: 12px Tahoma, Arial, Verdana;
+    font: Tahoma, Arial, Verdana;
 }
 body  {
-    font: 12px Tahoma, Arial, Verdana;
+    font: 0.75em Tahoma, Arial, Verdana;
     margin: 0;
-    padding: 0 20px;
+    padding: 0 1.25em;
     text-align: center;
     color: #000000;
-    background-color: #174350;
+    background-color: #174350;   
 }
 
 #container  {
@@ -48,30 +47,30 @@ body  {
 } 
 
 #navigation {
-    height: 80px;
+    height: 7em;
 }
 #navleft {
     background-image: url(imagenes/navleft.jpg);
-    height: 80px;
+    height: 7em;
     background-repeat: no-repeat;
-    padding-left: 20px;
+    padding-left: 1.25em;
 }
 #navright {
-    height: 80px;
+    height: 6.7em;
     background-image: url(imagenes/navright.jpg);
     background-repeat: no-repeat;
     background-position: right;
-    padding-right: 20px;
+    padding-right: 1.25em;
 }
 #menubar {
-    height: 80px;
+    height: 7em;
     background-image: url(imagenes/navback.jpg);
     background-repeat: repeat-x;
 
 }
 #menubar1 {
-    height: 46px;
-    padding-top: 4px;
+    height: 2.88em;
+    padding-top: 0.30em;
     width: 100%;
     float: left;
 
@@ -85,13 +84,13 @@ body  {
 #menubar1  a   {
     color: #FFFFFF;
     float: left;
-    line-height: 44px;
+    line-height: 2.88em;
     font-weight: bold;
-    height: 44px;
+    height: 3.5em;
     text-align: center;
     display: block;
-    padding: 0px 10px;
-    border-right: 2px solid #1D518D;
+    padding: 0 1em;
+    border-right: 0.2em solid #1D518D;
 }
 #menubar1 a:hover, 
 #menubar1 li#current a, 
@@ -100,70 +99,51 @@ body  {
     text-decoration: none;
     background-image: url(imagenes/navover.jpg);
     background-repeat: repeat-x;
-    background-position: 0px -4px;
+    background-position: 0 -0.25em;
 }
-#menubar2 {
-    height: 25px;
-    float: left;
-    width: 100%;
 
-}
-#menubar2  ul, #menubar2 li {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: inline;
-}
-#menubar2  a   {
-    float: left;
-    line-height: 25px;
-    color: #5C83AE;
-    height: 25px;
-    padding: 0 10px;
-}
 #headerimage {
-    height: 140px;
+    height: 12em;
     background-color: #597FAC;
     background-image: url(imagenes/banner.jpg);
-    margin: 5px 10px;
+    margin: 1em 2em;
 }
 #maincontent {
-    padding: 0px 10px;
+    padding: 0 2em;
 }
 #pathway {
-    margin-bottom: 5px;
-    border: 1px solid #CCC;
-    padding: 5px;
+    margin-left: 1.75em;
+    margin-right: 1.75em;
+    margin-bottom: 0.6em;
+    border: 0.125em solid #CCC;
+    padding: 0.5em;
 }
 #left_out {
-    width: 216px;
     float: left;
     padding: 0;
     margin: 0;
 }
 #right_out  {
-    width: 210px;
     float: right;
     padding: 0;
     margin: 0;
 }
 .sidebar {
-    width: 210px;
+    width: 17.5em;
     background-color: #FFFFFF;
     color: #000000;
-    margin-bottom: 10px;
 }
 .sidebar .module, 
 .sidebar .module_menu, 
 .sidebar .module_text {
-    margin: 0px 0px 10px 0px;
+    margin: 0 0 0.5em 0;
     background-color: #FFFFFF;
 } 
 .sidebar .module div, 
 .sidebar .module_menu div,
 .sidebar .module_text div {
-    border: 1px solid #CCC;
-    padding: 3px;
+    border: 0.15em solid #CCC;
+    padding: 0.45em;
     text-align: center;    
 }
 
@@ -178,7 +158,7 @@ body  {
 }
 
 .sidebar .module table{
-    margin: 3px; 
+    margin: 0.45em; 
     text-align: center; 
     width: 90%;    
 }
@@ -202,19 +182,17 @@ body  {
     padding: 0;
 }
 .sidebar th, .sidebar h3 {
-    height: 27px;
-    line-height: 27px;
+    height: 2em;
+    line-height: 2em;
     background-color: #34639B;
     color: #FFFFFF;
     font-family: Tahoma, Arial, Verdana;
-    font-size: 14px;
+    font-size: medium;
     font-weight: bold;
-    margin: 0 0 10px 0;
+    margin: 0 0 0.30em 0;
     text-align: left;
-    text-indent: 10px;
+    text-indent: 0.30em;
 }
-
-
 
 #left_out ul, 
 #left_out li, 
@@ -230,15 +208,15 @@ body  {
 #right_out ul.menu li a, 
 #right_out ul.menu li#current a, 
 #right_out a.mainlevel {
-    border-left: 4px solid #339900;
-    height: 26px;
-    line-height: 26px;
+    border-left: 0.60em solid #339900;
+    height: 2em;
+    line-height: 2em;
     font-family: Tahoma, Arial, Verdana;
-    text-indent: 13px;
+    text-indent: 1em;
     display: block;
     color: #000000;
     text-decoration: none;
-    margin: 2px 0px;
+    margin: 0.30em 0;
 }
 
 #left_out ul.menu a:hover, 
@@ -264,14 +242,14 @@ body  {
 #right_out ul.menu li li#current a,
 #right_out ul.menu li li#current li a,
 #right_out ul.menu li li li a {
-    height: 17px;
-    line-height: 17px;
-    border-left: 4px solid #336699;
-    margin: 2px 0px;
+    height: 2em;
+    line-height: 2em;
+    border-left: 0.60em solid #336699;
+    margin: 0.30em 0;
     display: block;
     color: #000000;
     text-decoration: none;
-    text-indent: 13px;
+    text-indent: 1em;
 }
 #left_out a.sublevel#active_menu,
 #right_out a.sublevel#active_menu,
@@ -296,16 +274,16 @@ body  {
     color: #000;
 }
 .user_bg {
-    margin: 0 0 10px 0;
+    margin: 0 0 0.30em 0;
     padding: 0;
     width: 98%;
-    height: 180px;
+    height: 15em;
 }
 
 .user_bg .topmodule_usertwo {
-    margin: 0px;
+    margin: 0 0 0 0.60em;
     float: left;
-    border: 1px solid #CCC;
+    border: 0.15em solid #CCC;
     width: 49%;
     background:#d02e2e url(imagenes/bggreen.jpg) top left repeat-x;
     color:#fff;
@@ -314,7 +292,7 @@ body  {
 .user_bg .topmodule_user2two {
     margin: 0px;
     float: right;
-    border: 1px solid #CCC;
+    border: 0.15em solid #CCC;
     width: 49%;
     background:#d02e2e url(imagenes/bgred.jpg) top left repeat-x;
     color:#fff;
@@ -324,55 +302,48 @@ body  {
 .user_bg a:active {color:#fff;}
 
 .user_bg .user_inside {
-    margin: 3px;
-    height: 155px;
+    margin: 0.45em;
+    height: 13em;
     overflow: hidden;
 }
 
 .user_inside .tablescroll .colscroll{
-     width:100%;
-     vertical-align: top;
-}
-
-.user_inside marquee{
-    
+    width:100%;
+    vertical-align: top;
 }
 
 .user_bg th, 
 .user_bg h3 {
     background-image: url(imagenes/navback.jpg);
     background-repeat: repeat-x;
-    height: 34px;
-    line-height: 34px;
+    height: 2em;
+    line-height: 2em;
     color: #fff;
-    font-size: 14px;
+    font-size: medium;
     font-weight: bold;
-    text-indent: 10px;
-    background-position: 0px -4px;
+    text-indent: 0.30em;
+    background-position: 0px -0.60em;
     text-align: left;
-    margin: 0 0 5px 0;
+    margin: 0 0 0.15em 0;
 }
 .user_bg ul {
     margin: 0px;
     padding: 0px;
 }
 .user_bg li {
-    margin: 0 0 0 20px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     list-style-type: square;
 }
 
-#content_outmiddle{
-    margin: 0 0 10px 0;
-}
 #content_outmiddle {
-    margin: 0 216px;
+    margin: 0 16.5em;
 }
 
 #content {
-    width: 98%;
-    border: 1px solid #CCC;
-    padding: 3px;
+    width: 96.5%;
+    border: 0.15em solid #CCC;
+    margin: 0 0 0 1.75em;
 }
 
 #content td{
@@ -386,7 +357,7 @@ body  {
 
 #bottom_left {
     background-image: url(imagenes/footer_left.gif);
-    height: 15px;
+    height: 1.25em;
     background-repeat: no-repeat;
     text-align: center;
     color: #8B8B8B;
@@ -394,18 +365,18 @@ body  {
 #bottom_right {
     background-image: url(imagenes/footer_right.gif);
     background-position: right;
-    height: 15px;
+    height: 1.25em;
     background-repeat: no-repeat;
-    padding: 0 30px;
+    padding: 0 2.50em;
 }
 #bottom_content, #bottom_content a, #bottom_content a:visited {
-    height: 15px;
+    height: 1.25em;
     background-color: #FFFFFF;
     color: #FFFFFF;
 }
 .copyright {
-    height: 30px;
-    line-height: 30px;
+    height: 2.50em;
+    line-height: 2.50em;
     background-color: #174350;
     color: #FFFFFF;
     text-align: center;
@@ -418,15 +389,15 @@ body  {
 .clr {
     clear:both;
     height:0;
-    font-size: 1px;
-    line-height: 0px;
+    font-size: 0.15em;
+    line-height: 0;
 }
 .contentheading, .contentheading a {
-    font-size: 14px;
+    font-size: large;
     font-weight: bold;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 0.15em solid #ccc;
     color: #336699;
-    padding: 0 0 3px 0;
+    padding: 00 0.45em 0;
     width: 100% !important;
 }
 
@@ -436,7 +407,7 @@ body  {
 }
 
 .contentpaneopen {
-    padding: 0px 2px;
+    padding: 0 0.30em;
     width: 100%;
 }
 
@@ -476,17 +447,17 @@ body  {
 
 
 .small  {
-    font-size: 11px;
+    font-size: small;
     color: #999999;
 }
 .modifydate  {
-    font-size: 11px;
+    font-size: small;
     color: #999999;
-    padding-top: 10px;
+    padding-top: 0.30em;
 }
 .createdate {
-    font-size: 11px;
-    padding-bottom: 10px;
+    font-size: small;
+    padding-bottom: 0.30em;
     color: #999999;
 }
 ul, li {
@@ -500,41 +471,41 @@ a:hover {
     text-decoration: underline;
 }
 .separator {
-    border-bottom-width: 3px;
+    border-bottom-width: 0.45em;
     border-bottom-style: dotted;
     border-bottom-color: #E0E0E0;
-    margin-left: 3px;
-    margin-right: 2px;
+    margin-left: 0.45em;
+    margin-right: 0.30em;
 }
 .button {
     background-image: url(imagenes/button.jpg);
     background-repeat: no-repeat;
     background-color: #5079A7;
-    width: 99px;
-    height: 27px;
-    line-height: 27;
+    width: 7.4em;
+    height: 2em;
+    line-height: 2em;
     text-align: center;
     color: #5079A7;
     border: none;
-    font: 14px Tahoma, Arial, Verdana bold;
-    margin: 10px 0px;
+    font: Tahoma, Arial, Verdana bold;
+    margin: 0.30em 0;
 }
 fieldset {
     border: none;
 }
 .inputbox {
-    padding: 3px;
-    margin: 3px 0px;
+    padding: 0.45em;
+    margin: 0.45em 0;
 }
+
 .input, img {
     border: none;
     padding: 0;
-    margin: 0;
-    
 }
+
 .sidebar .inputbox#modlgn_username, 
 .sidebar .inputbox#modlgn_passwd {
-    width: 192px;
+    width: 14em;
 }
 .modulefondonaranja {
     background:#fcc800;
@@ -556,8 +527,6 @@ fieldset {
     width: 50%;    
     text-align: center;
 }
-
-
 
 .modulefondoamarillo {
     background:#fff75e;
@@ -622,5 +591,5 @@ img#logo {
 .iconoenlaces{
     display: inline;
     float: left;
-    
+
 }
