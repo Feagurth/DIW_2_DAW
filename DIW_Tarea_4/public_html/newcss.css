@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     Author     : Luis Cabrerizo GÃ³mez
 */
 
+/* Barra inicial de navegación */
 
 #navigation #menubar #menubar1 {
     width: 100%;
@@ -55,6 +56,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     color: black;
 }
 
+/* Imágen de Cabecera */
+
 #headerimage {
     height: 12em;
     background-image: url(imagenes/banner.jpg);
@@ -63,9 +66,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 }
 
+/* Menús laterales */
+
 #left_out, #right_out, #content_outmiddle, .copyright, #bottom_content{
     width: 100%;
     float: left;
+}
+
+#left_out{
+    height: 2.75em;
+}
+
+#right_out{
+    height: 2.75em;
 }
 
 .sidebar {
@@ -89,7 +102,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 .sidebar > div > div > div > div:hover li{
-    padding: 0.5em;
+    //padding: 0.5em;
     border-top: 0.10em solid #000;
 }
 
@@ -106,8 +119,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     background-color: #92e792;
 }
 
+.sidebar > div > div > div > div{
+    z-index: 0;
+}
+
 .sidebar > div > div > div > div:hover {
     background-color: #92e792;
+    position: relative;
+    z-index: 9999 !important;
 }
 
 .sidebar div > div > div > div > h3{
@@ -116,9 +135,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     border-left: 0.15em solid #fff;
     text-align: center;
     color: #fff;
+    border-top: 0.15em solid #fff;
 }
 
-.sidebar .module h3 > div {
+.sidebar .module div > h3 + div{
     display: none;
 }
 
