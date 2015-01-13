@@ -1,0 +1,396 @@
+/*
+Copyright (C) 2015 Luis Cabrerizo Gomez
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/* 
+    Created on : 12-ene-2015, 1:56:16
+    Author     : Luis Cabrerizo Gomez
+*/
+
+/* Barra inicial de navegacion */
+
+p, tr, td, div {
+    font: Tahoma, Arial, Verdana;
+}
+
+#navigation #menubar #menubar1 {
+    width: 100%;
+}
+
+#navigation #menubar #menubar1 {
+    text-align: center;
+}
+
+#navigation #menubar #menubar1 .menu{
+    padding-left: 0px;
+}
+
+#navigation #menubar #menubar1 ul {
+    list-style: none;
+    overflow: hidden;
+}
+#navigation #menubar #menubar1 ul li {
+    float: left;    
+    width: 20%;
+}
+#navigation #menubar #menubar1 ul a {
+    display: block;
+    text-decoration:none;
+    padding: 0.5em 0;
+    width: auto;
+    color: #ffffff;
+    background: #317b31;
+    border-left: 0.15em solid #fff;
+    text-align: center;
+}
+#navigation #menubar #menubar1 ul a:hover {
+    background: #92e792;
+    color: black;
+}
+
+/* Imagen de Cabecera */
+
+#headerimage {
+    height: 12em;
+    background-image: url(imagenes/banner.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+/* Menus laterales */
+
+#left_out, #right_out{
+    width: 100%;
+    float: left;
+}
+
+#left_out, #right_out{
+    height: 2.2em;
+}
+
+.sidebar {
+    width: 100%;
+}
+
+.sidebar > div{
+    display: block;
+    float: left;    
+    width: 12.5%;
+    font-size: small;
+}
+
+#right_out .sidebar > div{
+    width: 11.11%;
+    font-size: small;
+}
+
+.sidebar > div > div > div > div > ul, p{
+    display: none;    
+}
+
+.sidebar > div > div > div > div:hover ul{
+    display: block;
+    list-style-type: none;    
+    padding-left: 0em;
+    margin: 0;
+}
+
+.sidebar > div > div > div > div:hover li{
+    border-top: 0.10em solid #fff;
+    font-size: small;
+}
+
+.sidebar > div > div > div > div:hover li a{
+    text-decoration: none;
+    color: #000;
+}
+
+.sidebar > div > div > div > div:hover p{
+    display: block;
+}
+
+.sidebar > div > div > div > div:hover h3{
+    background-color: #92e792;
+    margin-bottom: 0;
+}
+
+.sidebar > div > div > div > div:hover li{
+    padding: 0.5em;
+    margin-left: 0.15em;
+}
+
+.sidebar > div > div > div > div:hover li:hover {
+    background-color: #92e792;
+
+}
+
+.sidebar > div > div > div > div:hover li img{
+    width: 1.5em;
+}
+
+.sidebar > div > div > div > div{
+    z-index: 0;
+}
+
+.sidebar > div > div > div > div:hover {
+    background-color: #317b31;
+    position: relative;
+    z-index: 9999 !important;
+}
+
+.sidebar div > div > div > div > h3{
+    background-color: #317b31;
+    padding: 0.5em 0;  
+    border-left: 0.15em solid #fff;
+    text-align: center;
+    color: #fff;
+    border-top: 0.15em solid #fff;
+    margin: 0;
+}
+
+/* Logo de FP Semipresencial */
+.sidebar div #logo{
+    width: 80%;
+}
+
+/* Menu de visitas y enlaces interesantes */
+
+.sidebar div > h3 + div{
+    display: none;
+}
+
+.sidebar div:hover > h3 + div {
+    display: block;
+}
+
+.sidebar div:hover > h3 + div div{
+    text-align: center;
+}
+
+.sidebar div:hover > h3 + div div table{
+    width: 100%;    
+}
+
+.sidebar div:hover > h3 + div #table1 img{
+    width: 100%;
+
+}
+.sidebar div:hover > h3 + div div table .moduletrleft{
+    text-align: left;    
+}
+
+.sidebar .module .moduletrleft td{
+    width: auto;
+}
+
+.sidebar div:hover > h3 + div div table .moduletdright{
+    text-align: right;
+}
+
+.sidebar div:hover > h3 + div div img{
+    padding: 0;
+    margin: 0;
+}
+
+#right_out .sidebar .modulefondoazul > div > div > div > p{
+    display: none;
+}
+
+/* Menu de acceso */
+
+.sidebar div > h3 + form{
+    display: none;
+}
+
+.sidebar div:hover > h3 + form{
+    display: block;
+}
+
+.sidebar div.module div:hover > h3 + p{
+    margin-top: 0;
+}
+
+.sidebar div.module div:hover > h3 + p img{
+    width: 100%;
+}
+
+
+
+
+/* Contenido principal de la web */
+
+
+/* Zona de breadcumps */
+#content_outmiddle {
+    display: block;
+    float: left;    
+    width: 99.85%;    
+    margin: 0.75em 0.2em;    
+
+}
+
+#content_outmiddle #pathway{
+    border: 0.10em solid #000;
+    margin-bottom: 1em;
+}
+
+#content_outmiddle #pathway span{
+    padding-left: 0.5em;
+}
+
+/* Zona de masquesinas de imÃƒÂ¡genes y noticias */
+
+#content_outmiddle .user_bg{
+    display: block;
+}
+
+#content_outmiddle .user_bg .topmodule_usertwo{
+    float: left;
+    border: 0.10em solid #000;
+    width: 49.5%;
+    height: 9.5em;
+    padding: 0.10em 0em 0em 0.10em;
+
+
+}
+
+#content_outmiddle .user_bg .topmodule_user2two{
+    float: right;
+    border: 0.10em solid #000;
+    width: 49.5%;
+    height: 9.6em;
+}
+
+#content_outmiddle .user_bg .topmodule_user2two .user_inside h3{
+    background-color: #317b31;
+    color: #fff;
+    padding: 0.25em 0.5em;    
+    margin: 0;
+}
+
+#content_outmiddle .user_bg .topmodule_user2two .user_inside marquee{
+    height: 7.5em;
+    margin-top: 0.25em
+}
+
+/* Zona de contenido principal */
+
+#content_outmiddle #content {
+    display: block;
+    float: left;    
+    width: 100%;
+    border: 0.10em solid #000;
+    margin: 1em 0 0 0;    
+}
+
+#content_outmiddle #content td{
+    vertical-align: top;
+}
+
+#content_outmiddle #content td.centrado{
+    text-align: center;
+}
+
+#content_outmiddle #content .contentpaneopen p, object{
+    display:block;
+    float: left;           
+}
+
+#content_outmiddle #content .contentpaneopen table tr, td{
+    width: 50%;
+}
+
+#content_outmiddle #content .contentpaneopen{
+    width: 100%;
+    border-top: 0.10em solid #000;
+}
+
+#content_outmiddle #content .contentpaneopen .contentheading{    
+    background-color: #317b31;
+    color: #fff;
+    padding: 0.5em 0 0.5em 0.5em;
+}
+
+
+#content_outmiddle #content .contentpaneopen .contentheading a{
+    background-color: #317b31;
+    text-decoration: none; 
+    color: #fff;
+    padding: 0.5em 0 0.5em 0.5em;    
+}
+
+#content_outmiddle #content .contentpaneopen .contentheadingseparator{
+    width: 1%;
+    background-color: #317b31;
+}
+
+#content_outmiddle #content table.contentpaneopen{
+    border-collapse:collapse;
+    border-spacing: 0;
+    vertical-align: middle;
+}
+
+#content_outmiddle #content table.contentpaneopen td.contentheadingseparator{
+    vertical-align: middle;
+}
+
+#content_outmiddle #content p.justify img{
+    width: 10em;
+    height: 10em;
+    padding: 0 1em;
+    display: block;
+    float: left;
+
+}
+
+#content_outmiddle #content p.imagenboton img{
+    width: 2em;
+    padding-left: 1em;
+    padding: 0 1em;    
+    display: block;
+    float: left;
+}
+
+#content_outmiddle #content div#zindez1850 img{
+    width: 10em;
+    padding: 0 1em;
+    display: block;
+    float: left;
+}
+
+.small, .createdate, .modifydate{
+    font-size: small;
+    font-style: italic;
+}
+
+.vidyoutube{
+    height: 15em;
+}
+
+#bottom_content{
+    display: none;
+}
+
+.copyright{
+    text-align: center;
+}
+
+.copyright img{
+    width: 4em;
+}
+
+.copyright a{
+    text-decoration: none;
+}
