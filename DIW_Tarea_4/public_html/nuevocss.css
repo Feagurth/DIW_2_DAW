@@ -51,13 +51,13 @@ p, tr, td, div {
     padding: 0.5em 0;
     width: auto;
     color: #ffffff;
-    background: #317b31;
+    background: #0B450B;
     border-left: 0.15em solid #fff;
     text-align: center;
 }
 #navigation #menubar #menubar1 ul a:hover {
-    background: #92e792;
-    color: black;
+    background: #056605;
+    color: #fff;
 }
 
 /* Imagen de Cabecera */
@@ -89,7 +89,13 @@ p, tr, td, div {
     float: left;    
     width: 12.5%;
     font-size: small;
+    color: #fff;
 }
+
+.sidebar > div a {
+ color: #fff75e;   
+}
+
 
 #right_out .sidebar > div{
     width: 11.11%;
@@ -114,7 +120,7 @@ p, tr, td, div {
 
 .sidebar > div > div > div > div:hover li a{
     text-decoration: none;
-    color: #000;
+    color: #fff;
 }
 
 .sidebar > div > div > div > div:hover p{
@@ -122,7 +128,7 @@ p, tr, td, div {
 }
 
 .sidebar > div > div > div > div:hover h3{
-    background-color: #92e792;
+    background-color: #056605;
     margin-bottom: 0;
 }
 
@@ -132,7 +138,7 @@ p, tr, td, div {
 }
 
 .sidebar > div > div > div > div:hover li:hover {
-    background-color: #92e792;
+    background-color: #056605;
 
 }
 
@@ -145,13 +151,19 @@ p, tr, td, div {
 }
 
 .sidebar > div > div > div > div:hover {
-    background-color: #317b31;
+    background-color: #0B450B;
     position: relative;
     z-index: 9999 !important;
+    
 }
 
+.sidebar > div > div > div > div:hover p{
+    margin: 0;
+}
+
+
 .sidebar div > div > div > div > h3{
-    background-color: #317b31;
+    background-color: #0B450B;
     padding: 0.5em 0;  
     border-left: 0.15em solid #fff;
     text-align: center;
@@ -162,7 +174,8 @@ p, tr, td, div {
 
 /* Logo de FP Semipresencial */
 .sidebar div #logo{
-    width: 80%;
+    width: 100%;
+    background-color: #fff;
 }
 
 /* Menu de visitas y enlaces interesantes */
@@ -226,9 +239,6 @@ p, tr, td, div {
     width: 100%;
 }
 
-
-
-
 /* Contenido principal de la web */
 
 
@@ -262,8 +272,6 @@ p, tr, td, div {
     width: 49.5%;
     height: 9.5em;
     padding: 0.10em 0em 0em 0.10em;
-
-
 }
 
 #content_outmiddle .user_bg .topmodule_user2two{
@@ -274,7 +282,7 @@ p, tr, td, div {
 }
 
 #content_outmiddle .user_bg .topmodule_user2two .user_inside h3{
-    background-color: #317b31;
+    background-color: #0B450B;
     color: #fff;
     padding: 0.25em 0.5em;    
     margin: 0;
@@ -318,14 +326,14 @@ p, tr, td, div {
 }
 
 #content_outmiddle #content .contentpaneopen .contentheading{    
-    background-color: #317b31;
+    background-color: #0B450B;
     color: #fff;
     padding: 0.5em 0 0.5em 0.5em;
 }
 
 
 #content_outmiddle #content .contentpaneopen .contentheading a{
-    background-color: #317b31;
+    background-color: #0B450B;
     text-decoration: none; 
     color: #fff;
     padding: 0.5em 0 0.5em 0.5em;    
@@ -333,7 +341,7 @@ p, tr, td, div {
 
 #content_outmiddle #content .contentpaneopen .contentheadingseparator{
     width: 1%;
-    background-color: #317b31;
+    background-color: #0B450B;
 }
 
 #content_outmiddle #content table.contentpaneopen{
@@ -346,13 +354,17 @@ p, tr, td, div {
     vertical-align: middle;
 }
 
+#content_outmiddle #content .contentpaneopen p.aligncenter{
+    width: 100%;
+    text-align: center;
+}
+
 #content_outmiddle #content p.justify img{
     width: 10em;
     height: 10em;
     padding: 0 1em;
     display: block;
     float: left;
-
 }
 
 #content_outmiddle #content p.imagenboton img{
