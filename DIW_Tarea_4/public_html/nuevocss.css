@@ -88,7 +88,7 @@ p, tr, td, div {
     display: block;
     float: left;    
     width: 12.5%;
-    font-size: small;
+    font-size: 0.80vw; 
     color: #fff;
 }
 
@@ -99,7 +99,7 @@ p, tr, td, div {
 
 #right_out .sidebar > div{
     width: 11.11%;
-    font-size: small;
+    font-size: 0.80vw;
 }
 
 .sidebar > div > div > div > div > ul, p{
@@ -115,7 +115,7 @@ p, tr, td, div {
 
 .sidebar > div > div > div > div:hover li{
     border-top: 0.10em solid #fff;
-    font-size: small;
+    font-size: 0.80vw;
 }
 
 .sidebar > div > div > div > div:hover li a{
@@ -224,7 +224,7 @@ p, tr, td, div {
 /* Menu de acceso */
 
 .sidebar div > h3 + form{
-    display: none;
+    display: none;  
 }
 
 .sidebar div:hover > h3 + form{
@@ -383,7 +383,7 @@ p, tr, td, div {
 }
 
 .small, .createdate, .modifydate{
-    font-size: small;
+    font-size: 0.80vw;
     font-style: italic;
 }
 
