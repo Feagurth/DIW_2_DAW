@@ -59,7 +59,7 @@ tr, td, div {
     padding: 1vh 0;
     width: auto;
     color: #ffffff;
-    background: #0B450B;
+    background: #0b450b;
     border-left: 0.15vmax solid #fff;
     text-align: center;
 }
@@ -159,7 +159,7 @@ tr, td, div {
 }
 
 .sidebar > div > div > div > div:hover {
-    background-color: #0B450B;
+    background-color: #0b450b;
     position: relative;
     z-index: 9999 !important;
     
@@ -171,7 +171,7 @@ tr, td, div {
 
 
 .sidebar div > div > div > div > h3{
-    background-color: #0B450B;
+    background-color: #0b450b;
     padding: 0.5vmax 0;  
     border-left: 0.15vmax solid #fff;
     text-align: center;
@@ -204,6 +204,11 @@ tr, td, div {
     width: 100%;    
 }
 
+.sidebar div:hover > h3 + div img{
+    width: 1vmax;
+}
+
+
 .sidebar div:hover > h3 + div #table1 img{
     width: 100%;
 
@@ -229,6 +234,9 @@ tr, td, div {
     display: none;
 }
 
+
+
+
 /* Menu de acceso */
 
 .sidebar div > h3 + form{
@@ -236,8 +244,22 @@ tr, td, div {
 }
 
 .sidebar div:hover > h3 + form{
-    display: block;
+    display: block;    
 }
+
+.sidebar div:hover > h3 + form > fieldset input{
+    width: 7.5vmax;       
+    margin: 0.25vmax 0;
+}
+
+.sidebar div:hover > h3 + form > fieldset input[type=submit]{
+    font-size: 0.75vmax;
+}
+
+.sidebar div:hover > h3 + form > fieldset input[type=checkbox]{
+    width: auto;
+}
+
 
 .sidebar div.module div:hover > h3 + p{
     margin-top: 0;
@@ -268,7 +290,7 @@ tr, td, div {
     padding-left: 0.5vmax;
 }
 
-/* Zona de masquesinas de imÃƒÂ¡genes y noticias */
+/* Zona de masquesinas de imagenes y noticias */
 
 #content_outmiddle .user_bg{
     display: block;
@@ -290,7 +312,7 @@ tr, td, div {
 }
 
 #content_outmiddle .user_bg .topmodule_user2two .user_inside h3{
-    background-color: #0B450B;
+    background-color: #0b450b;
     color: #fff;
     padding: 0.25vmax 0.5vmax;    
     margin: 0;
@@ -334,21 +356,21 @@ tr, td, div {
 }
 
 #content_outmiddle #content .contentpaneopen .contentheading{    
-    background-color: #0B450B;
+    background-color: #0b450b;
     color: #fff;
     padding: 0.5vmax 0 0.5vmax 0.5vmax;
 }
 
 
 #content_outmiddle #content .contentpaneopen .contentheading a{
-    background-color: #0B450B;
+    background-color: #0b450b;
     text-decoration: none; 
     color: #fff;
 }
 
 #content_outmiddle #content .contentpaneopen .contentheadingseparator{
     width: 1%;
-    background-color: #0B450B;
+    background-color: #0b450b;
 }
 
 #content_outmiddle #content table.contentpaneopen{
@@ -395,6 +417,7 @@ tr, td, div {
 
 .vidyoutube{
     height: 10vmax;
+    width: 20vmax;
 }
 
 #bottom_content{
@@ -411,4 +434,11 @@ tr, td, div {
 
 .copyright a{
     text-decoration: none;
+}
+
+@media screen and (max-width: 1020px) {
+    .sidebar > div > div > div > div h3
+    {
+        height: 2vmax;
+    }
 }
