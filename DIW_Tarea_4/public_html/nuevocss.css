@@ -21,8 +21,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Barra inicial de navegacion */
 
-p, tr, td, div {
-    font: Tahoma, Arial, Verdana;
+@import url(http://fonts.googleapis.com/css?family=Adamina);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+p, a{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.75vmax;
+}
+tr, td, div {
+    font-family: 'Adamina', serif;
+    font-size: 0.75vmax;
 }
 
 #navigation #menubar #menubar1 {
@@ -34,7 +42,7 @@ p, tr, td, div {
 }
 
 #navigation #menubar #menubar1 .menu{
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 #navigation #menubar #menubar1 ul {
@@ -48,11 +56,11 @@ p, tr, td, div {
 #navigation #menubar #menubar1 ul a {
     display: block;
     text-decoration:none;
-    padding: 0.5em 0;
+    padding: 1vh 0;
     width: auto;
     color: #ffffff;
     background: #0B450B;
-    border-left: 0.15em solid #fff;
+    border-left: 0.15vmax solid #fff;
     text-align: center;
 }
 #navigation #menubar #menubar1 ul a:hover {
@@ -63,7 +71,7 @@ p, tr, td, div {
 /* Imagen de Cabecera */
 
 #headerimage {
-    height: 12em;
+    height: 10vmax;
     background-image: url(imagenes/banner.jpg);
     background-repeat: no-repeat;
     background-size: contain;
@@ -77,18 +85,19 @@ p, tr, td, div {
 }
 
 #left_out, #right_out{
-    height: 2.2em;
+    height: 2.25vmax;
+    padding: 0.08vmax 0;
 }
 
 .sidebar {
     width: 100%;
+    
 }
 
 .sidebar > div{
     display: block;
     float: left;    
     width: 12.5%;
-    font-size: 0.80vw; 
     color: #fff;
 }
 
@@ -99,7 +108,6 @@ p, tr, td, div {
 
 #right_out .sidebar > div{
     width: 11.11%;
-    font-size: 0.80vw;
 }
 
 .sidebar > div > div > div > div > ul, p{
@@ -109,12 +117,12 @@ p, tr, td, div {
 .sidebar > div > div > div > div:hover ul{
     display: block;
     list-style-type: none;    
-    padding-left: 0em;
+    padding-left: 0;
     margin: 0;
 }
 
 .sidebar > div > div > div > div:hover li{
-    border-top: 0.10em solid #fff;
+    border-top: 0.10vmax solid #fff;
     font-size: 0.80vw;
 }
 
@@ -133,8 +141,8 @@ p, tr, td, div {
 }
 
 .sidebar > div > div > div > div:hover li{
-    padding: 0.5em;
-    margin-left: 0.15em;
+    padding: 0.3vmax;
+    margin-left: 0.15vmax;
 }
 
 .sidebar > div > div > div > div:hover li:hover {
@@ -143,7 +151,7 @@ p, tr, td, div {
 }
 
 .sidebar > div > div > div > div:hover li img{
-    width: 1.5em;
+    width: 0.75vmax;
 }
 
 .sidebar > div > div > div > div{
@@ -164,11 +172,11 @@ p, tr, td, div {
 
 .sidebar div > div > div > div > h3{
     background-color: #0B450B;
-    padding: 0.5em 0;  
-    border-left: 0.15em solid #fff;
+    padding: 0.5vmax 0;  
+    border-left: 0.15vmax solid #fff;
     text-align: center;
     color: #fff;
-    border-top: 0.15em solid #fff;
+    border-top: 0.15vmax solid #fff;
     margin: 0;
 }
 
@@ -247,17 +255,17 @@ p, tr, td, div {
     display: block;
     float: left;    
     width: 99.85%;    
-    margin: 0.75em 0.2em;    
+    margin: 0.75vmax 0.2vmax;    
 
 }
 
 #content_outmiddle #pathway{
     border: 0.10em solid #000;
-    margin-bottom: 1em;
+    margin: 0.5vmax 0;
 }
 
 #content_outmiddle #pathway span{
-    padding-left: 0.5em;
+    padding-left: 0.5vmax;
 }
 
 /* Zona de masquesinas de imÃƒÂ¡genes y noticias */
@@ -268,28 +276,28 @@ p, tr, td, div {
 
 #content_outmiddle .user_bg .topmodule_usertwo{
     float: left;
-    border: 0.10em solid #000;
+    border: 0.10vmax solid #000;
     width: 49.5%;
-    height: 9.5em;
-    padding: 0.10em 0em 0em 0.10em;
+    height: 8vmax;
+    padding: 0.10vmax 0vmax 0vmax 0.10vmax;
 }
 
 #content_outmiddle .user_bg .topmodule_user2two{
     float: right;
-    border: 0.10em solid #000;
+    border: 0.10vmax solid #000;
     width: 49.5%;
-    height: 9.6em;
+    height: 8vmax;
 }
 
 #content_outmiddle .user_bg .topmodule_user2two .user_inside h3{
     background-color: #0B450B;
     color: #fff;
-    padding: 0.25em 0.5em;    
+    padding: 0.25vmax 0.5vmax;    
     margin: 0;
 }
 
 #content_outmiddle .user_bg .topmodule_user2two .user_inside marquee{
-    height: 7.5em;
+    height: 5.75vmax;
     margin-top: 0.25em
 }
 
@@ -299,8 +307,8 @@ p, tr, td, div {
     display: block;
     float: left;    
     width: 100%;
-    border: 0.10em solid #000;
-    margin: 1em 0 0 0;    
+    border: 0.10vmax solid #000;
+    margin: 1vmax 0 0 0;    
 }
 
 #content_outmiddle #content td{
@@ -322,13 +330,13 @@ p, tr, td, div {
 
 #content_outmiddle #content .contentpaneopen{
     width: 100%;
-    border-top: 0.10em solid #000;
+    border-top: 0.10vmax solid #000;
 }
 
 #content_outmiddle #content .contentpaneopen .contentheading{    
     background-color: #0B450B;
     color: #fff;
-    padding: 0.5em 0 0.5em 0.5em;
+    padding: 0.5vmax 0 0.5vmax 0.5vmax;
 }
 
 
@@ -336,7 +344,6 @@ p, tr, td, div {
     background-color: #0B450B;
     text-decoration: none; 
     color: #fff;
-    padding: 0.5em 0 0.5em 0.5em;    
 }
 
 #content_outmiddle #content .contentpaneopen .contentheadingseparator{
@@ -362,33 +369,32 @@ p, tr, td, div {
 #content_outmiddle #content p.justify img{
     width: 10em;
     height: 10em;
-    padding: 0 1em;
+    padding: 0 1vmax;
     display: block;
     float: left;
 }
 
 #content_outmiddle #content p.imagenboton img{
-    width: 2em;
-    padding-left: 1em;
-    padding: 0 1em;    
+    width: 1.5vmax;
+    padding-left: 1vmax;
+    padding: 0 1vmax;    
     display: block;
     float: left;
 }
 
 #content_outmiddle #content div#zindez1850 img{
-    width: 10em;
-    padding: 0 1em;
+    width: 10vmax;
+    padding: 0 1vmax;
     display: block;
     float: left;
 }
 
 .small, .createdate, .modifydate{
-    font-size: 0.80vw;
     font-style: italic;
 }
 
 .vidyoutube{
-    height: 15em;
+    height: 10vmax;
 }
 
 #bottom_content{
@@ -400,7 +406,7 @@ p, tr, td, div {
 }
 
 .copyright img{
-    width: 4em;
+    width: 2.5vmax;
 }
 
 .copyright a{
