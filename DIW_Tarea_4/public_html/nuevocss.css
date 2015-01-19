@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2015 Luis Cabrerizo Gomez
+Copyright (C) 2015 Luis Cabrerizo Gómez
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,46 +16,64 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 /* 
     Created on : 12-ene-2015, 1:56:16
-    Author     : Luis Cabrerizo Gomez
+    Author     : Luis Cabrerizo Gómez
 */
 
-/* Barra inicial de navegacion */
+
+/* Importamos las fuentes de Google usando @import */
 
 @import url(http://fonts.googleapis.com/css?family=Adamina);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
+
+/* Establecemos el tipo de letra y el temaño para los parrafos y los enlaces */
 p, a{
     font-family: 'Open Sans', sans-serif;
     font-size: 0.75vmax;
 }
+
+/* Establecemos el tipo de letra y el temaño para el texto dentro de los divs y de las tablas */
 tr, td, div {
     font-family: 'Adamina', serif;
     font-size: 0.75vmax;
 }
 
+/* Inicios de estilos para la barra inicial de navegacion */
+
+/* Se especifica que el tamaño de la barra de menú superior ocupe todo el 
+   ancho de la pantalla y se alinea el texto al centro */
 #navigation #menubar #menubar1 {
     width: 100%;
-}
-
-#navigation #menubar #menubar1 {
     text-align: center;
 }
 
+/* Especificamos un relleno izquierdo nulo para los elementos de clase menu 
+   dentro de la barra inicial de navegacion */
 #navigation #menubar #menubar1 .menu{
     padding-left: 0;
 }
 
+/* Ocultamos los marcadores de los listados */
 #navigation #menubar #menubar1 ul {
     list-style: none;
     overflow: hidden;
 }
+
+/* Espeficamos la dirección de flote de los elementos de las listas y 
+   especificamos un tanaño de un 20% para que se ajusten  los 5 elementos del 
+   listado */
 #navigation #menubar #menubar1 ul li {
     float: left;    
     width: 20%;
 }
+
+/* Espeficamos que los estilos de los enlaces en el interior de los listados.
+   Definimos el color de fondo, la alineacion y color del texto, el tamaño y el 
+   relleno de los mismos. Así mismo especificamos un borde en el lateral izquierdo 
+   que hará de separador entre los enlaces */
 #navigation #menubar #menubar1 ul a {
     display: block;
-    text-decoration:none;
+    text-decoration: none;
     padding: 1vh 0;
     width: auto;
     color: #ffffff;
@@ -63,6 +81,9 @@ tr, td, div {
     border-left: 0.15vmax solid #fff;
     text-align: center;
 }
+
+/*  Espeficiamos el fondo de los enlaces y el color del texto cuando se situa 
+    el ratón por encima del mismo */
 #navigation #menubar #menubar1 ul a:hover {
     background: #056605;
     color: #fff;
@@ -70,6 +91,7 @@ tr, td, div {
 
 /* Imagen de Cabecera */
 
+/* Definimos el tamaño y la imagen de la cabecera */
 #headerimage {
     height: 10vmax;
     background-image: url(imagenes/banner.jpg);
@@ -79,19 +101,13 @@ tr, td, div {
 
 /* Menus laterales */
 
+/* Espeficicamos el tamaño que ocuparan las barras de menu y su flotabilidad, 
+   así como su altura, anchura y relleno */
 #left_out, #right_out{
     width: 100%;
     float: left;
-}
-
-#left_out, #right_out{
     height: 2.25vmax;
-    padding: 0.08vmax 0;
-}
-
-.sidebar {
-    width: 100%;
-    
+    padding: 0.08vmax 0;    
 }
 
 .sidebar > div{
@@ -102,74 +118,12 @@ tr, td, div {
 }
 
 .sidebar > div a {
- color: #fff75e;   
+    color: #fff75e;   
 }
 
-
-#right_out .sidebar > div{
-    width: 11.11%;
-}
-
-.sidebar > div > div > div > div > ul, p{
-    display: none;    
-}
-
-.sidebar > div > div > div > div:hover ul{
-    display: block;
-    list-style-type: none;    
-    padding-left: 0;
-    margin: 0;
-}
-
-.sidebar > div > div > div > div:hover li{
-    border-top: 0.10vmax solid #fff;
-    font-size: 0.80vw;
-}
-
-.sidebar > div > div > div > div:hover li a{
-    text-decoration: none;
-    color: #fff;
-}
-
-.sidebar > div > div > div > div:hover p{
-    display: block;
-}
-
-.sidebar > div > div > div > div:hover h3{
-    background-color: #056605;
-    margin-bottom: 0;
-}
-
-.sidebar > div > div > div > div:hover li{
-    padding: 0.3vmax;
-    margin-left: 0.15vmax;
-}
-
-.sidebar > div > div > div > div:hover li:hover {
-    background-color: #056605;
-
-}
-
-.sidebar > div > div > div > div:hover li img{
-    width: 0.75vmax;
-}
-
-.sidebar > div > div > div > div{
-    z-index: 0;
-}
-
-.sidebar > div > div > div > div:hover {
-    background-color: #0b450b;
-    position: relative;
-    z-index: 9999 !important;
-    
-}
-
-.sidebar > div > div > div > div:hover p{
-    margin: 0;
-}
-
-
+/* Definimos el color de fondo, el relleno, el color del texto, los margenes 
+   y los bordes de los encabezados que formaran parte de los menus 
+   desplegables */
 .sidebar div > div > div > div > h3{
     background-color: #0b450b;
     padding: 0.5vmax 0;  
@@ -180,7 +134,105 @@ tr, td, div {
     margin: 0;
 }
 
+/* Especificamos una media query para que modifique el tamaño de las cabeceras 
+   a un tamaño específico su la anchura máxima es inferior a 1020 px con el fin 
+   de evitar el redimensionamiento desparejado de las cabeceras con mas texto */
+@media screen and (max-width: 1020px) {
+    .sidebar > div > div > div > div h3
+    {
+        height: 2vmax;
+    }
+}
+
+/* Específicamos el ancho que van a tener los contenedores del menu de 
+   navegación inferior */
+#right_out .sidebar > div{
+    width: 11.11%;
+}
+
+/* Ocultamos todas las listas y todos los parrafos que forman parte de los 
+   menus de navegación */
+.sidebar > div > div > div > div > ul, p{
+    display: none;    
+}
+
+/* Mostramos las listas al posicionar el ratón sobre el contenedor de una lista */
+.sidebar > div > div > div > div:hover ul{
+    display: block;
+    list-style-type: none;    
+    padding-left: 0;
+    margin: 0;
+}
+
+/* Espeficiamos el un borde superior de color blanco en cada elemento de las 
+   listas que harán de separadores entre si, así como el relleno y el margen 
+   lateral izquierdo */
+.sidebar > div > div > div > div:hover li{
+    border-top: 0.10vmax solid #fff;
+    padding: 0.3vmax;
+    margin-left: 0.15vmax;
+    
+}
+
+/* Definimos el color de los enlaces en los listados al situar el cursor sobre 
+   el contenedor de una lista y quitamos el subrayado a los enlaces */
+.sidebar > div > div > div > div:hover li a{
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Hacemos visibles los parrafos y establecemos un margen nulo al posicionar el 
+    raton en el contenedor que los contiene */
+.sidebar > div > div > div > div:hover p{
+    display: block;
+    margin: 0;
+}
+
+/* Definimos el color de fondo de los encabezados que contienen el texto de 
+   los menus al posicionar el raton sobre el contenedor que los contiene */
+.sidebar > div > div > div > div:hover h3{
+    background-color: #056605;
+    margin-bottom: 0;
+}
+
+/* Especificamos el color de fondo de los elementos de las listas al pasar el 
+   ratón sobre ellos */
+.sidebar > div > div > div > div:hover li:hover {
+    background-color: #056605;
+
+}
+
+/* Definimos el tamaño que tendrán las imagenes en los menus desplegados */
+.sidebar > div > div > div > div:hover li img{
+    width: 0.75vmax;
+}
+
+/* Espeficicamos una posicion a los contenedores de los menus desplegables 
+   respecto a la pantalla de cero cuando no hay listas mostradas */
+.sidebar > div > div > div > div{
+    z-index: 0;
+}
+
+/* Cuando el ratón se  posiciona sobre el contenedor de una de las cabeceras de 
+   los menus desplegables, modificamos el color de fondo del mismo, así como 
+   su posición y su posición respecto a la pantalla. Esta ultima regla la 
+   definimos como importante para que se ejecute siempre y de este modo los 
+   menus desplegables que contienen no se cortarán por otros controles que 
+   estén situados bajo ellos, quedando los seleccionados por encima del resto 
+   de controles de la web y no rompiendo la continuidad del menu */
+.sidebar > div > div > div > div:hover {
+    background-color: #0b450b;
+    position: relative;
+    z-index: 9999 !important;
+
+}
+
+
+
 /* Logo de FP Semipresencial */
+
+/* Definimos el ancho del logo de FP Semipresencial y especificamos un color de 
+   fondo para su contenedor */
 .sidebar div #logo{
     width: 100%;
     background-color: #fff;
@@ -188,83 +240,103 @@ tr, td, div {
 
 /* Menu de visitas y enlaces interesantes */
 
+/* Ocultamos el contenido de los contenedores */
 .sidebar div > h3 + div{
     display: none;
 }
 
+/* Si posicionamos el raton sobre uno de los contenedores, mostramos el 
+   contenido */
 .sidebar div:hover > h3 + div {
     display: block;
 }
 
+/* Centramos el texto */
 .sidebar div:hover > h3 + div div{
     text-align: center;
 }
 
+/* Especificamos el tamaño de la tabla que contiene las visitas al centro */
 .sidebar div:hover > h3 + div div table{
     width: 100%;    
 }
 
+/* Espeficiamos un tamaño máximo para todas las imágenes en estos contenedores */
 .sidebar div:hover > h3 + div img{
     width: 1vmax;
 }
 
-
+/* Espeficamos el tamaño de las imagenes dentro de la tabla de enlaces 
+   interesantes para que ocupen todo el tamaño de sus celdas  */
 .sidebar div:hover > h3 + div #table1 img{
     width: 100%;
 
 }
+
+/* Definimos la alineacion a la izquierda de las celdas de la tabla que sean de 
+   la clase de alineacion a la izquierda */
 .sidebar div:hover > h3 + div div table .moduletrleft{
     text-align: left;    
 }
 
-.sidebar .module .moduletrleft td{
-    width: auto;
-}
-
+/* Definimos la alineacion a la derecha de las celdas de la tabla que sean de 
+   la clase de alineacion a la derecha */
 .sidebar div:hover > h3 + div div table .moduletdright{
     text-align: right;
 }
 
+/* Definimos en automatico la alineacion para el resto de celdas */
+.sidebar .module .moduletrleft td{
+    width: auto;
+}
+
+/* Definimos el relleno y el margen para las imágenes de estas partes de los 
+   menus */
 .sidebar div:hover > h3 + div div img{
     padding: 0;
     margin: 0;
 }
 
+/* Finalmente ocultamos la clase modulefondoazul del menu */
 #right_out .sidebar .modulefondoazul > div > div > div > p{
     display: none;
 }
 
-
-
-
 /* Menu de acceso */
 
+/* Ocultamos el contenedor del menu de acceso */
 .sidebar div > h3 + form{
     display: none;  
 }
 
+/* Mostramos el menu de acceso si se posiciona el raton sobre su contenedor */
 .sidebar div:hover > h3 + form{
     display: block;    
 }
 
+/* Definimos un tamaño especifico para los controles dentro del fieldset */
 .sidebar div:hover > h3 + form > fieldset input{
     width: 7.5vmax;       
     margin: 0.25vmax 0;
 }
 
+/* Espeficiamos una tamaño de fuente para el boton de submit */ 
 .sidebar div:hover > h3 + form > fieldset input[type=submit]{
     font-size: 0.75vmax;
 }
 
+/* Definimos el tamaño en automatico para el checkbox de tal modo que se ajuste 
+   junto a su etiqueta */
 .sidebar div:hover > h3 + form > fieldset input[type=checkbox]{
     width: auto;
 }
 
-
+/* Anulamos el margen superior para los parrafos */
 .sidebar div.module div:hover > h3 + p{
     margin-top: 0;
 }
 
+/* Y definimos que las imagenes ocupen todo el ancho del contenedor */
 .sidebar div.module div:hover > h3 + p img{
     width: 100%;
 }
@@ -272,7 +344,9 @@ tr, td, div {
 /* Contenido principal de la web */
 
 
-/* Zona de breadcumps */
+/* Zona de breadcrumbs */
+
+/* Definimos el tamaño, margenes y flotabilidad de la zona de breadcrumbs  */
 #content_outmiddle {
     display: block;
     float: left;    
@@ -281,21 +355,26 @@ tr, td, div {
 
 }
 
+/* Fijamos un borde de color negro y un margen superior e inferio  */
 #content_outmiddle #pathway{
     border: 0.10em solid #000;
     margin: 0.5vmax 0;
 }
 
+/* Fijamos un relleno por el lateral izquierdo para que el texto quede indentado */
 #content_outmiddle #pathway span{
     padding-left: 0.5vmax;
 }
 
 /* Zona de masquesinas de imagenes y noticias */
 
+/* Definimos el modo de visionado a bloques */
 #content_outmiddle .user_bg{
     display: block;
 }
 
+/* Especificamos las dimensiones, relleno y borde del contedor del slideshow 
+   y le asignamos flotabilidad a la izquierda */
 #content_outmiddle .user_bg .topmodule_usertwo{
     float: left;
     border: 0.10vmax solid #000;
@@ -304,6 +383,8 @@ tr, td, div {
     padding: 0.10vmax 0vmax 0vmax 0.10vmax;
 }
 
+/* Especificamos las dimensiones, relleno y borde del contedor del tablon de 
+   secretaria y le asignamos flotabilidad a la derecho */
 #content_outmiddle .user_bg .topmodule_user2two{
     float: right;
     border: 0.10vmax solid #000;
@@ -311,6 +392,8 @@ tr, td, div {
     height: 8vmax;
 }
 
+/* Espeficicamos el color de fondo, color del texto, rellenos y margen del 
+   encabezado del contenedor del tablon de anuncios */
 #content_outmiddle .user_bg .topmodule_user2two .user_inside h3{
     background-color: #0b450b;
     color: #fff;
@@ -318,6 +401,8 @@ tr, td, div {
     margin: 0;
 }
 
+/* Definimos el tamaño de la marquesina por las que discurriran los enlaces del 
+   tablon de anuncios de secretaria */
 #content_outmiddle .user_bg .topmodule_user2two .user_inside marquee{
     height: 5.75vmax;
     margin-top: 0.25em
@@ -325,6 +410,8 @@ tr, td, div {
 
 /* Zona de contenido principal */
 
+/* Fijamos el tamaño que va a tener la zona de contenido, asi como un margen 
+   superior y un borde */
 #content_outmiddle #content {
     display: block;
     float: left;    
@@ -333,61 +420,84 @@ tr, td, div {
     margin: 1vmax 0 0 0;    
 }
 
+/* Definimos una alineacion vertical para las celdas de las tablas que haya en 
+   la zona de contenido */
 #content_outmiddle #content td{
     vertical-align: top;
 }
 
+/* Centramos el texto en las celdas que sean de la clase centrado */
 #content_outmiddle #content td.centrado{
     text-align: center;
 }
 
-#content_outmiddle #content .contentpaneopen p, object{
-    display:block;
-    float: left;           
-}
-
-#content_outmiddle #content .contentpaneopen table tr, td{
-    width: 50%;
-}
-
+/* Definimos el ancho del contenedor de post dentro de su tabla correspondiente */
 #content_outmiddle #content .contentpaneopen{
     width: 100%;
     border-top: 0.10vmax solid #000;
 }
 
+
+/* Definimos la flotabilidad y el modo de visionado de los parrafos y objetos 
+   que haya en los contenedores de los posts */
+#content_outmiddle #content .contentpaneopen p, object{
+    display:block;
+    float: left;           
+}
+
+/* Especificamos el tamaño de las tablas, filas y celdas que haya en los 
+   contedores de los posts */
+#content_outmiddle #content .contentpaneopen table tr, td{
+    width: 50%;
+}
+
+
+/* Definimos el color de fondo del título de los posts, así como el color del 
+   texto del mismo y su relleno */
 #content_outmiddle #content .contentpaneopen .contentheading{    
     background-color: #0b450b;
     color: #fff;
     padding: 0.5vmax 0 0.5vmax 0.5vmax;
 }
 
-
+/* Definimos el color de fondo de los enlaces del título de los posts y le 
+   quitamos el subrayado a los mismos */
 #content_outmiddle #content .contentpaneopen .contentheading a{
     background-color: #0b450b;
     text-decoration: none; 
     color: #fff;
 }
 
+/* Definimos el tamaño y color de fondo de los separadores de los titulos de 
+   los posts */
 #content_outmiddle #content .contentpaneopen .contentheadingseparator{
     width: 1%;
     background-color: #0b450b;
 }
 
+/* Definimos los estilos de las tablas que sean de la clase contentpaneopen  */
 #content_outmiddle #content table.contentpaneopen{
     border-collapse:collapse;
     border-spacing: 0;
     vertical-align: middle;
 }
 
+/* Espeficicamos una alineación central para las celdas que sean de la clase 
+   contentheadingseparator dentro de las tablas de clase contentpaneopen */
 #content_outmiddle #content table.contentpaneopen td.contentheadingseparator{
     vertical-align: middle;
 }
 
+/* Definimos el tamaño y la alineación centrada del texto para los parrafos de 
+   la clase aligncenter */
 #content_outmiddle #content .contentpaneopen p.aligncenter{
     width: 100%;
     text-align: center;
 }
 
+/* Definimos el tamaño, asi como el relleno, de las imagenes que se encuentran 
+   dentro de los parrafos de la clase justify correspondiente a las imagenes 
+   de los posts*/
 #content_outmiddle #content p.justify img{
     width: 10em;
     height: 10em;
@@ -396,14 +506,19 @@ tr, td, div {
     float: left;
 }
 
+/* Definimos el tamaño, asi como el relleno, de las imagenes que se encuentran 
+   dentro de los parrafos de la clase imageboton correspondiente a las imagenes 
+   de los posts (las imagenes de boton con las banderas de paises) */
 #content_outmiddle #content p.imagenboton img{
     width: 1.5vmax;
-    padding-left: 1vmax;
     padding: 0 1vmax;    
     display: block;
     float: left;
 }
 
+/* Definimos el tamaño, asi como el relleno, de las imagenes que se encuentran 
+   dentro del contenedor con id zindez1850 correspondiente a las imagenes 
+   de los posts */
 #content_outmiddle #content div#zindez1850 img{
     width: 10vmax;
     padding: 0 1vmax;
@@ -411,34 +526,38 @@ tr, td, div {
     float: left;
 }
 
+/* Definimos el estilo de letra de los parrafos de clase small, createdate 
+   y modifydate*/
 .small, .createdate, .modifydate{
     font-style: italic;
 }
 
+/* Espeficicamos unos tamaños para el contedor de clase vidyoutube que contedra 
+   videos */
 .vidyoutube{
     height: 10vmax;
     width: 20vmax;
 }
 
+
+/*  Ocultamos el contenedor que alberga el nombre del diseñador de la web */
 #bottom_content{
     display: none;
 }
 
+/* Centramos el texto de la clase copyright */
 .copyright{
     text-align: center;
 }
 
+/* Especificamos el ancho de las imagenes dentro de la clase copyright */
 .copyright img{
     width: 2.5vmax;
 }
 
+/* Quitamos el subrayado a los enlaces de la clase copyright para que no se 
+   vea en los enlaces de las imágenes */
 .copyright a{
     text-decoration: none;
 }
 
-@media screen and (max-width: 1020px) {
-    .sidebar > div > div > div > div h3
-    {
-        height: 2vmax;
-    }
-}

@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2014 Luis Cabrerizo GÃ³mez
+Copyright (C) 2014 Luis Cabrerizo Gómez
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,17 +16,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 /* 
     Created on : 08-ene-2015, 14:37:31
-    Author     : Luis Cabrerizo GÃ³mez
+    Author     : Luis Cabrerizo Gómez
 */
 
 /* Definicion de estilos generales para toda la pagina */
 
+/* Definimos el color de los anclajes de la web */
 a{
     color: #3e9722;
 }
 
 /* Definicion de estilos para la cabecera de la pagina */
 
+/* Definimos el ancho, los rellenos y los margenes del contenedor de la cabecera. 
+   Así mismo aplicamos como fondo un gradiente y redondeamos las esquinas del 
+   contenedor */
 #cabecera {
     width: 920px;
     padding-top: 20px;
@@ -39,6 +43,8 @@ a{
     border-radius: 10px;
 }
 
+
+/* Definimos el tipo de letra, tamaño, relleno y margen del nombre de la web */
 #nombre{
     font-family: cursive;
     font-size: xx-large;
@@ -48,6 +54,7 @@ a{
     text-align: justify;
 }
 
+/* Definimos el tipo de letra, relleno y margendel nombre de la web */
 #detalle{
     font-family: cursive;
     font-weight: bold;
@@ -55,6 +62,8 @@ a{
     margin: 0px;    
 }
 
+/* Definimos los margenes y el relleno de la lista de la cabecera. También le 
+   quitamos los punto a la lista y hacemos que flote a la derecha*/
 #cabecera ul { 
     margin: 0; 
     padding: 0; 
@@ -62,7 +71,8 @@ a{
     float:right;      
 }
 
-
+/* Definimos el tamaño de los elementos de la lista de la cabecera, centramos 
+   el texto de los mismos y aplicamos como fondo un gradiente como efecto */
 #cabecera ul li { 
     text-align: center;
     width: 115px;
@@ -70,6 +80,8 @@ a{
     background: radial-gradient(ellipse at center,  white 0%,#cae646 85%);
 } 
 
+/* Definimos el color de los enlaces, les quitamos el subrayado y espeficicamos 
+   su rellenos, así como el tamaño de la linea  */
 #cabecera ul li a { 
     display: block; 
     padding: 0 1em; 
@@ -78,12 +90,17 @@ a{
     color: black;
 } 
 
+/* Espeficamos el color de fondo de un elemento de menú de cabecera al 
+   posicionar el ratón sobre él  */
 #cabecera ul li a:hover {
     background-color: #e58c24;
 }
 
 /* Definicion de estilos para el cuerpo de la pagina */
 
+/* Definimos el tamaño del cuerpo de la página, así como el color del borde, 
+   el tamaño y el estilo del borde. Finalmente redondeamos los bordes 
+   superiores */
 #cuerpo {
     display: block;
     float: left;
@@ -95,6 +112,8 @@ a{
     border-top-right-radius: 10px;    
 }
 
+/* Definimos el color de fondo de los elementos de clase titulo, así como el 
+   centrado de los textos y su color y el relleno */
 .titulo {
     background-color: #3c74e6;
     text-align: center;
@@ -102,27 +121,35 @@ a{
     padding: 10px;
 }
 
+/* Definimos el tamaño del contenedor de id izquierda y lo hacemos flotar en 
+   esa dirección */
 #izquierda {
     display: block;
     float: left;
     width: 220px;    
 }
 
+/* Definimos los margenes de todos los elementos contenidos la sección de 
+   controles del area de usuarios */
 #izquierda section *{
     margin-bottom: 15px;
     margin-left: 20px;
 }
 
+/* Espeficicamos el tamaño de la fuente y los margenes de la clase unidad */
 #izquierda .unidad {
     font-size: smaller;
     margin-left: 20px;
     margin-bottom: 20px;
 }
 
+/* Espeficicamos el remarcado de los parrafos dentro de la clsae unidad */
 #izquierda .unidad p {
     font-weight: bold;
 }
 
+/* Definimos el tamaño del contenedor de id centro y lo hacemos flotar hacia 
+   la izquierda */
 #centro {
     display: block;
     float: left;
@@ -130,6 +157,9 @@ a{
     padding-left: 20px;
 }
 
+/* Definimos el color de fondo, color del texto y alineamiento del mismo, así 
+   como el relleno de todos los parrafos que sean hijos del contenedor de 
+   clase noticia */
 .noticia > p {
     background-color: #3c74e6;
     color: white;
@@ -137,10 +167,14 @@ a{
     text-align: left;
 }
 
+/* Definimos la flotabilidad a la derecha de todos los objetos span que estén 
+   contenidos por el parrafo hijo de un objeto clase noticia */
 .noticia > p span {
     float: right;
 }
 
+/* Definimos el tamaño, margenes y flotabiliad de las imágenes contenidos 
+   por los objetos de clase noticia */
 .noticia img {
     display: block;
     float: left;
@@ -150,18 +184,25 @@ a{
     height: 30%;
 }
 
+/* Definimos un margen a la izquierda de los contenedores dentro de objetos de 
+   clase noticia */
 .noticia div{
     margin-left: 15px;
 }
 
+/* Definimos un margen superior en las lineas horizontales contenidas en los 
+   objetos de clase noticia */
 .noticia hr{    
     margin-top: 50px;    
 }
 
+/* Centramos el texto en las citas dentro de objetos de clase noticia */
 .noticia cite{
     text-align: center;   
 }
 
+/* Definimos el tamaño del contenedor de id derecha y lo hacemos flotar hacia 
+   la izquierda */
 #derecha {
     display: block;
     float: left;
@@ -169,6 +210,8 @@ a{
     padding-left: 20px;    
 }
 
+/* Definimos la visualización y el margen de las imágenes dentro de los objetos 
+   con id derecha */
 #derecha img {
     display: block;
     margin: auto;
@@ -176,6 +219,10 @@ a{
 
 /* Definicion de estilos para el pie de la pagina */
 
+/* Definimos la visibilidad, flotabilidad, tamaño y centrado de texto en el 
+   objeto con id pie. Así mismo definimos un borde con un color y grosor 
+   específico, sin mostrar el borde inferior y redondeando las esquinas 
+   superiores */
 #pie {
     display: block;
     float: left;
