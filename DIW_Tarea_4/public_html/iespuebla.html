@@ -31,38 +31,35 @@
         <link href="/centro/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <script type="text/javascript" src="/centro/media/system/js/mootools.js"></script>
         <script type="text/javascript" src="/centro/media/system/js/caption.js"></script>
-        <script type="text/javascript" src="/centro/modules/mod_rokslideshow/tmpl/rokslideshow.js"></script>
+        <script type='text/javascript' src='http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js'></script>
+
 
         <script type="text/javascript">
-            window.addEvent('load', function () {
-                var imgs = [];
-                imgs.push({file: 'cc.jpg', title: '', desc: '', url: ''});
-                imgs.push({file: 'convi.jpg', title: '', desc: '', url: ''});
-                imgs.push({file: 'erasmus.jpg', title: '', desc: '', url: ''});
-                imgs.push({file: 'espa.jpg', title: '', desc: '', url: ''});
-                imgs.push({file: 'imagenpresentacion3.jpg', title: '', desc: '', url: ''});
-                imgs.push({file: 'tic2.jpg', title: '', desc: '', url: ''});
-                imgs.push({file: 'verde2.jpg', title: '', desc: '', url: ''});
-                var myshow = new Slideshow('slideshow', {
-                    type: 'fade',
-                    externals: 0,
-                    showTitleCaption: 0,
-                    captionHeight: 45,
-                    width: 340,
-                    height: 150,
-                    pan: 50,
-                    zoom: 50,
-                    loadingDiv: 1,
-                    resize: false,
-                    duration: [1000, 4000],
-                    transition: Fx.Transitions.Expo.easeOut,
-                    images: imgs,
-                    path: 'http://www.ieslapuebla.com/centro/images/banners/'
-                });
+            // Creamos un array con las imágenes a mostrar
+            var imgs = [
+                'images/banners/cc.jpg',
+                'images/banners/convi.jpg',
+                'images/banners/erasmus.jpg',
+                'images/banners/espa.jpg',
+                'images/banners/imagenpresentacion3.jpg',
+                'images/banners/tic2.jpg',
+                'images/banners/verde2.jpg'];
+            
+            // Almacenamos el tamaño del array
+            var cnt = imgs.length;
 
-                myshow.caps.h2.setStyles({color: '#fff', fontSize: '13px'});
-                myshow.caps.p.setStyles({color: '#ccc', fontSize: '11px'});
+            // Función que hace ejecutarse la función Slider cada 3 segs
+            $(function () {
+                setInterval(Slider, 3000);
             });
+
+            // Función que alterna las imágenes a mostrar dentro del objeto con id imageSlide
+            function Slider() {
+                $('#imageSlide').fadeOut("slow", function () {
+                    $(this).attr('src', imgs[(imgs.length++) % cnt]).fadeIn("slow");
+                });
+            }
+
         </script>
 
         <meta http-equiv="Content-Type" content="text/html; _ISO" />
@@ -897,7 +894,9 @@
                             <div class="user_inside">
                                 <div>
                                     <div id="slidewrap">
-                                        <div id="slideshow"></div>
+                                        <div id="slideshow">
+                                            <img id="imageSlide" alt="" src="" />
+                                        </div>
                                         <div id="loadingDiv"></div>
                                     </div>
                                 </div>

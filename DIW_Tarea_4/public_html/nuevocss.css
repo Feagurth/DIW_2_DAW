@@ -401,6 +401,14 @@ tr, td, div {
     margin: 0;
 }
 
+
+#imageSlide{
+    width: 99%;
+    height: 7.5vmax;
+    margin: 0.15vmax;
+}
+
+
 /* Definimos el tamaño de la marquesina por las que discurriran los enlaces del 
    tablon de anuncios de secretaria */
 #content_outmiddle .user_bg .topmodule_user2two .user_inside marquee{
@@ -560,4 +568,5 @@ tr, td, div {
 .copyright a{
     text-decoration: none;
 }
+
 
