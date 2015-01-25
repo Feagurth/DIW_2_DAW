@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2015 Luis Cabrerizo Gómez
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+    <head>
+        <title>DIW_Tarea_6</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <video controls="" width="360" height="240">
+                <source src="video/bbb.mp4" type="video/mp4"><!-- Safari 5 -->
+                <source src="video/bbb.ogv" type='video/ogg; codecs="theora, vorbis"'><!-- Firefox 5 y Google Chrome º4 -->                
+                <source src="video/bbb.webm" type="video/webm"><!-- Firefox 5 y Google Chrome 14 -->
+                <object type="application/x-shockwave-flash" data="player_flv_maxi.swf" height="240" width="360">
+                    <param name="movie" value="player_flv_maxi.swf">
+                    <param name="FlashVars" value="flv=video/bbb.flv">
+                    <embed type="application/x-shockwave-flash" width="360" height="240" src="player_flv_maxi.swf" flashvars="flv=video/bbb.flv" />
+                </object>
+            </video>        
+        </div>
+    </body>
+</html>
