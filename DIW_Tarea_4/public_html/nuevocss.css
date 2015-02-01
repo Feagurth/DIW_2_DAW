@@ -84,7 +84,8 @@ tr, td, div {
 
 /*  Espeficiamos el fondo de los enlaces y el color del texto cuando se situa 
     el ratón por encima del mismo */
-#navigation #menubar #menubar1 ul a:hover {
+#navigation #menubar #menubar1 ul a:hover, 
+#navigation #menubar #menubar1 ul a.hover{
     background: #056605;
     color: #fff;
 }
@@ -123,7 +124,8 @@ tr, td, div {
 
 /* Definimos el color de fondo, el relleno, el color del texto, los margenes 
    y los bordes de los encabezados que formaran parte de los menus 
-   desplegables */
+   desplegables. Alineamos las cabeceras a los contenedores vertical y 
+   horizontalmente */
 .sidebar div > div > div > div > h3{
     background-color: #0b450b;
     padding: 0.5vmax 0;  
@@ -132,16 +134,31 @@ tr, td, div {
     color: #fff;
     border-top: 0.15vmax solid #fff;
     margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;        
 }
 
 /* Especificamos una media query para que modifique el tamaño de las cabeceras 
    a un tamaño específico su la anchura máxima es inferior a 1020 px con el fin 
    de evitar el redimensionamiento desparejado de las cabeceras con mas texto */
 @media screen and (max-width: 1020px) {
-    .sidebar > div > div > div > div h3
-    {
-        height: 2vmax;
+
+    /* Especificamos un alto fijo para resoluciones bajas para asegurar el buen 
+       funcionamiento visual de la página */
+    #left_out, #right_out, #left_out h3, #right_out h3 {
+        height: 3.5vmax;
     }
+
+    /* Quitamos el relleno y establecemos un margen superior e inferior, además 
+       de establecer los bordes */
+    #left_out h3, #right_out h3 {
+        padding: 0;
+        margin: 0;
+        border-left: 0.15vmax solid #fff;
+        border-top: 0.15vmax solid #fff;           
+    }
+
 }
 
 /* Específicamos el ancho que van a tener los contenedores del menu de 
@@ -157,53 +174,69 @@ tr, td, div {
 }
 
 /* Mostramos las listas al posicionar el ratón sobre el contenedor de una lista */
-.sidebar > div > div > div > div:hover ul{
+.sidebar > div > div > div > div:hover ul,
+.sidebar > div > div > div > div.hover ul{
     display: block;
     list-style-type: none;    
     padding-left: 0;
     margin: 0;
+
+}
+
+/* Especificamos un borde lateral del mismo tamaño que el que hay en los 
+   encabezados para todas las listas hijas directas de un contenedor que tenga 
+   el ratón por encima */
+.sidebar > div > div > div > div:hover > ul, 
+.sidebar > div > div > div > div.hover > ul{
+    border-left: 0.15vmax solid;
 }
 
 /* Espeficiamos el un borde superior de color blanco en cada elemento de las 
    listas que harán de separadores entre si, así como el relleno y el margen 
    lateral izquierdo */
-.sidebar > div > div > div > div:hover li{
+.sidebar > div > div > div > div:hover li, 
+.sidebar > div > div > div > div.hover li{
     border-top: 0.10vmax solid #fff;
     padding: 0.3vmax;
     margin-left: 0.15vmax;
-    
+
 }
 
 /* Definimos el color de los enlaces en los listados al situar el cursor sobre 
    el contenedor de una lista y quitamos el subrayado a los enlaces */
-.sidebar > div > div > div > div:hover li a{
+.sidebar > div > div > div > div:hover li a, 
+.sidebar > div > div > div > div.hover li a{
     text-decoration: none;
     color: #fff;
 }
 
 /* Hacemos visibles los parrafos y establecemos un margen nulo al posicionar el 
     raton en el contenedor que los contiene */
-.sidebar > div > div > div > div:hover p{
+.sidebar > div > div > div > div:hover p, 
+.sidebar > div > div > div > div.hover p{
     display: block;
     margin: 0;
 }
 
 /* Definimos el color de fondo de los encabezados que contienen el texto de 
    los menus al posicionar el raton sobre el contenedor que los contiene */
-.sidebar > div > div > div > div:hover h3{
+.sidebar > div > div > div > div:hover h3, 
+.sidebar > div > div > div > div.hover h3{
     background-color: #056605;
     margin-bottom: 0;
 }
 
 /* Especificamos el color de fondo de los elementos de las listas al pasar el 
    ratón sobre ellos */
-.sidebar > div > div > div > div:hover li:hover {
+.sidebar > div > div > div > div:hover li:hover, 
+.sidebar > div > div > div > div.hover li.hover{
     background-color: #056605;
 
 }
 
 /* Definimos el tamaño que tendrán las imagenes en los menus desplegados */
-.sidebar > div > div > div > div:hover li img{
+.sidebar > div > div > div > div:hover li img, 
+.sidebar > div > div > div > div.hover li img{
     width: 0.75vmax;
 }
 
@@ -220,7 +253,8 @@ tr, td, div {
    menus desplegables que contienen no se cortarán por otros controles que 
    estén situados bajo ellos, quedando los seleccionados por encima del resto 
    de controles de la web y no rompiendo la continuidad del menu */
-.sidebar > div > div > div > div:hover {
+.sidebar > div > div > div > div:hover, 
+.sidebar > div > div > div > div.hover{
     background-color: #0b450b;
     position: relative;
     z-index: 9999 !important;
@@ -247,41 +281,48 @@ tr, td, div {
 
 /* Si posicionamos el raton sobre uno de los contenedores, mostramos el 
    contenido */
-.sidebar div:hover > h3 + div {
+.sidebar div:hover > h3 + div, 
+.sidebar div.hover > h3 + div{
     display: block;
 }
 
 /* Centramos el texto */
-.sidebar div:hover > h3 + div div{
+.sidebar div:hover > h3 + div div,
+.sidebar div.hover > h3 + div div{
     text-align: center;
 }
 
 /* Especificamos el tamaño de la tabla que contiene las visitas al centro */
-.sidebar div:hover > h3 + div div table{
+.sidebar div:hover > h3 + div div table, 
+.sidebar div.hover > h3 + div div table{
     width: 100%;    
 }
 
 /* Espeficiamos un tamaño máximo para todas las imágenes en estos contenedores */
-.sidebar div:hover > h3 + div img{
+.sidebar div:hover > h3 + div img,
+.sidebar div.hover > h3 + div img{
     width: 1vmax;
 }
 
 /* Espeficamos el tamaño de las imagenes dentro de la tabla de enlaces 
    interesantes para que ocupen todo el tamaño de sus celdas  */
-.sidebar div:hover > h3 + div #table1 img{
+.sidebar div:hover > h3 + div #table1 img,
+.sidebar div.hover > h3 + div #table1 img{
     width: 100%;
 
 }
 
 /* Definimos la alineacion a la izquierda de las celdas de la tabla que sean de 
    la clase de alineacion a la izquierda */
-.sidebar div:hover > h3 + div div table .moduletrleft{
+.sidebar div:hover > h3 + div div table .moduletrleft,
+.sidebar div.hover > h3 + div div table .moduletrleft{
     text-align: left;    
 }
 
 /* Definimos la alineacion a la derecha de las celdas de la tabla que sean de 
    la clase de alineacion a la derecha */
-.sidebar div:hover > h3 + div div table .moduletdright{
+.sidebar div:hover > h3 + div div table .moduletdright,
+.sidebar div.hover > h3 + div div table .moduletdright{
     text-align: right;
 }
 
@@ -292,12 +333,13 @@ tr, td, div {
 
 /* Definimos el relleno y el margen para las imágenes de estas partes de los 
    menus */
-.sidebar div:hover > h3 + div div img{
+.sidebar div:hover > h3 + div div img,
+.sidebar div.hover > h3 + div div img{
     padding: 0;
     margin: 0;
 }
 
-/* Finalmente ocultamos la clase modulefondoazul del menu */
+/* Finalmente ocultamos el enlace en la clase modulefondoazul del menu */
 #right_out .sidebar .modulefondoazul > div > div > div > p{
     display: none;
 }
@@ -310,34 +352,40 @@ tr, td, div {
 }
 
 /* Mostramos el menu de acceso si se posiciona el raton sobre su contenedor */
-.sidebar div:hover > h3 + form{
+.sidebar div:hover > h3 + form,
+.sidebar div.hover > h3 + form{
     display: block;    
 }
 
 /* Definimos un tamaño especifico para los controles dentro del fieldset */
-.sidebar div:hover > h3 + form > fieldset input{
+.sidebar div:hover > h3 + form > fieldset input,
+.sidebar div.hover > h3 + form > fieldset input{
     width: 7.5vmax;       
     margin: 0.25vmax 0;
 }
 
 /* Espeficiamos una tamaño de fuente para el boton de submit */ 
-.sidebar div:hover > h3 + form > fieldset input[type=submit]{
+.sidebar div:hover > h3 + form > fieldset input[type=submit],
+.sidebar div.hover > h3 + form > fieldset input[type=submit]{
     font-size: 0.75vmax;
 }
 
 /* Definimos el tamaño en automatico para el checkbox de tal modo que se ajuste 
    junto a su etiqueta */
-.sidebar div:hover > h3 + form > fieldset input[type=checkbox]{
+.sidebar div:hover > h3 + form > fieldset input[type=checkbox],
+.sidebar div.hover > h3 + form > fieldset input[type=checkbox]{
     width: auto;
 }
 
 /* Anulamos el margen superior para los parrafos */
-.sidebar div.module div:hover > h3 + p{
+.sidebar div.module div:hover > h3 + p,
+.sidebar div.module div.hover > h3 + p{
     margin-top: 0;
 }
 
 /* Y definimos que las imagenes ocupen todo el ancho del contenedor */
-.sidebar div.module div:hover > h3 + p img{
+.sidebar div.module div:hover > h3 + p img,
+.sidebar div.module div.hover > h3 + p img{
     width: 100%;
 }
 
@@ -570,3 +618,7 @@ tr, td, div {
 }
 
 
+.hover {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;        
+}
