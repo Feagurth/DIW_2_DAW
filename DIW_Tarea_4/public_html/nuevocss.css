@@ -84,6 +84,7 @@ tr, td, div {
 
 /*  Espeficiamos el fondo de los enlaces y el color del texto cuando se situa 
     el ratón por encima del mismo */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 #navigation #menubar #menubar1 ul a:hover, 
 #navigation #menubar #menubar1 ul a.hover{
     background: #056605;
@@ -174,6 +175,7 @@ tr, td, div {
 }
 
 /* Mostramos las listas al posicionar el ratón sobre el contenedor de una lista */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar > div > div > div > div:hover ul,
 .sidebar > div > div > div > div.hover ul{
     display: block;
@@ -186,6 +188,7 @@ tr, td, div {
 /* Especificamos un borde lateral del mismo tamaño que el que hay en los 
    encabezados para todas las listas hijas directas de un contenedor que tenga 
    el ratón por encima */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar > div > div > div > div:hover > ul, 
 .sidebar > div > div > div > div.hover > ul{
     border-left: 0.15vmax solid;
@@ -194,6 +197,7 @@ tr, td, div {
 /* Espeficiamos el un borde superior de color blanco en cada elemento de las 
    listas que harán de separadores entre si, así como el relleno y el margen 
    lateral izquierdo */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar > div > div > div > div:hover li, 
 .sidebar > div > div > div > div.hover li{
     border-top: 0.10vmax solid #fff;
@@ -204,6 +208,7 @@ tr, td, div {
 
 /* Definimos el color de los enlaces en los listados al situar el cursor sobre 
    el contenedor de una lista y quitamos el subrayado a los enlaces */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar > div > div > div > div:hover li a, 
 .sidebar > div > div > div > div.hover li a{
     text-decoration: none;
@@ -212,6 +217,7 @@ tr, td, div {
 
 /* Hacemos visibles los parrafos y establecemos un margen nulo al posicionar el 
     raton en el contenedor que los contiene */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar > div > div > div > div:hover p, 
 .sidebar > div > div > div > div.hover p{
     display: block;
@@ -220,6 +226,7 @@ tr, td, div {
 
 /* Definimos el color de fondo de los encabezados que contienen el texto de 
    los menus al posicionar el raton sobre el contenedor que los contiene */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar > div > div > div > div:hover h3, 
 .sidebar > div > div > div > div.hover h3{
     background-color: #056605;
@@ -228,6 +235,7 @@ tr, td, div {
 
 /* Especificamos el color de fondo de los elementos de las listas al pasar el 
    ratón sobre ellos */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar > div > div > div > div:hover li:hover, 
 .sidebar > div > div > div > div.hover li.hover{
     background-color: #056605;
@@ -235,6 +243,7 @@ tr, td, div {
 }
 
 /* Definimos el tamaño que tendrán las imagenes en los menus desplegados */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar > div > div > div > div:hover li img, 
 .sidebar > div > div > div > div.hover li img{
     width: 0.75vmax;
@@ -253,6 +262,7 @@ tr, td, div {
    menus desplegables que contienen no se cortarán por otros controles que 
    estén situados bajo ellos, quedando los seleccionados por encima del resto 
    de controles de la web y no rompiendo la continuidad del menu */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar > div > div > div > div:hover, 
 .sidebar > div > div > div > div.hover{
     background-color: #0b450b;
@@ -281,24 +291,28 @@ tr, td, div {
 
 /* Si posicionamos el raton sobre uno de los contenedores, mostramos el 
    contenido */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + div, 
 .sidebar div.hover > h3 + div{
     display: block;
 }
 
 /* Centramos el texto */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + div div,
 .sidebar div.hover > h3 + div div{
     text-align: center;
 }
 
 /* Especificamos el tamaño de la tabla que contiene las visitas al centro */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + div div table, 
 .sidebar div.hover > h3 + div div table{
     width: 100%;    
 }
 
 /* Espeficiamos un tamaño máximo para todas las imágenes en estos contenedores */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + div img,
 .sidebar div.hover > h3 + div img{
     width: 1vmax;
@@ -306,6 +320,7 @@ tr, td, div {
 
 /* Espeficamos el tamaño de las imagenes dentro de la tabla de enlaces 
    interesantes para que ocupen todo el tamaño de sus celdas  */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + div #table1 img,
 .sidebar div.hover > h3 + div #table1 img{
     width: 100%;
@@ -314,6 +329,7 @@ tr, td, div {
 
 /* Definimos la alineacion a la izquierda de las celdas de la tabla que sean de 
    la clase de alineacion a la izquierda */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + div div table .moduletrleft,
 .sidebar div.hover > h3 + div div table .moduletrleft{
     text-align: left;    
@@ -321,6 +337,7 @@ tr, td, div {
 
 /* Definimos la alineacion a la derecha de las celdas de la tabla que sean de 
    la clase de alineacion a la derecha */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + div div table .moduletdright,
 .sidebar div.hover > h3 + div div table .moduletdright{
     text-align: right;
@@ -333,6 +350,7 @@ tr, td, div {
 
 /* Definimos el relleno y el margen para las imágenes de estas partes de los 
    menus */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + div div img,
 .sidebar div.hover > h3 + div div img{
     padding: 0;
@@ -352,19 +370,22 @@ tr, td, div {
 }
 
 /* Mostramos el menu de acceso si se posiciona el raton sobre su contenedor */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + form,
 .sidebar div.hover > h3 + form{
     display: block;    
 }
 
 /* Definimos un tamaño especifico para los controles dentro del fieldset */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + form > fieldset input,
-.sidebar div.hover > h3 + form > fieldset input{
-    width: 7.5vmax;       
+.sidebar div.hover > h3 + form > fieldset input{    
+    width: 95%;
     margin: 0.25vmax 0;
 }
 
 /* Espeficiamos una tamaño de fuente para el boton de submit */ 
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + form > fieldset input[type=submit],
 .sidebar div.hover > h3 + form > fieldset input[type=submit]{
     font-size: 0.75vmax;
@@ -372,18 +393,21 @@ tr, td, div {
 
 /* Definimos el tamaño en automatico para el checkbox de tal modo que se ajuste 
    junto a su etiqueta */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div:hover > h3 + form > fieldset input[type=checkbox],
 .sidebar div.hover > h3 + form > fieldset input[type=checkbox]{
     width: auto;
 }
 
 /* Anulamos el margen superior para los parrafos */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div.module div:hover > h3 + p,
 .sidebar div.module div.hover > h3 + p{
     margin-top: 0;
 }
 
 /* Y definimos que las imagenes ocupen todo el ancho del contenedor */
+/* Se duplican las definiciones para .hover para lograr el funcionamiento en iOS */
 .sidebar div.module div:hover > h3 + p img,
 .sidebar div.module div.hover > h3 + p img{
     width: 100%;
@@ -617,7 +641,7 @@ tr, td, div {
     text-decoration: none;
 }
 
-
+/* Efectos globales para la clase hover */
 .hover {
     -webkit-user-select: none;
     -webkit-touch-callout: none;        
