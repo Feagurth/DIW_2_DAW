@@ -1,0 +1,93 @@
+/*
+Copyright (C) 2015 Luis Cabrerizo Gómez
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/* 
+    Created on : 20-ene-2015, 14:59:51
+    Author     : Luis Cabrerizo Gómez
+*/
+
+/* Importamos las fuentes de Google usando @import */
+@import url(http://fonts.googleapis.com/css?family=Adamina);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+
+/* Espeficicamos la fuente, el tamaño y el color que tendrán todos los textos 
+de la página de forma general*/
+*{
+    font-family: 'Adamina', sans-serif;
+    font-size: 1vmax;
+    color: #000;
+}
+
+
+/* Estilos de la página índice */
+
+#index{
+    width: 100%;
+    height: 10vmax;
+    background-image: url(imagenes/header.png), linear-gradient(to right, white , #f9f53f);
+    //background-color: #f9f53f;
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-bottom: 1vmax;
+    display: block;
+    float: left;
+}
+
+#index p{
+    margin-top: 3.5vmax;
+    font-family: 'Anonymous Pro';
+    font-size: 2vmax;
+    margin-left: 10vmax;
+    color: black;    
+}
+
+
+
+
+
+/* Estilos de la pantalla de login  */
+
+/* Definimos el tamaño del formulario, su color y los margenes para centrarlo */
+#login #divlogin {
+    background-color: #EFE4B0;
+    width: 15vmax;
+    border: 0.15vmax solid #000;  
+    margin: auto;
+}
+
+/* Centramos el texto de la cabecera */
+#login #divlogin h3{
+    text-align: center;
+}
+
+
+/* Centramos los campos respecto al formulario */
+#login #divlogin input{
+    display: block;
+    margin : 0.5vmax auto;
+}
+
+#login #divlogin #error {
+    text-align: center;   
+}
+
+#login #divlogin #error p{
+    color: #ff0000;
+
+}
