@@ -1,5 +1,7 @@
 <?php
 
+include_once './Db.php';
+
 /*
  * Copyright (C) 2015 Luis Cabrerizo Gómez
  *
@@ -32,4 +34,43 @@ function validarCadenaConNumeros($dato) {
     
     // Devolvemos la variable con el resultado de la validación
     return $salida;
+}
+
+/**
+ * Método para validar el usuario y la contraseña de un usuario logeado y actuar 
+ * en consecuencia
+ * @param type $usuario Usuario a validar
+ * @param type $password Contraseña a validar
+ * @throws Exception Se lanza una excepción si se ha producido un error
+ */
+function validarUsuario($usuario, $password) {
+    // Comprobamos si tenemos en sesión usuario y password
+    if (!isset($usuario) || !isset($password)) {
+        // De no ser así volvemos a la página login.php para pedirselos al usuario
+        header("location:login.php");
+    } else {
+        // En caso contrario crearemos una conexión con la base de datos para 
+        // verificar el usuario y el password
+        try {
+            $db = new DB();
+
+            if (!$db->validarUsuario($usuario, $password)) {
+                // En el caso de que devuelva cualquier valor distinto de 1, eso 
+                // quiere decir que el usuario y la contraseña son erróneos, 
+                // por tanto volvemos a la página index.php tras limpiar la sesión
+                session_unset();
+
+                // volvemos a la página login.php para hacer que el usuario se valide
+                header("location:login.php");
+            }
+        } catch (Exception $ex) {
+            // En el caso de que devuelva cualquier valor distinto de 1, eso 
+            // quiere decir que el usuario y la contraseña son erróneos, 
+            // por tanto volvemos a la página index.php tras limpiar la sesión
+            session_unset();
+
+            // Lanzamos una excepción
+            throw $ex;
+        }
+    }
 }

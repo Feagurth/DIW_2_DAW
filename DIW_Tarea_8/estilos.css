@@ -37,7 +37,7 @@ de la página de forma general*/
 .cabecera{
     width: 100%;
     height: 10vmax;
-    margin-bottom: 1vmax;
+    margin-bottom: 0.10vmax;
     display: block;
     float: left;
     background-position: left;
@@ -55,20 +55,80 @@ de la página de forma general*/
 
 /* Estilos de la página índice */
 .cabecera#index{
-    background-image: url(imagenes/header.png), linear-gradient(to right, white , #f9f53f);    
+    background-image: url(imagenes/header.png), linear-gradient(to right, #EFE4B0, #f9f53f);    
 }
 
-#cuerpobotones {
-    width: 100%;    
+/* Estilos del menú */
+
+/* Definimos el ancho para que ocupe todo el ancho de la pantalla. Así mismo 
+definimos un color de fondo para el contenedor, los valores de visibilidad y 
+flotabilidad, así como el tipo de letra y su tamaño*/
+#menu{
+    width: 100%;
+    display: block;
+    float: left;    
+    background-color: #EFE4B0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1vmax;
+    margin-bottom: 0.25vmax;
+
+}
+
+/* Definimos los margenes y el relleno, quitamos los marcadores de la lista y 
+especificamos los valores de visibilidad y de posicionamiento */
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    display: inline-table;
+    vertical-align: middle;   
+}
+
+/* Espeficamos la inclusión de contenido nulo despues del primer listado para 
+limpiar los valores especificados de estilos */
+nav ul:after {
+    content: ""; 
+    clear: both; 
     display: block;
 }
 
-#cuerpobotones input[type="submit"]{
-    width: 47%;   
-    height: 10vmax;
-    margin: 1vmax;
+/* Espeficiamos el rellenos, el ancho y un borde para los enlaces de la lista */
+nav ul li {
+    float: left;
+    padding: 0 0.5vmax;
+    width: 14vmax;
+    border-right: 0.15vmax solid #fff;
 }
 
+/* Cambiamos el color del elemento de la lista que esté seleccionado por el 
+ratón */
+nav ul li:hover {
+    background-color: #f9f53f;
+}
+
+/* Especificamos los marges y el relleno de los elementos de la lista */
+nav ul li {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li form{
+    display:block;
+    height: 1.5vmax;
+    padding: 0.5vmax;
+}
+nav ul li form input{
+    background:none;
+    width: 100%;    
+    border:none;
+    color:#000;
+    cursor:pointer
+}
+
+nav ul li form input.oculto{
+    display: none;
+}
 
 /* Estilos de la pantalla de login  */
 

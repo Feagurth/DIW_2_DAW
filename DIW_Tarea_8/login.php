@@ -1,27 +1,25 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--
-Copyright (C) 2015 Luis Cabrerizo Gómez
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
 <?php
+/*
+ * Copyright (C) 2015 Super
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 // Iniciamos sesión
 session_start();
 
 // Cargamos los archivos necesarios
-require_once './configuracion.inc.php';
 require_once './Db.php';
 require_once './funciones.php';
 
@@ -42,8 +40,8 @@ try {
     if (isset($_POST['user']) && isset($_POST['pass'])) {
         // Creamos un nuevo objeto de acceso a base de datos 
 
-        if (validarUsuarioPassword($_POST['user']) && validarUsuarioPassword($_POST['user'])) {
-            
+        if (validarCadenaConNumeros($_POST['user']) && validarCadenaConNumeros($_POST['user'])) {
+
             $db = new DB();
 
             // Obtenemos el listado de todas las personas
@@ -65,10 +63,8 @@ try {
                 // Mostramos un mensaje de error
                 $error = "Usuario o contraseña incorrectos";
             }
-        }
-        else
-        {
-            $error = "Usuario o contraseña con caracteres incorrectos";            
+        } else {
+            $error = "Usuario o contraseña con caracteres incorrectos";
         }
     }
 
@@ -93,7 +89,7 @@ try {
     $error = $ex->getMessage();
 }
 ?>
-<html id="login" >
+<html xmlns="http://www.w3.org/1999/xhtml" id="login" >
     <head>
         <title>Login</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -104,7 +100,7 @@ try {
             <form action="login.php" method="post">
                 <h3>Acceso de usuario</h3>
                 <div>
-                    <input type="text" id="user" name="user" maxlength="16" placeholder="Introduzca el usuario"/>
+                     <input type="text" id="user" name="user" maxlength="16" placeholder="Introduzca el usuario"/>
                 </div>
                 <div>
                     <input type="password" id="pass" name="pass" maxlength="16" placeholder="Introduzca la contraseña"/>

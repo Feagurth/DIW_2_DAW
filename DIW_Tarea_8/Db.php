@@ -1,5 +1,7 @@
 <?php
 
+require_once './configuracion.inc.php';
+
 class DB {
 
     /**
@@ -34,9 +36,8 @@ class DB {
 
             // Finalmente creamos el objeto PDO para la base de datos
             $this->diw = new PDO($dsn, $usu, $pas, $opc);
-            
-            $this->diw->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-            
+
+            $this->diw->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -117,7 +118,6 @@ class DB {
         }
     }
 
-
     /**
      * Función que nos permite validar un usuario contra la base de datos
      * @param type $usuario Usuario a validar
@@ -125,30 +125,29 @@ class DB {
      * @return type True si es un usuario correcto, False si no lo es
      * @throws Exception Se lanza una excepción si se produce un error
      */
-    public function validarUsuario($usuario, $password)
-    {
-        
+    public function validarUsuario($usuario, $password) {
+
         // Especificamos la consulta que vamos a realizar sobre la base de datos        
         $sql = "select * from usuario where user='$usuario' and pass='$password'";
-        
+
         // Llamamos la a la función protegida de la clase para realizar la consulta
         $resultado = $this->ejecutaConsulta($sql);
 
         // Comprobamos si hemos obtenido algún resultado
         if ($resultado) {
-            
+
             global $nombreUsuario;
 
             $valores = $resultado->fetch();
-            
+
             $nombreUsuario = $valores['nombre'];
-            
+
             // Devolvemos el resultado pasandolo a booleano
-            return $valores ? TRUE: FALSE;
+            return $valores ? TRUE : FALSE;
         } else {
             // Si no tenemos resultados lanzamos una excepción
             throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
-        }        
+        }
     }
 
 }
