@@ -26,10 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <p>Gestión Documental</p>
         </div>
         <hr />
-        <div id="cuerpo">
+        <div id="cuerpobotones">
             <input type="submit" id="btnEmpleados" alt="Empleados" value="Empleados" title="Empleados" />
             <input type="submit" id="btnGrupos" alt="Grupos" value="Grupos" title="Grupos" />
-            <input type="submit" id="btnDocumentos" alt="Empleados" value="Empleados" title="Empleados" />
+            <input type="submit" id="btnDocumentos" alt="Documentos" value="Documentos" title="Documentos" />
             <input type="submit" id="btnEnvios" alt="Envios" value="Envios" title="Envios" />
             <input type="submit" id="btnEmail" alt="Cuentas Email" value="Cuentas Email" title="Cuentas Email" />
             <input type="submit" id="btnAcceso" alt="Acceso" value="Acceso" title="Acceso" />            

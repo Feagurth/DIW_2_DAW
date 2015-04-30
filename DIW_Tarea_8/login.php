@@ -15,14 +15,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-
 <?php
+
 // Iniciamos sesión
 session_start();
 
 // Cargamos los archivos necesarios
 require_once './configuracion.inc.php';
 require_once './Db.php';
+require_once './funciones.php';
 
 // Comprobamos si hay una petición de limpieza de usuario y password de 
 // sesión, lo que siginificariá que el usuario logeado desea deslogearse
@@ -39,27 +40,35 @@ try {
 
     // Comprobamos si POST trae informaicón de usuario y password
     if (isset($_POST['user']) && isset($_POST['pass'])) {
-        // Creamos un nuevo objeto de acceso a base de datos
-        $db = new DB();
+        // Creamos un nuevo objeto de acceso a base de datos 
 
-        // Obtenemos el listado de todas las personas
-        if ($db->validarUsuario(md5($_POST['user']), md5($_POST['pass']))) {
-            // Guardamos el hash del usuario y del password en sesión
-            $_SESSION['user'] = md5($_POST['user']);
-            $_SESSION['pass'] = md5($_POST['pass']);
+        if (validarUsuarioPassword($_POST['user']) && validarUsuarioPassword($_POST['user'])) {
+            
+            $db = new DB();
 
-            // Eliminamos la informaicón del POST sobre usuario y contraseña
-            unset($_POST['user']);
-            unset($_POST['pass']);
+            // Obtenemos el listado de todas las personas
+            if ($db->validarUsuario(md5($_POST['user']), md5($_POST['pass']))) {
+                // Guardamos el hash del usuario y del password en sesión
+                $_SESSION['user'] = md5($_POST['user']);
+                $_SESSION['pass'] = md5($_POST['pass']);
 
-            // Limpiamos la variable de errores
-            $error = " ";
+                // Eliminamos la informaicón del POST sobre usuario y contraseña
+                unset($_POST['user']);
+                unset($_POST['pass']);
 
-            // Navegamos a la página de inicio de la aplicación
-            header("location:index.php");
-        } else {
-            // Mostramos un mensaje de error
-            $error = "Usuario o contraseña incorrectos";
+                // Limpiamos la variable de errores
+                $error = " ";
+
+                // Navegamos a la página de inicio de la aplicación
+                header("location:index.php");
+            } else {
+                // Mostramos un mensaje de error
+                $error = "Usuario o contraseña incorrectos";
+            }
+        }
+        else
+        {
+            $error = "Usuario o contraseña con caracteres incorrectos";            
         }
     }
 
@@ -105,7 +114,7 @@ try {
                 </div>
             </form>
             <div id="error">
-                <p><?php $error ?></p>
+                <p><?php echo $error ?></p>
             </div>                               
         </div>
     </body>        
