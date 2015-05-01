@@ -19,9 +19,6 @@ session_start();
 // Instanciamos los ficheros necesarios
 require_once './funciones.php';
 
-
-
-
 try {
     // Validamos el usuario
     validarUsuario($_SESSION['user'], $_SESSION['pass']);
@@ -86,28 +83,28 @@ try {
             </ul>
         </nav>        
         <hr />
-        <div id="cuerpo">
+        <div id="cuerpo">            
             <?php
             if (isset($_POST['indice'])) {
                 switch ($_POST['indice']) {
                     case '1': {
-                            include './usuarios.php';
+                            include './empleados.php';
                             break;
                         }
                     case '2': {
-                            include './usuarios.php';
+                            include './empleados.php';
                             break;
                         }
                     case '3': {
-                            include './usuarios.php';
+                            include './empleados.php';
                             break;
                         }
                     case '4': {
-                            include './usuarios.php';
+                            include './empleados.php';
                             break;
                         }
                     case '5': {
-                            include './usuarios.php';
+                            include './empleados.php';
                             break;
                         }
                 }

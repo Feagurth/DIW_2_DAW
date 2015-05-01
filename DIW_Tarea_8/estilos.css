@@ -53,6 +53,12 @@ de la página de forma general*/
     color: black;    
 }
 
+.oculto{
+    display: none;
+}
+
+
+
 /* Estilos de la página índice */
 .cabecera#index{
     background-image: url(imagenes/header.png), linear-gradient(to right, #EFE4B0, #f9f53f);    
@@ -97,7 +103,7 @@ nav ul:after {
 nav ul li {
     float: left;
     padding: 0 0.5vmax;
-    width: 14vmax;
+    width: 13.5vmax;
     border-right: 0.15vmax solid #fff;
 }
 
@@ -124,10 +130,6 @@ nav ul li form input{
     border:none;
     color:#000;
     cursor:pointer
-}
-
-nav ul li form input.oculto{
-    display: none;
 }
 
 /* Estilos de la pantalla de login  */
@@ -160,3 +162,60 @@ nav ul li form input.oculto{
     color: #ff0000;
 
 }
+
+
+/* Estilos de las tablas */
+
+#cuerpo div.listado h3{
+
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1vmax;
+    margin: 0.75vmax;
+
+}
+
+/* Especificamos el margen y el tamaño de la tabla, así como el tipo de borde 
+que tendrá */
+#cuerpo div.listado table {
+    margin: 0.5vmax;
+    border-collapse: collapse;
+    width: 98.7%;
+}
+
+/* Definimos el ancho, color y tipo de linea que tendrán los bordes de la tabla 
+así como el alineamiento del texto */
+#cuerpo #lista .listado table, th, td {
+    border: 0.15vmax solid black;
+    text-align: center;
+}
+
+/* Definimos el ancho de los encabezamientos de la tabla */
+#cuerpo .listado th
+{
+    width: 10%;
+}
+
+/* Definimos los texto de la cabecera como negrita */ 
+#cuerpo .listado thead
+{
+    font-weight: bold;
+}
+
+#cuerpo .listado input{
+    width: 100%;
+}
+
+
+/* Finalmente cambiamos el color de fondo de las filas dependiendo de la 
+clase */
+#cuerpo .listado tbody tr.pijama1{
+    background-color: lightgrey;
+}
+
+/* Finalmente cambiamos el color de fondo de las filas dependiendo de la 
+clase */
+#cuerpo .listado tr.pijama2{
+    background-color: #EFE4B0;
+}    
+
+

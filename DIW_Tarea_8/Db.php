@@ -1,6 +1,7 @@
 <?php
 
 require_once './configuracion.inc.php';
+require_once './objetos/objEmpleado.php';
 
 class DB {
 
@@ -150,4 +151,47 @@ class DB {
         }
     }
 
+    
+    public function listarEmpleado($filtro) {
+        // Especificamos la consulta que vamos a realizar sobre la base de datos
+        $sql = "SELECT * FROM empleado";
+        $orden = " ORDER BY nombre, apellido ASC";
+
+        if(is_null($filtro))
+        {
+            $sql .= " " . $filtro;
+        }
+        
+        $sql .= $orden;
+                
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar el resultado
+            $datos = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch();
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $datos[] = new Empleado($row);
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch();
+            }
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
+        }
+    }
+    
 }
