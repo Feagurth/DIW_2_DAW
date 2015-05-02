@@ -12,6 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+
 <?php
 //Iniciamos la sesion
 session_start();
@@ -19,9 +20,12 @@ session_start();
 // Instanciamos los ficheros necesarios
 require_once './funciones.php';
 require_once './configuracion.inc.php';
+require_once './objetos/objEmpleado.php';
 
 // Inicializamos variables
 $error = "";
+
+$indice = $_POST['indice'];
 
 // Recupermaos el nombre de usuario
 $nombreUsuario = $_SESSION['nombreUsuario'];
@@ -29,10 +33,26 @@ $nombreUsuario = $_SESSION['nombreUsuario'];
 try {
     // Validamos el usuario
     validarUsuario($_SESSION['user'], $_SESSION['pass']);
+
+    // Creamos un nuevo objeto de acceso a base de datos
+    $db = new DB();
+
+xdebug_break();
+
+    if (isset($indice)) {
+        
+        $empleado = NULL;
+        
+        if ($indice !== "0") {
+            $empleado = $db->recuperarEmpleado($indice)[0];
+        }
+    }
 } catch (Exception $ex) {
     $error = $ex->getMessage();
 }
 ?>
+
+
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>Indice</title>
@@ -90,37 +110,34 @@ try {
             </ul>
         </nav>        
         <hr />
-        <div id="cuerpo">            
-            <?php
-            // Si no es así, comprobamos si tenemos que cargar alguna plantilla
-            if (isset($_POST['indice'])) {
+        <div id="cuerpo">      
+            <div id="botonera">
+                <h3>Detalle de empleados</h3>
+                <form id="modificar" action='detalle_usuario.php' method='post' >
+                    <input type='submit' tabindex="9" value='Modificar Empleado' alt='Modificar Empleado' />
+                    <input class='oculto' name='modificar' type='text' value='<?php echo $indice ?>' />
+                </form>
+                <form id="eliminar" action='detalle_usuario.php' method='post' >
+                    <input type='submit' tabindex="10" value='Borrar Empleado' alt='Borrar Empleado' />
+                    <input class='oculto' name='borrar' type='text' value='<?php echo $indice ?>' />
+                </form>
+            </div>
+            <div id="detalle">
+                <form action="detalle_usuario.php" method="post">
+                    <label id="lblNombre" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" id="nombre" maxlength="30" disabled="disabled" value="<?php if($empleado !== NULL) echo $empleado->getNombre() ?>"/>
+                    <label id="lblApellido" for="apellido">Apellido</label><input type="text" id="apellido" maxlength="30" disabled="disabled" value="<?php if($empleado !== NULL) echo $empleado->getApellido() ?>"/>
+                    <label id="lblTelefono" for="telefono">Telefono </label><input type="text" id="telefono" maxlength="20" disabled="disabled" value="<?php if($empleado !== NULL) echo $empleado->getTelefono() ?>"/>
+                    <label id="lblEmail" for="email">E-Mail </label><input type="text" id="email" maxlength="30" disabled="disabled" value="<?php if($empleado !== NULL) echo $empleado->getEmail() ?>"/>
+                    <br />
+                    <label id="lblEspecialidad" for="especialidad">Especialidad </label><input type="text" id="especialidad" maxlength="50" disabled="disabled" value="<?php if($empleado !== NULL) echo $empleado->getEspecialidad() ?>"/>
+                    <label id="lblCargo" for="cargo">Cargo </label><input type="text" id="cargo" maxlength="15" disabled="disabled" value="<?php if($empleado !== NULL) echo $empleado->getCargo() ?>"/>
+                    <br />
+                    <label id="lblDireccion" for="direccion">Direccion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" id="direccion" maxlength="75" disabled="disabled" value="<?php if($empleado !== NULL) echo $empleado->getDireccion() ?>"/>
 
-                // Cargamos la plantilla que sea dependiendo del valor del 
-                // índice pasado por POST
-                switch ($_POST['indice']) {
-                    case '1': {
-                            include './empleados.php';
-                            break;
-                        }
-                    case '2': {
-                            include './empleados.php';
-                            break;
-                        }
-                    case '3': {
-                            include './empleados.php';
-                            break;
-                        }
-                    case '4': {
-                            include './empleados.php';
-                            break;
-                        }
-                    case '5': {
-                            include './empleados.php';
-                            break;
-                        }
-                }
-            }
-            ?>
+<?php ?>
+
+                </form>
+            </div>
         </div>
     </body>
 </html>

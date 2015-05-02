@@ -76,26 +76,26 @@ function validarUsuario($usuario, $password) {
 }
 
 /**
- * Función que nos permite crear el texto de desconexión de usuario recortando 
- * el nombre de usuario si este es muy largo
- * @param string $nombreUsuario La descripción del nombre del usuario
- * @return string Una cadena que contiene la palabra desconectar seguida del 
- * nombre de usuario entre corchetes
+ * Función que nos permite recortar el texto hasta una cantidad de valores establecidos
+ * @param string $texto La descripción del nombre del usuario
+ * @param int $cantidad La cantidad de caracteres permitidos
+ * @return string Una cadena con tantos caracteres como se permitan menos 3 
+ * concatenado con 3 puntos suspensivos
  */
-function crearTextoDesconexion($nombreUsuario) {
+function textoElipsis($texto, $cantidad) {
 
     // Almacenamos el valor del nombre del usuario para trabajar con éñ.
-    $ret = $nombreUsuario;
+    $ret = $texto;
 
     // Comprobamos el tamaño del nombre del usuario, si es muy largo lo 
     // recortaremos, si no, lo dejaremos tal como está
-    if (strlen($ret) > 15) {
+    if (strlen($ret) > $cantidad) {
         
         // Cogemos los primeros doce caracteres del nombre del usuario y le 
         // agregamos unos puntos suspensivos para que hagan de elipsis
-        $ret = substr($ret, 0, 12) . "...";
+        $ret = substr($ret, 0, ($cantidad-3)) . "...";
     }
 
     // Devolvemos la cadena anexándole el nombre de usuario
-    return "Desconectar (" . $ret . ")";
+    return $ret;
 }

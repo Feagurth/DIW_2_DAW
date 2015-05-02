@@ -57,6 +57,17 @@ de la página de forma general*/
     display: none !important;
 }
 
+.error
+{
+    text-align: center;   
+    display: block;
+    float: left;
+}
+
+.error p{
+    color: #ff0000;
+}
+
 
 
 /* Estilos de la página índice */
@@ -172,7 +183,7 @@ nav ul li form input{
 
 /* Estilos de las tablas */
 
-#cuerpo div.listado div#botonera h3{
+div#botonera h3{
 
     font-family: 'Open Sans', sans-serif;
     font-size: 1vmax;
@@ -183,7 +194,9 @@ nav ul li form input{
 }
 
 
-#cuerpo div.listado div#botonera form#nuevo input
+div#botonera form#nuevo input,
+div#botonera form#modificar input,
+div#botonera form#eliminar input
 {
     width: 15vmax;
     display: block;
@@ -193,7 +206,7 @@ nav ul li form input{
     padding: 0;
 }
 
-#cuerpo div.listado div#botonera form#filtro input
+div#botonera form#filtro input
 {
     width: 15vmax;
     display: block;
@@ -203,10 +216,9 @@ nav ul li form input{
     padding: 0;
 }
 
-#cuerpo div.listado div#botonera form#filtro select
+div#botonera form#filtro select
 {
-    //width: 15vmax;
-    display: block;
+        display: block;
     float: right;
     margin: 0.75vmax;
     font-size: 1vmax;
@@ -261,3 +273,47 @@ clase */
 }    
 
 
+
+/* Estilos para el detalle */
+
+#detalle{
+    clear: left;    
+    display: block;
+    float: left;
+    margin: 0.75vmax;
+    border: 0.15vmax solid #000;
+    padding: 3vmax;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+#detalle input#nombre,
+#detalle input#apellido,
+#detalle input#email
+{
+    margin: 0.25vmax;
+    width: 18vmax;
+}
+
+#detalle input#telefono{
+    margin: 0.25vmax;
+    width: 12vmax;
+}
+
+#detalle input#especialidad
+{
+    margin: 0.25vmax;
+    width: 30vmax;
+}
+
+#detalle input#cargo{
+    margin: 0.25vmax;
+    width: 9.3vmax;
+}
+
+#detalle input#direccion
+{
+    margin: 0.25vmax;
+    width: 43.5vmax;
+}

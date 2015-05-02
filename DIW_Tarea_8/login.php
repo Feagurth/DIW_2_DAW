@@ -29,6 +29,8 @@ if (isset($_POST['clear'])) {
     // Eliminamos la informaicón del POST sobre usuario y contraseña
     unset($_POST['user']);
     unset($_POST['pass']);
+    unset($_POST['nombreUsuario']);
+    
 }
 
 // Definimos e inicializamos la variable de errores
@@ -49,10 +51,12 @@ try {
                 // Guardamos el hash del usuario y del password en sesión
                 $_SESSION['user'] = md5($_POST['user']);
                 $_SESSION['pass'] = md5($_POST['pass']);
+                $_SESSION['nombreUsuario'] = $nombreUsuario;
 
                 // Eliminamos la informaicón del POST sobre usuario y contraseña
                 unset($_POST['user']);
                 unset($_POST['pass']);
+                unset($_POST['nombreUsuario']);
 
                 // Limpiamos la variable de errores
                 $error = " ";
