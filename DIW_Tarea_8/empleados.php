@@ -18,14 +18,41 @@ try {
 // Creamos un nuevo objeto de acceso a base de datos
     $db = new DB();
 
+    
+    $filtro = (isset($_POST['filtro']) ? $_POST['filtro'] : NULL);
+    $tipoFiltro = (isset($_POST['tipoFiltro']) ? $_POST['tipoFiltro'] : NULL);
+    
+    
 // Obtenemos el listado de todas las personas
-    $empleados = $db->listarEmpleado("");
+    $empleados = $db->listarEmpleado($filtro, $tipoFiltro);
 } catch (Exception $ex) {
     
 }
 ?>
 <div class="listado">
-    <h3>Listado de empleados</h3>
+    <div id="botonera">
+        <h3>Listado de empleados</h3>
+        <form id="nuevo" action='detalle_usuario.php' method='post' >
+            <input type='submit' value='Nuevo Empleado' alt='Nuevo Empleado' />
+            <input class='oculto' name='indice' type='text' value='0' />
+        </form>
+
+        <form id="filtro" action='index.php' method='post' >
+            <input type='submit' value='Filtrar resultados' alt='Filtrar resultados' />            
+            <select name="tipoFiltro">
+                <option <?php if($tipoFiltro === "1")echo "selected=\"selected\" " ?> value="1">Nombre</option>
+                <option <?php if($tipoFiltro === "2")echo "selected=\"selected\" " ?> value="2">Apellido</option>
+                <option <?php if($tipoFiltro === "3")echo "selected=\"selected\" " ?> value="3">Telefono</option>
+                <option <?php if($tipoFiltro === "4")echo "selected=\"selected\" " ?> value="4">Especialidad</option>
+                <option <?php if($tipoFiltro === "5")echo "selected=\"selected\" " ?> value="5">Cargo</option>
+                <option <?php if($tipoFiltro === "6")echo "selected=\"selected\" " ?> value="6">Dirección</option>
+                <option <?php if($tipoFiltro === "7")echo "selected=\"selected\" " ?> value="7">E-Mail</option>
+            </select>
+            <input id="textoFiltro" type="text" alt="Introduzca un texto para filtrar los resultados" maxlength="30" title="Filtro" name="filtro"  value="<?php echo $filtro ?>" />
+            <input class='oculto' name='indice' type='text' value='1' />
+        </form>
+
+    </div>
     <table>
         <thead>
             <tr>
@@ -36,7 +63,7 @@ try {
                 <td>Cargo</td>    
                 <td>Dirección</td>    
                 <td>E-Mail</td>
-                <td></td>
+                <td>Detalles</td>
             </tr>        
         </thead>    
         <tbody>
@@ -57,9 +84,10 @@ try {
                 echo '<td>' . $empleado->getDireccion() . '</td>';
                 echo '<td>' . $empleado->getEmail() . '</td>';
 
+
                 echo '<td>';
                 echo "<form action='detalle_usuario.php' method='post' >";
-                echo "<input type='submit' value='Detalles' alt='Detalles' />";
+                echo "<button name='button' value='Detalles' alt='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' /></button>";
                 echo "<input class='oculto' name='indice' type='text' value='" . $empleado->getId_empleado() . "' />";
                 echo "</form>";
                 echo '</td>';
@@ -69,6 +97,9 @@ try {
             }
             ?>
         </tbody>
+
+
+
 
     </table>
 </div>

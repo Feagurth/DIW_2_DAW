@@ -31,7 +31,7 @@ function validarCadenaConNumeros($dato) {
         // correspondiente a la variable de salida
         $salida = FALSE;
     }
-    
+
     // Devolvemos la variable con el resultado de la validación
     return $salida;
 }
@@ -73,4 +73,29 @@ function validarUsuario($usuario, $password) {
             throw $ex;
         }
     }
+}
+
+/**
+ * Función que nos permite crear el texto de desconexión de usuario recortando 
+ * el nombre de usuario si este es muy largo
+ * @param string $nombreUsuario La descripción del nombre del usuario
+ * @return string Una cadena que contiene la palabra desconectar seguida del 
+ * nombre de usuario entre corchetes
+ */
+function crearTextoDesconexion($nombreUsuario) {
+
+    // Almacenamos el valor del nombre del usuario para trabajar con éñ.
+    $ret = $nombreUsuario;
+
+    // Comprobamos el tamaño del nombre del usuario, si es muy largo lo 
+    // recortaremos, si no, lo dejaremos tal como está
+    if (strlen($ret) > 15) {
+        
+        // Cogemos los primeros doce caracteres del nombre del usuario y le 
+        // agregamos unos puntos suspensivos para que hagan de elipsis
+        $ret = substr($ret, 0, 12) . "...";
+    }
+
+    // Devolvemos la cadena anexándole el nombre de usuario
+    return "Desconectar (" . $ret . ")";
 }

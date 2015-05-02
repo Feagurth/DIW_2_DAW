@@ -152,16 +152,61 @@ class DB {
     }
 
     
-    public function listarEmpleado($filtro) {
+    public function listarEmpleado($cadena, $tipoFiltro) {
         // Especificamos la consulta que vamos a realizar sobre la base de datos
         $sql = "SELECT * FROM empleado";
         $orden = " ORDER BY nombre, apellido ASC";
 
-        if(is_null($filtro))
+
+        // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
+        // una condición a la sentencia sql original
+        if(($cadena !== NULL && $cadena !== "") && $tipoFiltro !== NULL)
         {
-            $sql .= " " . $filtro;
+            // Dependiendo del tipo de filtro, agregaremos a la cadena sql una 
+            // condición u otra
+            switch ($tipoFiltro) {
+                case 1:
+                {
+                    // Si se filtra por nombre
+                    $sql .= " WHERE nombre='" . $cadena . "'";
+                    break;
+                }
+                case 2:
+                {
+                    // Si se filtra por apellido
+                    $sql .= " WHERE apellido='" . $cadena . "'";
+                    break;
+                }
+                case 3:
+                {
+                    // Si se filtra por telefono
+                    $sql .= " WHERE telefono='" . $cadena . "'";
+                    break;
+                }
+                case 4:
+                {
+                    // Si se filtra por especialidad
+                    $sql .= " WHERE especialidad='" . $cadena . "'";
+                    break;
+                }
+                case 5:
+                {
+                    // Si se filtra por cargo
+                    $sql .= " WHERE cargo='" . $cadena . "'";
+                    break;
+                }
+                case 6:
+                {
+                    // Si se filtra por email
+                    $sql .= " WHERE email='" . $cadena . "'";
+                    break;
+                }                
+                default:
+                    break;
+            }            
         }
         
+        // Concatenamos el orden a la cadena sql
         $sql .= $orden;
                 
         // Llamamos la a la función protegida de la clase para realizar la consulta

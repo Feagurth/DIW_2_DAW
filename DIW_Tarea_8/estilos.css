@@ -54,7 +54,7 @@ de la página de forma general*/
 }
 
 .oculto{
-    display: none;
+    display: none !important;
 }
 
 
@@ -105,6 +105,12 @@ nav ul li {
     padding: 0 0.5vmax;
     width: 13.5vmax;
     border-right: 0.15vmax solid #fff;
+}
+
+/* Especificamos un ancho más grande para el último elemento de la lista, 
+puesto que contendrá más texto*/
+nav ul li:last-child {
+    width: 15vmax;
 }
 
 /* Cambiamos el color del elemento de la lista que esté seleccionado por el 
@@ -166,12 +172,45 @@ nav ul li form input{
 
 /* Estilos de las tablas */
 
-#cuerpo div.listado h3{
+#cuerpo div.listado div#botonera h3{
 
     font-family: 'Open Sans', sans-serif;
     font-size: 1vmax;
     margin: 0.75vmax;
+    width: 15vmax;
+    display: block;
+    float: left;
+}
 
+
+#cuerpo div.listado div#botonera form#nuevo input
+{
+    width: 15vmax;
+    display: block;
+    float: left;
+    margin: 0.75vmax;
+    font-size: 1vmax;
+    padding: 0;
+}
+
+#cuerpo div.listado div#botonera form#filtro input
+{
+    width: 15vmax;
+    display: block;
+    float: right;
+    margin: 0.75vmax;
+    font-size: 1vmax;
+    padding: 0;
+}
+
+#cuerpo div.listado div#botonera form#filtro select
+{
+    //width: 15vmax;
+    display: block;
+    float: right;
+    margin: 0.75vmax;
+    font-size: 1vmax;
+    padding: 0;
 }
 
 /* Especificamos el margen y el tamaño de la tabla, así como el tipo de borde 
@@ -201,8 +240,11 @@ así como el alineamiento del texto */
     font-weight: bold;
 }
 
-#cuerpo .listado input{
+#cuerpo .listado tbody button{
     width: 100%;
+    background-color: transparent;
+    border: 0;
+
 }
 
 

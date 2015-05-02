@@ -76,7 +76,7 @@ try {
                 </li>
                 <li>
                     <form action='login.php' method='post' >
-                        <input type='submit' value='Desconectar' alt="Desconectar la sesión" />
+                        <input type='submit' value="<?php echo crearTextoDesconexion($nombreUsuario)?>" alt="<?php echo crearTextoDesconexion($nombreUsuario)?>" />
                         <input class="oculto" name='clear' type='text' value='1' />
                     </form>                    
                 </li>                
