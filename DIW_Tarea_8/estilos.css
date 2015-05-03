@@ -323,8 +323,7 @@ clase */
 }
 
 
-div#detalle form#aceptar input,
-div#detalle form#cancelar input
+div#detalle input[type="submit"]
 {
     width: 15vmax;
     display: block;

@@ -63,9 +63,7 @@ try {
             if ($_POST['cancelar'] === "0") {
                 $_SESSION['indice'] = 1;
                 header("location:index.php");
-            }
-            else
-            {
+            } else {
                 $modo = "V";
                 $id_empleado = $_POST['cancelar'];
             }
@@ -151,50 +149,46 @@ try {
             <div id="botonera">
                 <h3>Detalle de empleados</h3>
                 <form id="modificar" action='detalle_empleado.php' method='post' >
-                    <input type='submit' tabindex="9" value='Modificar Empleado' alt='Modificar Empleado' title="Pulse para modificar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input type='submit' tabindex="8" value='Modificar Empleado' alt='Modificar Empleado' title="Pulse para modificar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='modificar' type='text' value='<?php echo $id_empleado ?>' />
                 </form>
                 <form id="eliminar" action='detalle_empleado.php' method='post' >
-                    <input type='submit' tabindex="10" value='Eliminar Empleado' alt='Eliminar Empleado' title="Pulse para eliminar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input type='submit' tabindex="9" value='Eliminar Empleado' alt='Eliminar Empleado' title="Pulse para eliminar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='eliminar' type='text' value='<?php echo $id_empleado ?>' />
                 </form>
             </div>
             <div id="detalle">
                 <form action="detalle_empleado.php" method="post">
                     <label id="lblNombre" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input tabindes="11" type="text" id="nombre" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getNombre() ?> " <?php echo deshabilitarPorModo($modo) ?> />
+                    <input tabindex="10" type="text" mame="nombre" id="nombre" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getNombre() ?> " <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblApellido" for="apellido">Apellido</label>
-                    <input tabindes="12" type="text" id="apellido" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getApellido() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <input tabindex="11" type="text" name="apellido" id="apellido" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getApellido() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblTelefono" for="telefono">Telefono </label>
-                    <input tabindes="13" type="text" id="telefono" maxlength="20" value="<?php if ($empleado !== NULL) echo $empleado->getTelefono() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <input tabindex="12" type="text" name="telefono" id="telefono" maxlength="20" value="<?php if ($empleado !== NULL) echo $empleado->getTelefono() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblEmail" for="email">E-Mail </label>
-                    <input tabindes="14" type="text" id="email" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getEmail() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <input tabindex="13" type="text" name="email" id="email" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getEmail() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <br />
                     <label id="lblEspecialidad" for="especialidad">Especialidad </label>
-                    <input tabindes="15" type="text" id="especialidad" maxlength="50" value="<?php if ($empleado !== NULL) echo $empleado->getEspecialidad() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <input tabindex="14" type="text" name="especialidad" id="especialidad" maxlength="50" value="<?php if ($empleado !== NULL) echo $empleado->getEspecialidad() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblCargo" for="cargo">Cargo </label>
-                    <input tabindes="16" type="text" id="cargo" maxlength="15" value="<?php if ($empleado !== NULL) echo $empleado->getCargo() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <input tabindex="15" type="text" name="cargo" id="cargo" maxlength="15" value="<?php if ($empleado !== NULL) echo $empleado->getCargo() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <br />
                     <label id="lblDireccion" for="direccion">Direccion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input tabindes="17" type="text" id="direccion" maxlength="75" value="<?php if ($empleado !== NULL) echo $empleado->getDireccion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <input  tabindex="16" type="text" name="direccion" id="direccion" maxlength="75" value="<?php if ($empleado !== NULL) echo $empleado->getDireccion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <br />
-                </form>
-<?php
-// Comprobamos el modo en el que está la página. Si está en 
-// modo Modificación o Adicción, creamos un botón de aceptar 
-// modificaciones y otro de cancelarlas
-if ($modo === "A" || $modo === "M") {
-    echo "<form id='aceptar' action='detalle_empleado.php' method='post' >";
-    echo "<input tabindes='18' type='submit' value='Aceptar' alt='Aceptar' title='Pulse para confirmar las modificaciones' />";
-    echo "<input class='oculto' name='aceptar' type='text' value='0' />";
-    echo "</form>";
-    echo "<form id='cancelar' action='detalle_empleado.php' method='post' >";
-    echo "<input tabindes='19' type='submit' value='Cancelar' alt='Cancelar' title='Pulse para cancelar las modificaciones' />";
-    echo "<input class='oculto' name='cancelar' type='text' value='$id_empleado' />";
-    echo "</form>";
-}
-?>
 
+                    <?php
+                    // Comprobamos el modo en el que está la página. Si está en 
+                    // modo Modificación o Adicción, creamos un botón de aceptar 
+                    // modificaciones y otro de cancelarlas
+                    if ($modo === "A" || $modo === "M") {
+                        echo "<input tabindex='17' type='submit' value='Aceptar' alt='Aceptar' title='Pulse para confirmar las modificaciones' />";
+                        echo "<input tabindes='18' type='submit' value='Cancelar' alt='Cancelar' title='Pulse para cancelar las modificaciones' />";
+                        echo "<input class='oculto' name='cancelar' type='text' value='$id_empleado' />";
+                        echo "<input class='oculto' name='modo' type='text' value='$modo' />";
+                    }
+                    ?>
+                </form>
             </div>
         </div>
     </body>
