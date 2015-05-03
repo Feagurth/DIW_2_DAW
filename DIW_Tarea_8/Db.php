@@ -274,5 +274,21 @@ class DB {
         }
     }
     
+    public function eliminarEmpleado($id_empleado) {
+        // Creamos la consulta de borrado usando el identificador del empleado
+        $sql = "DELETE FROM empleado where id_empleado = " . $id_empleado . ";";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos 0
+            return 0;
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }    
     
 }

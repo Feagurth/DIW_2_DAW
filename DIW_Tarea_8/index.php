@@ -26,6 +26,16 @@ $error = "";
 // Recupermaos el nombre de usuario
 $nombreUsuario = $_SESSION['nombreUsuario'];
 
+// Comprobamos el valor del índice almacenado en sesión, por si estamos 
+// volviendo de una eliminación
+if (isset($_SESSION['indice'])) {
+    // Si es así, asignamos el valor de sesión al post
+    $_POST['indice'] = $_SESSION['indice'];
+    
+    // Y eliminamos el valor
+    unset($_SESSION['indice']);
+}
+
 try {
     // Validamos el usuario
     validarUsuario($_SESSION['user'], $_SESSION['pass']);
@@ -83,7 +93,7 @@ try {
                 </li>
                 <li>
                     <form action='login.php' method='post' >
-                        <input type='submit' tabindex="7" value="<?php echo textoElipsis($nombreUsuario, 15) ?>" alt="<?php echo textoElipsis($nombreUsuario, 15) ?>" />
+                        <input type='submit' tabindex="7" value="<?php echo 'Desconectar (' . textoElipsis($nombreUsuario, 15) . ')' ?>" alt="<?php echo 'Desconectar (' . textoElipsis($nombreUsuario, 15) . ')' ?>" />
                         <input class="oculto" name='clear' type='text' value='1' />
                     </form>                    
                 </li>                

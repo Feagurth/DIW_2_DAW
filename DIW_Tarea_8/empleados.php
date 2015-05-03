@@ -19,9 +19,9 @@ try {
 <div class="listado">
     <div id="botonera">
         <h3>Listado de empleados</h3>
-        <form id="nuevo" action='detalle_usuario.php' method='post' >
+        <form id="nuevo" action='detalle_empleado.php' method='post' >
             <input type='submit' tabindex="8" value='Nuevo Empleado' alt='Nuevo Empleado' />
-            <input class='oculto' name='indice' type='text' value='0' />
+            <input class='oculto' name='id_empleado' type='text' value='0' />
         </form>
         <form id="filtro" action='index.php' method='post' >
             <input type='submit' tabindex="11" value='Filtrar resultados' alt='Filtrar resultados' />            
@@ -35,7 +35,7 @@ try {
                 <option <?php if ($tipoFiltro === "7") echo "selected=\"selected\" " ?> value="7">E-Mail</option>
             </select>
             <input id="textoFiltro" tabindex="9" type="text" alt="Introduzca un texto para filtrar los resultados" maxlength="30" title="Filtro" name="filtro"  value="<?php echo $filtro ?>" />
-            <input class='oculto' name='indice' type='text' value='1' />
+            <input class='oculto' name='id_empleado' type='text' value='1' />
         </form>
     </div>
     <div class="error">
@@ -87,9 +87,9 @@ try {
                     // Añadimos una última fila con un botón con imagen para 
                     // acceder a los detalles del empleado.
                     echo '<td>';
-                    echo "<form action='detalle_usuario.php' method='post' >";
-                    echo "<button name='button' value='Detalles' alt='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' /></button>";
-                    echo "<input class='oculto' name='indice' type='text' value='" . $empleado->getId_empleado() . "' />";
+                    echo "<form action='detalle_empleado.php' method='post' >";
+                    echo "<button name='button' value='Detalles' alt='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles' /></button>";
+                    echo "<input class='oculto' name='id_empleado' type='text' value='" . $empleado->getId_empleado() . "' />";
                     echo "</form>";
                     echo '</td>';
                     echo '</tr>';

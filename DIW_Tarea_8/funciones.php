@@ -90,12 +90,57 @@ function textoElipsis($texto, $cantidad) {
     // Comprobamos el tamaño del nombre del usuario, si es muy largo lo 
     // recortaremos, si no, lo dejaremos tal como está
     if (strlen($ret) > $cantidad) {
-        
+
         // Cogemos los primeros doce caracteres del nombre del usuario y le 
         // agregamos unos puntos suspensivos para que hagan de elipsis
-        $ret = substr($ret, 0, ($cantidad-3)) . "...";
+        $ret = substr($ret, 0, ($cantidad - 3)) . "...";
     }
 
     // Devolvemos la cadena anexándole el nombre de usuario
     return $ret;
+}
+
+/**
+ * Función que sirve para habilitar o deshabilitar los controles input de texto 
+ * en las páginas de detalle
+ * @param string $modo El modo en el que se encuentra la página de detalle
+ * @return string Devuelve la palabra disabled para deshabilitar el campo input 
+ * si el modo de la página es A (Alta) o M (Modificación)
+ */
+function deshabilitarPorModo($modo) {
+    
+    // Inicializamos la variable de salida
+    $salida = "";
+
+    // Comprobamos el modo
+    if ($modo !== "M" && $modo !== "A") {
+        // Modificamos la variable de salida si la condición se cumple
+        $salida = "disabled = 'disabled'";
+    }
+    
+    // Devolvemos el resultado
+    return $salida;
+}
+
+/**
+ * Función que sirve para habilitar o deshabilitar los botnes
+ * en las páginas de detalle
+ * @param string $modo El modo en el que se encuentra la página de detalle
+ * @return string Devuelve la palabra disabled y añade la clase deshabilitado al objeto 
+ * para deshabilitar el botón si el modo de la página es A (Alta) o M (Modificación)
+ */
+function deshabilitarBotonesPorModo($modo) {
+    // Inicializamos la variable de salida
+    $salida = "";
+
+    // Comprobamos el modo
+    if ($modo === "M" || $modo === "A") {
+        // Modificamos la variable de salida si la condición se cumple
+        $salida = "disabled = 'disabled' class='deshabilitado'";
+    }
+    
+    // Devolvemos el resultado
+    return $salida;
+
+    
 }

@@ -309,11 +309,27 @@ clase */
 
 #detalle input#cargo{
     margin: 0.25vmax;
-    width: 9.3vmax;
+    width: 9.5vmax;
 }
 
 #detalle input#direccion
 {
     margin: 0.25vmax;
     width: 43.5vmax;
+}
+
+#botonera input.deshabilitado{
+    background-color: darkgray;
+}
+
+
+div#detalle form#aceptar input,
+div#detalle form#cancelar input
+{
+    width: 15vmax;
+    display: block;
+    float: left;
+    margin: 0.75vmax 0.75vmax 0.75vmax 0;
+    font-size: 1vmax;
+    padding: 0;
 }
