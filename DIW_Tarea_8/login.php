@@ -47,9 +47,9 @@ try {
             $db = new DB();
 
             // Obtenemos el listado de todas las personas
-            if ($db->validarUsuario(md5($_POST['user']), md5($_POST['pass']))) {
+            if ($db->validarUsuario($_POST['user'], md5($_POST['pass']))) {
                 // Guardamos el hash del usuario y del password en sesión
-                $_SESSION['user'] = md5($_POST['user']);
+                $_SESSION['user'] = $_POST['user'];
                 $_SESSION['pass'] = md5($_POST['pass']);
                 $_SESSION['nombreUsuario'] = $nombreUsuario;
 

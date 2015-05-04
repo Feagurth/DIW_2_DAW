@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `envio_empleado` (
 
 
 INSERT INTO `usuario` (`user`, `pass`, `nombre`) VALUES
-(md5('diw'), md5('diw'), 'Usuario diw');
+('diw', md5('diw'), 'Usuario diw');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

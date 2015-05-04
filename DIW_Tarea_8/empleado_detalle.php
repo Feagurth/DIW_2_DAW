@@ -20,7 +20,7 @@ session_start();
 // Instanciamos los ficheros necesarios
 require_once './funciones.php';
 require_once './configuracion.inc.php';
-require_once './objetos/objEmpleado.php';
+require_once './objetos/Empleado.php';
 
 try {
     // Inicializamos variables
@@ -209,21 +209,21 @@ try {
         <div id="cuerpo">      
             <div id="botonera">
                 <h3>Detalle de empleados</h3>
-                <form id="modificar" action='detalle_empleado.php' method='post' >
+                <form id="modificar" action='empleado_detalle.php' method='post' >
                     <input type='submit' tabindex="8" value='Modificar Empleado' alt='Modificar Empleado' title="Pulse para modificar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='modificar' type='text' value='<?php echo $id_empleado ?>' />
                     <input class='oculto' name='modo' type='text' value='M' />
                     <input class='oculto' name='id_empleado' type='text' value='<?php echo $id_empleado ?>' />
 
                 </form>
-                <form id="eliminar" action='detalle_empleado.php' method='post' >
+                <form id="eliminar" action='empleado_detalle.php' method='post' >
                     <input type='submit' tabindex="9" value='Eliminar Empleado' alt='Eliminar Empleado' title="Pulse para eliminar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='modo' type='text' value='E' />
                     <input class='oculto' name='id_empleado' type='text' value='<?php echo $id_empleado ?>' />
                 </form>
             </div>
             <div id="detalle">
-                <form action="detalle_empleado.php" method="post">
+                <form action="empleado_detalle.php" method="post">
                     <label id="lblNombre" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <input tabindex="10" type="text" name="nombre" id="nombre" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getNombre() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblApellido" for="apellido">Apellido</label>

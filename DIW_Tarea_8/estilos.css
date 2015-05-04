@@ -319,6 +319,14 @@ clase */
     width: 43.5vmax;
 }
 
+#detalle input#user,
+#detalle input#pass
+{
+    margin: 0.25vmax;
+    width: 20vmax;
+}
+
+
 #botonera input.deshabilitado{
     background-color: darkgray;
 }

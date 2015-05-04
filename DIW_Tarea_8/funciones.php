@@ -251,3 +251,59 @@ function validarEmpleado($empleado) {
     // Devolvemos el resultado de la validación
     return $salida;
 }
+
+
+/**
+ * Función para validar datos de un usuario
+ * @param Usuario $usuario Objeto usuario
+ * @return string Cadena vacía si la validación es correcta y un mensaje de 
+ * error si no lo es
+ */
+function validardatosUsuario($usuario) {
+
+    // Inicializamos una variable de salida
+    $salida = "";
+
+    // Comprobamos si tenemos información de nombre de usuario
+    if ($usuario->getNombre()) {
+        // Validamos el nombre del usuario
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ
+        if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú]+$/", $usuario->getNombre())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La descripción del usuario contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir una descripción para el usuario.";
+    }
+
+    // Comprobamos si tenemos información de contraseña de usuario
+    if ($usuario->getPass()) {
+        // Validamos la contraseña del usuario
+        // Valida letras y números
+        if (!preg_match("/^[a-zA-Z0-9]+$/", $usuario->getPass())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La contraseña del usuario contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir una contraseña para el usuario.";
+    }
+
+    // Comprobamos si tenemos información del login del usuario
+    if ($usuario->getUser()) {
+        // Validamos la especialidad del empleado
+        // Valida letras y números con espacios en blanco
+        if (!preg_match("/^[a-zA-Z0-9]+$/", $usuario->getUser())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El login del usuario contiene caracteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un login para el usuario.";
+    }
+
+    // Devolvemos el resultado de la validación
+    return $salida;
+}

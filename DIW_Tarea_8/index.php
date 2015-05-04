@@ -85,6 +85,10 @@ try {
                             include './empleados.php';
                             break;
                         }
+                    case '6': {
+                            include './usuarios.php';
+                            break;
+                        }
                 }
             }
             ?>
