@@ -59,6 +59,7 @@ de la página de forma general*/
 
 .error
 {
+    clear: both;    
     text-align: center;   
     display: block;
     float: left;
@@ -321,7 +322,6 @@ clase */
 #botonera input.deshabilitado{
     background-color: darkgray;
 }
-
 
 div#detalle input[type="submit"]
 {

@@ -151,7 +151,14 @@ class DB {
         }
     }
 
-    public function listarEmpleado($cadena, $tipoFiltro) {
+    /**
+     * Función que nos permite recuperar los Empleados de la base de datos usando un filtro
+     * @param string $cadena Cadena por la que se va a filtrar
+     * @param int $tipoFiltro Campo por el que se va a filtrar respecto al orden de la colunas en la base de datos
+     * @return \Empleado Array de Empleados con la información de los mismos
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function listarEmpleados($cadena, $tipoFiltro) {
         // Especificamos la consulta que vamos a realizar sobre la base de datos
         $sql = "SELECT * FROM empleado";
         $orden = " ORDER BY nombre, apellido ASC";
@@ -159,55 +166,48 @@ class DB {
 
         // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
         // una condición a la sentencia sql original
-        if(($cadena !== NULL && $cadena !== "") && $tipoFiltro !== NULL)
-        {
+        if (($cadena !== NULL && $cadena !== "") && $tipoFiltro !== NULL) {
             // Dependiendo del tipo de filtro, agregaremos a la cadena sql una 
             // condición u otra
             switch ($tipoFiltro) {
-                case 1:
-                {
-                    // Si se filtra por nombre
-                    $sql .= " WHERE nombre='" . $cadena . "'";
-                    break;
-                }
-                case 2:
-                {
-                    // Si se filtra por apellido
-                    $sql .= " WHERE apellido='" . $cadena . "'";
-                    break;
-                }
-                case 3:
-                {
-                    // Si se filtra por telefono
-                    $sql .= " WHERE telefono='" . $cadena . "'";
-                    break;
-                }
-                case 4:
-                {
-                    // Si se filtra por especialidad
-                    $sql .= " WHERE especialidad='" . $cadena . "'";
-                    break;
-                }
-                case 5:
-                {
-                    // Si se filtra por cargo
-                    $sql .= " WHERE cargo='" . $cadena . "'";
-                    break;
-                }
-                case 6:
-                {
-                    // Si se filtra por email
-                    $sql .= " WHERE email='" . $cadena . "'";
-                    break;
-                }                
+                case 1: {
+                        // Si se filtra por nombre
+                        $sql .= " WHERE nombre='" . $cadena . "'";
+                        break;
+                    }
+                case 2: {
+                        // Si se filtra por apellido
+                        $sql .= " WHERE apellido='" . $cadena . "'";
+                        break;
+                    }
+                case 3: {
+                        // Si se filtra por telefono
+                        $sql .= " WHERE telefono='" . $cadena . "'";
+                        break;
+                    }
+                case 4: {
+                        // Si se filtra por especialidad
+                        $sql .= " WHERE especialidad='" . $cadena . "'";
+                        break;
+                    }
+                case 5: {
+                        // Si se filtra por cargo
+                        $sql .= " WHERE cargo='" . $cadena . "'";
+                        break;
+                    }
+                case 6: {
+                        // Si se filtra por email
+                        $sql .= " WHERE email='" . $cadena . "'";
+                        break;
+                    }
                 default:
                     break;
-            }            
+            }
         }
-        
+
         // Concatenamos el orden a la cadena sql
         $sql .= $orden;
-                
+
         // Llamamos la a la función protegida de la clase para realizar la consulta
         $resultado = $this->ejecutaConsulta($sql);
 
@@ -238,11 +238,10 @@ class DB {
         }
     }
 
-    
     public function recuperarEmpleado($id_empleado) {
         // Especificamos la consulta que vamos a realizar sobre la base de datos
         $sql = "SELECT * FROM empleado WHERE id_empleado= '" . $id_empleado . "'";
-        
+
 
         // Llamamos la a la función protegida de la clase para realizar la consulta
         $resultado = $this->ejecutaConsulta($sql);
@@ -273,7 +272,7 @@ class DB {
             throw new Exception();
         }
     }
-    
+
     public function eliminarEmpleado($id_empleado) {
         // Creamos la consulta de borrado usando el identificador del empleado
         $sql = "DELETE FROM empleado where id_empleado = " . $id_empleado . ";";
@@ -289,6 +288,73 @@ class DB {
             // En caso contrario, lanzamos una excepción
             throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
         }
-    }    
-    
+    }
+
+    /**
+     * Función que nos permite insertar los datos de un empleado en la base de datos
+     * @param Empleado $empleado Objeto Empleado que contiene los datos a almacenar
+     * @return int 0 si es correcto
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function insertarEmpleado(Empleado $empleado) {
+        
+        xdebug_break();
+        
+        // Creamos la consulta de insercción usando los valores del objeto 
+        // Persona
+        $sql = "INSERT INTO EMPLEADO VALUES (0, "
+                . "'" . $empleado->getNombre() . "' , "
+                . "'" . $empleado->getApellido() . "', "
+                . "'" . $empleado->getTelefono() . "', "
+                . "'" . $empleado->getEspecialidad() . "', "
+                . "'" . $empleado->getCargo() . "', "
+                . "'" . $empleado->getDireccion() . "', "
+                . "'" . $empleado->getEmail() . "');";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+      
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos el id del empleado creado
+            return $this->diw->lastInsertId('EMPLEADO');
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
+
+    /**
+     * Función que nos permite modificar los datos de un empleado en la base de datos
+     * @param Empleado $empleado Objeto Empleado que contiene los datos a almacenar
+     * @return int 0 si es correcto
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function modificarEmpleado(Empleado $empleado) {
+
+        // Creamos la consulta de actualiazción usando los valores del objeto 
+        // Persona
+        $sql = "UPDATE EMPLEADO SET "
+                . "nombre='" . $empleado->getNombre() . "' , "
+                . "apellido='" . $empleado->getApellido() . "' , "
+                . "telefono='" . $empleado->getTelefono() . "' , "
+                . "especialidad='" . $empleado->getEspecialidad() . "' , "
+                . "cargo='" . $empleado->getCargo() . "' , "
+                . "direccion='" . $empleado->getDireccion() . "' , "
+                . "email='" . $empleado->getEmail() . "' WHERE id_empleado=" .
+                $empleado->getId_empleado() . ";";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos 0
+            return 0;
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
+
 }

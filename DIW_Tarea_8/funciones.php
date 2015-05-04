@@ -108,7 +108,7 @@ function textoElipsis($texto, $cantidad) {
  * si el modo de la página es A (Alta) o M (Modificación)
  */
 function deshabilitarPorModo($modo) {
-    
+
     // Inicializamos la variable de salida
     $salida = "";
 
@@ -117,7 +117,7 @@ function deshabilitarPorModo($modo) {
         // Modificamos la variable de salida si la condición se cumple
         $salida = "disabled = 'disabled'";
     }
-    
+
     // Devolvemos el resultado
     return $salida;
 }
@@ -138,9 +138,116 @@ function deshabilitarBotonesPorModo($modo) {
         // Modificamos la variable de salida si la condición se cumple
         $salida = "disabled = 'disabled' class='deshabilitado'";
     }
-    
+
     // Devolvemos el resultado
     return $salida;
+}
 
-    
+/**
+ * Función para validar datos de un empleado
+ * @param Empleado $empleado Objeto empleado
+ * @return string Cadena vacía si la validación es correcta y un mensaje de 
+ * error si no lo es
+ */
+function validarEmpleado($empleado) {
+
+    // Inicializamos una variable de salida
+    $salida = "";
+
+    // Comprobamos si tenemos información de dirección de usuario
+    if ($empleado->getDireccion()) {
+        // Validamos la dirección del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ, puntos y comas y los símbolos ºª
+        if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú.,ºª]+$/", $empleado->getDireccion())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La dirección del empleado contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir una dirección para el empleado.";
+    }
+
+    // Comprobamos si tenemos información de cargo de usuario
+    if ($empleado->getCargo()) {
+        // Validamos el cargo del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        if (!preg_match("/^[a-zA-ZñÑ áéíóú]+$/", $empleado->getCargo())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El cargo del empleado contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un cargo para el empleado.";
+    }
+
+
+    // Comprobamos si tenemos información de especialidad de usuario
+    if ($empleado->getEspecialidad()) {
+        // Validamos la especialidad del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        if (!preg_match("/^[a-zA-ZñÑ áéíóú]+$/", $empleado->getEspecialidad())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La especialidad del empleado contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir una especialidad para el empleado.";
+    }
+
+    // Comprobamos si tenemos información de email de usuario
+    if ($empleado->getEmail()) {
+        // Validamos el email del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        if (!preg_match("/^(((([a-zA-Z\d][\.\-\+_]?)*)[a-zA-Z0-9])+)\@(((([a-zA-Z\d][\.\-_]?){0,62})[a-z\d])+)\.([a-zA-Z\d]{2,6})$/", $empleado->getEmail())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El E-Mail del empleado contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un E-Mail para el empleado.";
+    }
+
+
+    // Comprobamos si tenemos información de telefono de usuario
+    if ($empleado->getTelefono()) {
+        // Validamos el teléfono.
+        // Valida los patrones  +34 [9|6|7]XX XX XX XX [9|6|7]XX XX XX XX [9|6|7]XX XX XX XX [9|6|7]XX-XX-XX-XX [9|6|7]XXXXXXXX
+        if (!preg_match("/^((\+?34([ \t|\-])?)?[9|6|7]((\d{1}([ \t|\-])?[0-9]{3})|(\d{2}([ \t|\-])?[0-9]{2}))([ \t|\-])?[0-9]{2}([ \t|\-])?[0-9]{2})$/", $empleado->getTelefono())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El teléfono del empleado contiene carecteres inválidos o no tiene el formato correcto.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un telefono para el empleado.";
+    }
+
+    // Comprobamos si tenemos información de apellido de usuario
+    if ($empleado->getApellido()) {
+        // Validamos el apellido del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        if (!preg_match("/^[a-zA-ZñÑ áéíóú]+$/", $empleado->getApellido())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El apellido del empleado contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida        
+        $salida = "Debe introducir un apellido para el empleado.";
+    }
+
+    // Comprobamos si tenemos información de nombre de usuario
+    if ($empleado->getNombre()) {
+        // Validamos el nombre del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        if (!preg_match("/^[a-zA-ZñÑ áéíóú]+$/", $empleado->getNombre())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El nombre del empleado contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un nombre para el empleado.";
+    }
+
+    // Devolvemos el resultado de la validación
+    return $salida;
 }
