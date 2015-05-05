@@ -14,10 +14,10 @@ USE `diw`;
 
 
 /**
-* Tabla correo
+* Tabla email
 **/
-CREATE TABLE IF NOT EXISTS `correo` (
-    `id_correo` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS `email` (
+    `id_email` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `usuario` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
     `pass` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
     `servidor` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
@@ -81,9 +81,9 @@ CREATE TABLE IF NOT EXISTS `empleado` (
 CREATE TABLE IF NOT EXISTS `envio` (
     `id_envio` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `fecha_envio` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-	`id_correo` int NOT NULL,
+	`id_email` int NOT NULL,
 	`id_fichero` int NOT NULL,
-	FOREIGN KEY (id_correo) REFERENCES correo(id_correo),
+	FOREIGN KEY (id_email) REFERENCES email(id_email),
 	FOREIGN KEY (id_fichero) REFERENCES fichero(id_fichero)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_spanish_ci;
 

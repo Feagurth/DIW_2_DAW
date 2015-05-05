@@ -20,7 +20,7 @@ session_start();
 // Instanciamos los ficheros necesarios
 require_once './funciones.php';
 require_once './configuracion.inc.php';
-require_once './objetos/Empleado.php';
+require_once './objetos/Email.php';
 
 try {
     // Inicializamos variables
@@ -29,13 +29,13 @@ try {
     // Recupermaos el nombre de usuario
     $nombreUsuario = $_SESSION['nombreUsuario'];
 
-    // Creamos un objeto Empleado
-    $empleado = new Empleado(array("id_empleado" => "", "nombre" => "", "apellido" => "", "telefono" => "", "especialidad" => "", "cargo" => "", "direccion" => "", "email" => ""));
+    // Creamos un objeto Email
+    $email = new Email(array("id_email" => "", "usuario" => "", "pass" => "", "servidor" => "", "puerto" => "", "seguridad" => "", "descripcion" => ""));
 
     // Recuperamos los valores del modo de visión de la página y 
-    // del id_empleado que hemos pasado
+    // del id_email que hemos pasado
     $modo = $_POST['modo'];
-    $id_empleado = $_POST['id_empleado'];
+    $id_email = $_POST['id_email'];
 
     // Validamos el usuario
     validarUsuario($_SESSION['user'], $_SESSION['pass']);
@@ -47,9 +47,9 @@ try {
     switch ($modo) {
         // Si la página está en modo visualización
         case "V": {
-                // Recuperamos la información sobre el empleado pasándo 
+                // Recuperamos la información sobre el email pasándo 
                 // su id como parámetro
-                $empleado = $db->recuperarEmpleado($id_empleado)[0];
+                $email = $db->recuperarEmail($id_email)[0];
 
                 break;
             }
@@ -59,10 +59,10 @@ try {
                 // de los botones de confirmanción o de cancelación pulsados.
                 // Verificamos si la información del botón es la de cancelar.
                 if (isset($_POST['boton']) && $_POST['boton'] === "Cancelar") {
-                    // Si cancelamos el añadir un empleado, pasamos a sesión el 
+                    // Si cancelamos el añadir un email, pasamos a sesión el 
                     // indice como valor para la página index.php para que cargue 
-                    // la plantilla de empleados
-                    $_SESSION['indice'] = 1;
+                    // la plantilla de emails
+                    $_SESSION['indice'] = 5;
 
                     // Navegamos a la pagina index.php
                     header("location:index.php");
@@ -72,27 +72,26 @@ try {
                 if (isset($_POST['boton']) && $_POST['boton'] === "Aceptar") {
                     // Si es así, asignamos la informacón introducida en los inputs 
                     // y que se encuentra en post
-                    $empleado->setId_empleado($id_empleado);
-                    $empleado->setNombre($_POST['nombre']);
-                    $empleado->setApellido($_POST['apellido']);
-                    $empleado->setTelefono($_POST['telefono']);
-                    $empleado->setEspecialidad($_POST['especialidad']);
-                    $empleado->setCargo($_POST['cargo']);
-                    $empleado->setDireccion($_POST['direccion']);
-                    $empleado->setEmail($_POST['email']);
+                    $email->setId_email($id_email);
+                    $email->setUsuario($_POST['usuario']);
+                    $email->setPass($_POST['pass']);
+                    $email->setServidor($_POST['servidor']);
+                    $email->setPuerto($_POST['puerto']);
+                    $email->setSeguridad($_POST['seguridad']);                    
+                    $email->setDescripcion($_POST['descripcion']);
 
                     // Validamos los datos introducidos
-                    $validacion = validarDatosEmpleado($empleado);
+                    $validacion = validardatosEmail($email);
 
                     // Comprobamos si hay mensaje de error en la validación
                     if ($validacion === "") {
 
                         // Si no lo hay, realizamos la insercción pasándo como 
-                        // parámetro el objeto Empleado, dejando la gestión de 
+                        // parámetro el objeto Email, dejando la gestión de 
                         // errores de la insercción a las excepciones que se 
                         // puedan lanzar. El id resultante de la insercción, lo 
-                        // asignamos a la variable $id_empleado
-                        $id_empleado = $db->insertarEmpleado($empleado);
+                        // asignamos a la variable $id_email
+                        $id_email= $db->insertarEmail($email);
 
                         // Cambiamos el modo a visor
                         $modo = "V";
@@ -109,14 +108,14 @@ try {
         // Si es una eliminación
         case "E": {
 
-                // Eliminamos el empleado usando la función adecuada y 
+                // Eliminamos el email usando la función adecuada y 
                 // pasándo su id como paráemtro
-                $db->eliminarEmpleado($id_empleado);
+                $db->eliminarEmail($id_email);
 
-                // Tras borrar el empleado volvemos a la pantalla index.php y para 
+                // Tras borrar el email volvemos a la pantalla index.php y para 
                 // eso pasamos a sesión el indice como valor para la página 
-                // index.php para que cargue la plantilla de empleados                
-                $_SESSION['indice'] = 1;
+                // index.php para que cargue la plantilla de emails                
+                $_SESSION['indice'] = 5;
 
                 // Navegamos a index.php
                 header("location:index.php");
@@ -133,9 +132,9 @@ try {
                     if ($_POST['boton'] === "Cancelar") {
 
                         // De ser así, recuperamos los datos origianles del 
-                        // empleado, para que se sobreescriban sobre cualquier 
+                        // email, para que se sobreescriban sobre cualquier 
                         // moficación que haya podido hacer el usuario
-                        $empleado = $db->recuperarEmpleado($id_empleado)[0];
+                        $email = $db->recuperarEmail($id_email)[0];
 
                         // Cambiamos el modo de la página a visualización
                         $modo = "V";
@@ -145,27 +144,26 @@ try {
                     if ($_POST['boton'] === "Aceptar") {
                         // Asignamos la informacón introducida en los inputs 
                         // y que se encuentra en post
-                        $empleado->setId_empleado($id_empleado);
-                        $empleado->setNombre($_POST['nombre']);
-                        $empleado->setApellido($_POST['apellido']);
-                        $empleado->setTelefono($_POST['telefono']);
-                        $empleado->setEspecialidad($_POST['especialidad']);
-                        $empleado->setCargo($_POST['cargo']);
-                        $empleado->setDireccion($_POST['direccion']);
-                        $empleado->setEmail($_POST['email']);
+                    $email->setId_email($id_email);
+                    $email->setUsuario($_POST['usuario']);
+                    $email->setPass($_POST['pass']);
+                    $email->setServidor($_POST['servidor']);
+                    $email->setPuerto($_POST['puerto']);
+                    $email->setSeguridad($_POST['seguridad']);                    
+                    $email->setDescripcion($_POST['descripcion']);
 
                         // Realizamos la validación de los datos
-                        $validacion = validarDatosEmpleado($empleado);
+                        $validacion = validardatosEmail($email);
 
                         // Comprobamos si la validación ha generado algún 
                         // mensaje de error
                         if ($validacion === "") {
 
                             // Si no hay mensaje de error, realizamos la modificación 
-                            // pasándo como parámetro el objeto  Empleado, dejando 
+                            // pasándo como parámetro el objeto  Email, dejando 
                             // la gestión de errores de la modificación a las excepciones 
                             // que se puedan lanzar
-                            $db->modificarEmpleado($empleado);
+                            $db->modificarEmail($email);
 
                             // Cambiamos el modo a visor
                             $modo = "V";
@@ -177,8 +175,8 @@ try {
                     }
                 } else {
                     // Si no se ha pulsado ningún botón nos limitamos a 
-                    // recuperar los datos del empleado y mostarselos al usuario
-                    $empleado = $db->recuperarEmpleado($id_empleado)[0];
+                    // recuperar los datos del email y mostarselos al usuario
+                    $email = $db->recuperarEmail($id_email)[0];
                 }
                 break;
             }
@@ -195,7 +193,7 @@ try {
 
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Detalle Empleado</title>
+        <title>Detalle E-Mail</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link type = "text/css" rel = "stylesheet" href = "./estilos.css"/>
     </head>
@@ -208,44 +206,41 @@ try {
         </div>
         <div id="cuerpo">      
             <div id="botonera">
-                <h3>Detalle de empleados</h3>
-                <form id="añadir" action='empleado_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Añadir Empleado' alt='Añadir Empleado' title="Pulse para anañadir un nuevo empleado"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                <h3>Detalle de E-Mail</h3>
+                <form id="añadir" action='email_detalle.php' method='post' >
+                    <input type='submit' tabindex="8" value='Añadir E-Mail' alt='Añadir E-Mail' title="Pulse para anañadir un nuevo E-mail"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='añadir' type='text' value='0' />
                     <input class='oculto' name='modo' type='text' value='A' />
-                    <input class='oculto' name='id_empleado' type='text' value='0' />
+                    <input class='oculto' name='id_email' type='text' value='0' />
                 </form>
                 
-                <form id="modificar" action='empleado_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Modificar Empleado' alt='Modificar Empleado' title="Pulse para modificar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modificar' type='text' value='<?php echo $id_empleado ?>' />
+                <form id="modificar" action='email_detalle.php' method='post' >
+                    <input type='submit' tabindex="8" value='Modificar E-Mail' alt='Modificar E-Mail' title="Pulse para modificar el E-Mail actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modificar' type='text' value='<?php echo $id_email ?>' />
                     <input class='oculto' name='modo' type='text' value='M' />
-                    <input class='oculto' name='id_empleado' type='text' value='<?php echo $id_empleado ?>' />
+                    <input class='oculto' name='id_email' type='text' value='<?php echo $id_email ?>' />
                 </form>
-                <form id="eliminar" action='empleado_detalle.php' method='post' >
-                    <input type='submit' tabindex="9" value='Eliminar Empleado' alt='Eliminar Empleado' title="Pulse para eliminar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                <form id="eliminar" action='email_detalle.php' method='post' >
+                    <input type='submit' tabindex="9" value='Eliminar E-Mail' alt='Eliminar E-Mail' title="Pulse para eliminar el E-Mail actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='modo' type='text' value='E' />
-                    <input class='oculto' name='id_empleado' type='text' value='<?php echo $id_empleado ?>' />
+                    <input class='oculto' name='id_email' type='text' value='<?php echo $id_email ?>' />
                 </form>
             </div>
             <div id="detalle">
-                <form action="empleado_detalle.php" method="post">
-                    <label id="lblNombre" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input tabindex="10" type="text" name="nombre" id="nombre" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getNombre() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <label id="lblApellido" for="apellido">Apellido</label>
-                    <input tabindex="11" type="text" name="apellido" id="apellido" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getApellido() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <label id="lblTelefono" for="telefono">Telefono </label>
-                    <input tabindex="12" type="text" name="telefono" id="telefono" maxlength="20" value="<?php if ($empleado !== NULL) echo $empleado->getTelefono() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <label id="lblEmail" for="email">E-Mail </label>
-                    <input tabindex="13" type="text" name="email" id="email" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getEmail() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                <form action="email_detalle.php" method="post">
+                    <label id="lblUsuario" for="usuario">Usuario&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input tabindex="10" title="Introduzca el usuario del servidor de E-Mail" type="text" name="usuario" id="usuario" maxlength="32" value="<?php if ($email !== NULL) echo $email->getUsuario() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <label id="lblPass" for="pass">Contraseña</label>
+                    <input tabindex="11" title = "Introduzca la contraseña del servidor de E-Mail" type="password" name="pass" id="pass" maxlength="32" value="<?php if ($email !== NULL) echo $email->getPass() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <label id="lblServidor" for="servidor">Servidor</label>
+                    <input tabindex="12" title="Introduzca un servidor de salida SMTP" type="text" name="servidor" id="servidor" maxlength="30" value="<?php if ($email !== NULL) echo $email->getServidor() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <label id="lblPuerto" for="puerto">Puerto</label>
+                    <input tabindex="13" title="Introduzca el puerto del servidor de E-Mail" type="text" name="puerto" id="puerto" maxlength="5" value="<?php if ($email !== NULL) echo $email->getPuerto() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <br />
-                    <label id="lblEspecialidad" for="especialidad">Especialidad </label>
-                    <input tabindex="14" type="text" name="especialidad" id="especialidad" maxlength="50" value="<?php if ($empleado !== NULL) echo $empleado->getEspecialidad() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <label id="lblCargo" for="cargo">Cargo </label>
-                    <input tabindex="15" type="text" name="cargo" id="cargo" maxlength="15" value="<?php if ($empleado !== NULL) echo $empleado->getCargo() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <br />
-                    <label id="lblDireccion" for="direccion">Direccion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input  tabindex="16" type="text" name="direccion" id="direccion" maxlength="75" value="<?php if ($empleado !== NULL) echo $empleado->getDireccion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <label id="lblSeguridad" for="seguridad">Seguridad</label>
+                    <input tabindex="14" title="Introduzca el tipo de seguridad del servidor de E-Mail" type="text" name="seguridad" id="seguridad" maxlength="10" value="<?php if ($email !== NULL) echo $email->getSeguridad() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <label id="lblDescripcion" for="descripcion">Descripcion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input  tabindex="15" title="Introduzca una descripción para el servidor de E-Mail" type="text" name="descripcion" id="descripcion" maxlength="55" value="<?php if ($email !== NULL) echo $email->getDescripcion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <br />
 
                     <?php
@@ -260,8 +255,8 @@ try {
                         // Creamos el botón de cancelar
                         echo "<input tabindes='18' name='boton' id='cancelar 'type='submit' value='Cancelar' alt='Cancelar' title='Pulse para cancelar las modificaciones' />";
 
-                        // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del empleado
-                        echo "<input class='oculto' name='id_empleado' type='text' value='$id_empleado' />";
+                        // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del email
+                        echo "<input class='oculto' name='id_email' type='text' value='$id_email' />";
                         echo "<input class='oculto' name='modo' type='text' value='$modo' />";
                     }
                     ?>      

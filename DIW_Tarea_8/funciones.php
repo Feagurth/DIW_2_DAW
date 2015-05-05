@@ -149,7 +149,7 @@ function deshabilitarBotonesPorModo($modo) {
  * @return string Cadena vacía si la validación es correcta y un mensaje de 
  * error si no lo es
  */
-function validarEmpleado($empleado) {
+function validarDatosEmpleado($empleado) {
 
     // Inicializamos una variable de salida
     $salida = "";
@@ -304,6 +304,99 @@ function validardatosUsuario($usuario) {
         $salida = "Debe introducir un login para el usuario.";
     }
 
+    // Devolvemos el resultado de la validación
+    return $salida;
+}
+
+/**
+ * Función para validar datos de un usuario
+ * @param Email $email Objeto Email
+ * @return string Cadena vacía si la validación es correcta y un mensaje de 
+ * error si no lo es
+ */
+function validardatosEmail($email) {
+
+    // Inicializamos una variable de salida
+    $salida = "";
+
+    // Comprobamos si tenemos información del usuairo del email
+    if ($email->getUsuario()) {
+        // Validamos el usuario del email
+        // Valida letras y números, el punto y la arroba, sin espacios en blanco
+        if (!preg_match("/^[a-zA-Z0-9@.]+$/", $email->getUsuario())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La usuario del E-Mail contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un usuario para el E-Mail.";
+    }
+
+    // Comprobamos si tenemos información de contraseña de email
+    if ($email->getPass()) {
+        // Validamos la contraseña del email
+        // Valida letras y números
+        if (!preg_match("/^[a-zA-Z0-9]+$/", $email->getPass())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La contraseña del E-MAil contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir una contraseña para el E-Mail.";
+    }
+
+    // Comprobamos si tenemos información del servidor del email
+    if ($email->getServidor()) {
+        // Validamos el servidor del email
+        // Valida letras, números, el punto y el guión
+        if (!preg_match("/^[a-zA-Z0-9.-]+$/", $email->getServidor())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El servidor de salida del E-Mail contiene caracteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un servidor de salida para el E-Mail.";
+    }
+    
+    // Comprobamos si tenemos información del puerto del email
+    if ($email->getPuerto()) {
+        // Validamos el puerto del email
+        // Valida solo números
+        if (!preg_match("/^[0-9]+$/", $email->getPuerto())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El puerto del E-Mail contiene caracteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un puerto para el E-Mail.";
+    }    
+
+    // Comprobamos si tenemos información del tipo de seguridad del email
+    if ($email->getSeguridad()) {
+        // Validamos el tipo de seguridad del email
+        // Valida solo letras
+        if (!preg_match("/^[a-zA-Z]+$/", $email->getSeguridad())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El tipo de seguridad del E-Mail contiene caracteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un tipo de seguridad para el E-Mail.";
+    }        
+
+    // Comprobamos si tenemos información de la descripción del email
+    if ($email->getDescripcion()) {
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ
+        if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú]+$/", $email->getDescripcion())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La descripción del E-Mail contiene caracteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir una descripción para el E-Mail.";
+    }            
+    
     // Devolvemos el resultado de la validación
     return $salida;
 }

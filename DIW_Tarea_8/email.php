@@ -10,7 +10,7 @@ try {
     // Creamos un nuevo objeto de acceso a base de datos
     $db = new DB();
     
-    // Obtenemos el listado de usuarios pasándole los valores de filtro
+    // Obtenemos el listado de emails pasándole los valores de filtro
     $emails = $db->listarEmails($filtro, $tipoFiltro);
 } catch (Exception $ex) {
     $error = $ex->getMessage();
@@ -74,20 +74,20 @@ try {
                     }
 
                     // Imprimimos celda con los valores recuperados de cada objeto 
-                    // usuario que hay en los registros recuperados
+                    // email que hay en los registros recuperados
                     echo '<td title="'. $email->getUsuario() .'">' . textoElipsis($email->getUsuario(),32) . '</td>';
-                    echo '<td title="'. $email->getPass() .'">' . textoElipsis($usuario->getPass(),32) . '</td>';
-                    echo '<td title="'. $email->getServidor() .'">' . textoElipsis($usuario->getServidor(),30) . '</td>';
-                    echo '<td title="'. $email->getPuerto() .'">' . textoElipsis($usuario->getPuerto(),11) . '</td>';
-                    echo '<td title="'. $email->getSeguridad() .'">' . textoElipsis($usuario->getSeguridad(),10) . '</td>';
-                    echo '<td title="'. $email->getDescripcion() .'">' . textoElipsis($usuario->getDescripcion(),50) . '</td>';
+                    echo '<td title="'. $email->getPass() .'">' . textoElipsis($email->getPass(),32) . '</td>';
+                    echo '<td title="'. $email->getServidor() .'">' . textoElipsis($email->getServidor(),30) . '</td>';
+                    echo '<td title="'. $email->getPuerto() .'">' . textoElipsis($email->getPuerto(),11) . '</td>';
+                    echo '<td title="'. $email->getSeguridad() .'">' . textoElipsis($email->getSeguridad(),10) . '</td>';
+                    echo '<td title="'. $email->getDescripcion() .'">' . textoElipsis($email->getDescripcion(),50) . '</td>';
 
                     // Añadimos una última fila con un botón con imagen para 
-                    // acceder a los detalles del usuario.
+                    // acceder a los detalles del email.
                     echo '<td>';
                     echo "<form action='email_detalle.php' method='post' >";
                     echo "<button name='button' value='Detalles' alt='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles' /></button>";
-                    echo "<input class='oculto' name='id_email' type='text' value='" . $usuario->getId_email() . "' />";
+                    echo "<input class='oculto' name='id_email' type='text' value='" . $email->getId_email() . "' />";
                     echo "<input class='oculto' name='modo' type='text' value='V' />";
                     echo "</form>";
                     echo '</td>';

@@ -27,7 +27,7 @@ class Email {
      * Identificador de la cuenta correo
      * @var int
      */
-    private $id_correo;
+    private $id_email;
 
     /**
      * Nombre de usuario de cuenta de correo
@@ -70,7 +70,7 @@ class Email {
      * @param array $row Array con los datos de email
      */
     public function __construct($row) {
-        $this->id_correo = $row['id_correo'];
+        $this->id_email = $row['id_email'];
         $this->usuario = $row['usuario'];
         $this->pass = $row['pass'];
         $this->servidor = $row['servidor'];
@@ -83,8 +83,8 @@ class Email {
      * Función para recuperar el identificador de la cuenta de correo
      * @return int El identificador de la cuenta de correo
      */
-    public function getId_correo() {
-        return $this->id_correo;
+    public function getId_email() {
+        return $this->id_email;
     }
 
     /**
@@ -137,10 +137,10 @@ class Email {
 
     /**
      * Función para asignar el identificador de la cuenta de correo
-     * @param int $id_correo El identificador del correo
+     * @param int $id_email El identificador del correo
      */
-    public function setId_correo($id_correo) {
-        $this->id_correo = $id_correo;
+    public function setId_email($id_email) {
+        $this->id_email = $id_email;
     }
 
     /**
@@ -171,7 +171,7 @@ class Email {
      * Función para asignar el puerto de la cuenta de correo
      * @param int $puerto El puerto de la cuenta de correo
      */
-    public function setPuerto(strng $puerto) {
+    public function setPuerto($puerto) {
         $this->puerto = $puerto;
     }
 
@@ -187,7 +187,7 @@ class Email {
      * Función para asignar la descripción de la cuenta de correo
      * @param string $descripcion La descripción de la cuenta de correo
      */
-    public function setDescripcion(type $descripcion) {
+    public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
     }
 

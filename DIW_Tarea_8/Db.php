@@ -586,7 +586,7 @@ class DB {
      */
     public function listarEmails($cadena, $tipoFiltro) {
         // Especificamos la consulta que vamos a realizar sobre la base de datos
-        $sql = "SELECT * FROM correo";
+        $sql = "SELECT * FROM email";
         $orden = " ORDER BY descripcion ASC";
 
         // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
@@ -662,6 +662,133 @@ class DB {
             throw new Exception();
         }
     }
+    
+    /**
+     * Función que nos permite recuperar un email a partir de su identificador
+     * @param int $id_email Identificador del email a recuperar
+     * @return \Email Datos del email en un objeto Email
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function recuperarEmail($id_email) {
+        // Especificamos la consulta que vamos a realizar sobre la base de datos
+        $sql = "SELECT * FROM email WHERE id_email= '" . $id_email . "'";
+
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar el resultado
+            $datos = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch();
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $datos[] = new Email($row);
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch();
+            }
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
+        }
+    }
+
+    /**
+     * Función que nos permite eliminar un email
+     * @param int $id_email Identificador del email a eliminar
+     * @return int 0 Si es todo correcto, cualquier otro número si hay un error
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function eliminarEmail($id_email) {
+        // Creamos la consulta de borrado usando el identificador del email
+        $sql = "DELETE FROM email where id_email = " . $id_email . ";";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos 0
+            return 0;
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
+
+    /**
+     * Función que nos permite insertar los datos de un email en la base de datos
+     * @param Email $email Objeto Email que contiene los datos a almacenar
+     * @return int El id del email insertado
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function insertarEmail(Email $email) {
+
+        // Creamos la consulta de insercción usando los valores del objeto 
+        // Persona
+        $sql = "INSERT INTO EMAIL VALUES (0, "
+                . "'" . $email->getUsuario() . "' , "
+                . "'" . $email->getPass() . "', "
+                . "'" . $email->getServidor() . "', "
+                . "'" . $email->getPuerto() . "', "
+                . "'" . $email->getSeguridad() . "', "
+                . "'" . $email->getDescripcion() . "');";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos el id del email creado
+            return $this->diw->lastInsertId('EMAIL');
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
+
+    /**
+     * Función que nos permite modificar los datos de un email en la base de datos
+     * @param Email $email Objeto Email que contiene los datos a almacenar
+     * @return int 0 si es correcto
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function modificarEmail(Email $email) {
+
+        // Creamos la consulta de actualiazción usando los valores del objeto 
+        // Persona
+        $sql = "UPDATE EMAIL SET "
+                . "usuario='" . $email->getUsuario() . "' , "
+                . "pass='" . $email->getPass() . "' , "
+                . "servidor='" . $email->getServidor() . "' , "
+                . "puerto='" . $email->getPuerto() . "' , "
+                . "seguridad='" . $email->getSeguridad() . "' , "
+                . "descripcion='" . $email->getDescripcion() . "' WHERE id_email=" .
+                $email->getId_email() . ";";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos 0
+            return 0;
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }    
 
 // </editor-fold>
 }
