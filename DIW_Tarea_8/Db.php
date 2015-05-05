@@ -173,7 +173,6 @@ class DB {
         $sql = "SELECT * FROM usuario";
         $orden = " ORDER BY nombre ASC";
 
-
         // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
         // una condición a la sentencia sql original
         if (($cadena !== NULL && $cadena !== "") && $tipoFiltro !== NULL) {
@@ -182,17 +181,17 @@ class DB {
             switch ($tipoFiltro) {
                 case 1: {
                         // Si se filtra por nombre
-                        $sql .= " WHERE user='" . $cadena . "'";
+                        $sql .= " WHERE user LIKE '" . $cadena . "%'";
                         break;
                     }
                 case 2: {
                         // Si se filtra por apellido
-                        $sql .= " WHERE pass='" . $cadena . "'";
+                        $sql .= " WHERE pass LIKE '" . $cadena . "%'";
                         break;
                     }
                 case 3: {
                         // Si se filtra por telefono
-                        $sql .= " WHERE nombre='" . $cadena . "'";
+                        $sql .= " WHERE nombre LIKE '" . $cadena . "%'";
                         break;
                     }
                 default:
@@ -379,32 +378,32 @@ class DB {
             switch ($tipoFiltro) {
                 case 1: {
                         // Si se filtra por nombre
-                        $sql .= " WHERE nombre='" . $cadena . "'";
+                        $sql .= " WHERE nombre LIKE '" . $cadena . "%'";
                         break;
                     }
                 case 2: {
                         // Si se filtra por apellido
-                        $sql .= " WHERE apellido='" . $cadena . "'";
+                        $sql .= " WHERE apellido LIKE '" . $cadena . "%'";
                         break;
                     }
                 case 3: {
                         // Si se filtra por telefono
-                        $sql .= " WHERE telefono='" . $cadena . "'";
+                        $sql .= " WHERE telefono LIKE '" . $cadena . "%'";
                         break;
                     }
                 case 4: {
                         // Si se filtra por especialidad
-                        $sql .= " WHERE especialidad='" . $cadena . "'";
+                        $sql .= " WHERE especialidad LIKE '" . $cadena . "%'";
                         break;
                     }
                 case 5: {
                         // Si se filtra por cargo
-                        $sql .= " WHERE cargo='" . $cadena . "'";
+                        $sql .= " WHERE cargo LIKE '" . $cadena . "%'";
                         break;
                     }
                 case 6: {
                         // Si se filtra por email
-                        $sql .= " WHERE email='" . $cadena . "'";
+                        $sql .= " WHERE email LIKE '" . $cadena . "%'";
                         break;
                     }
                 default:
@@ -516,8 +515,6 @@ class DB {
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function insertarEmpleado(Empleado $empleado) {
-
-        xdebug_break();
 
         // Creamos la consulta de insercción usando los valores del objeto 
         // Persona
