@@ -209,12 +209,18 @@ try {
         <div id="cuerpo">      
             <div id="botonera">
                 <h3>Detalle de empleados</h3>
+                <form id="añadir" action='empleado_detalle.php' method='post' >
+                    <input type='submit' tabindex="8" value='Añadir Empleado' alt='Añadir Empleado' title="Pulse para anañadir un nuevo empleado"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='añadir' type='text' value='0' />
+                    <input class='oculto' name='modo' type='text' value='A' />
+                    <input class='oculto' name='id_empleado' type='text' value='0' />
+                </form>
+                
                 <form id="modificar" action='empleado_detalle.php' method='post' >
                     <input type='submit' tabindex="8" value='Modificar Empleado' alt='Modificar Empleado' title="Pulse para modificar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='modificar' type='text' value='<?php echo $id_empleado ?>' />
                     <input class='oculto' name='modo' type='text' value='M' />
                     <input class='oculto' name='id_empleado' type='text' value='<?php echo $id_empleado ?>' />
-
                 </form>
                 <form id="eliminar" action='empleado_detalle.php' method='post' >
                     <input type='submit' tabindex="9" value='Eliminar Empleado' alt='Eliminar Empleado' title="Pulse para eliminar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />

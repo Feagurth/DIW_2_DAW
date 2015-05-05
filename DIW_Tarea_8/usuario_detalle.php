@@ -202,12 +202,17 @@ try {
         <div id="cuerpo">      
             <div id="botonera">
                 <h3>Detalle de usuarios</h3>
+                <form id="añadir" action='usuario_detalle.php' method='post' >
+                    <input type='submit' tabindex="8" value='Añadir Usuario' alt='Añadir Usuario' title="Pulse para añadir un usuario nuevo"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='añadir' type='text' value='0' />
+                    <input class='oculto' name='modo' type='text' value='A' />
+                    <input class='oculto' name='id_usuario' type='text' value='0' />
+                </form>                
                 <form id="modificar" action='usuario_detalle.php' method='post' >
                     <input type='submit' tabindex="8" value='Modificar Usuario' alt='Modificar Usuario' title="Pulse para modificar el usuario actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='modificar' type='text' value='<?php echo $id_usuario ?>' />
                     <input class='oculto' name='modo' type='text' value='M' />
                     <input class='oculto' name='id_usuario' type='text' value='<?php echo $id_usuario ?>' />
-
                 </form>
                 <form id="eliminar" action='usuario_detalle.php' method='post' >
                     <input type='submit' tabindex="9" value='Eliminar Usuario' alt='Eliminar Usuario' title="Pulse para eliminar el usuario actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />

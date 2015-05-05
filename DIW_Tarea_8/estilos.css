@@ -196,6 +196,7 @@ div#botonera h3{
 
 
 div#botonera form#nuevo input,
+div#botonera form#añadir input,
 div#botonera form#modificar input,
 div#botonera form#eliminar input
 {

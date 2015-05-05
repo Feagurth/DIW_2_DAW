@@ -18,8 +18,8 @@ USE `diw`;
 **/
 CREATE TABLE IF NOT EXISTS `correo` (
     `id_correo` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `usuario` varchar(16) COLLATE utf8_spanish_ci NOT NULL,
-    `pass` varchar(16) COLLATE utf8_spanish_ci NOT NULL,
+    `usuario` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
+    `pass` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
     `servidor` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
     `puerto` int NOT NULL,
     `seguridad` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
