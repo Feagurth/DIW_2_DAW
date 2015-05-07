@@ -993,7 +993,7 @@ class DB {
     }
 
 // </editor-fold>
-
+// <editor-fold defaultstate="collapsed" desc=" Funciones de Grupos ">
     /**
      * Función que nos permite recuperar los grupos de la base de datos usando un filtro
      * @param string $cadena Cadena por la que se va a filtrar
@@ -1177,7 +1177,7 @@ class DB {
             // En caso contrario, lanzamos una excepción
             throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
         }
-    }    
-    
-    
+    }
+
+// </editor-fold>
 }

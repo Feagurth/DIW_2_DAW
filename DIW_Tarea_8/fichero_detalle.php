@@ -254,7 +254,7 @@ try {
                     <input  tabindex="12" title="Introduzca el nombre del fichero" type="text" name="nombre" id="nombre" maxlength="55" value="<?php if ($fichero !== NULL) echo $fichero->getNombre() ?>" disabled="disabled" />
                     <label id="lblTamaño" for="tamaño">Tamaño&nbsp;</label>
                     <input  tabindex="13" type="text" name="descripcion" id="tamaño" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getTamanyo() ?>" disabled="disabled" />
-                    <label id="lblTipo" for="tipo">Tipo de Archivo&nbsp;<label>
+                    <label id="lblTipo" for="tipo">Tipo</label>
                     <input  tabindex="14" type="text" name="tipo" id="tipo" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getTipo() ?>" disabled="disabled" />
                     <input id="ocultonombre" name="nombre" type="hidden" value="<?php if ($fichero !== NULL) echo $fichero->getNombre() ?>" />
                     <input id="ocultotamaño" name="tamaño" type="hidden" value="<?php if ($fichero !== NULL) echo $fichero->getTamanyo() ?>" />
