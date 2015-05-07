@@ -1,5 +1,5 @@
 <?php
-require_once './objetos/Usuario.php';
+require_once './objetos/Fichero.php';
 
 try {
 
@@ -10,28 +10,30 @@ try {
     // Creamos un nuevo objeto de acceso a base de datos
     $db = new DB();
     
-    // Obtenemos el listado de usuarios pasándole los valores de filtro
-    $usuarios = $db->listarUsuarios($filtro, $tipoFiltro);
+    // Obtenemos el listado de ficheros pasándole los valores de filtro
+    $ficheros = $db->listarFicheros($filtro, $tipoFiltro);    
 } catch (Exception $ex) {
     $error = $ex->getMessage();
 }
 ?>
 <div class="listado">
     <div id="botonera">
-        <h3>Listado de usuarios</h3>
-        <form id="nuevo" action='usuario_detalle.php' method='post' >
-            <input type='submit' tabindex="8" value='Nuevo Usuario' alt='Nuevo Usuario' title="Pulse el botón para crear un nuevo usuario" />
-            <input class='oculto' name='id_usuario' type='text' value='0' />
+        <h3>Listado de Ficheros</h3>
+        <form id="nuevo" action='fichero_detalle.php' method='post' >
+            <input type='submit' tabindex="8" value='Nuevo Fichero' alt='Nuevo Fichero' title="Pulse el botón para crear un nuevo Fichero" />
+            <input class='oculto' name='id_fichero' type='text' value='0' />
             <input class='oculto' name='modo' type='text' value='A' />
         </form>
         <form id="filtro" action='index.php' method='post' >
             <input type='submit' tabindex="11" value='Filtrar resultados' alt='Filtrar resultados' title="Pulse el botón para filtrar los resultados"/>            
             <select name="tipoFiltro" tabindex="10" title="Seleccione el tipo de filtro">
-                <option <?php if ($tipoFiltro === "1") echo "selected=\"selected\" " ?> value="1">Usuario</option>
-                <option <?php if ($tipoFiltro === "2") echo "selected=\"selected\" " ?> value="2">Nombre</option>
+                <option <?php if ($tipoFiltro === "1") echo "selected=\"selected\" " ?> value="1">Nombre</option>
+                <option <?php if ($tipoFiltro === "2") echo "selected=\"selected\" " ?> value="2">Tamaño</option>
+                <option <?php if ($tipoFiltro === "3") echo "selected=\"selected\" " ?> value="3">Tipo</option>
+                <option <?php if ($tipoFiltro === "4") echo "selected=\"selected\" " ?> value="4">Descripcion</option>
             </select>
             <input id="textoFiltro" tabindex="9" type="text" alt="Introduzca un texto para filtrar los resultados" maxlength="30" title="Introduzca la cadena por la que filtrar los resultados" name="filtro"  value="<?php echo $filtro ?>" />
-            <input class='oculto' name='indice' type='text' value='6' />
+            <input class='oculto' name='indice' type='text' value='3' />
         </form>
     </div>
     <div class="error">
@@ -40,8 +42,10 @@ try {
     <table>
         <thead>
             <tr>
-                <td>Usuario</td>    
                 <td>Nombre</td>    
+                <td>Tamaño</td>    
+                <td>Tipo</td>    
+                <td>Descripción</td>    
                 <td>Detalles</td>    
             </tr>        
         </thead>    
@@ -55,7 +59,7 @@ try {
 
                 // Recorremos cada uno de los registros que hemos recuperado 
                 // mediante la consulta a la base de datos
-                foreach ($usuarios as $usuario) {
+                foreach ($ficheros as $fichero) {
 
                     // Si el contador es un número par, le daremos un estilo y si 
                     // es impar le daremos otro
@@ -66,16 +70,19 @@ try {
                     }
 
                     // Imprimimos celda con los valores recuperados de cada objeto 
-                    // usuario que hay en los registros recuperados
-                    echo '<td title="'. $usuario->getUser() .'">' . textoElipsis($usuario->getUser(),32) . '</td>';
-                    echo '<td title="'. $usuario->getNombre() .'">' . textoElipsis($usuario->getNombre(),30) . '</td>';
+                    // fichero que hay en los registros recuperados
+                    echo '<td title="'. $fichero->getNombre() .'">' . textoElipsis($fichero->getNombre(),30) . '</td>';
+                    echo '<td title="'. $fichero->getTamanyo() .'">' . textoElipsis($fichero->getTamanyo(),30) . '</td>';
+                    echo '<td title="'. $fichero->getTipo() .'">' . textoElipsis($fichero->getTipo(),30) . '</td>';
+                    echo '<td title="'. $fichero->getDescripcion() .'">' . textoElipsis($fichero->getDescripcion(),50) . '</td>';
+
 
                     // Añadimos una última fila con un botón con imagen para 
-                    // acceder a los detalles del usuario.
+                    // acceder a los detalles del fichero.
                     echo '<td>';
-                    echo "<form action='usuario_detalle.php' method='post' >";
+                    echo "<form action='fichero_detalle.php' method='post' >";
                     echo "<button name='button' value='Detalles' alt='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles' /></button>";
-                    echo "<input class='oculto' name='id_usuario' type='text' value='" . $usuario->getId_usuario() . "' />";
+                    echo "<input class='oculto' name='id_fichero' type='text' value='" . $fichero->getId_fichero() . "' />";
                     echo "<input class='oculto' name='modo' type='text' value='V' />";
                     echo "</form>";
                     echo '</td>';

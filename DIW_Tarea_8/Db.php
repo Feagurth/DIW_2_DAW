@@ -4,6 +4,7 @@ require_once './configuracion.inc.php';
 require_once './objetos/Empleado.php';
 require_once './objetos/Usuario.php';
 require_once './objetos/Email.php';
+require_once './objetos/Fichero.php';
 
 class DB {
 
@@ -49,7 +50,6 @@ class DB {
     }
 
 // </editor-fold>
-
 // <editor-fold defaultstate="collapsed" desc=" Funciones Generales ">
     /**
      * Método que nos permite realizar consultas a la base de datos
@@ -127,7 +127,6 @@ class DB {
     }
 
 // </editor-fold>
-
 // <editor-fold defaultstate="collapsed" desc=" Funciones para Usuarios ">
 
     /**
@@ -186,11 +185,6 @@ class DB {
                         break;
                     }
                 case 2: {
-                        // Si se filtra por apellido
-                        $sql .= " WHERE pass LIKE '" . $cadena . "%'";
-                        break;
-                    }
-                case 3: {
                         // Si se filtra por telefono
                         $sql .= " WHERE nombre LIKE '" . $cadena . "%'";
                         break;
@@ -355,7 +349,6 @@ class DB {
     }
 
 // </editor-fold>
-
 // <editor-fold defaultstate="collapsed" desc=" Funciones para Empleados">
 
     /**
@@ -403,6 +396,11 @@ class DB {
                         break;
                     }
                 case 6: {
+                        // Si se filtra por dirección
+                        $sql .= " WHERE direccion LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 7: {
                         // Si se filtra por email
                         $sql .= " WHERE email LIKE '" . $cadena . "%'";
                         break;
@@ -575,7 +573,6 @@ class DB {
     }
 
 // </editor-fold>
-
 // <editor-fold defaultstate="collapsed" desc=" Funciones para E-Mail ">
     /**
      * Función que nos permite recuperar los usuarios de la base de datos usando un filtro
@@ -601,26 +598,21 @@ class DB {
                         break;
                     }
                 case 2: {
-                        // Si se filtra por contraseña
-                        $sql .= " WHERE pass LIKE '" . $cadena . "%'";
-                        break;
-                    }
-                case 3: {
                         // Si se filtra por servidor
                         $sql .= " WHERE servidor LIKE '" . $cadena . "%'";
                         break;
                     }
-                case 4: {
+                case 3: {
                         // Si se filtra por puerto
                         $sql .= " WHERE puerto LIKE '" . $cadena . "%'";
                         break;
                     }
-                case 5: {
+                case 4: {
                         // Si se filtra por seguridad
                         $sql .= " WHERE seguridad LIKE '" . $cadena . "%'";
                         break;
                     }
-                case 6: {
+                case 5: {
                         // Si se filtra por descripción
                         $sql .= " WHERE descripcion LIKE '" . $cadena . "%'";
                         break;
@@ -662,7 +654,7 @@ class DB {
             throw new Exception();
         }
     }
-    
+
     /**
      * Función que nos permite recuperar un email a partir de su identificador
      * @param int $id_email Identificador del email a recuperar
@@ -788,7 +780,217 @@ class DB {
             // En caso contrario, lanzamos una excepción
             throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
         }
-    }    
+    }
+
+// </editor-fold>
+// <editor-fold defaultstate="collapsed" desc=" Funciones de Ficheros ">
+    /**
+     * Función que nos permite recuperar los fichero de la base de datos usando un filtro
+     * @param string $cadena Cadena por la que se va a filtrar
+     * @param int $tipoFiltro Campo por el que se va a filtrar respecto al orden de la colunas en la base de datos
+     * @return \Fichero Array de fichero con la información de los mismos
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function listarFicheros($cadena, $tipoFiltro) {
+        // Especificamos la consulta que vamos a realizar sobre la base de datos
+        $sql = "SELECT * FROM fichero";
+        $orden = " ORDER BY nombre ASC";
+
+        // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
+        // una condición a la sentencia sql original
+        if (($cadena !== NULL && $cadena !== "") && $tipoFiltro !== NULL) {
+            // Dependiendo del tipo de filtro, agregaremos a la cadena sql una 
+            // condición u otra
+            switch ($tipoFiltro) {
+                case 1: {
+                        // Si se filtra por nombre
+                        $sql .= " WHERE nombre LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 2: {
+                        // Si se filtra por tamaño
+                        $sql .= " WHERE tamanyo LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 3: {
+                        // Si se filtra por tipo
+                        $sql .= " WHERE tipo LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 4: {
+                        // Si se filtra por descripcion
+                        $sql .= " WHERE descripcion LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
+        // Concatenamos el orden a la cadena sql
+        $sql .= $orden;
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar el resultado
+            $datos = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch();
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $datos[] = new Fichero($row);
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch();
+            }
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
+        }
+    }
+
+    /**
+     * Función que nos permite insertar un fichero en la base de datos
+     * @param Fichero $fichero Objeto Fichero que contiene la información a almacenar
+     * @return type Resultado de la operación
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function insertarFichero(Fichero $fichero) {
+
+        try {
+            // Especificamos la sentencia SQL que insertará los valores del 
+            // fichero en la base de datos
+            $sql = "INSERT INTO FICHERO VALUES(?, ?, ?, ?, ?, ?)";
+
+            // Pasamos el objeto a un array
+            $datos = (array) $fichero;
+
+            // Realizamos la consulta haciendo uso de la función privada diseñada 
+            // para tal fin y almacenamos el resultado de la misma
+            $resultado = $this->ejecutaConsultaTransaccion($sql, $datos);
+
+            // Verificamos el resultado de la operación
+            if (!$resultado) {
+                // Si el resultado no es correcto, hacemos un rollback
+                $this->diw->rollBack();
+
+                // Y lanzamos una excepción
+                throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+            } else {
+                // Si es correcto, devolvemos el id del fichero creado
+                return $this->diw->lastInsertId('FICHERO');
+            }
+        } catch (Exception $ex) {
+
+            // Si se produce una excepción, hacemos un rollback
+            $this->diw->rollBack();
+
+            // Y lanzamos la excepción
+            throw $ex;
+        }
+    }
+
+    /**
+     * Función que nos permite recuperar un fichero a partir de su identificador
+     * @param int $id_fichero Identificador del fichero a recuperar
+     * @return \Fichero Datos del fichero en un objeto Fichero
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function recuperarFichero($id_fichero) {
+        // Especificamos la consulta que vamos a realizar sobre la base de datos
+        $sql = "SELECT * FROM fichero WHERE id_fichero= '" . $id_fichero . "'";
+
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar el resultado
+            $datos = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch();
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $datos[] = new Fichero($row);
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch();
+            }
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
+        }
+    }
+
+    /**
+     * Función que nos permite modificar los datos de un fichero en la base de datos
+     * @param Fichero $fichero Objeto Fichero que contiene los datos a almacenar
+     * @return int 0 si es correcto
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function modificarFichero(Fichero $fichero) {
+
+        // Creamos la consulta de actualiazción usando los valores del objeto 
+        // Persona
+        $sql = "UPDATE FICHERO SET "
+                . "descripcion='" . $fichero->getDescripcion() . "' WHERE id_fichero=" .
+                $fichero->getId_fichero() . ";";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos 0
+            return 0;
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
+
+    /**
+     * Función que nos permite eliminar un fichero
+     * @param int $id_fichero Identificador del fichero a eliminar
+     * @return int 0 Si es todo correcto, cualquier otro número si hay un error
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function eliminarFichero($id_fichero) {
+        // Creamos la consulta de borrado usando el identificador del fichero
+        $sql = "DELETE FROM FICHERO where id_fichero = " . $id_fichero . ";";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos 0
+            return 0;
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
 
 // </editor-fold>
 }

@@ -25,12 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @import url(http://fonts.googleapis.com/css?family=Anonymous+Pro);
 
 
-/* Espeficicamos la fuente, el tamaño y el color que tendrán todos los textos 
-de la página de forma general*/
+/* Espeficicamos la fuente, el tamaño de la página de forma general*/
 *{
     font-family: 'Adamina', sans-serif;
     font-size: 1vmax;
-    color: #000;
 }
 
 /* Estilos generales */
@@ -281,7 +279,7 @@ clase */
 #detalle{
     clear: left;    
     display: block;
-    float: left;
+    float: left;    
     margin: 0.75vmax;
     border: 0.15vmax solid #000;
     padding: 3vmax;
@@ -292,7 +290,8 @@ clase */
 
 #detalle input#nombre,
 #detalle input#apellido,
-#detalle input#email
+#detalle input#email,
+#detalle input#servidor
 {
     margin: 0.25vmax;
     width: 18vmax;
@@ -303,7 +302,8 @@ clase */
     width: 12vmax;
 }
 
-#detalle input#especialidad
+#detalle input#especialidad,
+#detalle input#descripcion
 {
     margin: 0.25vmax;
     width: 30vmax;
@@ -321,10 +321,17 @@ clase */
 }
 
 #detalle input#user,
+#detalle input#usuario,
 #detalle input#pass
 {
     margin: 0.25vmax;
     width: 20vmax;
+}
+
+#detalle input#puerto
+{
+    margin: 0.25vmax;
+    width: 3vmax;
 }
 
 
@@ -340,4 +347,12 @@ div#detalle input[type="submit"]
     margin: 0.75vmax 0.75vmax 0.75vmax 0;
     font-size: 1vmax;
     padding: 0;
+}
+
+form#btnVisor
+{   
+    display: block;
+    float: right;
+    margin: 0 0.25vmax 0 0;
+
 }

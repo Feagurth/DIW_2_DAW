@@ -77,7 +77,7 @@ try {
                     $email->setPass($_POST['pass']);
                     $email->setServidor($_POST['servidor']);
                     $email->setPuerto($_POST['puerto']);
-                    $email->setSeguridad($_POST['seguridad']);                    
+                    $email->setSeguridad($_POST['seguridad']);
                     $email->setDescripcion($_POST['descripcion']);
 
                     // Validamos los datos introducidos
@@ -91,7 +91,7 @@ try {
                         // errores de la insercción a las excepciones que se 
                         // puedan lanzar. El id resultante de la insercción, lo 
                         // asignamos a la variable $id_email
-                        $id_email= $db->insertarEmail($email);
+                        $id_email = $db->insertarEmail($email);
 
                         // Cambiamos el modo a visor
                         $modo = "V";
@@ -144,13 +144,13 @@ try {
                     if ($_POST['boton'] === "Aceptar") {
                         // Asignamos la informacón introducida en los inputs 
                         // y que se encuentra en post
-                    $email->setId_email($id_email);
-                    $email->setUsuario($_POST['usuario']);
-                    $email->setPass($_POST['pass']);
-                    $email->setServidor($_POST['servidor']);
-                    $email->setPuerto($_POST['puerto']);
-                    $email->setSeguridad($_POST['seguridad']);                    
-                    $email->setDescripcion($_POST['descripcion']);
+                        $email->setId_email($id_email);
+                        $email->setUsuario($_POST['usuario']);
+                        $email->setPass($_POST['pass']);
+                        $email->setServidor($_POST['servidor']);
+                        $email->setPuerto($_POST['puerto']);
+                        $email->setSeguridad($_POST['seguridad']);
+                        $email->setDescripcion($_POST['descripcion']);
 
                         // Realizamos la validación de los datos
                         $validacion = validardatosEmail($email);
@@ -213,7 +213,7 @@ try {
                     <input class='oculto' name='modo' type='text' value='A' />
                     <input class='oculto' name='id_email' type='text' value='0' />
                 </form>
-                
+
                 <form id="modificar" action='email_detalle.php' method='post' >
                     <input type='submit' tabindex="8" value='Modificar E-Mail' alt='Modificar E-Mail' title="Pulse para modificar el E-Mail actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='modificar' type='text' value='<?php echo $id_email ?>' />
@@ -228,21 +228,23 @@ try {
             </div>
             <div id="detalle">
                 <form action="email_detalle.php" method="post">
-                    <label id="lblUsuario" for="usuario">Usuario&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input tabindex="10" title="Introduzca el usuario del servidor de E-Mail" type="text" name="usuario" id="usuario" maxlength="32" value="<?php if ($email !== NULL) echo $email->getUsuario() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <label id="lblPass" for="pass">Contraseña</label>
-                    <input tabindex="11" title = "Introduzca la contraseña del servidor de E-Mail" type="password" name="pass" id="pass" maxlength="32" value="<?php if ($email !== NULL) echo $email->getPass() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <label id="lblServidor" for="servidor">Servidor</label>
-                    <input tabindex="12" title="Introduzca un servidor de salida SMTP" type="text" name="servidor" id="servidor" maxlength="30" value="<?php if ($email !== NULL) echo $email->getServidor() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <label id="lblPuerto" for="puerto">Puerto</label>
-                    <input tabindex="13" title="Introduzca el puerto del servidor de E-Mail" type="text" name="puerto" id="puerto" maxlength="5" value="<?php if ($email !== NULL) echo $email->getPuerto() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <br />
-                    <label id="lblSeguridad" for="seguridad">Seguridad</label>
-                    <input tabindex="14" title="Introduzca el tipo de seguridad del servidor de E-Mail" type="text" name="seguridad" id="seguridad" maxlength="10" value="<?php if ($email !== NULL) echo $email->getSeguridad() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <label id="lblDescripcion" for="descripcion">Descripcion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                    <input  tabindex="15" title="Introduzca una descripción para el servidor de E-Mail" type="text" name="descripcion" id="descripcion" maxlength="55" value="<?php if ($email !== NULL) echo $email->getDescripcion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
-                    <br />
-
+                    <label id="lblDescripcion" for="descripcion">Descripcion&nbsp;</label>
+                    <input  tabindex="10" title="Introduzca una descripción para el servidor de E-Mail" type="text" name="descripcion" id="descripcion" maxlength="55" value="<?php if ($email !== NULL) echo $email->getDescripcion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <label id="lblUsuario" for="usuario">Usuario&nbsp;</label>
+                    <input tabindex="11" title="Introduzca el usuario del servidor de E-Mail" type="text" name="usuario" id="usuario" maxlength="32" value="<?php if ($email !== NULL) echo $email->getUsuario() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <label id="lblPass" for="pass">Contraseña&nbsp;</label>
+                    <input tabindex="12" title = "Introduzca la contraseña del servidor de E-Mail" type="password" name="pass" id="pass" maxlength="32" value="<?php if ($email !== NULL) echo $email->getPass() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <br />                                        
+                    <label id="lblServidor" for="servidor">Servidor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input tabindex="13" title="Introduzca un servidor de salida SMTP" type="text" name="servidor" id="servidor" maxlength="30" value="<?php if ($email !== NULL) echo $email->getServidor() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <label id="lblPuerto" for="puerto">Puerto&nbsp;&nbsp;</label>
+                    <input tabindex="14" title="Introduzca el puerto del servidor de E-Mail" type="text" name="puerto" id="puerto" maxlength="5" value="<?php if ($email !== NULL) echo $email->getPuerto() ?>" <?php echo deshabilitarPorModo($modo) ?> />                    
+                    <label id="lblSeguridad" for="seguridad">Tipo de Seguridad&nbsp;</label>
+                    <select name="seguridad" tabindex="15" title="Seleccione el tipo de seguridad de la cuenta de E-Mail" name="seguridad" id="seguridad" <?php echo deshabilitarPorModo($modo) ?> >
+                        <option <?php if ($email->getSeguridad() === "TLS") echo "selected=\"selected\" " ?> value="TLS">TLS</option>
+                        <option <?php if ($email->getSeguridad() === "SSL") echo "selected=\"selected\" " ?> value="SSL">SSL</option>
+                    </select>     
+                    <br />                                        
                     <?php
                     // Comprobamos el modo en el que está la página. Si está en 
                     // modo Modificación o Adicción, creamos un botón de aceptar 

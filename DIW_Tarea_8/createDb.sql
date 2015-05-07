@@ -43,9 +43,9 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 **/
 CREATE TABLE IF NOT EXISTS `fichero` (
     `id_fichero` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `nombre` VARCHAR(30) NOT NULL,
     `tamanyo` VARCHAR(30) NOT NULL,
     `tipo` VARCHAR(30) NOT NULL,
+    `nombre` VARCHAR(30) NOT NULL,
     `descripcion` VARCHAR(50) NOT NULL,
     `fichero` LONGBLOB NOT NULL
 )  ENGINE=InnoDB;

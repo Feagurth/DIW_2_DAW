@@ -74,7 +74,7 @@ try {
                             break;
                         }
                     case '3': {
-                            include './empleados.php';
+                            include './ficheros.php';
                             break;
                         }
                     case '4': {

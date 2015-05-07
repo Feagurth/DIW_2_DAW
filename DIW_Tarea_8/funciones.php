@@ -144,6 +144,89 @@ function deshabilitarBotonesPorModo($modo) {
 }
 
 /**
+ * 
+ * @param type $registro
+ * @param array $ficheros
+ */
+function crearObjetosInserccionFichero(&$registro) {
+
+    // Si es una insercción, volcamos los valores a insertar en 
+    // variables directamente desde el POST de la página
+    $id_fichero = $_POST['id_fichero'];
+    $descripcion = $_POST['descripcion'];
+
+    // Comprobamos si hay información en los ficheros subidos al 
+    // servidor y si se ha producido algún error en la subida de 
+    // los mismos
+    if (isset($_FILES['addfile'])) {
+
+        // Reordenamos los ficheros que hay en $_FILES para que 
+        // nos sea más facil trabajar luego con ellos
+        $archivos = ordenarFicheros($_FILES);
+
+        // Recorremos todos los archivos para tratarlos
+        foreach ($archivos as $file) {
+
+            // Asignamos el valor de id como valor para el id_fichero
+            // al crear el objeto
+            $registro->setId_fichero($id_fichero);
+
+            // Le asignamos el nombre
+            $registro->setNombre($file['name']);
+
+            // Le asignamos el tamaño
+            $registro->setTamanyo($file['size']);
+
+            // Le asignamos el tipo
+            $registro->setTipo($file['type']);
+
+            // Asignamos la descripción
+            $registro->setDescripcion($descripcion);
+
+            // Recuperamos la información del fichero con la función 
+            // fopen especificando 'rb' como parámetro para que lea 
+            // el fichero en binario, guardandolo en una variable 
+            // tipo stream y lo asignamos al fichero
+            $registro->setFichero(fopen($file['tmp_name'], 'rb'));
+        }
+    }
+}
+
+/**
+ * Función que nos permite reordenar los ficheros subidos al servidor y 
+ * alojados en $_FILES dandoles una estructura más comoda para procesarlos
+ * @param type $ficheros Los ficheros alojados en $_FILES
+ * @return type Un array con la información de los ficheros ordenada por fichero
+ */
+function ordenarFicheros($ficheros) {
+    // Creamos un nuevo array para almacenar los datos y devolverlos 
+    // posteriormente
+    $salida = array();
+
+    // Comprobamos y almacenamos el número de ficheros que se han subido
+    $cuenta = count($ficheros['addfile']['name']);
+
+    // Recuperamos las claves del array de ficheros
+    $claves = array_keys($ficheros['addfile']);
+
+    // Iteramos tantas veces como ficheros haya
+    for ($i = 0; $i < $cuenta; $i++) {
+
+        // Iteramos por todas las claves que hay en el array de entrada
+        foreach ($claves as $clave) {
+
+            // Asignamos al fichero de salida cada uno de las claves del 
+            // array de entrada para cada iteración de ficheros
+            $salida[$i][$clave] = $ficheros['addfile'][$clave][$i];
+        }
+    }
+
+    // Finalmente devolvemos el resultado
+    return $salida;
+}
+
+// <editor-fold defaultstate="collapsed" desc=" Funciones de Validación de Datos ">
+/**
  * Función para validar datos de un empleado
  * @param Empleado $empleado Objeto empleado
  * @return string Cadena vacía si la validación es correcta y un mensaje de 
@@ -252,6 +335,98 @@ function validarDatosEmpleado($empleado) {
     return $salida;
 }
 
+/**
+ * Función para validar datos de un usuario
+ * @param Email $email Objeto Email
+ * @return string Cadena vacía si la validación es correcta y un mensaje de 
+ * error si no lo es
+ */
+function validardatosEmail($email) {
+
+    // Inicializamos una variable de salida
+    $salida = "";
+
+    // Comprobamos si tenemos información del usuairo del email
+    if ($email->getUsuario()) {
+        // Validamos el usuario del email
+        // Valida letras y números, el punto y la arroba, sin espacios en blanco
+        if (!preg_match("/^[a-zA-Z0-9@.]+$/", $email->getUsuario())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La usuario del E-Mail contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un usuario para el E-Mail.";
+    }
+
+    // Comprobamos si tenemos información de contraseña de email
+    if ($email->getPass()) {
+        // Validamos la contraseña del email
+        // Valida letras y números
+        if (!preg_match("/^[a-zA-Z0-9]+$/", $email->getPass())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La contraseña del E-MAil contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir una contraseña para el E-Mail.";
+    }
+
+    // Comprobamos si tenemos información del servidor del email
+    if ($email->getServidor()) {
+        // Validamos el servidor del email
+        // Valida letras, números, el punto y el guión
+        if (!preg_match("/^[a-zA-Z0-9.-]+$/", $email->getServidor())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El servidor de salida del E-Mail contiene caracteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un servidor de salida para el E-Mail.";
+    }
+
+    // Comprobamos si tenemos información del puerto del email
+    if ($email->getPuerto()) {
+        // Validamos el puerto del email
+        // Valida solo números
+        if (!preg_match("/^[0-9]+$/", $email->getPuerto())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El puerto del E-Mail contiene caracteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un puerto para el E-Mail.";
+    }
+
+    // Comprobamos si tenemos información del tipo de seguridad del email
+    if ($email->getSeguridad()) {
+        // Validamos el tipo de seguridad del email
+        // Valida solo letras
+        if (!preg_match("/^[a-zA-Z]+$/", $email->getSeguridad())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El tipo de seguridad del E-Mail contiene caracteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un tipo de seguridad para el E-Mail.";
+    }
+
+    // Comprobamos si tenemos información de la descripción del email
+    if ($email->getDescripcion()) {
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ
+        if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú]+$/", $email->getDescripcion())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La descripción del E-Mail contiene caracteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir una descripción para el E-Mail.";
+    }
+
+    // Devolvemos el resultado de la validación
+    return $salida;
+}
 
 /**
  * Función para validar datos de un usuario
@@ -309,94 +484,40 @@ function validardatosUsuario($usuario) {
 }
 
 /**
- * Función para validar datos de un usuario
- * @param Email $email Objeto Email
- * @return string Cadena vacía si la validación es correcta y un mensaje de 
- * error si no lo es
+ * Función que nos permite validar los datos de un objeto Fichero antes de 
+ * insertarlo en la base de datos
+ * @param Fichero $fichero Objeto con la información del fichero a insertar
+ * @return string Un mensaje de error si existe alguno y una cadena vacia en caso contrario
  */
-function validardatosEmail($email) {
+function validarDatosFichero($fichero) {
 
     // Inicializamos una variable de salida
     $salida = "";
 
-    // Comprobamos si tenemos información del usuairo del email
-    if ($email->getUsuario()) {
-        // Validamos el usuario del email
-        // Valida letras y números, el punto y la arroba, sin espacios en blanco
-        if (!preg_match("/^[a-zA-Z0-9@.]+$/", $email->getUsuario())) {
-            // Si no se cumple, cambiamos el valor de la variable de salida
-            $salida = "La usuario del E-Mail contiene carecteres inválidos.";
-        }
-    } else {
-        // Si no se cumple, cambiamos el valor de la variable de salida
-        $salida = "Debe introducir un usuario para el E-Mail.";
-    }
-
-    // Comprobamos si tenemos información de contraseña de email
-    if ($email->getPass()) {
-        // Validamos la contraseña del email
-        // Valida letras y números
-        if (!preg_match("/^[a-zA-Z0-9]+$/", $email->getPass())) {
-            // Si no se cumple, cambiamos el valor de la variable de salida
-            $salida = "La contraseña del E-MAil contiene carecteres inválidos.";
-        }
-    } else {
-        // Si no se cumple, cambiamos el valor de la variable de salida
-        $salida = "Debe introducir una contraseña para el E-Mail.";
-    }
-
-    // Comprobamos si tenemos información del servidor del email
-    if ($email->getServidor()) {
-        // Validamos el servidor del email
-        // Valida letras, números, el punto y el guión
-        if (!preg_match("/^[a-zA-Z0-9.-]+$/", $email->getServidor())) {
-            // Si no se cumple, cambiamos el valor de la variable de salida
-            $salida = "El servidor de salida del E-Mail contiene caracteres inválidos.";
-        }
-    } else {
-        // Si no se cumple, cambiamos el valor de la variable de salida
-        $salida = "Debe introducir un servidor de salida para el E-Mail.";
-    }
-    
-    // Comprobamos si tenemos información del puerto del email
-    if ($email->getPuerto()) {
-        // Validamos el puerto del email
-        // Valida solo números
-        if (!preg_match("/^[0-9]+$/", $email->getPuerto())) {
-            // Si no se cumple, cambiamos el valor de la variable de salida
-            $salida = "El puerto del E-Mail contiene caracteres inválidos.";
-        }
-    } else {
-        // Si no se cumple, cambiamos el valor de la variable de salida
-        $salida = "Debe introducir un puerto para el E-Mail.";
-    }    
-
-    // Comprobamos si tenemos información del tipo de seguridad del email
-    if ($email->getSeguridad()) {
-        // Validamos el tipo de seguridad del email
-        // Valida solo letras
-        if (!preg_match("/^[a-zA-Z]+$/", $email->getSeguridad())) {
-            // Si no se cumple, cambiamos el valor de la variable de salida
-            $salida = "El tipo de seguridad del E-Mail contiene caracteres inválidos.";
-        }
-    } else {
-        // Si no se cumple, cambiamos el valor de la variable de salida
-        $salida = "Debe introducir un tipo de seguridad para el E-Mail.";
-    }        
-
-    // Comprobamos si tenemos información de la descripción del email
-    if ($email->getDescripcion()) {
+    // Comprobamos si tenemos información de la descripción del fichero
+    if ($fichero->getDescripcion()) {
+        // Validamos la descripción
         // Valida letras y números con espacios en blanco, vocales con acento, 
-        // la ñ
-        if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú]+$/", $email->getDescripcion())) {
+        // la ñ y el punto
+        if (!preg_match("/^[0-9a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$/", $fichero->getDescripcion())) {
+
             // Si no se cumple, cambiamos el valor de la variable de salida
-            $salida = "La descripción del E-Mail contiene caracteres inválidos.";
+            $salida = "La descripción del fichero contiene carecteres inválidos.";
         }
     } else {
         // Si no se cumple, cambiamos el valor de la variable de salida
-        $salida = "Debe introducir una descripción para el E-Mail.";
-    }            
-    
+        $salida = "Debe introducir una descripción para el fichero.";
+    }
+
+    // Comprobamos que se haya seleccionado un fichero
+    if ($fichero->getFichero() === FALSE) {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe seleccionar un fichero para poder insertarlo.";
+    }
+
     // Devolvemos el resultado de la validación
-    return $salida;
+    return $salida;    
+    
 }
+
+// </editor-fold>
