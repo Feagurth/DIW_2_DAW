@@ -70,7 +70,7 @@ try {
                             break;
                         }
                     case '2': {
-                            include './empleados.php';
+                            include './grupos.php';
                             break;
                         }
                     case '3': {

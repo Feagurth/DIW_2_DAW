@@ -80,6 +80,9 @@ try {
                         // Validamos los datos introducidos
                         $validacion = validarDatosFichero($fichero);
 
+                        
+                        xdebug_break();
+                        
                         // Comprobamos si hay mensaje de error en la validación
                         if ($validacion === "") {
 
@@ -232,7 +235,7 @@ try {
                 if ($modo === "V") {
                     echo "<form id='btnVisor' action='visor.php' method='post' target='_blank'>";
                     echo "<button name='button' value='Ver Fichero' alt='Ver fichero' title='Pulse para ver el fichero'><img src='imagenes/download.png' alt='Ver fichero' /></button>";
-                    echo "<input class='oculto' name='id_fichero' type='text' value='" . $fichero->getId_fichero() . "' />";
+                    echo "<input class='oculto' name='id_fichero' type='text' value='" . $id_fichero . "' />";
                     echo "</form>";
                 }
                 ?>                    
@@ -243,7 +246,7 @@ try {
                     <?php
                     // Comprobamos si el modo de la página es el de añadir. En ese caso mostramos un botón para adjuntar el fichero
                     if ($modo === "A") {
-                        echo '<input tabindex ="11" type="file" id="addfile" name="addfile[]" readonly="1" value="" accept=".bmp,.jpg,.gif,.png,.pdf"/>';
+                        echo '<input tabindex ="11" type="file" id="addfile" name="addfile[]" readonly="1" value="" accept=".bmp,.jpg,.gif,.png,.pdf,.doc,.odt,.rtf"/>';
                     }
                     ?>
                     <br />                                                            

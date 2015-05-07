@@ -341,7 +341,7 @@ function validarDatosEmpleado($empleado) {
  * @return string Cadena vacía si la validación es correcta y un mensaje de 
  * error si no lo es
  */
-function validardatosEmail($email) {
+function validarDatosEmail($email) {
 
     // Inicializamos una variable de salida
     $salida = "";
@@ -434,7 +434,7 @@ function validardatosEmail($email) {
  * @return string Cadena vacía si la validación es correcta y un mensaje de 
  * error si no lo es
  */
-function validardatosUsuario($usuario) {
+function validarDatosUsuario($usuario) {
 
     // Inicializamos una variable de salida
     $salida = "";
@@ -518,6 +518,50 @@ function validarDatosFichero($fichero) {
     // Devolvemos el resultado de la validación
     return $salida;    
     
+}
+
+
+/**
+ * Función para validar datos de un grupo
+ * @param Grupo $grupo Objeto grupo
+ * @return string Cadena vacía si la validación es correcta y un mensaje de 
+ * error si no lo es
+ */
+function validarDatosGrupo($grupo) {
+
+    // Inicializamos una variable de salida
+    $salida = "";
+
+    // Comprobamos si tenemos información de nombre de grupo
+    if ($grupo->getNombre()) {
+        // Validamos el nombre del grupo
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ
+        if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú]+$/", $grupo->getNombre())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "El nombre del grupo contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir un nombre para el grupo.";
+    }
+
+    // Comprobamos si tenemos información de descripción de grupo
+    if ($grupo->getDescripcion()) {
+        // Validamos la contraseña del grupo
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ
+        if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú]+$/", $grupo->getDescripcion())) {
+            // Si no se cumple, cambiamos el valor de la variable de salida
+            $salida = "La descripción del grupo contiene carecteres inválidos.";
+        }
+    } else {
+        // Si no se cumple, cambiamos el valor de la variable de salida
+        $salida = "Debe introducir una descripción para el grupo.";
+    }
+
+    // Devolvemos el resultado de la validación
+    return $salida;
 }
 
 // </editor-fold>

@@ -277,7 +277,7 @@ clase */
 /* Estilos para el detalle */
 
 #detalle{
-    clear: left;    
+    clear: both;    
     display: block;
     float: left;    
     margin: 0.75vmax;

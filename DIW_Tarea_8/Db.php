@@ -180,12 +180,12 @@ class DB {
             // condición u otra
             switch ($tipoFiltro) {
                 case 1: {
-                        // Si se filtra por nombre
+                        // Si se filtra por usuario
                         $sql .= " WHERE user LIKE '" . $cadena . "%'";
                         break;
                     }
                 case 2: {
-                        // Si se filtra por telefono
+                        // Si se filtra por nombre
                         $sql .= " WHERE nombre LIKE '" . $cadena . "%'";
                         break;
                     }
@@ -275,7 +275,7 @@ class DB {
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function eliminarUsuario($id_usuario) {
-        // Creamos la consulta de borrado usando el identificador del empleado
+        // Creamos la consulta de borrado usando el identificador del usuario
         $sql = "DELETE FROM usuario where id_usuario = " . $id_usuario . ";";
 
         // Llamamos la a la función protegida de la clase para realizar la consulta
@@ -328,7 +328,7 @@ class DB {
     public function modificarUsuario(Usuario $usuario) {
 
         // Creamos la consulta de actualiazción usando los valores del objeto 
-        // Persona
+        // Usuario
         $sql = "UPDATE usuario SET "
                 . "user='" . $usuario->getUser() . "' , "
                 . "pass='" . $usuario->getPass() . "' , "
@@ -993,4 +993,191 @@ class DB {
     }
 
 // </editor-fold>
+
+    /**
+     * Función que nos permite recuperar los grupos de la base de datos usando un filtro
+     * @param string $cadena Cadena por la que se va a filtrar
+     * @param int $tipoFiltro Campo por el que se va a filtrar respecto al orden de la colunas en la base de datos
+     * @return \Grupo Array de grupos con la información de los mismos
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function listarGrupos($cadena, $tipoFiltro) {
+        // Especificamos la consulta que vamos a realizar sobre la base de datos
+        $sql = "SELECT * FROM grupo";
+        $orden = " ORDER BY nombre ASC";
+
+        // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
+        // una condición a la sentencia sql original
+        if (($cadena !== NULL && $cadena !== "") && $tipoFiltro !== NULL) {
+            // Dependiendo del tipo de filtro, agregaremos a la cadena sql una 
+            // condición u otra
+            switch ($tipoFiltro) {
+                case 1: {
+                        // Si se filtra por nombre
+                        $sql .= " WHERE nombre LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 2: {
+                        // Si se filtra por descripcion
+                        $sql .= " WHERE descripcion LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
+        // Concatenamos el orden a la cadena sql
+        $sql .= $orden;
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar el resultado
+            $datos = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch();
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $datos[] = new Grupo($row);
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch();
+            }
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
+        }
+    }
+
+    /**
+     * Función que nos permite recuperar un grupo a partir de su identificador
+     * @param int $id_grupo Identificador del grupo a recuperar
+     * @return \Grupo Datos del grupo en un objeto Grupo
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function recuperarGrupo($id_grupo) {
+        // Especificamos la consulta que vamos a realizar sobre la base de datos
+        $sql = "SELECT * FROM grupo WHERE id_grupo= '" . $id_grupo . "'";
+
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar el resultado
+            $datos = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch();
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $datos[] = new Grupo($row);
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch();
+            }
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
+        }
+    }
+
+    /**
+     * Función que nos permite eliminar un grupo
+     * @param int $id_grupo Identificador del grupo a eliminar
+     * @return int 0 Si es todo correcto, cualquier otro número si hay un error
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function eliminarGrupo($id_grupo) {
+        // Creamos la consulta de borrado usando el identificador del grupo
+        $sql = "DELETE FROM grupo where id_grupo = " . $id_grupo . ";";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos 0
+            return 0;
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
+
+    /**
+     * Función que nos permite insertar los datos de un empleado en la base de datos
+     * @param Grupo $grupo Objeto Grupo que contiene los datos a almacenar
+     * @return int El id del grupo insertado
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function insertarGrupo(Grupo $grupo) {
+
+        // Creamos la consulta de insercción usando los valores del objeto 
+        // Persona
+        $sql = "INSERT INTO GRUPO VALUES (0, "
+                . "'" . $grupo->getNombre() . "' , "
+                . "'" . $grupo->getDescripcion() . "');";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos el id del grupo creado
+            return $this->diw->lastInsertId('GRUPO');
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
+
+    /**
+     * Función que nos permite modificar los datos de un grupo en la base de datos
+     * @param Grupo $grupo Objeto Usuario que contiene los datos a almacenar
+     * @return int 0 si es correcto
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function modificarGrupo(Grupo $grupo) {
+
+        // Creamos la consulta de actualiazción usando los valores del objeto 
+        // Grupo
+        $sql = "UPDATE grupo SET "
+                . "nombre='" . $grupo->getNombre() . "' , "
+                . "descripcion='" . $grupo->getDescripcion() . "' WHERE id_grupo=" .
+                $grupo->getId_grupo() . ";";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos 0
+            return 0;
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }    
+    
+    
 }

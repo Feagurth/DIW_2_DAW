@@ -61,6 +61,10 @@ if (isset($_POST['id_fichero']) && $_POST['id_fichero'] !== 0) {
             header("Content-length: " . $fila[0]['tamanyo']);
             header("Content-type: " . $fila[0]['tipo']);
 
+            // Comprobamos el tipo del fichero a visualizar y si es un archivo .doc, .rtf u .odt, lo descargamos
+            if ($fila[0]['tipo'] === "application/octet-stream") {
+                header("Content-Disposition: attachment; filename=" . $fila[0]['nombre']);
+            }
 
             // Finalmente mostrarmos el fichero
             echo $fila[0]['fichero'];
