@@ -80,9 +80,6 @@ try {
                         // Validamos los datos introducidos
                         $validacion = validarDatosFichero($fichero);
 
-                        
-                        xdebug_break();
-                        
                         // Comprobamos si hay mensaje de error en la validación
                         if ($validacion === "") {
 
@@ -102,8 +99,50 @@ try {
                         }
                     } else {
 
-                        // Si no hay asignado un fichero, mostramos un mensaje de error
-                        $error = "Debe seleccionar un fichero para poder insertarlo.";
+                        // Comprobamos el tipo de error que ha generado la subida 
+                        // del fichero y mostramos un mensaje en consecuencia
+                        switch ($_FILES['addfile']['error'][0]) {
+                            case 1: {
+                                    $error = "El archivo subido excede la directiva upload_max_filesize en php.ini." . PHP_EOL .
+                                            "Pongase en contacto con el administrador: " . $emailAdmin;
+                                    break;
+                                }
+                            case 2: {
+                                    $error = "El archivo subido excede la directiva MAX_FILE_SIZE que fue especificada en el formulario HTML." . PHP_EOL .
+                                            "Pongase en contacto con el administrador: " . $emailAdmin;
+                                    break;
+                                }
+                            case 3: {
+                                    $error = "El archivo subido fue sólo parcialmente cargado." . PHP_EOL .
+                                            "Pongase en contacto con el administrador: " . $emailAdmin;
+                                    break;
+                                }
+                            case 4: {
+                                    $error = "Ningún archivo fue subido." . PHP_EOL .
+                                            "Pongase en contacto con el administrador: " . $emailAdmin;
+                                    break;
+                                }
+                            case 6: {
+                                    $error = "Falta la carpeta temporal." . PHP_EOL .
+                                            "Pongase en contacto con el administrador: " . $emailAdmin;
+                                    break;
+                                }
+                            case 7: {
+                                    $error = "No se pudo escribir el archivo en el disco." . PHP_EOL .
+                                            "Pongase en contacto con el administrador: " . $emailAdmin;
+                                    break;
+                                }
+                            case 8: {
+                                    $error = "Una extensión de PHP detuvo la carga de archivos." . PHP_EOL .
+                                            "Pongase en contacto con el administrador: " . $emailAdmin;
+                                    break;
+                                }
+                            default: {
+                                    $error = "Se ha producido un error no especificado durante la carga del archivo." . PHP_EOL .
+                                            "Pongase en contacto con el administrador: " . $emailAdmin;
+                                    break;
+                                }
+                        }
                     }
                 }
 
@@ -234,28 +273,30 @@ try {
                 <?php
                 if ($modo === "V") {
                     echo "<form id='btnVisor' action='visor.php' method='post' target='_blank'>";
-                    echo "<button name='button' value='Ver Fichero' alt='Ver fichero' title='Pulse para ver el fichero'><img src='imagenes/download.png' alt='Ver fichero' /></button>";
+                    echo "<button name='button' value='Ver Fichero' alt='Ver fichero' title='Pulse para ver el fichero'><img src='imagenes/download.png' alt='Ver fichero' title='Pulse para ver el fichero' /></button>";
                     echo "<input class='oculto' name='id_fichero' type='text' value='" . $id_fichero . "' />";
                     echo "</form>";
                 }
                 ?>                    
-                               
+
                 <form action="fichero_detalle.php" method="post" enctype="multipart/form-data" >
                     <label id="lblDescripcion" for="descripcion">Descripcion&nbsp;</label>
                     <input  tabindex="10" title="Introduzca la descripción del fichero" type="text" name="descripcion" id="descripcion" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getDescripcion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <?php
                     // Comprobamos si el modo de la página es el de añadir. En ese caso mostramos un botón para adjuntar el fichero
                     if ($modo === "A") {
-                        echo '<input tabindex ="11" type="file" id="addfile" name="addfile[]" readonly="1" value="" accept=".bmp,.jpg,.gif,.png,.pdf,.doc,.odt,.rtf"/>';
+                        //MAX_FILE_SIZE debe preceder el campo de entrada de archivo para limitar el tamaño del fichero a enviar
+                        echo '<input type="hidden" name="MAX_FILE_SIZE" value="' . $maxFileSize . '" />';
+                        echo '<input title="Haga click para seleccionar el fichero a insertar en la base de datos" tabindex ="11" type="file" id="addfile" name="addfile[]" readonly="1" value="" accept=".bmp,.jpg,.gif,.png,.pdf,.doc,.odt,.rtf"/>';
                     }
                     ?>
                     <br />                                                            
                     <label id="lblNombre" for="nombre">Nombre&nbsp;</label>
-                    <input  tabindex="12" title="Introduzca el nombre del fichero" type="text" name="nombre" id="nombre" maxlength="55" value="<?php if ($fichero !== NULL) echo $fichero->getNombre() ?>" disabled="disabled" />
+                    <input tabindex="12" title="Nombre del fichero" type="text" name="nombre" id="nombre" maxlength="55" value="<?php if ($fichero !== NULL) echo $fichero->getNombre() ?>" disabled="disabled" />
                     <label id="lblTamaño" for="tamaño">Tamaño&nbsp;</label>
-                    <input  tabindex="13" type="text" name="descripcion" id="tamaño" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getTamanyo() ?>" disabled="disabled" />
+                    <input tabindex="13" title= "Tamaño del fichero en bytes" type="text" name="descripcion" id="tamaño" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getTamanyo() ?>" disabled="disabled" />
                     <label id="lblTipo" for="tipo">Tipo</label>
-                    <input  tabindex="14" type="text" name="tipo" id="tipo" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getTipo() ?>" disabled="disabled" />
+                    <input tabindex="14" title="Tipo de fichero en formato MIME" type="text" name="tipo" id="tipo" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getTipo() ?>" disabled="disabled" />
                     <input id="ocultonombre" name="nombre" type="hidden" value="<?php if ($fichero !== NULL) echo $fichero->getNombre() ?>" />
                     <input id="ocultotamaño" name="tamaño" type="hidden" value="<?php if ($fichero !== NULL) echo $fichero->getTamanyo() ?>" />
                     <input id="ocultotipo" name="tipo" type="hidden" value="<?php if ($fichero !== NULL) echo $fichero->getTipo() ?>" />                                        

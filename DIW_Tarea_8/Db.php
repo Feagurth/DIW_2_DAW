@@ -76,13 +76,13 @@ class DB {
     }
 
     /**
-     * Función que nos permite realizar consultas a la base de datos en forma de transacciones
+     * Función que nos permite realizar consultas a la base de datos en forma consulta preparada
      * @param type $sql Sentencia sql a ejecutar
      * @param array $datos Datos a almacenar en forma de array
      * @return type El resultado de la operación
      * @throws Exception Lanza una excepción si se produce un error
      */
-    private function ejecutaConsultaTransaccion($sql, array $datos) {
+    private function ejecutaConsultaPreparada($sql, array $datos) {
 
         try {
             // Preaparamos una sentencia para la insercción del 
@@ -878,7 +878,7 @@ class DB {
 
             // Realizamos la consulta haciendo uso de la función privada diseñada 
             // para tal fin y almacenamos el resultado de la misma
-            $resultado = $this->ejecutaConsultaTransaccion($sql, $datos);
+            $resultado = $this->ejecutaConsultaPreparada($sql, $datos);
 
             // Verificamos el resultado de la operación
             if (!$resultado) {
@@ -1176,6 +1176,124 @@ class DB {
         } else {
             // En caso contrario, lanzamos una excepción
             throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
+
+// </editor-fold>    
+// <editor-fold defaultstate="collapsed" desc=" Funciones de Relaciones de Grupos Y Empleados ">
+
+    /**
+     * Función que nos permite recuperar los empleados pertenecientes a un grupo
+     * @param int $id_grupo Identificador del grupo al que pertenecen los empleados     
+     * @return \GrupoEmpleado Array de gruposempleado con la información de los mismos
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function listarRelacionesGrupoEmpleados($id_grupo) {
+        // Especificamos la consulta que vamos a realizar sobre la base de datos
+        $sql = "SELECT * FROM grupo_empleado WHERE id_grupo=" . $id_grupo;
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar el resultado
+            $datos = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch();
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $datos[] = new GrupoEmpleado($row);
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch();
+            }
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
+        }
+    }
+
+    /**
+     * Función que nos permite eliminar las relaciones de un grupo con los empleados
+     * @param int $id_grupo Identificador del grupo del que se eliminan las relaciones
+     * @return int 0 Si es todo correcto, cualquier otro número si hay un error
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function eliminarRelacionesGrupoEmpleado($id_grupo) {
+        // Creamos la consulta de borrado usando el identificador del grupo
+        $sql = "DELETE FROM grupo_empleado where id_grupo = " . $id_grupo . ";";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = self::ejecutaConsulta($sql);
+
+        // Comprobamos el resultado
+        if ($resultado) {
+            // Si es correcto, devolvemos 0
+            return 0;
+        } else {
+            // En caso contrario, lanzamos una excepción
+            throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
+
+    /**
+     * Función que nos permite almacenar en la base de datos las relaciones entre grupos y empleados
+     * @param int $id_grupo Id del grupo
+     * @param int $ids_empleados Array de id de empleados
+     * @return int 0 si todo ha salido correcto
+     * @throws Exception Se lanza una excepción si se produce un error
+     */
+    public function insertarRelacionesGrupoEmpleado($id_grupo, $ids_empleados) {
+
+        try {
+
+            // Iniciamos una transacción
+            $this->diw->beginTransaction();
+
+            // Especificamos la sentencia SQL que eliminará todas las relaciones 
+            // del grupo con los empleados en la base de datos
+            $sql = "DELETE FROM grupo_empleado where id_grupo = " . $id_grupo;
+
+            // Ejecutamos la consulta
+            $resultado = $this->diw->exec($sql);
+
+            // Iteramos por todos los ids de los empleados
+            foreach ($ids_empleados as $id_empleado) {
+
+                // Creamos la sentencia slq
+                $sql = "INSERT INTO GRUPO_EMPLEADO VALUES(0, " . $id_grupo . ", " . $id_empleado . ")";
+
+                // La ejecutamos
+                $resultado = $this->diw->exec($sql);
+
+                // Verificamos el resultado de la operación
+                if (!$resultado) {
+                    // Si hay algún error, lanzamos una excepción
+                    throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+                }
+            }
+
+            // Finalizamos la transacción
+            $this->diw->commit();
+
+            // Si es correcto, devolvemos el id del fichero creado
+            return 0;
+        } catch (Exception $ex) {
+
+            // Si se produce una excepción, hacemos un rollback
+            $this->diw->rollBack();
+
+            // Y lanzamos la excepción
+            throw $ex;
         }
     }
 

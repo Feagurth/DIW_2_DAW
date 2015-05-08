@@ -21,6 +21,7 @@ session_start();
 require_once './funciones.php';
 require_once './configuracion.inc.php';
 require_once './objetos/Grupo.php';
+require_once './objetos/GrupoEmpleado.php';
 
 try {
     // Inicializamos variables
@@ -45,6 +46,29 @@ try {
 
     // Comprobamos el modo de la página
     switch ($modo) {
+        // Si la página está refrescando para actualizar las relaciones 
+        // con los empleados
+        case "AE": {
+
+                xdebug_break();
+
+                // TODO: Implementar actualización de relacion grupo_empleados
+
+                if (isset($_POST['seleccionadoEmpleado'])) {
+                    $empleadosSel = $_POST['seleccionadoEmpleado'];
+
+                    $db->insertarRelacionesGrupoEmpleado($id_grupo, $empleadosSel);
+                } else {
+                    $db->eliminarRelacionesGrupoEmpleado($id_grupo);
+                }
+
+                // Cambiamos el modo de la página a visionado
+                $modo = "V";
+
+                // Eliminamos el break del case para que el flujo del programa 
+                // continue como si se hubiese cargado en modo visión
+                //break;
+            }
         // Si la página está en modo visualización
         case "V": {
                 // Recuperamos la información sobre el grupo pasándo 
@@ -131,7 +155,7 @@ try {
                         // De ser así, recuperamos los datos origianles del 
                         // grupo, para que se sobreescriban sobre cualquier 
                         // moficación que se haya podido hacer
-                        $grupo = $db->recuperarGgrupo($id_grupo)[0];
+                        $grupo = $db->recuperarGrupo($id_grupo)[0];
 
                         // Cambiamos el modo de la página a visualización
                         $modo = "V";
@@ -247,7 +271,15 @@ try {
                 <div class="error">
                     <p><?php echo $error ?></p>
                 </div>
-            </div>            
+            </div>
+
+                <?php
+                if($modo === "V")
+                {
+                    crearTablaRelacionesEmpleados($id_grupo, $error);
+                }
+                ?>
+
         </div>
     </body>
 </html>

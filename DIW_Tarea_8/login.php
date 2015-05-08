@@ -104,13 +104,13 @@ try {
             <form action="login.php" method="post">
                 <h3>Acceso de usuario</h3>
                 <div>
-                     <input type="text" id="user" name="user" maxlength="16" placeholder="Introduzca el usuario"/>
+                    <input type="text" id="user" name="user" maxlength="16" placeholder="Introduzca el usuario" title="Introduzca el usuario para hacer login"/>
                 </div>
                 <div>
-                    <input type="password" id="pass" name="pass" maxlength="16" placeholder="Introduzca la contraseña"/>
+                    <input type="password" id="pass" name="pass" maxlength="16" placeholder="Introduzca la contraseña" title="Introduzca la contraseña para hacer login"/>
                 </div>
                 <div>
-                    <input type="submit" id="submit" name="submit" value="Enviar"/>
+                    <input type="submit" id="submit" name="submit" value="Enviar" alt="enviar" title="Pulse para validar el usuario y contraseña introducidos para hacer login"/>
                 </div>
             </form>
             <div id="error">
