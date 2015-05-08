@@ -35,7 +35,9 @@ try {
     // Recuperamos los valores del modo de visión de la página y 
     // del id_fichero que hemos pasado
     $modo = $_POST['modo'];
-    $id_fichero = $_POST['id_fichero'];
+
+    // Recuperamos los valores de id_fichero de sesión si están ahí o en su defecto de post
+    $id_fichero = isset($_SESSION['id_fichero']) ? $_SESSION['id_fichero'] : $_POST['id_fichero'];
 
     // Validamos el usuario
     validarUsuario($_SESSION['user'], $_SESSION['pass']);
@@ -74,28 +76,37 @@ try {
                     // Validamos que se ha enviado un fichero durante el post
                     if ($_FILES['addfile']['error'][0] === 0) {
 
-                        // Creamos el objeto fichero con los datos enviados
-                        crearObjetosInserccionFichero($fichero);
+                        // Comprobamos que la sesión es correcta
+                        if (comprobarTokenSesion()) {
 
-                        // Validamos los datos introducidos
-                        $validacion = validarDatosFichero($fichero);
+                            // Creamos el objeto fichero con los datos enviados
+                            crearObjetosInserccionFichero($fichero);
 
-                        // Comprobamos si hay mensaje de error en la validación
-                        if ($validacion === "") {
+                            // Validamos los datos introducidos
+                            $validacion = validarDatosFichero($fichero);
 
-                            // Si no lo hay, realizamos la insercción pasándo como 
-                            // parámetro el objeto Fichero, dejando la gestión de 
-                            // errores de la insercción a las excepciones que se 
-                            // puedan lanzar. El id resultante de la insercción, lo 
-                            // asignamos a la variable $id_fichero
-                            $id_fichero = $db->insertarFichero($fichero);
+                            // Comprobamos si hay mensaje de error en la validación
+                            if ($validacion === "") {
 
-                            // Cambiamos el modo a visor
-                            $modo = "V";
+                                // Si no lo hay, realizamos la insercción pasándo como 
+                                // parámetro el objeto Fichero, dejando la gestión de 
+                                // errores de la insercción a las excepciones que se 
+                                // puedan lanzar. El id resultante de la insercción, lo 
+                                // asignamos a la variable $id_fichero
+                                $id_fichero = $db->insertarFichero($fichero);
+
+                                // Cambiamos el modo a visor
+                                $modo = "V";
+                            } else {
+                                // Si hay error de validación, copiamos su valor a 
+                                // la variable $error
+                                $error = $validacion;
+                            }
                         } else {
-                            // Si hay error de validación, copiamos su valor a 
-                            // la variable $error
-                            $error = $validacion;
+                            // Si la sesión no es válida, recuperamos los datos 
+                            // del fichero para mostrarlos en modo visor
+                            $fichero = $db->recuperarFichero($id_fichero)[0];
+                            $modo = "V";
                         }
                     } else {
 
@@ -186,34 +197,43 @@ try {
 
                     // Si se ha pulsado el botón de aceptar
                     if ($_POST['boton'] === "Aceptar") {
-                        // Asignamos la informacón introducida en los inputs 
-                        // y que se encuentra en post
-                        $fichero->setId_fichero($id_fichero);
-                        $fichero->setNombre($_POST['nombre']);
-                        $fichero->setTamanyo($_POST['tamaño']);
-                        $fichero->setTipo($_POST['tipo']);
-                        $fichero->setDescripcion($_POST['descripcion']);
-                        $fichero->setFichero("");
+                        // Comprobamos que la sesión es correcta
+                        if (comprobarTokenSesion()) {
 
-                        // Realizamos la validación de los datos
-                        $validacion = validardatosFichero($fichero);
+                            // Asignamos la informacón introducida en los inputs 
+                            // y que se encuentra en post
+                            $fichero->setId_fichero($id_fichero);
+                            $fichero->setNombre($_POST['nombre']);
+                            $fichero->setTamanyo($_POST['tamaño']);
+                            $fichero->setTipo($_POST['tipo']);
+                            $fichero->setDescripcion($_POST['descripcion']);
+                            $fichero->setFichero("");
 
-                        // Comprobamos si la validación ha generado algún 
-                        // mensaje de error
-                        if ($validacion === "") {
+                            // Realizamos la validación de los datos
+                            $validacion = validardatosFichero($fichero);
 
-                            // Si no hay mensaje de error, realizamos la modificación 
-                            // pasándo como parámetro el objeto  Fichero, dejando 
-                            // la gestión de errores de la modificación a las excepciones 
-                            // que se puedan lanzar
-                            $db->modificarFichero($fichero);
+                            // Comprobamos si la validación ha generado algún 
+                            // mensaje de error
+                            if ($validacion === "") {
 
-                            // Cambiamos el modo a visor
-                            $modo = "V";
+                                // Si no hay mensaje de error, realizamos la modificación 
+                                // pasándo como parámetro el objeto  Fichero, dejando 
+                                // la gestión de errores de la modificación a las excepciones 
+                                // que se puedan lanzar
+                                $db->modificarFichero($fichero);
+
+                                // Cambiamos el modo a visor
+                                $modo = "V";
+                            } else {
+                                // Si hay error de validación, copiamos su valor a 
+                                // la variable $error                            
+                                $error = $validacion;
+                            }
                         } else {
-                            // Si hay error de validación, copiamos su valor a 
-                            // la variable $error                            
-                            $error = $validacion;
+                            //// Si la sesión no es válida, recuperamos los datos 
+                            // del fichero para mostrarlos en modo visor
+                            $fichero = $db->recuperarFichero($id_fichero)[0];
+                            $modo = "V";
                         }
                     }
                 } else {
@@ -245,7 +265,12 @@ try {
             <p>Gestión Documental</p>
         </div>
         <div>
-            <?php include './menu.php'; ?>
+            <?php
+            include './menu.php';
+            if (!isset($_SESSION['token'])) {
+                $_SESSION['token'] = generarTokenSesion();
+            }
+            ?>
         </div>
         <div id="cuerpo">      
             <div id="botonera">
@@ -280,6 +305,7 @@ try {
                 ?>                    
 
                 <form action="fichero_detalle.php" method="post" enctype="multipart/form-data" >
+                    <input type='hidden' name='token' id='token' value='<?php echo $_SESSION["token"] ?>'/>
                     <label id="lblDescripcion" for="descripcion">Descripcion&nbsp;</label>
                     <input  tabindex="10" title="Introduzca la descripción del fichero" type="text" name="descripcion" id="descripcion" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getDescripcion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <?php
@@ -291,8 +317,8 @@ try {
                     }
                     ?>
                     <br />                                                            
-                    <label id="lblNombre" for="nombre">Nombre&nbsp;</label>
-                    <input tabindex="12" title="Nombre del fichero" type="text" name="nombre" id="nombre" maxlength="55" value="<?php if ($fichero !== NULL) echo $fichero->getNombre() ?>" disabled="disabled" />
+                    <label id="lblNombre" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input tabindex="12" title="Nombre del fichero" type="text" name="nombre" id="nombre" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getNombre() ?>" disabled="disabled" />
                     <label id="lblTamaño" for="tamaño">Tamaño&nbsp;</label>
                     <input tabindex="13" title= "Tamaño del fichero en bytes" type="text" name="descripcion" id="tamaño" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getTamanyo() ?>" disabled="disabled" />
                     <label id="lblTipo" for="tipo">Tipo</label>

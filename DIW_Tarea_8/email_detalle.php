@@ -35,7 +35,10 @@ try {
     // Recuperamos los valores del modo de visión de la página y 
     // del id_email que hemos pasado
     $modo = $_POST['modo'];
-    $id_email = $_POST['id_email'];
+
+    // Recuperamos los valores de email de sesión si están ahí o en su defecto de post
+    $id_email = isset($_SESSION['id_email']) ? $_SESSION['id_email'] : $_POST['id_email'];
+
 
     // Validamos el usuario
     validarUsuario($_SESSION['user'], $_SESSION['pass']);
@@ -70,35 +73,49 @@ try {
 
                 // Comprobamos si la información del botón es la de aceptar
                 if (isset($_POST['boton']) && $_POST['boton'] === "Aceptar") {
-                    // Si es así, asignamos la informacón introducida en los inputs 
-                    // y que se encuentra en post
-                    $email->setId_email($id_email);
-                    $email->setUsuario($_POST['usuario']);
-                    $email->setPass($_POST['pass']);
-                    $email->setServidor($_POST['servidor']);
-                    $email->setPuerto($_POST['puerto']);
-                    $email->setSeguridad($_POST['seguridad']);
-                    $email->setDescripcion($_POST['descripcion']);
 
-                    // Validamos los datos introducidos
-                    $validacion = validardatosEmail($email);
+                    // Comprobamos que la sesión es correcta
+                    if (comprobarTokenSesion()) {
 
-                    // Comprobamos si hay mensaje de error en la validación
-                    if ($validacion === "") {
+                        // Si es así, asignamos la informacón introducida en los inputs 
+                        // y que se encuentra en post
+                        $email->setId_email($id_email);
+                        $email->setUsuario($_POST['usuario']);
+                        $email->setPass($_POST['pass']);
+                        $email->setServidor($_POST['servidor']);
+                        $email->setPuerto($_POST['puerto']);
+                        $email->setSeguridad($_POST['seguridad']);
+                        $email->setDescripcion($_POST['descripcion']);
 
-                        // Si no lo hay, realizamos la insercción pasándo como 
-                        // parámetro el objeto Email, dejando la gestión de 
-                        // errores de la insercción a las excepciones que se 
-                        // puedan lanzar. El id resultante de la insercción, lo 
-                        // asignamos a la variable $id_email
-                        $id_email = $db->insertarEmail($email);
+                        // Validamos los datos introducidos
+                        $validacion = validardatosEmail($email);
 
-                        // Cambiamos el modo a visor
-                        $modo = "V";
+                        // Comprobamos si hay mensaje de error en la validación
+                        if ($validacion === "") {
+
+                            // Si no lo hay, realizamos la insercción pasándo como 
+                            // parámetro el objeto Email, dejando la gestión de 
+                            // errores de la insercción a las excepciones que se 
+                            // puedan lanzar. El id resultante de la insercción, lo 
+                            // asignamos a la variable $id_email
+                            $id_email = $db->insertarEmail($email);
+                            
+                            // Asignamos tambien el id_email a la sesión para 
+                            // prevenir inserciones extras por refrescos de página
+                            $_SESSION['id_email'] = $id_email;
+                            
+                            // Cambiamos el modo a visor
+                            $modo = "V";
+                        } else {
+                            // Si hay error de validación, copiamos su valor a 
+                            // la variable $error
+                            $error = $validacion;
+                        }
                     } else {
-                        // Si hay error de validación, copiamos su valor a 
-                        // la variable $error
-                        $error = $validacion;
+                        // Si la sesión no es válida, recuperamos los datos 
+                        // del email para mostrarlos en modo visor
+                        $email = $db->recuperarEmail($id_email)[0];
+                        $modo = "V";
                     }
                 }
 
@@ -142,35 +159,44 @@ try {
 
                     // Si se ha pulsado el botón de aceptar
                     if ($_POST['boton'] === "Aceptar") {
-                        // Asignamos la informacón introducida en los inputs 
-                        // y que se encuentra en post
-                        $email->setId_email($id_email);
-                        $email->setUsuario($_POST['usuario']);
-                        $email->setPass($_POST['pass']);
-                        $email->setServidor($_POST['servidor']);
-                        $email->setPuerto($_POST['puerto']);
-                        $email->setSeguridad($_POST['seguridad']);
-                        $email->setDescripcion($_POST['descripcion']);
+                        // Comprobamos que la sesión es correcta
+                        if (comprobarTokenSesion()) {
 
-                        // Realizamos la validación de los datos
-                        $validacion = validardatosEmail($email);
+                            // Asignamos la informacón introducida en los inputs 
+                            // y que se encuentra en post
+                            $email->setId_email($id_email);
+                            $email->setUsuario($_POST['usuario']);
+                            $email->setPass($_POST['pass']);
+                            $email->setServidor($_POST['servidor']);
+                            $email->setPuerto($_POST['puerto']);
+                            $email->setSeguridad($_POST['seguridad']);
+                            $email->setDescripcion($_POST['descripcion']);
 
-                        // Comprobamos si la validación ha generado algún 
-                        // mensaje de error
-                        if ($validacion === "") {
+                            // Realizamos la validación de los datos
+                            $validacion = validardatosEmail($email);
 
-                            // Si no hay mensaje de error, realizamos la modificación 
-                            // pasándo como parámetro el objeto  Email, dejando 
-                            // la gestión de errores de la modificación a las excepciones 
-                            // que se puedan lanzar
-                            $db->modificarEmail($email);
+                            // Comprobamos si la validación ha generado algún 
+                            // mensaje de error
+                            if ($validacion === "") {
 
-                            // Cambiamos el modo a visor
-                            $modo = "V";
+                                // Si no hay mensaje de error, realizamos la modificación 
+                                // pasándo como parámetro el objeto  Email, dejando 
+                                // la gestión de errores de la modificación a las excepciones 
+                                // que se puedan lanzar
+                                $db->modificarEmail($email);
+
+                                // Cambiamos el modo a visor
+                                $modo = "V";
+                            } else {
+                                // Si hay error de validación, copiamos su valor a 
+                                // la variable $error                            
+                                $error = $validacion;
+                            }
                         } else {
-                            // Si hay error de validación, copiamos su valor a 
-                            // la variable $error                            
-                            $error = $validacion;
+                            // Si la sesión no es válida, recuperamos los datos 
+                            // del email para mostrarlos en modo visor
+                            $email = $db->recuperarEmail($id_email)[0];
+                            $modo = "V";
                         }
                     }
                 } else {
@@ -202,7 +228,12 @@ try {
             <p>Gestión Documental</p>
         </div>
         <div>
-            <?php include './menu.php'; ?>
+            <?php
+            include './menu.php';
+            if (!isset($_SESSION['token'])) {
+                $_SESSION['token'] = generarTokenSesion();
+            }
+            ?>
         </div>
         <div id="cuerpo">      
             <div id="botonera">
@@ -228,6 +259,7 @@ try {
             </div>
             <div id="detalle">
                 <form action="email_detalle.php" method="post">
+                    <input type='hidden' name='token' id='token' value='<?php echo $_SESSION["token"] ?>'/>
                     <label id="lblDescripcion" for="descripcion">Descripcion&nbsp;</label>
                     <input  tabindex="10" title="Introduzca una descripción para el servidor de E-Mail" type="text" name="descripcion" id="descripcion" maxlength="55" value="<?php if ($email !== NULL) echo $email->getDescripcion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblUsuario" for="usuario">Usuario&nbsp;</label>

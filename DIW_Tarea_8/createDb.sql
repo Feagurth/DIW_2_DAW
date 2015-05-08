@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `fichero` (
     `id_fichero` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `tamanyo` VARCHAR(30) NOT NULL,
     `tipo` VARCHAR(30) NOT NULL,
-    `nombre` VARCHAR(30) NOT NULL,
+    `nombre` VARCHAR(50) NOT NULL,
     `descripcion` VARCHAR(50) NOT NULL,
     `fichero` LONGBLOB NOT NULL
 )  ENGINE=InnoDB;
@@ -83,8 +83,8 @@ CREATE TABLE IF NOT EXISTS `envio` (
     `fecha_envio` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
 	`id_email` int NOT NULL,
 	`id_fichero` int NOT NULL,
-	FOREIGN KEY (id_email) REFERENCES email(id_email) ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (id_fichero) REFERENCES fichero(id_fichero) ON UPDATE CASCADE ON DELETE CASCADE
+	FOREIGN KEY (id_email) REFERENCES email(id_email) ON UPDATE CASCADE ON DELETE RESTRICT,
+	FOREIGN KEY (id_fichero) REFERENCES fichero(id_fichero) ON UPDATE CASCADE ON DELETE RESTRICT
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_spanish_ci;
 
 
@@ -95,8 +95,8 @@ CREATE TABLE IF NOT EXISTS `grupo_fichero` (
     `id_grupo_fichero` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_grupo` int NOT NULL,
     `id_fichero` int NOT NULL,
-	FOREIGN KEY (id_grupo) REFERENCES grupo(id_grupo) ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (id_fichero) REFERENCES fichero(id_fichero) ON UPDATE CASCADE ON DELETE CASCADE
+	FOREIGN KEY (id_grupo) REFERENCES grupo(id_grupo) ON UPDATE CASCADE ON DELETE RESTRICT,
+	FOREIGN KEY (id_fichero) REFERENCES fichero(id_fichero) ON UPDATE CASCADE ON DELETE RESTRICT
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_spanish_ci;
 
 
@@ -107,8 +107,8 @@ CREATE TABLE IF NOT EXISTS `grupo_empleado` (
     `id_grupo_empleado` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_grupo` int NOT NULL,
     `id_empleado` int NOT NULL,
-	FOREIGN KEY (id_grupo) REFERENCES grupo(id_grupo) ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado) ON UPDATE CASCADE ON DELETE CASCADE
+	FOREIGN KEY (id_grupo) REFERENCES grupo(id_grupo) ON UPDATE CASCADE ON DELETE RESTRICT,
+	FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado) ON UPDATE CASCADE ON DELETE RESTRICT
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_spanish_ci;
 
 /**
@@ -118,8 +118,8 @@ CREATE TABLE IF NOT EXISTS `envio_empleado` (
     `id_envio_empleado` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `id_envio` int NOT NULL,
     `id_empleado` int NOT NULL,
-	FOREIGN KEY (id_envio) REFERENCES envio(id_envio) ON UPDATE CASCADE ON DELETE CASCADE,
-	FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado) ON UPDATE CASCADE ON DELETE CASCADE
+	FOREIGN KEY (id_envio) REFERENCES envio(id_envio) ON UPDATE CASCADE ON DELETE RESTRICT,
+	FOREIGN KEY (id_empleado) REFERENCES empleado(id_empleado) ON UPDATE CASCADE ON DELETE RESTRICT
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_spanish_ci;
 
 

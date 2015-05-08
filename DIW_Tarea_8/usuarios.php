@@ -6,10 +6,14 @@ try {
     // Recuperamos los valores de los filtros
     $filtro = (isset($_POST['filtro']) ? $_POST['filtro'] : "");
     $tipoFiltro = (isset($_POST['tipoFiltro']) ? $_POST['tipoFiltro'] : "1");
-    
+
     // Creamos un nuevo objeto de acceso a base de datos
     $db = new DB();
-    
+
+    // Limpiamos el valor de id_usuario de la sesión, dejando así la pantalla 
+    // de detalles lista para volver a usar
+    unset($_SESSION['id_usuario']);
+
     // Obtenemos el listado de usuarios pasándole los valores de filtro
     $usuarios = $db->listarUsuarios($filtro, $tipoFiltro);
 } catch (Exception $ex) {
@@ -47,7 +51,6 @@ try {
         </thead>    
         <tbody>
             <?php
-            
             // Verificamos si tenemos algún tipo de error
             if ($error === "") {
                 // Inicializamos un contador para asignar los estilos a cada linea
@@ -67,8 +70,8 @@ try {
 
                     // Imprimimos celda con los valores recuperados de cada objeto 
                     // usuario que hay en los registros recuperados
-                    echo '<td title="'. $usuario->getUser() .'">' . textoElipsis($usuario->getUser(),32) . '</td>';
-                    echo '<td title="'. $usuario->getNombre() .'">' . textoElipsis($usuario->getNombre(),30) . '</td>';
+                    echo '<td title="' . $usuario->getUser() . '">' . textoElipsis($usuario->getUser(), 32) . '</td>';
+                    echo '<td title="' . $usuario->getNombre() . '">' . textoElipsis($usuario->getNombre(), 30) . '</td>';
 
                     // Añadimos una última fila con un botón con imagen para 
                     // acceder a los detalles del usuario.

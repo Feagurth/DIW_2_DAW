@@ -512,8 +512,9 @@ function crearObjetosInserccionFichero(&$registro) {
             // al crear el objeto
             $registro->setId_fichero($id_fichero);
 
-            // Le asignamos el nombre
-            $registro->setNombre($file['name']);
+            // Le asignamos el nombre recortandolo al tamaño máximo que 
+            // permite la tabla donde se almacena
+            $registro->setNombre(recortaNombreFichero($file['name'], 50));
 
             // Le asignamos el tamaño
             $registro->setTamanyo($file['size']);
@@ -595,7 +596,7 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
 
     // Creamos una instancia de la base de datos
     $db = new DB();
-    
+
     // Recuperamos todos los empleados
     $empleados = $db->listarEmpleados("", "");
 
@@ -607,9 +608,9 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
 
     // Creamos un div y un formalario que contendrán el listado
     echo '<div class="listadoSel">';
-    
+
     echo '<h3>Empleados integrantes del grupo</h3>';
-    
+
     echo '<form action="grupo_detalle.php" method="post">';
 
     // A continuación definimos la estructura de la tabla y su cabecera
@@ -689,4 +690,64 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
     // Y finalmente cerramosel formulario
     echo '</form>';
     echo '</div>';
+}
+
+/**
+ * Función que nos permite generar un número aleatorio como indicador de la sesión.
+ * @return int Un número aleatorio entre 1 y 100000
+ */
+function generarTokenSesion() {
+    return rand(1, 100000);
+}
+
+/**
+ * Función que nos permite comprobar la sesión en la que nos encontramos y 
+ * de este modo poder controlar insercciones extras por refrescos de páginas
+ * @return boolean True si la sesión es correcta, False si no lo es
+ */
+function comprobarTokenSesion() {
+
+    // Comprobamos que el token de sesión es el mismo que el token que se envía 
+    // por post. Estos números serán iguales si en envío de los datos del post 
+    // no es un refresco de página
+    if ($_SESSION['token'] == $_POST['token']) {
+
+        // Se genera un nuevo número aleatorio de sesión con el fin que si ahora
+        // se refresca la página no coincidirá el nuevo número con el recibido
+        $_SESSION['token'] = generarTokenSesion();
+
+        // Si es todo correcto devolvemos True
+        return TRUE;
+    } else {
+        // En caso contrario, False
+        return FALSE;
+    }
+}
+
+/**
+ * Función que nos permite recortar el nombre de un fichero para ajustarlo al 
+ * tamaño máximo especificado sin perder la extensión del mismo
+ * @param string $nombrefichero Nombre del fichero a modificar
+ * @param int $tamañoMax Tamaño máximo que puede tener el nombre del fichero
+ * @return string El nombre del fichero reducido a su tamaño máximo
+ */
+function recortaNombreFichero($nombrefichero, $tamañoMax) {
+
+    // Localizamos el primer punto que haya en la cadena empezando por detrás.
+    $pos = strrpos($nombrefichero, '.', -1);
+
+    // Todo lo que haya entre la posición siguiente al punto y el final de la 
+    // cadena será la extensión del archivo
+    $ext = substr($nombrefichero, $pos + 1, (strlen($nombrefichero) - $pos));
+
+    // El nombre del fichero será desde el inicio de la cadena hasta la posición 
+    // del punto
+    $nombre = substr($nombrefichero, 0, $pos);
+
+    // Recortamos el nombre del fichero hasta el tamaño máximo menos el tamaño 
+    // de la extensión más uno, correspondiente al punto de la extensión
+    $nombre = substr($nombre, 0, ($tamañoMax - (strlen($ext) + 1)));
+
+    // Concatenamos todo y lo devolvemos como resultado
+    return $nombre . '.' . $ext;
 }

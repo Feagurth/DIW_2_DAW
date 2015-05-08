@@ -7,6 +7,10 @@ try {
     $filtro = (isset($_POST['filtro']) ? $_POST['filtro'] : "");
     $tipoFiltro = (isset($_POST['tipoFiltro']) ? $_POST['tipoFiltro'] : "1");
     
+    // Limpiamos el valor de id_fichero de la sesión, dejando así la pantalla 
+    // de detalles lista para volver a usar
+    unset($_SESSION['id_fichero']);    
+    
     // Creamos un nuevo objeto de acceso a base de datos
     $db = new DB();
     
@@ -71,7 +75,7 @@ try {
 
                     // Imprimimos celda con los valores recuperados de cada objeto 
                     // fichero que hay en los registros recuperados
-                    echo '<td title="'. $fichero->getNombre() .'">' . textoElipsis($fichero->getNombre(),30) . '</td>';
+                    echo '<td title="'. $fichero->getNombre() .'">' . textoElipsis($fichero->getNombre(),50) . '</td>';
                     echo '<td title="'. $fichero->getTamanyo() .'">' . textoElipsis($fichero->getTamanyo(),30) . '</td>';
                     echo '<td title="'. $fichero->getTipo() .'">' . textoElipsis($fichero->getTipo(),30) . '</td>';
                     echo '<td title="'. $fichero->getDescripcion() .'">' . textoElipsis($fichero->getDescripcion(),50) . '</td>';

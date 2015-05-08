@@ -24,6 +24,8 @@ require_once './objetos/Grupo.php';
 require_once './objetos/GrupoEmpleado.php';
 
 try {
+
+
     // Inicializamos variables
     $error = "";
 
@@ -33,10 +35,12 @@ try {
     // Creamos un objeto Grupo
     $grupo = new Grupo(array("id_grupo" => "", "nombre" => "", "descripcion" => ""));
 
-    // Recuperamos los valores del modo de visión de la página y 
-    // del id_grupo que hemos pasado
+    // Recuperamos los valores del modo de visión de la página   
     $modo = $_POST['modo'];
-    $id_grupo = $_POST['id_grupo'];
+
+
+    // Recuperamos los valores de grupo de sesión si están ahí o en su defecto de post
+    $id_grupo = isset($_SESSION['id_grupo']) ? $_SESSION['id_grupo'] : $_POST['id_grupo'];
 
     // Validamos el usuario
     validarUsuario($_SESSION['user'], $_SESSION['pass']);
@@ -49,10 +53,6 @@ try {
         // Si la página está refrescando para actualizar las relaciones 
         // con los empleados
         case "AE": {
-
-                xdebug_break();
-
-                // TODO: Implementar actualización de relacion grupo_empleados
 
                 if (isset($_POST['seleccionadoEmpleado'])) {
                     $empleadosSel = $_POST['seleccionadoEmpleado'];
@@ -94,32 +94,44 @@ try {
 
                 // Comprobamos si la información del botón es la de aceptar
                 if (isset($_POST['boton']) && $_POST['boton'] === "Aceptar") {
-                    // Si es así, asignamos la informacón introducida en los inputs 
-                    // y que se encuentra en post
-                    $grupo->setId_grupo($id_grupo);
-                    $grupo->setNombre($_POST['nombre']);
-                    $grupo->setDescripcion($_POST['descripcion']);
+                    // Comprobamos que la sesión es correcta
+                    if (comprobarTokenSesion()) {
+                        // Si es todo correcto asignamos la informacón introducida 
+                        // en los inputs  y que se encuentra en post
+                        $grupo->setId_grupo($id_grupo);
+                        $grupo->setNombre($_POST['nombre']);
+                        $grupo->setDescripcion($_POST['descripcion']);
 
 
-                    // Validamos los datos introducidos
-                    $validacion = validarDatosGrupo($grupo);
+                        // Validamos los datos introducidos
+                        $validacion = validarDatosGrupo($grupo);
 
-                    // Comprobamos si hay mensaje de error en la validación
-                    if ($validacion === "") {
+                        // Comprobamos si hay mensaje de error en la validación
+                        if ($validacion === "") {
 
-                        // Si no lo hay, realizamos la insercción pasándo como 
-                        // parámetro el objeto Grupo, dejando la gestión de 
-                        // errores de la insercción a las excepciones que se 
-                        // puedan lanzar. El id resultante de la insercción, lo 
-                        // asignamos a la variable $id_grupo
-                        $id_grupo = $db->insertarGrupo($grupo);
+                            // Si no lo hay, realizamos la insercción pasándo como 
+                            // parámetro el objeto Grupo, dejando la gestión de 
+                            // errores de la insercción a las excepciones que se 
+                            // puedan lanzar. El id resultante de la insercción, lo 
+                            // asignamos a la variable $id_grupo
+                            $id_grupo = $db->insertarGrupo($grupo);
 
-                        // Cambiamos el modo a visor
-                        $modo = "V";
+                            // Asignamos tambien el id_grupo a la sesión para 
+                            // prevenir inserciones extras por refrescos de página
+                            $_SESSION['id_grupo'] = $id_grupo;
+
+                            // Cambiamos el modo a visor
+                            $modo = "V";
+                        } else {
+                            // Si hay error de validación, copiamos su valor a 
+                            // la variable $error
+                            $error = $validacion;
+                        }
                     } else {
-                        // Si hay error de validación, copiamos su valor a 
-                        // la variable $error
-                        $error = $validacion;
+                        // Si la sesión no es válida, recuperamos los datos 
+                        // del grupo para mostrarlos en modo visor
+                        $grupo = $db->recuperarGrupo($id_grupo)[0];
+                        $modo = "V";
                     }
                 }
 
@@ -163,32 +175,42 @@ try {
 
                     // Si se ha pulsado el botón de aceptar
                     if ($_POST['boton'] === "Aceptar") {
-                        // Asignamos la informacón introducida en los inputs 
-                        // y que se encuentra en post
-                        $grupo->setId_grupo($id_grupo);
-                        $grupo->setNombre($_POST['nombre']);
-                        $grupo->setDescripcion($_POST['descripcion']);
+
+                        // Comprobamos que la sesión es correcta
+                        if (comprobarTokenSesion()) {
+
+                            // Asignamos la informacón introducida en los inputs 
+                            // y que se encuentra en post
+                            $grupo->setId_grupo($id_grupo);
+                            $grupo->setNombre($_POST['nombre']);
+                            $grupo->setDescripcion($_POST['descripcion']);
 
 
-                        // Realizamos la validación de los datos
-                        $validacion = validarDatosGrupo($grupo);
+                            // Realizamos la validación de los datos
+                            $validacion = validarDatosGrupo($grupo);
 
-                        // Comprobamos si la validación ha generado algún 
-                        // mensaje de error
-                        if ($validacion === "") {
+                            // Comprobamos si la validación ha generado algún 
+                            // mensaje de error
+                            if ($validacion === "") {
 
-                            // Si no hay mensaje de error, realizamos la modificación 
-                            // pasándo como parámetro el objeto Grupo, dejando 
-                            // la gestión de errores de la modificación a las excepciones 
-                            // que se puedan lanzar
-                            $db->modificarGrupo($grupo);
+                                // Si no hay mensaje de error, realizamos la modificación 
+                                // pasándo como parámetro el objeto Grupo, dejando 
+                                // la gestión de errores de la modificación a las excepciones 
+                                // que se puedan lanzar
+                                $db->modificarGrupo($grupo);
 
-                            // Cambiamos el modo a visor
-                            $modo = "V";
+                                // Cambiamos el modo a visor
+                                $modo = "V";
+                            } else {
+                                // Si hay error de validación, copiamos su valor a 
+                                // la variable $error                            
+                                $error = $validacion;
+                            }
                         } else {
-                            // Si hay error de validación, copiamos su valor a 
-                            // la variable $error                            
-                            $error = $validacion;
+                            // Si la sesión no es válida, recuperamos los datos 
+                            // del grupo para mostrarlos en modo visor
+                            $grupo = $db->recuperarGrupo($id_grupo)[0];
+                            $modo = "V";
                         }
                     }
                 } else {
@@ -220,7 +242,12 @@ try {
             <p>Gestión Documental</p>
         </div>
         <div>
-            <?php include './menu.php'; ?>
+            <?php
+            include './menu.php';
+            if (!isset($_SESSION['token'])) {
+                $_SESSION['token'] = generarTokenSesion();
+            }
+            ?>
         </div>
         <div id="cuerpo">      
             <div id="botonera">
@@ -245,6 +272,7 @@ try {
             </div>
             <div id="detalle">
                 <form action="grupo_detalle.php" method="post">
+                    <input type='hidden' name='token' id='token' value='<?php echo $_SESSION["token"] ?>'/>
                     <label id="lblNombre" for="nombre">Nombre&nbsp;</label>
                     <input tabindex="10" type="text" name="nombre" id="user" maxlength="30" value="<?php if ($grupo !== NULL) echo $grupo->getNombre() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblDescripcion" for="descripcion">Descripcion</label>
@@ -273,12 +301,13 @@ try {
                 </div>
             </div>
 
-                <?php
-                if($modo === "V")
-                {
-                    crearTablaRelacionesEmpleados($id_grupo, $error);
-                }
-                ?>
+            <?php
+            // Si la página está en modo visión 
+            if ($modo === "V") {                
+                // Creamos la tabla de relaciones de empleados con el grupo
+                crearTablaRelacionesEmpleados($id_grupo, $error);
+            }
+            ?>
 
         </div>
     </body>

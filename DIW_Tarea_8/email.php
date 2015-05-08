@@ -7,6 +7,10 @@ try {
     $filtro = (isset($_POST['filtro']) ? $_POST['filtro'] : "");
     $tipoFiltro = (isset($_POST['tipoFiltro']) ? $_POST['tipoFiltro'] : "1");
     
+    // Limpiamos el valor de id_email de la sesión, dejando así la pantalla 
+    // de detalles lista para volver a usar
+    unset($_SESSION['id_email']);    
+    
     // Creamos un nuevo objeto de acceso a base de datos
     $db = new DB();
     

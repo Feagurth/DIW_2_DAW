@@ -35,7 +35,9 @@ try {
     // Recuperamos los valores del modo de visión de la página y 
     // del id_empleado que hemos pasado
     $modo = $_POST['modo'];
-    $id_empleado = $_POST['id_empleado'];
+
+    // Recuperamos los valores de id_empleado de sesión si están ahí o en su defecto de post
+    $id_empleado = isset($_SESSION['id_empleado']) ? $_SESSION['id_empleado'] : $_POST['id_empleado'];
 
     // Validamos el usuario
     validarUsuario($_SESSION['user'], $_SESSION['pass']);
@@ -70,36 +72,49 @@ try {
 
                 // Comprobamos si la información del botón es la de aceptar
                 if (isset($_POST['boton']) && $_POST['boton'] === "Aceptar") {
-                    // Si es así, asignamos la informacón introducida en los inputs 
-                    // y que se encuentra en post
-                    $empleado->setId_empleado($id_empleado);
-                    $empleado->setNombre($_POST['nombre']);
-                    $empleado->setApellido($_POST['apellido']);
-                    $empleado->setTelefono($_POST['telefono']);
-                    $empleado->setEspecialidad($_POST['especialidad']);
-                    $empleado->setCargo($_POST['cargo']);
-                    $empleado->setDireccion($_POST['direccion']);
-                    $empleado->setEmail($_POST['email']);
+                    // Comprobamos que la sesión es correcta
+                    if (comprobarTokenSesion()) {
+                        // Si es así, asignamos la informacón introducida en los inputs 
+                        // y que se encuentra en post
+                        $empleado->setId_empleado($id_empleado);
+                        $empleado->setNombre($_POST['nombre']);
+                        $empleado->setApellido($_POST['apellido']);
+                        $empleado->setTelefono($_POST['telefono']);
+                        $empleado->setEspecialidad($_POST['especialidad']);
+                        $empleado->setCargo($_POST['cargo']);
+                        $empleado->setDireccion($_POST['direccion']);
+                        $empleado->setEmail($_POST['email']);
 
-                    // Validamos los datos introducidos
-                    $validacion = validarDatosEmpleado($empleado);
+                        // Validamos los datos introducidos
+                        $validacion = validarDatosEmpleado($empleado);
 
-                    // Comprobamos si hay mensaje de error en la validación
-                    if ($validacion === "") {
+                        // Comprobamos si hay mensaje de error en la validación
+                        if ($validacion === "") {
 
-                        // Si no lo hay, realizamos la insercción pasándo como 
-                        // parámetro el objeto Empleado, dejando la gestión de 
-                        // errores de la insercción a las excepciones que se 
-                        // puedan lanzar. El id resultante de la insercción, lo 
-                        // asignamos a la variable $id_empleado
-                        $id_empleado = $db->insertarEmpleado($empleado);
+                            // Si no lo hay, realizamos la insercción pasándo como 
+                            // parámetro el objeto Empleado, dejando la gestión de 
+                            // errores de la insercción a las excepciones que se 
+                            // puedan lanzar. El id resultante de la insercción, lo 
+                            // asignamos a la variable $id_empleado
+                            $id_empleado = $db->insertarEmpleado($empleado);
+                            
+                            // Asignamos tambien el id_empleado a la sesión para 
+                            // prevenir inserciones extras por refrescos de página
+                            $_SESSION['id_empleado'] = $id_empleado;
+                            
 
-                        // Cambiamos el modo a visor
-                        $modo = "V";
+                            // Cambiamos el modo a visor
+                            $modo = "V";
+                        } else {
+                            // Si hay error de validación, copiamos su valor a 
+                            // la variable $error
+                            $error = $validacion;
+                        }
                     } else {
-                        // Si hay error de validación, copiamos su valor a 
-                        // la variable $error
-                        $error = $validacion;
+                        // Si la sesión no es válida, recuperamos los datos 
+                        // del empleado para mostrarlos en modo visor
+                        $empleado = $db->recuperarEmpleado($id_empleado)[0];
+                        $modo = "V";
                     }
                 }
 
@@ -143,36 +158,45 @@ try {
 
                     // Si se ha pulsado el botón de aceptar
                     if ($_POST['boton'] === "Aceptar") {
-                        // Asignamos la informacón introducida en los inputs 
-                        // y que se encuentra en post
-                        $empleado->setId_empleado($id_empleado);
-                        $empleado->setNombre($_POST['nombre']);
-                        $empleado->setApellido($_POST['apellido']);
-                        $empleado->setTelefono($_POST['telefono']);
-                        $empleado->setEspecialidad($_POST['especialidad']);
-                        $empleado->setCargo($_POST['cargo']);
-                        $empleado->setDireccion($_POST['direccion']);
-                        $empleado->setEmail($_POST['email']);
+                        // Comprobamos que la sesión es correcta
+                        if (comprobarTokenSesion()) {
 
-                        // Realizamos la validación de los datos
-                        $validacion = validarDatosEmpleado($empleado);
+                            // Asignamos la informacón introducida en los inputs 
+                            // y que se encuentra en post
+                            $empleado->setId_empleado($id_empleado);
+                            $empleado->setNombre($_POST['nombre']);
+                            $empleado->setApellido($_POST['apellido']);
+                            $empleado->setTelefono($_POST['telefono']);
+                            $empleado->setEspecialidad($_POST['especialidad']);
+                            $empleado->setCargo($_POST['cargo']);
+                            $empleado->setDireccion($_POST['direccion']);
+                            $empleado->setEmail($_POST['email']);
 
-                        // Comprobamos si la validación ha generado algún 
-                        // mensaje de error
-                        if ($validacion === "") {
+                            // Realizamos la validación de los datos
+                            $validacion = validarDatosEmpleado($empleado);
 
-                            // Si no hay mensaje de error, realizamos la modificación 
-                            // pasándo como parámetro el objeto  Empleado, dejando 
-                            // la gestión de errores de la modificación a las excepciones 
-                            // que se puedan lanzar
-                            $db->modificarEmpleado($empleado);
+                            // Comprobamos si la validación ha generado algún 
+                            // mensaje de error
+                            if ($validacion === "") {
 
-                            // Cambiamos el modo a visor
-                            $modo = "V";
+                                // Si no hay mensaje de error, realizamos la modificación 
+                                // pasándo como parámetro el objeto  Empleado, dejando 
+                                // la gestión de errores de la modificación a las excepciones 
+                                // que se puedan lanzar
+                                $db->modificarEmpleado($empleado);
+
+                                // Cambiamos el modo a visor
+                                $modo = "V";
+                            } else {
+                                // Si hay error de validación, copiamos su valor a 
+                                // la variable $error                            
+                                $error = $validacion;
+                            }
                         } else {
-                            // Si hay error de validación, copiamos su valor a 
-                            // la variable $error                            
-                            $error = $validacion;
+                            // Si la sesión no es válida, recuperamos los datos 
+                            // del empleado para mostrarlos en modo visor
+                            $empleado = $db->recuperarEmpleado($id_empleado)[0];
+                            $modo = "V";
                         }
                     }
                 } else {
@@ -204,7 +228,12 @@ try {
             <p>Gestión Documental</p>
         </div>
         <div>
-            <?php include './menu.php'; ?>
+            <?php
+            include './menu.php';
+            if (!isset($_SESSION['token'])) {
+                $_SESSION['token'] = generarTokenSesion();
+            }
+            ?>
         </div>
         <div id="cuerpo">      
             <div id="botonera">
@@ -215,7 +244,7 @@ try {
                     <input class='oculto' name='modo' type='text' value='A' />
                     <input class='oculto' name='id_empleado' type='text' value='0' />
                 </form>
-                
+
                 <form id="modificar" action='empleado_detalle.php' method='post' >
                     <input type='submit' tabindex="8" value='Modificar Empleado' alt='Modificar Empleado' title="Pulse para modificar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='modificar' type='text' value='<?php echo $id_empleado ?>' />
@@ -230,6 +259,7 @@ try {
             </div>
             <div id="detalle">
                 <form action="empleado_detalle.php" method="post">
+                    <input type='hidden' name='token' id='token' value='<?php echo $_SESSION["token"] ?>'/>
                     <label id="lblNombre" for="nombre">Nombre&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <input tabindex="10" type="text" name="nombre" id="nombre" maxlength="30" value="<?php if ($empleado !== NULL) echo $empleado->getNombre() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblApellido" for="apellido">Apellido</label>

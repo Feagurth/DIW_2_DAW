@@ -440,17 +440,17 @@ clase */
     background-color: #EFE4B0;
 }    
 
-// Definimos el tamaño de los checboxex
+/* Definimos el tamaño de los checboxex */
 #cuerpo .listadoSel input[type="checkbox"]
 {
     height: 1vmax;
     width: 1vmax;
 }
 
-// Reducimos el margen del encabezado
-#cuerpo .listadoSel h3{
+/* Reducimos el margen del encabezado */
+div#cuerpo div.listadoSel h3 {
     margin: -2vmax 0 0 0;
-    padding: 0;
+    padding: 0;    
 }
 
 
@@ -476,6 +476,5 @@ clase */
     margin: 0.5vmax;
     display: block;
     float:right;
-    text-align: center;
+    text-align: center;    
 }
-

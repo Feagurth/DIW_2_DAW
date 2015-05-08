@@ -35,7 +35,9 @@ try {
     // Recuperamos los valores del modo de visión de la página y 
     // del id_usuario que hemos pasado
     $modo = $_POST['modo'];
-    $id_usuario = $_POST['id_usuario'];
+
+    // Recuperamos los valores de id_usuario de sesión si están ahí o en su defecto de post
+    $id_usuario = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : $_POST['id_usuario'];
 
     // Validamos el usuario
     validarUsuario($_SESSION['user'], $_SESSION['pass']);
@@ -70,32 +72,41 @@ try {
 
                 // Comprobamos si la información del botón es la de aceptar
                 if (isset($_POST['boton']) && $_POST['boton'] === "Aceptar") {
-                    // Si es así, asignamos la informacón introducida en los inputs 
-                    // y que se encuentra en post
-                    $usuario->setId_usuario($id_usuario);
-                    $usuario->setUser($_POST['user']);
-                    $usuario->setPass($_POST['pass']);
-                    $usuario->setNombre($_POST['nombre']);
+                    // Comprobamos que la sesión es correcta
+                    if (comprobarTokenSesion()) {
 
-                    // Validamos los datos introducidos
-                    $validacion = validardatosUsuario($usuario);
+                        // Si es así, asignamos la informacón introducida en los inputs 
+                        // y que se encuentra en post
+                        $usuario->setId_usuario($id_usuario);
+                        $usuario->setUser($_POST['user']);
+                        $usuario->setPass($_POST['pass']);
+                        $usuario->setNombre($_POST['nombre']);
 
-                    // Comprobamos si hay mensaje de error en la validación
-                    if ($validacion === "") {
+                        // Validamos los datos introducidos
+                        $validacion = validardatosUsuario($usuario);
 
-                        // Si no lo hay, realizamos la insercción pasándo como 
-                        // parámetro el objeto Usuario, dejando la gestión de 
-                        // errores de la insercción a las excepciones que se 
-                        // puedan lanzar. El id resultante de la insercción, lo 
-                        // asignamos a la variable $id_usuario
-                        $id_usuario = $db->insertarUsuario($usuario);
+                        // Comprobamos si hay mensaje de error en la validación
+                        if ($validacion === "") {
 
-                        // Cambiamos el modo a visor
-                        $modo = "V";
+                            // Si no lo hay, realizamos la insercción pasándo como 
+                            // parámetro el objeto Usuario, dejando la gestión de 
+                            // errores de la insercción a las excepciones que se 
+                            // puedan lanzar. El id resultante de la insercción, lo 
+                            // asignamos a la variable $id_usuario
+                            $id_usuario = $db->insertarUsuario($usuario);
+
+                            // Cambiamos el modo a visor
+                            $modo = "V";
+                        } else {
+                            // Si hay error de validación, copiamos su valor a 
+                            // la variable $error
+                            $error = $validacion;
+                        }
                     } else {
-                        // Si hay error de validación, copiamos su valor a 
-                        // la variable $error
-                        $error = $validacion;
+                        // Si la sesión no es válida, recuperamos los datos 
+                        // del usuario para mostrarlos en modo visor
+                        $usuario = $db->recuperarUsuario($id_usuario)[0];
+                        $modo = "V";
                     }
                 }
 
@@ -139,33 +150,42 @@ try {
 
                     // Si se ha pulsado el botón de aceptar
                     if ($_POST['boton'] === "Aceptar") {
-                        // Asignamos la informacón introducida en los inputs 
-                        // y que se encuentra en post
-                        $usuario->setId_usuario($id_usuario);
-                        $usuario->setUser($_POST['user']);
-                        $usuario->setPass($_POST['pass']);
-                        $usuario->setNombre($_POST['nombre']);
+                        // Comprobamos que la sesión es correcta
+                        if (comprobarTokenSesion()) {
+
+                            // Asignamos la informacón introducida en los inputs 
+                            // y que se encuentra en post
+                            $usuario->setId_usuario($id_usuario);
+                            $usuario->setUser($_POST['user']);
+                            $usuario->setPass($_POST['pass']);
+                            $usuario->setNombre($_POST['nombre']);
 
 
-                        // Realizamos la validación de los datos
-                        $validacion = validardatosUsuario($usuario);
+                            // Realizamos la validación de los datos
+                            $validacion = validardatosUsuario($usuario);
 
-                        // Comprobamos si la validación ha generado algún 
-                        // mensaje de error
-                        if ($validacion === "") {
+                            // Comprobamos si la validación ha generado algún 
+                            // mensaje de error
+                            if ($validacion === "") {
 
-                            // Si no hay mensaje de error, realizamos la modificación 
-                            // pasándo como parámetro el objeto Usuario, dejando 
-                            // la gestión de errores de la modificación a las excepciones 
-                            // que se puedan lanzar
-                            $db->modificarUsuario($usuario);
+                                // Si no hay mensaje de error, realizamos la modificación 
+                                // pasándo como parámetro el objeto Usuario, dejando 
+                                // la gestión de errores de la modificación a las excepciones 
+                                // que se puedan lanzar
+                                $db->modificarUsuario($usuario);
 
-                            // Cambiamos el modo a visor
-                            $modo = "V";
+                                // Cambiamos el modo a visor
+                                $modo = "V";
+                            } else {
+                                // Si hay error de validación, copiamos su valor a 
+                                // la variable $error                            
+                                $error = $validacion;
+                            }
                         } else {
-                            // Si hay error de validación, copiamos su valor a 
-                            // la variable $error                            
-                            $error = $validacion;
+                            // Si la sesión no es válida, recuperamos los datos 
+                            // del usuario para mostrarlos en modo visor
+                            $usuario = $db->recuperarUsuario($id_usuario)[0];
+                            $modo = "V";
                         }
                     }
                 } else {
@@ -197,7 +217,13 @@ try {
             <p>Gestión Documental</p>
         </div>
         <div>
-            <?php include './menu.php'; ?>
+            <?php
+            include './menu.php';
+            if (!isset($_SESSION['token'])) {
+                $_SESSION['token'] = generarTokenSesion();
+            }
+            ?>
+
         </div>
         <div id="cuerpo">      
             <div id="botonera">
@@ -222,6 +248,7 @@ try {
             </div>
             <div id="detalle">
                 <form action="usuario_detalle.php" method="post">
+                    <input type='hidden' name='token' id='token' value='<?php echo $_SESSION["token"] ?>'/>
                     <label id="lblUser" for="user">Usuario&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                     <input tabindex="10" type="text" name="user" id="user" maxlength="32" value="<?php if ($usuario !== NULL) echo $usuario->getUser() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblPass" for="pass">Contraseña</label>
