@@ -607,6 +607,9 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
 
     // Creamos un div y un formalario que contendrán el listado
     echo '<div class="listadoSel">';
+    
+    echo '<h3>Empleados integrantes del grupo</h3>';
+    
     echo '<form action="grupo_detalle.php" method="post">';
 
     // A continuación definimos la estructura de la tabla y su cabecera

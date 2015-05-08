@@ -372,11 +372,12 @@ form#btnVisor button img
     width: 1.5vmax;
     height: 1.5vmax;
     margin: 0;
-    padding: 0;
-    
+    padding: 0;    
 }
 
 
+
+/*  Estilos del listado de empleados en la pantalla de grupos  */
 #cuerpo div.listadoSel
 {
     clear: both;    
@@ -439,6 +440,19 @@ clase */
     background-color: #EFE4B0;
 }    
 
+// Definimos el tamaño de los checboxex
+#cuerpo .listadoSel input[type="checkbox"]
+{
+    height: 1vmax;
+    width: 1vmax;
+}
+
+// Reducimos el margen del encabezado
+#cuerpo .listadoSel h3{
+    margin: -2vmax 0 0 0;
+    padding: 0;
+}
+
 
 
 /* Estilos para barra de desplazamiento redondeadas en el div de seleccion */
@@ -464,3 +478,4 @@ clase */
     float:right;
     text-align: center;
 }
+
