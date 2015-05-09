@@ -1298,4 +1298,116 @@ class DB {
     }
 
 // </editor-fold>
+
+
+    /**
+     * Función que nos permite recuperar los envíos de la base de datos usando un filtro
+     * @param string $cadena Cadena por la que se va a filtrar
+     * @param int $tipoFiltro Campo por el que se va a filtrar respecto al orden de la colunas en la base de datos
+     * @return \Envio Array de envíos con la información de los mismos
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function listarEnvios($cadena, $tipoFiltro) {
+        // Especificamos la consulta que vamos a realizar sobre la base de datos
+        $sql = "select "
+                . "e.id_envio as id_envio, "
+                . "e.fecha_envio as fecha_envio, "
+                . "em.descripcion as email_envio, "
+                . "emp.nombre as nombre_empleado, "
+                . "emp.apellido as apellido_empleado, "
+                . "emp.email as email_empleado, "
+                . "f.nombre as nombre_fichero, "
+                . "f.descripcion as descripcion_fichero "
+                . "from "
+                . "envio e, "
+                . "envio_empleado ee, "
+                . "empleado emp, "
+                . "email em, "
+                . "fichero f "
+                . "WHERE "
+                . "e.id_envio = ee.id_envio AND "
+                . "ee.id_empleado = emp.id_empleado AND "
+                . "e.id_email = em.id_email AND "
+                . "e.id_fichero = f.id_fichero";
+        $orden = " ORDER BY e.fecha_envio DESC";
+
+        // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
+        // una condición a la sentencia sql original
+        if (($cadena !== NULL && $cadena !== "") && $tipoFiltro !== NULL) {
+            // Dependiendo del tipo de filtro, agregaremos a la cadena sql una 
+            // condición u otra
+            switch ($tipoFiltro) {
+                case 1: {
+                        // Si se filtra por fecha_envío
+                        $sql .= " AND e.fecha_envio LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 2: {
+                        // Si se filtra por email_envio
+                        $sql .= " AND em.descripcion LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 3: {
+                        // Si se filtra por nombre_empleado
+                        $sql .= " AND emp.nombre LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 4: {
+                        // Si se filtra por apellido_empleado
+                        $sql .= " AND emp.apellido LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 5: {
+                        // Si se filtra por email_empleado
+                        $sql .= " AND emp.email LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 6: {
+                        // Si se filtra por nombre_fichero
+                        $sql .= " AND f.nombre LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                case 7: {
+                        // Si se filtra por descripcion_fichero
+                        $sql .= " AND f.descripcion LIKE '" . $cadena . "%'";
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
+        // Concatenamos el orden a la cadena sql
+        $sql .= $orden;
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar el resultado
+            $datos = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch();
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $datos[] = new Envio($row);
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch();
+            }
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
+        }
+    }
+
 }
