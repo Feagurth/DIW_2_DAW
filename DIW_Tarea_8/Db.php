@@ -5,6 +5,7 @@ require_once './objetos/Empleado.php';
 require_once './objetos/Usuario.php';
 require_once './objetos/Email.php';
 require_once './objetos/Fichero.php';
+require_once './objetos/ListaEnvio.php';
 
 class DB {
 
@@ -1221,6 +1222,52 @@ class DB {
             throw new Exception();
         }
     }
+    
+    
+    public function listarEmpleadosEnGrupo($id_grupo) {
+        // Especificamos la consulta que vamos a realizar sobre la base de datos
+        $sql = "SELECT "
+                . "e.* "
+                . "FROM "
+                . "empleado e, "
+                . "grupo g, "
+                . "grupo_empleado ge "
+                . "WHERE "
+                . "g.id_grupo = ge.id_grupo AND "
+                . "ge.id_empleado = e.id_empleado AND "
+                . "g.id_grupo =" . $id_grupo;
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar el resultado
+            $datos = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch();
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $datos[] = new Empleado($row);
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch();
+            }
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
+        }
+    }
+    
+
 
     /**
      * Función que nos permite eliminar las relaciones de un grupo con los empleados
@@ -1396,7 +1443,7 @@ class DB {
             while ($row != null) {
 
                 // Asignamos el resultado al array de resultados                
-                $datos[] = new Envio($row);
+                $datos[] = new ListaEnvio($row);
 
                 // Recuperamos una nueva fila
                 $row = $resultado->fetch();

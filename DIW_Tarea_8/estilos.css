@@ -218,7 +218,7 @@ div#botonera form#filtro input
 
 div#botonera form#filtro select
 {
-        display: block;
+    display: block;
     float: right;
     margin: 0.75vmax;
     font-size: 1vmax;
@@ -259,7 +259,6 @@ así como el alineamiento del texto */
 
 }
 
-
 /* Finalmente cambiamos el color de fondo de las filas dependiendo de la 
 clase */
 #cuerpo .listado tbody tr.pijama1{
@@ -271,6 +270,8 @@ clase */
 #cuerpo .listado tr.pijama2{
     background-color: #EFE4B0;
 }    
+
+
 
 
 
@@ -287,6 +288,11 @@ clase */
     -moz-border-radius: 15px;
     border-radius: 15px;
     width: 92.2%;
+}
+
+#detalle hr{
+    display: block;
+    width: 100%;
 }
 
 #detalle input#nombre,
@@ -364,7 +370,7 @@ form#btnVisor button
     height: 2.5vmax;
     margin: 0;
     padding: 0;
-    
+
 }
 
 form#btnVisor button img
@@ -392,7 +398,7 @@ form#btnVisor button img
     width: 92.2%;
     height: 10vmax;
     overflow-y: scroll;
-    
+
 }
 
 #cuerpo div.listadoSel table {
@@ -477,4 +483,119 @@ div#cuerpo div.listadoSel h3 {
     display: block;
     float:right;
     text-align: center;    
+}
+
+
+/* Estilos para tablas anidadas*/
+
+/*  Estilos del listado de empleados en la pantalla de grupos  */
+#cuerpo div.tablaanidada
+{
+    display: block;
+    float: left;    
+    width: 49.5%;
+    height: 25vmax;
+    overflow-y: auto;
+    margin-bottom: 0.5vmax;
+
+}
+
+#cuerpo div.tablaanidada table {
+    margin: 0.5vmax;
+    border-collapse: collapse;
+    width: 98%;
+}
+
+#cuerpo div.tablaanidada table caption{
+    margin: 0.5vmax;    
+}
+
+#cuerpo div.tablaanidada table thead{
+    background-color: #f9f53f;    
+}
+
+#cuerpo div.tablaanidada table thead tr td{
+    border-right: transparent;
+    border-left: transparent;
+}
+
+#cuerpo div.tablaanidada table thead tr td:first-child{
+    border-left: 0.15vmax solid black;
+    text-align: left;
+}
+
+#cuerpo div.tablaanidada table thead tr td:last-child{
+    border-right: 0.15vmax solid black;
+    text-align: right;
+    padding-right: 0.5vmax;
+}
+
+
+
+/* Definimos el ancho, color y tipo de linea que tendrán los bordes de la tabla 
+así como el alineamiento del texto */
+#cuerpo #lista .tablaanidada table, th, td {
+    border: 0.15vmax solid black;
+    text-align: center;
+}
+
+/* Definimos el ancho de los encabezamientos de la tabla */
+#cuerpo .tablaanidada th
+{
+    width: 10%;
+}
+
+/* Definimos los texto de la cabecera como negrita */ 
+#cuerpo .tablaanidada thead
+{
+    font-weight: bold;
+}
+
+#cuerpo .tablaanidada tbody button{
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+
+}
+
+/* Definimos el tamaño de los checboxex */
+#cuerpo .tablaanidada input[type="checkbox"]
+{
+    height: 1vmax;
+    width: 1vmax;
+}
+
+
+
+/* Finalmente cambiamos el color de fondo de las filas dependiendo de la 
+clase */
+#cuerpo .tablaanidada tbody tr.pijama1{
+    background-color: lightgrey;
+}
+
+/* Finalmente cambiamos el color de fondo de las filas dependiendo de la 
+clase */
+#cuerpo .tablaanidada tr.pijama2{
+    background-color: #EFE4B0;
+}    
+
+
+.left{
+    float: left !important;
+}
+
+.right{
+    float: right !important;
+}
+
+
+#especial {
+    width: 100%;
+    height: 4vmax;
+    text-align: center !important;
+}
+
+#especial input.especialbtn{
+    display: inline !important;
+    float: none !important;
 }

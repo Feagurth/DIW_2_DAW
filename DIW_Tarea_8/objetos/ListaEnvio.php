@@ -18,11 +18,11 @@
  */
 
 /**
- * Clase para trabajar con los envíos realizados
+ * Clase para trabajar con la lista de envíos realizados
  *
  * @author Luis Cabrerizo Gómez
  */
-class Envio {
+class ListaEnvio {
 
     /**
      * Variable para identificar el envío
