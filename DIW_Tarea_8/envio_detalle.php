@@ -23,22 +23,100 @@ require_once './configuracion.inc.php';
 require_once './objetos/Usuario.php';
 require_once './objetos/Grupo.php';
 require_once './objetos/Fichero.php';
+require_once './objetos/Email.php ';
 
 
 // Recupermaos el nombre de usuario
 $nombreUsuario = $_SESSION['nombreUsuario'];
 
+// Recuperamos los valores del modo de visión de la página   
 $modo = $_POST['modo'];
+
+// Recuperamos los valores de grupo de sesión si están ahí o en su defecto de post
+$id_envio = isset($_SESSION['id_envio']) ? $_SESSION['id_envio'] : $_POST['id_envio'];
+
+
+// Inicializamos la variable de error    
 $error = "";
-$id_envio = "0";
+
+// Validamos el usuario
+validarUsuario($_SESSION['user'], $_SESSION['pass']);
 
 
+// Creamos una isntacia de la base de datos
 $db = new DB();
 
-$grupos = $db->listarGrupos("", "");
-$ficheros = $db->listarFicheros("", "");
-?>
+// Listamos los emails
+$emails = $db->listarEmails("", "");
 
+// Recuperamos los grupos existentes
+$grupos = $db->listarGrupos("", "");
+
+// Recuperamos los ficheros existentes
+$ficheros = $db->listarFicheros("", "");
+
+
+
+
+// Comprobamos el modo de la página
+switch ($modo) {
+
+    case "A": {
+
+            // Verificamos si en la información de post tenemos la información 
+            // de los botones de confirmanción o de cancelación pulsados.
+            // Verificamos si la información del botón es la de cancelar.
+            if (isset($_POST['boton']) && $_POST['boton'] === "Cancelar") {
+                // Si cancelamos el añadir un grupo, pasamos a sesión el 
+                // indice como valor para la página index.php para que cargue 
+                // la plantilla de grupos
+                $_SESSION['indice'] = 4;
+
+                // Navegamos a la pagina index.php
+                header("location:index.php");
+            }
+
+            // Comprobamos si la información del botón es la de aceptar
+            if (isset($_POST['boton']) && $_POST['boton'] === "Aceptar") {
+                // Comprobamos que la sesión es correcta
+                if (comprobarTokenSesion()) {
+
+                    $grupossel = isset($_POST['gruposel']) ? $_POST['gruposel'] : NULL;
+                    $ficherossel = isset($_POST['ficherosel']) ? $_POST['ficherosel'] : NULL;
+                    $id_email = isset($_POST['email']) ? $_POST['email'] : 0;
+
+                    // Validamos los datos introducidos
+                    $validacion = validarDatosEnvio($grupossel, $ficherossel, $id_email);
+
+                    // Comprobamos si hay mensaje de error en la validación
+                    if ($validacion === "") {
+
+
+                        $salida = $db->insertarEnvio($grupossel, $ficherossel, $id_email);
+
+                        // Asignamos tambien el id_envio a la sesión para 
+                        // prevenir inserciones extras por refrescos de página
+                        $_SESSION['id_envio'] = $id_envio;
+
+                        // Cambiamos el modo a visor
+                        $modo = "V";
+                    } else {
+                        // Si hay error de validación, copiamos su valor a 
+                        // la variable $error
+                        $error = $validacion;
+                    }
+                } else {
+                    // Si la sesión no es válida, recuperamos los datos 
+                    // del grupo para mostrarlos en modo visor
+                    //$grupo = $db->recuperarGrupo($id_grupo)[0];
+                    //$modo = "V";
+                }
+            }
+
+            break;
+        }
+}
+?>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -69,10 +147,21 @@ $ficheros = $db->listarFicheros("", "");
                     <input class='oculto' name='modo' type='text' value='A' />
                     <input class='oculto' name='id_envio' type='text' value='0' />
                 </form>                
-            </div>
+            </div>            
             <div id="detalle">
                 <form action="envio_detalle.php" method="post">
                     <input type='hidden' name='token' id='token' value='<?php echo $_SESSION["token"] ?>'/>
+                    <div id="emailEnvio">
+                        <label id="lblEmail" name="lblEmail" for="email" title="E-Mail de Envío">E-Mail de Envío</label>
+                        <select name="email" tabindex="9" title="Seleccione la cuenta de E-Mail desde la que se enviarán los ficheros" id="email" <?php echo deshabilitarPorModo($modo) ?> >
+                            <?php
+                            foreach ($emails as $email) {
+                                echo "<option value='" . $email->getId_email() . "' title='" . $email->getDescripcion() . "'>" . $email->getDescripcion() . "</option>";
+                            }
+                            ?>
+                        </select>     
+
+                    </div>
                     <div class="tablaanidada left">
                         <table>
                             <caption>Seleccione un grupo de usuario para realizar el envío</caption>
@@ -186,18 +275,19 @@ $ficheros = $db->listarFicheros("", "");
 
                             // Creamos el botón de cancelar
                             echo "<input class='especialbtn' tabindex='14' name='boton' id='cancelar 'type='submit' value='Cancelar' alt='Cancelar' title='Pulse para cancelar las modificaciones' />";
-                            
+
                             // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del usuario
-                            echo "<input class='oculto' name='id_usuario' type='text' value='$id_envio' />";
+                            echo "<input class='oculto' name='id_envio' type='text' value='$id_envio' />";
                             echo "<input class='oculto' name='modo' type='text' value='$modo' />";
                         }
                         ?>      
-                    </div>                    
+                    </div>                                        
                 </form>               
                 <div class="error">
                     <p><?php echo $error ?></p>
                 </div>
-            </div>            
+
+            </div>                        
         </div>
     </body>
 </html>

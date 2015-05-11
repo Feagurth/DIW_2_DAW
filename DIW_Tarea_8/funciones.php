@@ -376,6 +376,38 @@ function validarDatosGrupo($grupo) {
     return $salida;
 }
 
+/**
+ * 
+ * @param array $grupos Array con los identificadores de grupos seleccionados
+ * @param type $ficheros Array con los identificadores de ficheros seleccionados
+ * @return string Cadena vacía si la validación es correcta y un mensaje de 
+ * error si no lo es
+ */
+function validarDatosEnvio($grupos, $ficheros, $id_email) {
+
+    // Inicializamos una variable de salida
+    $salida = "";
+
+    // Comprobamos si hay seleccionado algún email.
+    if($id_email === 0)
+    {
+        $salida = "Debe seleccionar un email con el que enviar los ficheros.";
+    }
+        
+    // Comprobamos si se ha seleccionado algún grupo
+    if ($grupos === NULL) {
+        $salida = "Debe seleccionar un grupo al que enviar los ficheros.";
+    }
+
+    // Comprobamos si se ha seleccionado algún fichero
+    if ($ficheros === NULL) {
+        $salida = "Debe seleccionar un fichero para enviar a los grupos.";
+    }
+
+    // Devolvemos el resultado de la validación
+    return $salida;
+}
+
 // </editor-fold>
 
 /**

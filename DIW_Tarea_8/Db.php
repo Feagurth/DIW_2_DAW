@@ -1222,8 +1222,7 @@ class DB {
             throw new Exception();
         }
     }
-    
-    
+
     public function listarEmpleadosEnGrupo($id_grupo) {
         // Especificamos la consulta que vamos a realizar sobre la base de datos
         $sql = "SELECT "
@@ -1266,8 +1265,6 @@ class DB {
             throw new Exception();
         }
     }
-    
-
 
     /**
      * Función que nos permite eliminar las relaciones de un grupo con los empleados
@@ -1345,7 +1342,7 @@ class DB {
     }
 
 // </editor-fold>
-
+// <editor-fold defaultstate="collapsed" desc=" Funciones de Envíos ">
 
     /**
      * Función que nos permite recuperar los envíos de la base de datos usando un filtro
@@ -1376,7 +1373,7 @@ class DB {
                 . "ee.id_empleado = emp.id_empleado AND "
                 . "e.id_email = em.id_email AND "
                 . "e.id_fichero = f.id_fichero";
-        $orden = " ORDER BY e.fecha_envio DESC";
+        $orden = " ORDER BY e.fecha_envio, f.descripcion DESC";
 
         // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
         // una condición a la sentencia sql original
@@ -1457,4 +1454,105 @@ class DB {
         }
     }
 
+    /**
+     * Función que nos permite insertar un envío
+     * @param array $id_grupos Array con las id's de los grupos a los que enviar el fichero
+     * @param array $id_ficheros Array con las id's de los ficheros que se enviarán a los grupos
+     * @param int $id_email Id del email con el que se van a enviar los ficheros
+     * @return int
+     * @throws Exception Se lanza una excepción si se produce un error
+     */
+    public function insertarEnvio($id_grupos, $id_ficheros, $id_email) {
+
+        try {
+
+            // Iniciamos una transacción
+            $this->diw->beginTransaction();
+
+            // Iteramos por todos los ids de los grupos
+            foreach ($id_grupos as $id_grupo) {
+
+                // Recuperamos la fecha actual
+                $fecha = date("d/m/Y");
+
+                // Iteramos por las ids de los ficheros seleccionados
+                foreach ($id_ficheros as $id_fichero) {
+
+                    // Construimos la sentencia sql para insertar el envío en la base de datos
+                    $sql = "INSERT INTO ENVIO VALUES(0, '" . $fecha . "', " . $id_email . ", " . $id_fichero . ", " . $id_grupo . ")";
+
+                    // Ejecutamos la consulta y recuperamos el resultado
+                    $resultado = $this->diw->exec($sql);
+
+                    // Verificamos el resultado de la operación
+                    if (!$resultado) {
+                        // Si hay algún error, lanzamos una excepción
+                        throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+                    }
+
+                    // Recuperamos el id de la insercción en la tabla envío
+                    $id_envio = $this->diw->lastInsertId("ENVIO");
+
+                    // Creamos la sentencia slq para recuperar los usuarios que pertenecen al grupo en el que estamos iterando
+                    $sql = "SELECT id_empleado FROM grupo_empleado WHERE id_grupo = " . $id_grupo;
+
+                    // Ejecutamos la consulta
+                    $resultado = $this->diw->query($sql);
+
+                    // Verificamos el resultado de la operación
+                    if (!$resultado) {
+                        // Si hay algún error, lanzamos una excepción
+                        throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+                    } else {
+                        // Definimos un nuevo array para almacenar el resultado
+                        $empleados = array();
+
+                        // Añadimos un elemento por cada registro de entrada obtenido
+                        $row = $resultado->fetch();
+
+                        // Iteramos por los resultados obtenidos
+                        while ($row != null) {
+
+                            // Asignamos el resultado al array de resultados                
+                            $empleados[] = $row['id_empleado'];
+
+                            // Recuperamos una nueva fila
+                            $row = $resultado->fetch();
+                        }
+
+                        // Iteramos por todos los empleados que forman parte del grupo
+                        foreach ($empleados as $id_empleado) {
+
+                            // Creamos la sentencia de insercción de los identificadores de los empleados en relación con el envío
+                            $sql = "INSERT INTO ENVIO_EMPLEADO VALUES(0, " . $id_envio . ", " . $id_empleado . ")";
+
+                            // Ejecutamos la consulta
+                            $resultado = $this->diw->exec($sql);
+
+                            // Verificamos el resultado de la operación
+                            if (!$resultado) {
+                                // Si hay algún error, lanzamos una excepción
+                                throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Finalizamos la transacción
+            $this->diw->commit();
+
+            // Si es correcto, devolvemos el id del fichero creado
+            return 0;
+        } catch (Exception $ex) {
+
+            // Si se produce una excepción, hacemos un rollback
+            $this->diw->rollBack();
+
+            // Y lanzamos la excepción
+            throw $ex;
+        }
+    }
+
+// </editor-fold>
 }

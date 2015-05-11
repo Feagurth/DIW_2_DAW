@@ -83,20 +83,10 @@ CREATE TABLE IF NOT EXISTS `envio` (
     `fecha_envio` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
 	`id_email` int NOT NULL,
 	`id_fichero` int NOT NULL,
+        `id_grupo` int NOT NULL,
 	FOREIGN KEY (id_email) REFERENCES email(id_email) ON UPDATE CASCADE ON DELETE RESTRICT,
-	FOREIGN KEY (id_fichero) REFERENCES fichero(id_fichero) ON UPDATE CASCADE ON DELETE RESTRICT
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_spanish_ci;
-
-
-/**
-* Tabla grupo_fichero
-**/
-CREATE TABLE IF NOT EXISTS `grupo_fichero` (
-    `id_grupo_fichero` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `id_grupo` int NOT NULL,
-    `id_fichero` int NOT NULL,
-	FOREIGN KEY (id_grupo) REFERENCES grupo(id_grupo) ON UPDATE CASCADE ON DELETE RESTRICT,
-	FOREIGN KEY (id_fichero) REFERENCES fichero(id_fichero) ON UPDATE CASCADE ON DELETE RESTRICT
+	FOREIGN KEY (id_fichero) REFERENCES fichero(id_fichero) ON UPDATE CASCADE ON DELETE RESTRICT,
+        FOREIGN KEY (id_grupo) REFERENCES grupo(id_grupo) ON UPDATE CASCADE ON DELETE RESTRICT
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_spanish_ci;
 
 
