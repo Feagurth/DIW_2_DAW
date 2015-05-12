@@ -54,7 +54,7 @@ try {
                 <td>Nombre de Empleado</td>    
                 <td>Apellido de Empleado</td>    
                 <td>E-Mail de Empleado</td>    
-                <td>Nombre de Fichero</td>    
+                <td>Cargo de Empleado</td>    
                 <td>Descripción de Fichero</td>                    
                 <td>Detalles</td>    
             </tr>        
@@ -80,12 +80,12 @@ try {
 
                     // Imprimimos celda con los valores recuperados de cada objeto 
                     // envio que hay en los registros recuperados
-                    echo '<td title="' . $envio->getFecha_envio() . '">' . textoElipsis($envio->getFecha_envio(), 30) . '</td>';
-                    echo '<td title="' . $envio->getEmail_envio() . '">' . textoElipsis($envio->getEmail_envio(), 50) . '</td>';
+                    echo '<td title="' . $envio->getFecha_envio() . '">' . textoElipsis($envio->getFecha_envio(), 10) . '</td>';
+                    echo '<td title="' . $envio->getEmail_envio() . '">' . textoElipsis($envio->getEmail_envio(), 30) . '</td>';
                     echo '<td title="' . $envio->getNombre_empleado() . '">' . textoElipsis($envio->getNombre_empleado(), 30) . '</td>';
                     echo '<td title="' . $envio->getApellido_empleado() . '">' . textoElipsis($envio->getApellido_empleado(), 30) . '</td>';
                     echo '<td title="' . $envio->getEmail_empleado() . '">' . textoElipsis($envio->getEmail_empleado(), 30) . '</td>';
-                    echo '<td title="' . $envio->getNombre_fichero() . '">' . textoElipsis($envio->getNombre_fichero(), 50) . '</td>';
+                    echo '<td title="' . $envio->getCargo_empleado() . '">' . textoElipsis($envio->getCargo_empleado(), 15) . '</td>';
                     echo '<td title="' . $envio->getDescripcion_fichero() . '">' . textoElipsis($envio->getDescripcion_fichero(), 50) . '</td>';
 
                     // Añadimos una última fila con un botón con imagen para 

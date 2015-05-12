@@ -1360,7 +1360,7 @@ class DB {
                 . "emp.nombre as nombre_empleado, "
                 . "emp.apellido as apellido_empleado, "
                 . "emp.email as email_empleado, "
-                . "f.nombre as nombre_fichero, "
+                . "emp.cargo as cargo_empleado, "
                 . "f.descripcion as descripcion_fichero "
                 . "from "
                 . "envio e, "
@@ -1407,8 +1407,8 @@ class DB {
                         break;
                     }
                 case 6: {
-                        // Si se filtra por nombre_fichero
-                        $sql .= " AND f.nombre LIKE '" . $cadena . "%'";
+                        // Si se filtra por cargo_empleado
+                        $sql .= " AND emp.cargo LIKE '" . $cadena . "%'";
                         break;
                     }
                 case 7: {
@@ -1464,8 +1464,7 @@ class DB {
      */
     public function insertarEnvio($id_grupos, $id_ficheros, $id_email) {
 
-        try {
-
+        try {            
             // Iniciamos una transacción
             $this->diw->beginTransaction();
 
@@ -1542,8 +1541,8 @@ class DB {
             // Finalizamos la transacción
             $this->diw->commit();
 
-            // Si es correcto, devolvemos el id del fichero creado
-            return 0;
+            // Si es correcto, devolvemos el id del último envío generado
+            return $id_envio;
         } catch (Exception $ex) {
 
             // Si se produce una excepción, hacemos un rollback
@@ -1551,6 +1550,78 @@ class DB {
 
             // Y lanzamos la excepción
             throw $ex;
+        }
+    }
+
+    /**
+     * Función que nos permite recuperar los datos de un envío
+     * @param int $id_envio Identificador del envío
+     * @return Array Array con la información del envío
+     * @throws Exception Lanza una excepción si se produce un error
+     */
+    public function recuperarEnvio($id_envio) {
+        // Especificamos la consulta que vamos a realizar sobre la base de datos
+        $sql = "SELECT * FROM envio WHERE id_envio= '" . $id_envio . "'";
+
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Recuperamos los resultados, que al realizar la consulta con un 
+            // identificador único solo producira un resultado
+            $datos = $resultado->fetch();
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
+        }
+    }
+
+    public function recuperarEmpleadosEnvio($id_envio) {
+        $sql = "SELECT id_empleado FROM ENVIO_EMPLEADO WHERE ID_ENVIO=" . $id_envio;
+
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar los empleados
+            $empleados = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch();
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $empleados[] = $row;
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch();
+            }
+
+            // Recuperados los id de los empleados creamos otro array para 
+            // almacenar los datos recuperados de los empleados
+            $datos = array();
+
+            // Itermaos por los ides de los empleados
+            foreach ($empleados as $empleado) {
+                
+                // Recupermos los datos y los asignamos
+                $datos[] = $this->recuperarEmpleado($empleado['id_empleado'])[0];                
+            }
+            
+            
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
         }
     }
 

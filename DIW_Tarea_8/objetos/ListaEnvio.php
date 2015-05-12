@@ -61,10 +61,10 @@ class ListaEnvio {
     private $email_empleado;
 
     /**
-     * Nombre del fichero que se le ha enviado al empleado
+     * Cargo del empleado al que se ha enviado el fichero
      * @var string
      */
-    private $nombre_fichero;
+    private $cargo_empleado;
 
     /**
      * Descripción del fichero que se le ha enviado al empleado
@@ -83,7 +83,7 @@ class ListaEnvio {
         $this->nombre_empleado = $row['nombre_empleado'];
         $this->apellido_empleado = $row['apellido_empleado'];
         $this->email_empleado = $row['email_empleado'];
-        $this->nombre_fichero = $row['nombre_fichero'];
+        $this->cargo_empleado = $row['cargo_empleado'];
         $this->descripcion_fichero = $row['descripcion_fichero'];
     }
 
@@ -114,7 +114,7 @@ class ListaEnvio {
     }
 
     /**
-     * Función que nos permite recuperar el nombre del empleado al que se ha realizado del envío
+     * Función que nos permite recuperar el nombr del empleado al que se ha realizado del envío
      * @return string El nombre del empleado al que se le ha realizado el envío
      */
     public function getNombre_empleado() {
@@ -138,11 +138,11 @@ class ListaEnvio {
     }
 
     /**
-     * Función que nos permite recuperar el nombre del fichero enviado
-     * @return string El nombre del fichero enviado
+     * Función que nos permite recuperar el cargo del empleado al que se ha realizado del envío
+     * @return string El cargo del empleado al que se le ha realizado el envío
      */
-    public function getNombre_fichero() {
-        return $this->nombre_fichero;
+    public function getCargo_empleado() {
+        return $this->cargo_empleado;
     }
 
     /**
@@ -210,11 +210,11 @@ class ListaEnvio {
     }
 
     /**
-     * Función que nos permite asignar el nombre del fichero que se ha enviado
-     * @param string $nombre_fichero Nombre el fichero enviado
+     * Función que nos permite asignar el cargo del empleado
+     * @param string $cargo_empleado Cargo del empleado
      */
-    public function setNombre_fichero($nombre_fichero) {
-        $this->nombre_fichero = $nombre_fichero;
+    public function setCargo_empleado($cargo_empleado) {
+        $this->cargo_empleado = $cargo_empleado;
     }
 
     /**

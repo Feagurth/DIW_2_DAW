@@ -252,7 +252,8 @@ así como el alineamiento del texto */
     font-weight: bold;
 }
 
-#cuerpo .listado tbody button{
+#cuerpo .listado tbody button
+{
     width: 100%;
     background-color: transparent;
     border: 0;
@@ -426,12 +427,14 @@ así como el alineamiento del texto */
     font-weight: bold;
 }
 
-#cuerpo .listadoSel tbody button{
+#cuerpo .listadoSel tbody button
+{
     width: 100%;
     background-color: transparent;
     border: 0;
-
 }
+
+
 
 
 /* Finalmente cambiamos el color de fondo de las filas dependiendo de la 
@@ -551,11 +554,19 @@ así como el alineamiento del texto */
     font-weight: bold;
 }
 
-#cuerpo .tablaanidada tbody button{
+#cuerpo .tablaanidada tbody button
+{
     width: 100%;
     background-color: transparent;
     border: 0;
+}
 
+#cuerpo .tablaanidada thead button
+{
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    text-align: right;        
 }
 
 /* Definimos el tamaño de los checboxex */
@@ -607,5 +618,5 @@ div#detalle div#emailEnvio
 div#detalle div#emailEnvio label, option
 {
     margin: 0.5vmax;
-    
+
 }
