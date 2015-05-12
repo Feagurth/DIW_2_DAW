@@ -30,7 +30,7 @@ try {
     $nombreUsuario = $_SESSION['nombreUsuario'];
 
     // Creamos un objeto Email
-    $email = new Email(array("id_email" => "", "usuario" => "", "pass" => "", "servidor" => "", "puerto" => "", "seguridad" => "", "descripcion" => ""));
+    $email = new Email(array("id_email" => "", "usuario" => "", "pass" => "", "servidor" => "", "puerto" => "", "seguridad" => "", "autentificacion" => "", "descripcion" => ""));
 
     // Recuperamos los valores del modo de visión de la página y 
     // del id_email que hemos pasado
@@ -85,6 +85,7 @@ try {
                         $email->setServidor($_POST['servidor']);
                         $email->setPuerto($_POST['puerto']);
                         $email->setSeguridad($_POST['seguridad']);
+                        $email->setAutentificacion((isset($_POST['autentificacion']) ? "1" : "0"));
                         $email->setDescripcion($_POST['descripcion']);
 
                         // Validamos los datos introducidos
@@ -99,11 +100,11 @@ try {
                             // puedan lanzar. El id resultante de la insercción, lo 
                             // asignamos a la variable $id_email
                             $id_email = $db->insertarEmail($email);
-                            
+
                             // Asignamos tambien el id_email a la sesión para 
                             // prevenir inserciones extras por refrescos de página
                             $_SESSION['id_email'] = $id_email;
-                            
+
                             // Cambiamos el modo a visor
                             $modo = "V";
                         } else {
@@ -170,6 +171,7 @@ try {
                             $email->setServidor($_POST['servidor']);
                             $email->setPuerto($_POST['puerto']);
                             $email->setSeguridad($_POST['seguridad']);
+                            $email->setAutentificacion((isset($_POST['autentificacion']) ? "1" : "0"));
                             $email->setDescripcion($_POST['descripcion']);
 
                             // Realizamos la validación de los datos
@@ -273,9 +275,11 @@ try {
                     <input tabindex="14" title="Introduzca el puerto del servidor de E-Mail" type="text" name="puerto" id="puerto" maxlength="5" value="<?php if ($email !== NULL) echo $email->getPuerto() ?>" <?php echo deshabilitarPorModo($modo) ?> />                    
                     <label id="lblSeguridad" for="seguridad">Tipo de Seguridad&nbsp;</label>
                     <select name="seguridad" tabindex="15" title="Seleccione el tipo de seguridad de la cuenta de E-Mail" name="seguridad" id="seguridad" <?php echo deshabilitarPorModo($modo) ?> >
+                        <option <?php if ($email->getSeguridad() === " ") echo "selected=\"selected\" " ?> value=" ">Ninguna</option>
                         <option <?php if ($email->getSeguridad() === "TLS") echo "selected=\"selected\" " ?> value="TLS">TLS</option>
                         <option <?php if ($email->getSeguridad() === "SSL") echo "selected=\"selected\" " ?> value="SSL">SSL</option>
                     </select>     
+                    <input type="checkbox" name="autentificacion" id="autentificacion" title="Marque si el servidor requiere autentificación" tabindex="16" <?php if ($email->getAutentificacion() === "1") echo "checked=\"checked\" " ?> <?php echo deshabilitarPorModo($modo) ?> >Requiere autentificación</input>
                     <br />                                        
                     <?php
                     // Comprobamos el modo en el que está la página. Si está en 

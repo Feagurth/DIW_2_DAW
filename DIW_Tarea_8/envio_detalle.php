@@ -43,99 +43,106 @@ $error = "";
 // Validamos el usuario
 validarUsuario($_SESSION['user'], $_SESSION['pass']);
 
+try {
+
+
 
 // Creamos una isntacia de la base de datos
-$db = new DB();
+    $db = new DB();
 
 // Listamos los emails
-$emails = $db->listarEmails("", "");
+    $emails = $db->listarEmails("", "");
 
 // Comprobamos el modo de la página
-switch ($modo) {
+    switch ($modo) {
 
-    case "A": {
+        case "A": {
 
-            // Recuperamos los grupos existentes
-            $grupos = $db->listarGrupos("", "");
+                // Recuperamos los grupos existentes
+                $grupos = $db->listarGrupos("", "");
 
-            // Recuperamos los ficheros existentes
-            $ficheros = $db->listarFicheros("", "");
+                // Recuperamos los ficheros existentes
+                $ficheros = $db->listarFicheros("", "");
 
-            // Verificamos si en la información de post tenemos la información 
-            // de los botones de confirmanción o de cancelación pulsados.
-            // Verificamos si la información del botón es la de cancelar.
-            if (isset($_POST['boton']) && $_POST['boton'] === "Cancelar") {
-                // Si cancelamos el añadir un grupo, pasamos a sesión el 
-                // indice como valor para la página index.php para que cargue 
-                // la plantilla de grupos
-                $_SESSION['indice'] = 4;
-
-                // Navegamos a la pagina index.php
-                header("location:index.php");
-            }
-
-            // Comprobamos si la información del botón es la de aceptar
-            if (isset($_POST['boton']) && $_POST['boton'] === "Aceptar") {
-                // Comprobamos que la sesión es correcta
-                if (comprobarTokenSesion()) {
-
-                    $grupossel = isset($_POST['gruposel']) ? $_POST['gruposel'] : NULL;
-                    $ficherossel = isset($_POST['ficherosel']) ? $_POST['ficherosel'] : NULL;
-                    $id_email = isset($_POST['email']) ? $_POST['email'] : 0;
-
-                    // Validamos los datos introducidos
-                    $validacion = validarDatosEnvio($grupossel, $ficherossel, $id_email);
-
-                    // Comprobamos si hay mensaje de error en la validación
-                    if ($validacion === "") {
-
-
-                        $id_envio = $db->insertarEnvio($grupossel, $ficherossel, $id_email);
-
-                        // Asignamos tambien el id_envio a la sesión para 
-                        // prevenir inserciones extras por refrescos de página
-                        $_SESSION['id_envio'] = $id_envio;
-
-                        // Cambiamos el modo a visor
-                        $modo = "V";
-
-                        // Creamos un nuevo objeto envío pasándole el identificador
-                        $envio = new Envio($id_envio);
-
-                        // Recuperamos los grupos del objeto envío
-                        $grupos = $envio->getGrupo();
-
-                        // Recuperamos los ficheros del objeto envío
-                        $ficheros = $envio->getFichero();
-                    } else {
-                        // Si hay error de validación, copiamos su valor a 
-                        // la variable $error
-                        $error = $validacion;
-                    }
-                } else {
-                    // Si la sesión no es válida, pasamos a sesión el 
+                // Verificamos si en la información de post tenemos la información 
+                // de los botones de confirmanción o de cancelación pulsados.
+                // Verificamos si la información del botón es la de cancelar.
+                if (isset($_POST['boton']) && $_POST['boton'] === "Cancelar") {
+                    // Si cancelamos el añadir un grupo, pasamos a sesión el 
                     // indice como valor para la página index.php para que cargue 
                     // la plantilla de grupos
                     $_SESSION['indice'] = 4;
 
-                    $modo = "V";
+                    // Navegamos a la pagina index.php
+                    header("location:index.php");
                 }
+
+                // Comprobamos si la información del botón es la de aceptar
+                if (isset($_POST['boton']) && $_POST['boton'] === "Aceptar") {
+                    // Comprobamos que la sesión es correcta
+                    if (comprobarTokenSesion()) {
+
+                        $grupossel = isset($_POST['gruposel']) ? $_POST['gruposel'] : NULL;
+                        $ficherossel = isset($_POST['ficherosel']) ? $_POST['ficherosel'] : NULL;
+                        $id_email = isset($_POST['email']) ? $_POST['email'] : 0;
+
+                        // Validamos los datos introducidos
+                        $validacion = validarDatosEnvio($grupossel, $ficherossel, $id_email);
+
+                        // Comprobamos si hay mensaje de error en la validación
+                        if ($validacion === "") {
+
+
+                            $id_envio = $db->insertarEnvio($grupossel, $ficherossel, $id_email);
+
+                            // Asignamos tambien el id_envio a la sesión para 
+                            // prevenir inserciones extras por refrescos de página
+                            $_SESSION['id_envio'] = $id_envio;
+
+                            // Cambiamos el modo a visor
+                            $modo = "V";
+
+                            // Creamos un nuevo objeto envío pasándole el identificador
+                            $envio = new Envio($id_envio);
+
+                            // Recuperamos los grupos del objeto envío
+                            $grupos = $envio->getGrupo();
+
+                            // Recuperamos los ficheros del objeto envío
+                            $ficheros = $envio->getFichero();
+                        } else {
+                            // Si hay error de validación, copiamos su valor a 
+                            // la variable $error
+                            $error = $validacion;
+                        }
+                    } else {
+                        // Si la sesión no es válida, pasamos a sesión el 
+                        // indice como valor para la página index.php para que cargue 
+                        // la plantilla de grupos
+                        $_SESSION['indice'] = 4;
+
+                        $modo = "V";
+                    }
+                }
+
+                break;
             }
 
-            break;
-        }
-        
-    case "V"; {
-        
-            // Creamos un nuevo objeto envío pasándole el identificador
-            $envio = new Envio($id_envio);
+        case "V";
+            {
 
-            // Recuperamos los grupos del objeto envío
-            $grupos = $envio->getGrupo();
+                // Creamos un nuevo objeto envío pasándole el identificador
+                $envio = new Envio($id_envio);
 
-            // Recuperamos los ficheros del objeto envío
-            $ficheros = $envio->getFichero();
-        }
+                // Recuperamos los grupos del objeto envío
+                $grupos = $envio->getGrupo();
+
+                // Recuperamos los ficheros del objeto envío
+                $ficheros = $envio->getFichero();
+            }
+    }
+} catch (Exception $ex) {
+    $error = $ex->getMessage();
 }
 ?>
 

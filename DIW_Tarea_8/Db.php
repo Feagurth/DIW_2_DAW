@@ -736,6 +736,7 @@ class DB {
                 . "'" . $email->getServidor() . "', "
                 . "'" . $email->getPuerto() . "', "
                 . "'" . $email->getSeguridad() . "', "
+                . "'" . $email->getAutentificacion() . "', "
                 . "'" . $email->getDescripcion() . "');";
 
         // Llamamos la a la función protegida de la clase para realizar la consulta
@@ -767,6 +768,7 @@ class DB {
                 . "servidor='" . $email->getServidor() . "' , "
                 . "puerto='" . $email->getPuerto() . "' , "
                 . "seguridad='" . $email->getSeguridad() . "' , "
+                . "autentificacion='" . $email->getAutentificacion() . "' , "
                 . "descripcion='" . $email->getDescripcion() . "' WHERE id_email=" .
                 $email->getId_email() . ";";
 
@@ -1464,9 +1466,16 @@ class DB {
      */
     public function insertarEnvio($id_grupos, $id_ficheros, $id_email) {
 
-        try {            
+        try {
+
             // Iniciamos una transacción
             $this->diw->beginTransaction();
+
+            // Creamos la sentencia slq para recuperar los usuarios que pertenecen al grupo en el que estamos iterando
+            $sql = "SELECT * FROM email WHERE id_email = " . $id_email;
+
+            // Ejecutamos la consulta
+            $datosEmail = new Email($this->diw->query($sql)->fetch());
 
             // Iteramos por todos los ids de los grupos
             foreach ($id_grupos as $id_grupo) {
@@ -1476,6 +1485,12 @@ class DB {
 
                 // Iteramos por las ids de los ficheros seleccionados
                 foreach ($id_ficheros as $id_fichero) {
+
+                    // Creamos la sentencia slq para recuperar los usuarios que pertenecen al grupo en el que estamos iterando
+                    $sql = "SELECT * FROM fichero WHERE id_fichero = " . $id_fichero;
+
+                    // Ejecutamos la consulta
+                    $datosFichero = new Fichero($this->diw->query($sql)->fetch());
 
                     // Construimos la sentencia sql para insertar el envío en la base de datos
                     $sql = "INSERT INTO ENVIO VALUES(0, '" . $fecha . "', " . $id_email . ", " . $id_fichero . ", " . $id_grupo . ")";
@@ -1519,6 +1534,8 @@ class DB {
                             $row = $resultado->fetch();
                         }
 
+                        $datosEmpleado = array();
+                        
                         // Iteramos por todos los empleados que forman parte del grupo
                         foreach ($empleados as $id_empleado) {
 
@@ -1533,7 +1550,16 @@ class DB {
                                 // Si hay algún error, lanzamos una excepción
                                 throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
                             }
+
+                            // Creamos la sentencia slq para recuperar los usuarios que pertenecen al grupo en el que estamos iterando
+                            $sql = "SELECT * FROM empleado WHERE id_empleado = " . $id_empleado;
+
+                            // Ejecutamos la consulta
+                            $datosEmpleado[] = new Empleado($this->diw->query($sql)->fetch());
+                            
                         }
+                        
+                        enviarCorreo($datosEmail, $datosFichero, $datosEmpleado);
                     }
                 }
             }
@@ -1611,12 +1637,11 @@ class DB {
 
             // Itermaos por los ides de los empleados
             foreach ($empleados as $empleado) {
-                
+
                 // Recupermos los datos y los asignamos
-                $datos[] = $this->recuperarEmpleado($empleado['id_empleado'])[0];                
+                $datos[] = $this->recuperarEmpleado($empleado['id_empleado'])[0];
             }
-            
-            
+
             // Devolvemos el resultado
             return $datos;
         } else {

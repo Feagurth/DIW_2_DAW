@@ -342,6 +342,12 @@ clase */
     width: 3vmax;
 }
 
+#detalle input#autentificacion
+{
+    height: 1vmax;
+    width: 1vmax;
+    alignment-adjust: central;
+}
 
 #botonera input.deshabilitado{
     background-color: darkgray;
@@ -453,7 +459,7 @@ clase */
 #cuerpo .listadoSel input[type="checkbox"]
 {
     height: 1vmax;
-    width: 1vmax;
+    width: 1vmax;    
 }
 
 /* Reducimos el margen del encabezado */

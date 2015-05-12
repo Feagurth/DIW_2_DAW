@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `email` (
     `servidor` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
     `puerto` int NOT NULL,
     `seguridad` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+    `autentificacion` varchar(1) COLLATE utf8_spanish_ci NOT NULL,
     `descripcion` varchar(50) COLLATE utf8_spanish_ci NOT NULL
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_spanish_ci;
 

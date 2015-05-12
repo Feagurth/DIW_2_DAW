@@ -60,6 +60,13 @@ class Email {
     private $seguridad;
 
     /**
+     * Especifica si la cuenta requiere autentificacion
+     * @var type 
+     */
+    private $autentificacion;
+
+
+    /**
      * Descripción de la cuenta correo
      * @var type 
      */
@@ -76,6 +83,7 @@ class Email {
         $this->servidor = $row['servidor'];
         $this->puerto = $row['puerto'];
         $this->seguridad = $row['seguridad'];
+        $this->autentificacion = $row['autentificacion'];
         $this->descripcion = $row['descripcion'];
     }
 
@@ -126,7 +134,16 @@ class Email {
     public function getSeguridad() {
         return $this->seguridad;
     }
+    
+    /**
+     * Función para recuperar la necesidad de autentificaión de la cuenta de correo
+     * @return string La necesidad de autentificaión de la cuenta de correo
+     */
+    public function getAutentificacion() {
+        return $this->autentificacion;
+    }
 
+    
     /**
      * Función para recuperar la descripción de la cuenta de correo
      * @return string La descripción de la cuenta de correo
@@ -183,6 +200,15 @@ class Email {
         $this->seguridad = $seguridad;
     }
 
+    /**
+     * Función para asignar la necesidad de autentificación de la cuenta de correo
+     * @param string $autentificacion La necesidad de autentificación de la cuenta de correo
+     */
+    public function setAutentificacion($autentificacion) {
+        $this->autentificacion = $autentificacion;
+    }
+
+        
     /**
      * Función para asignar la descripción de la cuenta de correo
      * @param string $descripcion La descripción de la cuenta de correo

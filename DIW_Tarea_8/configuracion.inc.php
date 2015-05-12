@@ -23,9 +23,11 @@ $pas = "diw";
  * E-Mail del administrador del sitio
  */
 $emailAdmin = "admin@dominio.es";
+
 /**
- * 
+ * Nombre del administrador del sitio
  */
+$nameAdmin = "Admin";
 
 /**
  * Variable que controla el tamaño máximo de los ficheros a enviar en el formulario
