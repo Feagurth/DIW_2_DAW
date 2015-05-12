@@ -42,7 +42,7 @@ try {
     if (isset($_POST['user']) && isset($_POST['pass'])) {
         // Creamos un nuevo objeto de acceso a base de datos 
 
-        if (validarCadenaConNumeros($_POST['user']) && validarCadenaConNumeros($_POST['user'])) {
+        if (validarCadenaConNumeros($_POST['user']) && validarCadenaConNumeros($_POST['pass'])) {
 
             $db = new DB();
 
@@ -98,6 +98,8 @@ try {
         <title>Login</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link type = "text/css" rel = "stylesheet" href = "./estilos.css"/>
+        <script type="text/javascript" src="HTTP://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="scripts/login.js"></script>        
     </head>
     <body>
         <div id="divlogin">

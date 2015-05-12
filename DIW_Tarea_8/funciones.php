@@ -33,7 +33,7 @@ function validarCadenaConNumeros($dato) {
 
 // Verificamos con expresiones regulares que los caracteres 
 // introducidos para el remitente son los permitidos
-    if (!preg_match("/^[0-9a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$/", $dato)) {
+    if (!preg_match("/^[0-9a-zA-Z]+$/", $dato)) {
 // Si la validación no se cumple, asignamos el valor 
 // correspondiente a la variable de salida
         $salida = FALSE;

@@ -626,3 +626,7 @@ div#detalle div#emailEnvio label, option
     margin: 0.5vmax;
 
 }
+
+.deshabilitado{
+    background-color: darkgrey;
+}
