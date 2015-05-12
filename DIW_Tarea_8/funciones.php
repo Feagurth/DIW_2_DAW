@@ -837,6 +837,15 @@ function enviarCorreo(Email $email, Fichero $fichero, $empleados) {
         //Creamos una instacia de PHPMailer
         $mail = new PHPMailer;
 
+        // Configuración de debug
+        // 0 -> Producción
+        // 1 -> Mensajes Cliente
+        // 2 -> Mensajes Servidor
+        $mail->SMTPDebug = 0;
+
+        // Salida de debug en modo html
+        $mail->Debugoutput = 'html';
+
         //Indicamos que use SMTP
         $mail->isSMTP();
 
@@ -875,7 +884,7 @@ function enviarCorreo(Email $email, Fichero $fichero, $empleados) {
             $mail->addAddress($empleado->getEmail(), $empleado->getNombre() . " " . $empleado->getApellido());     // Add a recipient            
         }
 
-        
+
         // Ponemos el título del email
         $mail->Subject = 'Documento de su interés';
 
@@ -891,14 +900,16 @@ function enviarCorreo(Email $email, Fichero $fichero, $empleados) {
         // Lo añadimos como adjunto
         $mail->addAttachment($fichero->getNombre());
 
+        xdebug_break();
+
+
         // Enviamos el mensaje
         if (!$mail->send()) {
             // Si no puede enviar el mensaje, lanzamos una excepción
             throw new Exception("Se ha producido un erroe al enviar el E-Mail. Error: " . $mail->ErrorInfo);
         }
-        
+
         unlink($fichero->getNombre());
-        
     } catch (Exception $ex) {
         // Si se produce alguna excepción la lanzamos
         throw $ex;
