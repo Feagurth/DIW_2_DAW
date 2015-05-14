@@ -47,11 +47,11 @@ try {
     <table>
         <thead>
             <tr>
-                <td>Usuario</td>    
-                <td>Servidor</td>    
-                <td>Puerto</td>    
-                <td>Seguridad</td>    
-                <td>Descripción</td>    
+                <td class="listadoCabecera">Usuario</td>    
+                <td class="listadoCabecera">Servidor</td>    
+                <td class="listadoCabecera">Puerto</td>    
+                <td class="listadoCabecera">Seguridad</td>    
+                <td class="listadoCabecera">Descripción</td>    
                 <td>Detalles</td>    
             </tr>        
         </thead>    

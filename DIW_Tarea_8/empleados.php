@@ -49,13 +49,13 @@ try {
     <table>
         <thead>
             <tr>
-                <td>Nombre</td>    
-                <td>Apellido</td>    
-                <td>Telefono</td>    
-                <td>Especialidad</td>    
-                <td>Cargo</td>    
-                <td>Dirección</td>    
-                <td>E-Mail</td>
+                <td class="listadoCabecera">Nombre</td>    
+                <td class="listadoCabecera">Apellido</td>    
+                <td class="listadoCabecera">Teléfono</td>    
+                <td class="listadoCabecera">Especialidad</td>    
+                <td class="listadoCabecera">Cargo</td>    
+                <td class="listadoCabecera">Dirección</td>    
+                <td class="listadoCabecera">E-Mail</td>
                 <td>Detalles</td>
             </tr>        
         </thead>    

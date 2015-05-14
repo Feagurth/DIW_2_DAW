@@ -44,8 +44,8 @@ try {
     <table>
         <thead>
             <tr>
-                <td>Nombre</td>    
-                <td>Descripción</td>    
+                <td class="listadoCabecera">Nombre</td>    
+                <td class="listadoCabecera">Descripción</td>    
                 <td>Detalles</td>    
             </tr>        
         </thead>    

@@ -22,7 +22,7 @@ try {
 ?>
 <div class="listado">
     <div id="botonera">
-        <h2>Listado de Ficheros</h2>
+        <h2>Listado de ficheros</h2>
         <form id="nuevo" action='fichero_detalle.php' method='post' >
             <input type='submit' tabindex="8" value='Nuevo Fichero' title="Pulse el botón para crear un nuevo Fichero" />
             <input class='oculto' name='id_fichero' type='hidden' value='0' />
@@ -46,11 +46,11 @@ try {
     <table>
         <thead>
             <tr>
-                <td>Nombre</td>    
-                <td>Tamaño</td>    
-                <td>Tipo</td>    
-                <td>Descripción</td>    
-                <td>Detalles</td>    
+                <td class="listadoCabecera">Nombre</td>    
+                <td class="listadoCabecera">Tamaño</td>    
+                <td class="listadoCabecera">Tipo</td>    
+                <td class="listadoCabecera">Descripción</td>    
+                <td class="listadoCabecera">Detalles</td>    
             </tr>        
         </thead>    
         <tbody>
