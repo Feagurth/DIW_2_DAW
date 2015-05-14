@@ -29,6 +29,15 @@ function inicio()
     // Definimos un evento para los encabezados de las columnas de las tablas 
     // al hacer click en ellos
     $(".listado table tr td.listadoCabecera").click(ordenarLista);
+    
+    // Iteramos por todas las cabeceras de la lista
+    $(".listado table tr td.listadoCabecera").each(function()
+    {
+        // Al texto de cada una le quitamos los triángulos que pudiesen tener
+        $(this).text($(this).text().replace("▲", "").replace("▼", ""));
+        
+        $(this).attr("title", "Pulse en esta cabecera para ordenar la lista por " + $(this).text());
+    });    
 }
 
 /**
@@ -42,7 +51,22 @@ function ordenarLista()
     // actualmente y verificar las columnas
     tabla = $(".listado #botonera h2").text();
 
+    // Iniciamos la variable
     var columnaPulsada;
+
+    // Comprobamos el orden anterior que tenía la columna
+    if ((this.innerText.indexOf("▲") === -1))
+    {
+        // Si no tiene simbolo o el que tenia era el descendente, el orden 
+        // esta vez será ascendente
+        order = "asc";
+    }
+    else
+    {
+        // Si se encuentra el símbolo ascendente, la siguiente ordenación 
+        // será descenciente
+        order = "desc";
+    }
 
     switch (tabla)
     {
@@ -50,7 +74,7 @@ function ordenarLista()
         case "Listado de empleados":
         {
             // Comprobamos el texto de la cabecera que hemos pulsado
-            switch (this.innerText)
+            switch (this.innerText.replace("▲", "").replace("▼", ""))
             {
                 case "Nombre":
                 {
@@ -104,7 +128,7 @@ function ordenarLista()
         case "Listado de grupos":
         {
             // Comprobamos el texto de la cabecera que hemos pulsado
-            switch (this.innerText)
+            switch (this.innerText.replace("▲", "").replace("▼", ""))
             {
                 case "Nombre":
                 {
@@ -126,7 +150,7 @@ function ordenarLista()
         case "Listado de ficheros":
         {
             // Comprobamos el texto de la cabecera que hemos pulsado
-            switch (this.innerText)
+            switch (this.innerText.replace("▲", "").replace("▼", ""))
             {
                 case "Nombre":
                 {
@@ -160,7 +184,7 @@ function ordenarLista()
         case "Listado de envíos":
         {
             // Comprobamos el texto de la cabecera que hemos pulsado
-            switch (this.innerText)
+            switch (this.innerText.replace("▲", "").replace("▼", ""))
             {
                 case "Fecha":
                 {
@@ -211,7 +235,7 @@ function ordenarLista()
         // En el caso de los email
         case "Listado de cuentas de E-Mail":
         {
-            switch (this.innerText)
+            switch (this.innerText.replace("▲", "").replace("▼", ""))
             {
                 case "Usuario":
                 {
@@ -252,7 +276,7 @@ function ordenarLista()
         case "Listado de usuarios":
         {
             // Comprobamos el texto de la cabecera que hemos pulsado
-            switch (this.innerText)
+            switch (this.innerText.replace("▲", "").replace("▼", ""))
             {
                 case "Usuario":
                 {
@@ -272,9 +296,29 @@ function ordenarLista()
         }
 
     }
+
+    // Iteramos por todas las cabeceras de la lista
+    $(".listado table tr td.listadoCabecera").each(function()
+    {
+        // Al texto de cada una le quitamos los triángulos que pudiesen tener
+        $(this).text($(this).text().replace("▲", "").replace("▼", ""));                
+    });
+    
+    // Comprobamos el tipo de ordenación
+    if(order === "asc")
+    {
+        // Añadimos el triángulo correspondiente
+        this.innerText = this.innerText + "▲";
+    }
+    else
+    {
+        // Añadimos el triángulo correspondiente
+        this.innerText = this.innerText + "▼";
+    }
+
     // Llamamos a la función de ordenación de tablas pasándole los parámetros 
     // necesarios
-    sortTable($(".listado table"), 'asc', columnaPulsada);
+    sortTable($(".listado table"), order, columnaPulsada);
 
 }
 
