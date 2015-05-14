@@ -22,14 +22,14 @@ try {
 ?>
 <div class="listado">
     <div id="botonera">
-        <h3>Listado de cuentas de E-Mail</h3>
+        <h2>Listado de cuentas de E-Mail</h2>
         <form id="nuevo" action='email_detalle.php' method='post' >
-            <input type='submit' tabindex="8" value='Nuevo E-Mail' alt='Nuevo E-Mail' title="Pulse el botón para crear un nuevo E-Mail" />
-            <input class='oculto' name='id_email' type='text' value='0' />
-            <input class='oculto' name='modo' type='text' value='A' />
+            <input type='submit' tabindex="8" value='Nuevo E-Mail' title="Pulse el botón para crear un nuevo E-Mail" />
+            <input class='oculto' name='id_email' type='hidden' value='0' />
+            <input class='oculto' name='modo' type='hidden' value='A' />
         </form>
         <form id="filtro" action='index.php' method='post' >
-            <input type='submit' tabindex="11" value='Filtrar resultados' alt='Filtrar resultados' title="Pulse el botón para filtrar los resultados"/>            
+            <input type='submit' tabindex="11" value='Filtrar resultados' title="Pulse el botón para filtrar los resultados"/>            
             <select name="tipoFiltro" tabindex="10" title="Seleccione el tipo de filtro">
                 <option <?php if ($tipoFiltro === "1") echo "selected=\"selected\" " ?> value="1">Usuario</option>
                 <option <?php if ($tipoFiltro === "2") echo "selected=\"selected\" " ?> value="2">Servidor</option>
@@ -37,8 +37,8 @@ try {
                 <option <?php if ($tipoFiltro === "4") echo "selected=\"selected\" " ?> value="4">Seguridad</option>
                 <option <?php if ($tipoFiltro === "5") echo "selected=\"selected\" " ?> value="5">Descripción</option>
             </select>
-            <input id="textoFiltro" tabindex="9" type="text" alt="Introduzca un texto para filtrar los resultados" maxlength="30" title="Introduzca la cadena por la que filtrar los resultados" name="filtro"  value="<?php echo $filtro ?>" />
-            <input class='oculto' name='indice' type='text' value='5' />
+            <input id="textoFiltro" tabindex="9" type="text" maxlength="30" title="Introduzca la cadena por la que filtrar los resultados" name="filtro"  value="<?php echo $filtro ?>" />
+            <input class='oculto' name='indice' type='hidden' value='5' />
         </form>
     </div>
     <div class="error">
@@ -87,9 +87,9 @@ try {
                     // acceder a los detalles del email.
                     echo '<td>';
                     echo "<form action='email_detalle.php' method='post' >";
-                    echo "<button name='button' value='Detalles' alt='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles' /></button>";
-                    echo "<input class='oculto' name='id_email' type='text' value='" . $email->getId_email() . "' />";
-                    echo "<input class='oculto' name='modo' type='text' value='V' />";
+                    echo "<button name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles' /></button>";
+                    echo "<input class='oculto' name='id_email' type='hidden' value='" . $email->getId_email() . "' />";
+                    echo "<input class='oculto' name='modo' type='hidden' value='V' />";
                     echo "</form>";
                     echo '</td>';
                     echo '</tr>';

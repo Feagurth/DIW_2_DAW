@@ -219,7 +219,7 @@ try {
 ?>
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
     <head>
         <title>Detalle E-Mail</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -227,7 +227,7 @@ try {
     </head>
     <body>
         <div class="cabecera" id="index" >
-            <p>Gestión Documental</p>
+            <h1>Gestión Documental</h1>
         </div>
         <div>
             <?php
@@ -239,24 +239,24 @@ try {
         </div>
         <div id="cuerpo">      
             <div id="botonera">
-                <h3>Detalle de E-Mail</h3>
+                <h2>Detalle de E-Mail</h2>
                 <form id="añadir" action='email_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Añadir E-Mail' alt='Añadir E-Mail' title="Pulse para anañadir un nuevo E-mail"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='añadir' type='text' value='0' />
-                    <input class='oculto' name='modo' type='text' value='A' />
-                    <input class='oculto' name='id_email' type='text' value='0' />
+                    <input type='submit' tabindex="8" value='Añadir E-Mail' title="Pulse para anañadir un nuevo E-mail"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='añadir' type='hidden' value='0' />
+                    <input class='oculto' name='modo' type='hidden' value='A' />
+                    <input class='oculto' name='id_email' type='hidden' value='0' />
                 </form>
 
                 <form id="modificar" action='email_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Modificar E-Mail' alt='Modificar E-Mail' title="Pulse para modificar el E-Mail actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modificar' type='text' value='<?php echo $id_email ?>' />
-                    <input class='oculto' name='modo' type='text' value='M' />
-                    <input class='oculto' name='id_email' type='text' value='<?php echo $id_email ?>' />
+                    <input type='submit' tabindex="8" value='Modificar E-Mail' title="Pulse para modificar el E-Mail actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modificar' type='hidden' value='<?php echo $id_email ?>' />
+                    <input class='oculto' name='modo' type='hidden' value='M' />
+                    <input class='oculto' name='id_email' type='hidden' value='<?php echo $id_email ?>' />
                 </form>
                 <form id="eliminar" action='email_detalle.php' method='post' >
-                    <input type='submit' tabindex="9" value='Eliminar E-Mail' alt='Eliminar E-Mail' title="Pulse para eliminar el E-Mail actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modo' type='text' value='E' />
-                    <input class='oculto' name='id_email' type='text' value='<?php echo $id_email ?>' />
+                    <input type='submit' tabindex="9" value='Eliminar E-Mail' title="Pulse para eliminar el E-Mail actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modo' type='hidden' value='E' />
+                    <input class='oculto' name='id_email' type='hidden' value='<?php echo $id_email ?>' />
                 </form>
             </div>
             <div id="detalle">
@@ -274,12 +274,13 @@ try {
                     <label id="lblPuerto" for="puerto">Puerto&nbsp;&nbsp;</label>
                     <input tabindex="14" title="Introduzca el puerto del servidor de E-Mail" type="text" name="puerto" id="puerto" maxlength="5" value="<?php if ($email !== NULL) echo $email->getPuerto() ?>" <?php echo deshabilitarPorModo($modo) ?> />                    
                     <label id="lblSeguridad" for="seguridad">Tipo de Seguridad&nbsp;</label>
-                    <select name="seguridad" tabindex="15" title="Seleccione el tipo de seguridad de la cuenta de E-Mail" name="seguridad" id="seguridad" <?php echo deshabilitarPorModo($modo) ?> >
+                    <select tabindex="15" title="Seleccione el tipo de seguridad de la cuenta de E-Mail" name="seguridad" id="seguridad" <?php echo deshabilitarPorModo($modo) ?> >
                         <option <?php if ($email->getSeguridad() === " ") echo "selected=\"selected\" " ?> value=" ">Ninguna</option>
                         <option <?php if ($email->getSeguridad() === "TLS") echo "selected=\"selected\" " ?> value="TLS">TLS</option>
                         <option <?php if ($email->getSeguridad() === "SSL") echo "selected=\"selected\" " ?> value="SSL">SSL</option>
                     </select>     
-                    <input type="checkbox" name="autentificacion" id="autentificacion" title="Marque si el servidor requiere autentificación" tabindex="16" <?php if ($email->getAutentificacion() === "1") echo "checked=\"checked\" " ?> <?php echo deshabilitarPorModo($modo) ?> >Requiere autentificación</input>
+                    <input type="checkbox" name="autentificacion" id="autentificacion" title="Marque si el servidor requiere autentificación" tabindex="16" <?php if ($email->getAutentificacion() === "1") echo "checked=\"checked\" " ?> <?php echo deshabilitarPorModo($modo) ?> />
+                    <label id="lblAutentificacion" for="autentificacion">Requiere autentificación</label>
                     <br />                                        
                     <?php
                     // Comprobamos el modo en el que está la página. Si está en 
@@ -288,14 +289,14 @@ try {
                     if ($modo === "A" || $modo === "M") {
 
                         // Creamos el botón de aceptar
-                        echo "<input tabindex='17' name='boton' id='aceptar' type='submit' value='Aceptar' alt='Aceptar' title='Pulse para confirmar las modificaciones' />";
+                        echo "<input tabindex='17' name='boton' id='aceptar' type='submit' value='Aceptar' title='Pulse para confirmar las modificaciones' />";
 
                         // Creamos el botón de cancelar
-                        echo "<input tabindes='18' name='boton' id='cancelar 'type='submit' value='Cancelar' alt='Cancelar' title='Pulse para cancelar las modificaciones' />";
+                        echo "<input tabindex='18' name='boton' id='cancelar' type='submit' value='Cancelar' title='Pulse para cancelar las modificaciones' />";
 
                         // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del email
-                        echo "<input class='oculto' name='id_email' type='text' value='$id_email' />";
-                        echo "<input class='oculto' name='modo' type='text' value='$modo' />";
+                        echo "<input class='oculto' name='id_email' type='hidden' value='$id_email' />";
+                        echo "<input class='oculto' name='modo' type='hidden' value='$modo' />";
                     }
                     ?>      
                 </form>               

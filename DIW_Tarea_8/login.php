@@ -30,7 +30,6 @@ if (isset($_POST['clear'])) {
     unset($_POST['user']);
     unset($_POST['pass']);
     unset($_POST['nombreUsuario']);
-    
 }
 
 // Definimos e inicializamos la variable de errores
@@ -93,7 +92,8 @@ try {
     $error = $ex->getMessage();
 }
 ?>
-<html xmlns="http://www.w3.org/1999/xhtml" id="login" >
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="login" lang="es" xml:lang="es">
     <head>
         <title>Login</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -104,15 +104,17 @@ try {
     <body>
         <div id="divlogin">
             <form action="login.php" method="post">
-                <h3>Acceso de usuario</h3>
+                <h1>Acceso de usuario</h1>
                 <div>
-                    <input type="text" id="user" name="user" maxlength="16" placeholder="Introduzca el usuario" title="Introduzca el usuario para hacer login"/>
+                    <label for="user">Usuario</label>
+                    <input type="text" id="user" name="user" maxlength="16" title="Introduzca el usuario para hacer login"/>
                 </div>
                 <div>
-                    <input type="password" id="pass" name="pass" maxlength="16" placeholder="Introduzca la contraseña" title="Introduzca la contraseña para hacer login"/>
+                    <label for="pass">Contraseña</label>
+                    <input type="password" id="pass" name="pass" maxlength="16" title="Introduzca la contraseña para hacer login"/>
                 </div>
                 <div>
-                    <input type="submit" id="submit" name="submit" value="Enviar" alt="enviar" title="Pulse para validar el usuario y contraseña introducidos para hacer login"/>
+                    <input type="submit" id="submit" name="submit" value="Enviar" title="Pulse para validar el usuario y contraseña introducidos para hacer login"/>
                 </div>
             </form>
             <div id="error">

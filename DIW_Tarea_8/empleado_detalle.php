@@ -12,7 +12,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-
 <?php
 //Iniciamos la sesion
 session_start();
@@ -34,7 +33,7 @@ try {
 
     // Recuperamos los valores del modo de visión de la página y 
     // del id_empleado que hemos pasado
-    $modo = $_POST['modo'];
+    $modo = isset($_POST['modo']) ? $_POST['modo'] : "V";
 
     // Recuperamos los valores de id_empleado de sesión si están ahí o en su defecto de post
     $id_empleado = isset($_SESSION['id_empleado']) ? $_SESSION['id_empleado'] : $_POST['id_empleado'];
@@ -216,8 +215,7 @@ try {
 }
 ?>
 
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
     <head>
         <title>Detalle Empleado</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -225,7 +223,7 @@ try {
     </head>
     <body>
         <div class="cabecera" id="index" >
-            <p>Gestión Documental</p>
+            <h1>Gestión Documental</h1>
         </div>
         <div>
             <?php
@@ -237,24 +235,24 @@ try {
         </div>
         <div id="cuerpo">      
             <div id="botonera">
-                <h3>Detalle de empleados</h3>
+                <h2>Detalle de empleados</h2>
                 <form id="añadir" action='empleado_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Añadir Empleado' alt='Añadir Empleado' title="Pulse para anañadir un nuevo empleado"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='añadir' type='text' value='0' />
-                    <input class='oculto' name='modo' type='text' value='A' />
-                    <input class='oculto' name='id_empleado' type='text' value='0' />
+                    <input type='submit' tabindex="8" value='Añadir Empleado' title="Pulse para anañadir un nuevo empleado"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='añadir' type='hidden' value='0' />
+                    <input class='oculto' name='modo' type='hidden' value='A' />
+                    <input class='oculto' name='id_empleado' type='hidden' value='0' />
                 </form>
 
                 <form id="modificar" action='empleado_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Modificar Empleado' alt='Modificar Empleado' title="Pulse para modificar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modificar' type='text' value='<?php echo $id_empleado ?>' />
-                    <input class='oculto' name='modo' type='text' value='M' />
-                    <input class='oculto' name='id_empleado' type='text' value='<?php echo $id_empleado ?>' />
+                    <input type='submit' tabindex="8" value='Modificar Empleado' title="Pulse para modificar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modificar' type='hidden' value='<?php echo $id_empleado ?>' />
+                    <input class='oculto' name='modo' type='hidden' value='M' />
+                    <input class='oculto' name='id_empleado' type='hidden' value='<?php echo $id_empleado ?>' />
                 </form>
                 <form id="eliminar" action='empleado_detalle.php' method='post' >
-                    <input type='submit' tabindex="9" value='Eliminar Empleado' alt='Eliminar Empleado' title="Pulse para eliminar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modo' type='text' value='E' />
-                    <input class='oculto' name='id_empleado' type='text' value='<?php echo $id_empleado ?>' />
+                    <input type='submit' tabindex="9" value='Eliminar Empleado' title="Pulse para eliminar el empleado actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modo' type='hidden' value='E' />
+                    <input class='oculto' name='id_empleado' type='hidden' value='<?php echo $id_empleado ?>' />
                 </form>
             </div>
             <div id="detalle">
@@ -285,14 +283,14 @@ try {
                     if ($modo === "A" || $modo === "M") {
 
                         // Creamos el botón de aceptar
-                        echo "<input tabindex='17' name='boton' id='aceptar' type='submit' value='Aceptar' alt='Aceptar' title='Pulse para confirmar las modificaciones' />";
+                        echo "<input tabindex='17' name='boton' id='aceptar' type='submit' value='Aceptar' title='Pulse para confirmar las modificaciones' />";
 
                         // Creamos el botón de cancelar
-                        echo "<input tabindes='18' name='boton' id='cancelar 'type='submit' value='Cancelar' alt='Cancelar' title='Pulse para cancelar las modificaciones' />";
+                        echo "<input tabindex='18' name='boton' id='cancelar' type='submit' value='Cancelar' title='Pulse para cancelar las modificaciones' />";
 
                         // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del empleado
-                        echo "<input class='oculto' name='id_empleado' type='text' value='$id_empleado' />";
-                        echo "<input class='oculto' name='modo' type='text' value='$modo' />";
+                        echo "<input class='oculto' name='id_empleado' type='hidden' value='$id_empleado' />";
+                        echo "<input class='oculto' name='modo' type='hidden' value='$modo' />";
                     }
                     ?>      
                 </form>               

@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
 Copyright (C) 2015 Luis Cabrerizo Gómez
 This program is free software: you can redistribute it and/or modify
@@ -43,7 +42,8 @@ try {
     $error = $ex->getMessage();
 }
 ?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
     <head>
         <title>Indice</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -51,7 +51,7 @@ try {
     </head>
     <body>
         <div class="cabecera" id="index" >
-            <p>Gestión Documental</p>
+            <h1>Gestión Documental</h1>
         </div>
         <div>
             <?php include './menu.php'; ?>

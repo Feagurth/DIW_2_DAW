@@ -22,20 +22,20 @@ try {
 ?>
 <div class="listado">
     <div id="botonera">
-        <h3>Listado de usuarios</h3>
+        <h2>Listado de usuarios</h2>
         <form id="nuevo" action='usuario_detalle.php' method='post' >
-            <input type='submit' tabindex="8" value='Nuevo Usuario' alt='Nuevo Usuario' title="Pulse el botón para crear un nuevo usuario" />
-            <input class='oculto' name='id_usuario' type='text' value='0' />
-            <input class='oculto' name='modo' type='text' value='A' />
+            <input type='submit' tabindex="8" value='Nuevo Usuario' title="Pulse el botón para crear un nuevo usuario" />
+            <input class='oculto' name='id_usuario' type='hidden' value='0' />
+            <input class='oculto' name='modo' type='hidden' value='A' />
         </form>
         <form id="filtro" action='index.php' method='post' >
-            <input type='submit' tabindex="11" value='Filtrar resultados' alt='Filtrar resultados' title="Pulse el botón para filtrar los resultados"/>            
+            <input type='submit' tabindex="11" value='Filtrar resultados' title="Pulse el botón para filtrar los resultados"/>            
             <select name="tipoFiltro" tabindex="10" title="Seleccione el tipo de filtro">
                 <option <?php if ($tipoFiltro === "1") echo "selected=\"selected\" " ?> value="1">Usuario</option>
                 <option <?php if ($tipoFiltro === "2") echo "selected=\"selected\" " ?> value="2">Nombre</option>
             </select>
-            <input id="textoFiltro" tabindex="9" type="text" alt="Introduzca un texto para filtrar los resultados" maxlength="30" title="Introduzca la cadena por la que filtrar los resultados" name="filtro"  value="<?php echo $filtro ?>" />
-            <input class='oculto' name='indice' type='text' value='6' />
+            <input id="textoFiltro" tabindex="9" type="text" maxlength="30" title="Introduzca la cadena por la que filtrar los resultados" name="filtro"  value="<?php echo $filtro ?>" />
+            <input class='oculto' name='indice' type='hidden' value='6' />
         </form>
     </div>
     <div class="error">
@@ -77,9 +77,9 @@ try {
                     // acceder a los detalles del usuario.
                     echo '<td>';
                     echo "<form action='usuario_detalle.php' method='post' >";
-                    echo "<button name='button' value='Detalles' alt='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles' /></button>";
-                    echo "<input class='oculto' name='id_usuario' type='text' value='" . $usuario->getId_usuario() . "' />";
-                    echo "<input class='oculto' name='modo' type='text' value='V' />";
+                    echo "<button name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles' /></button>";
+                    echo "<input class='oculto' name='id_usuario' type='hidden' value='" . $usuario->getId_usuario() . "' />";
+                    echo "<input class='oculto' name='modo' type='hidden' value='V' />";
                     echo "</form>";
                     echo '</td>';
                     echo '</tr>';

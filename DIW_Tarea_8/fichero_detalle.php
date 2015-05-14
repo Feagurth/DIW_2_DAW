@@ -254,7 +254,7 @@ try {
 ?>
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
     <head>
         <title>Detalle Ficheros</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -262,7 +262,7 @@ try {
     </head>
     <body>
         <div class="cabecera" id="index" >
-            <p>Gestión Documental</p>
+            <h1>Gestión Documental</h1>
         </div>
         <div>
             <?php
@@ -274,32 +274,32 @@ try {
         </div>
         <div id="cuerpo">      
             <div id="botonera">
-                <h3>Detalle de Ficheros</h3>
+                <h2>Detalle de Ficheros</h2>
                 <form id="añadir" action='fichero_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Añadir Fichero' alt='Añadir Fichero' title="Pulse para anañadir un nuevo Fichero"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='añadir' type='text' value='0' />
-                    <input class='oculto' name='modo' type='text' value='A' />
-                    <input class='oculto' name='id_fichero' type='text' value='0' />
+                    <input type='submit' tabindex="8" value='Añadir Fichero' title="Pulse para anañadir un nuevo Fichero"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='añadir' type='hidden' value='0' />
+                    <input class='oculto' name='modo' type='hidden' value='A' />
+                    <input class='oculto' name='id_fichero' type='hidden' value='0' />
                 </form>
 
                 <form id="modificar" action='fichero_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Modificar Fichero' alt='Modificar Fichero' title="Pulse para modificar el Fichero actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modificar' type='text' value='<?php echo $id_fichero ?>' />
-                    <input class='oculto' name='modo' type='text' value='M' />
-                    <input class='oculto' name='id_fichero' type='text' value='<?php echo $id_fichero ?>' />
+                    <input type='submit' tabindex="8" value='Modificar Fichero' title="Pulse para modificar el Fichero actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modificar' type='hidden' value='<?php echo $id_fichero ?>' />
+                    <input class='oculto' name='modo' type='hidden' value='M' />
+                    <input class='oculto' name='id_fichero' type='hidden' value='<?php echo $id_fichero ?>' />
                 </form>
                 <form id="eliminar" action='fichero_detalle.php' method='post' >
-                    <input type='submit' tabindex="9" value='Eliminar Fichero' alt='Eliminar Fichero' title="Pulse para eliminar el Fichero actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modo' type='text' value='E' />
-                    <input class='oculto' name='id_fichero' type='text' value='<?php echo $id_fichero ?>' />
+                    <input type='submit' tabindex="9" value='Eliminar Fichero' title="Pulse para eliminar el Fichero actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modo' type='hidden' value='E' />
+                    <input class='oculto' name='id_fichero' type='hidden' value='<?php echo $id_fichero ?>' />
                 </form>
             </div>
             <div id="detalle">                
                 <?php
                 if ($modo === "V") {
                     echo "<form id='btnVisor' action='visor.php' method='post' target='_blank'>";
-                    echo "<button name='button' value='Ver Fichero' alt='Ver fichero' title='Pulse para ver el fichero'><img src='imagenes/download.png' alt='Ver fichero' title='Pulse para ver el fichero' /></button>";
-                    echo "<input class='oculto' name='id_fichero' type='text' value='" . $id_fichero . "' />";
+                    echo "<button name='button' value='Ver Fichero' title='Pulse para ver el fichero'><img src='imagenes/download.png' alt='Ver fichero' title='Pulse para ver el fichero' /></button>";
+                    echo "<input class='oculto' name='id_fichero' type='hidden' value='" . $id_fichero . "' />";
                     echo "</form>";
                 }
                 ?>                    
@@ -313,7 +313,7 @@ try {
                     if ($modo === "A") {
                         //MAX_FILE_SIZE debe preceder el campo de entrada de archivo para limitar el tamaño del fichero a enviar
                         echo '<input type="hidden" name="MAX_FILE_SIZE" value="' . $maxFileSize . '" />';
-                        echo '<input title="Haga click para seleccionar el fichero a insertar en la base de datos" tabindex ="11" type="file" id="addfile" name="addfile[]" readonly="1" value="" accept=".bmp,.jpg,.gif,.png,.pdf,.doc,.odt,.rtf"/>';
+                        echo '<input title="Haga click para seleccionar el fichero a insertar en la base de datos" tabindex ="11" type="file" id="addfile" name="addfile[]" readonly="readonly" value="" accept=".bmp,.jpg,.gif,.png,.pdf,.doc,.odt,.rtf"/>';
                     }
                     ?>
                     <br />                                                            
@@ -334,14 +334,14 @@ try {
                     if ($modo === "A" || $modo === "M") {
 
                         // Creamos el botón de aceptar
-                        echo "<input tabindex='17' name='boton' id='aceptar' type='submit' value='Aceptar' alt='Aceptar' title='Pulse para confirmar las modificaciones' />";
+                        echo "<input tabindex='17' name='boton' id='aceptar' type='submit' value='Aceptar' title='Pulse para confirmar las modificaciones' />";
 
                         // Creamos el botón de cancelar
-                        echo "<input tabindes='18' name='boton' id='cancelar 'type='submit' value='Cancelar' alt='Cancelar' title='Pulse para cancelar las modificaciones' />";
+                        echo "<input tabindex='18' name='boton' id='cancelar' type='submit' value='Cancelar' title='Pulse para cancelar las modificaciones' />";
 
                         // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del fichero
-                        echo "<input class='oculto' name='id_fichero' type='text' value='$id_fichero' />";
-                        echo "<input class='oculto' name='modo' type='text' value='$modo' />";
+                        echo "<input class='oculto' name='id_fichero' type='hidden' value='$id_fichero' />";
+                        echo "<input class='oculto' name='modo' type='hidden' value='$modo' />";
                     }
                     ?>      
                 </form>

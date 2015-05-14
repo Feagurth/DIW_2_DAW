@@ -206,7 +206,7 @@ try {
 ?>
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
     <head>
         <title>Detalle Usuario</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -214,7 +214,7 @@ try {
     </head>
     <body>
         <div class="cabecera" id="index" >
-            <p>Gestión Documental</p>
+            <h1>Gestión Documental</h1>
         </div>
         <div>
             <?php
@@ -227,23 +227,23 @@ try {
         </div>
         <div id="cuerpo">      
             <div id="botonera">
-                <h3>Detalle de usuarios</h3>
+                <h2>Detalle de usuarios</h2>
                 <form id="añadir" action='usuario_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Añadir Usuario' alt='Añadir Usuario' title="Pulse para añadir un usuario nuevo"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='añadir' type='text' value='0' />
-                    <input class='oculto' name='modo' type='text' value='A' />
-                    <input class='oculto' name='id_usuario' type='text' value='0' />
+                    <input type='submit' tabindex="8" value='Añadir Usuario' title="Pulse para añadir un usuario nuevo"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='añadir' type='hidden' value='0' />
+                    <input class='oculto' name='modo' type='hidden' value='A' />
+                    <input class='oculto' name='id_usuario' type='hidden' value='0' />
                 </form>                
                 <form id="modificar" action='usuario_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Modificar Usuario' alt='Modificar Usuario' title="Pulse para modificar el usuario actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modificar' type='text' value='<?php echo $id_usuario ?>' />
-                    <input class='oculto' name='modo' type='text' value='M' />
-                    <input class='oculto' name='id_usuario' type='text' value='<?php echo $id_usuario ?>' />
+                    <input type='submit' tabindex="8" value='Modificar Usuario' title="Pulse para modificar el usuario actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modificar' type='hidden' value='<?php echo $id_usuario ?>' />
+                    <input class='oculto' name='modo' type='hidden' value='M' />
+                    <input class='oculto' name='id_usuario' type='hidden' value='<?php echo $id_usuario ?>' />
                 </form>
                 <form id="eliminar" action='usuario_detalle.php' method='post' >
-                    <input type='submit' tabindex="9" value='Eliminar Usuario' alt='Eliminar Usuario' title="Pulse para eliminar el usuario actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modo' type='text' value='E' />
-                    <input class='oculto' name='id_usuario' type='text' value='<?php echo $id_usuario ?>' />
+                    <input type='submit' tabindex="9" value='Eliminar Usuario' title="Pulse para eliminar el usuario actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modo' type='hidden' value='E' />
+                    <input class='oculto' name='id_usuario' type='hidden' value='<?php echo $id_usuario ?>' />
                 </form>
             </div>
             <div id="detalle">
@@ -262,14 +262,14 @@ try {
                     if ($modo === "A" || $modo === "M") {
 
                         // Creamos el botón de aceptar
-                        echo "<input tabindex='13' name='boton' id='aceptar' type='submit' value='Aceptar' alt='Aceptar' title='Pulse para confirmar las modificaciones' />";
+                        echo "<input tabindex='13' name='boton' id='aceptar' type='submit' value='Aceptar' title='Pulse para confirmar las modificaciones' />";
 
                         // Creamos el botón de cancelar
-                        echo "<input tabindes='14' name='boton' id='cancelar 'type='submit' value='Cancelar' alt='Cancelar' title='Pulse para cancelar las modificaciones' />";
+                        echo "<input tabindex='14' name='boton' id='cancelar' type='submit' value='Cancelar' title='Pulse para cancelar las modificaciones' />";
 
                         // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del usuario
-                        echo "<input class='oculto' name='id_usuario' type='text' value='$id_usuario' />";
-                        echo "<input class='oculto' name='modo' type='text' value='$modo' />";
+                        echo "<input class='oculto' name='id_usuario' type='hidden' value='$id_usuario' />";
+                        echo "<input class='oculto' name='modo' type='hidden' value='$modo' />";
                     }
                     ?>      
                 </form>               

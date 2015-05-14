@@ -231,7 +231,7 @@ try {
 ?>
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
     <head>
         <title>Detalle Grupo</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -239,7 +239,7 @@ try {
     </head>
     <body>
         <div class="cabecera" id="index" >
-            <p>Gestión Documental</p>
+            <h1>Gestión Documental</h1>
         </div>
         <div>
             <?php
@@ -251,29 +251,29 @@ try {
         </div>
         <div id="cuerpo">      
             <div id="botonera">
-                <h3>Detalle de grupos</h3>
+                <h2>Detalle de grupos</h2>
                 <form id="añadir" action='grupo_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Añadir Grupo' alt='Añadir Grupo' title="Pulse para añadir un grupo nuevo"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='añadir' type='text' value='0' />
-                    <input class='oculto' name='modo' type='text' value='A' />
-                    <input class='oculto' name='id_grupo' type='text' value='0' />
+                    <input type='submit' tabindex="8" value='Añadir Grupo' title="Pulse para añadir un grupo nuevo"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='añadir' type='hidden' value='0' />
+                    <input class='oculto' name='modo' type='hidden' value='A' />
+                    <input class='oculto' name='id_grupo' type='hidden' value='0' />
                 </form>                
                 <form id="modificar" action='grupo_detalle.php' method='post' >
-                    <input type='submit' tabindex="8" value='Modificar Grupo' alt='Modificar Grupo' title="Pulse para modificar el grupo actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modificar' type='text' value='<?php echo $id_grupo ?>' />
-                    <input class='oculto' name='modo' type='text' value='M' />
-                    <input class='oculto' name='id_grupo' type='text' value='<?php echo $id_grupo ?>' />
+                    <input type='submit' tabindex="8" value='Modificar Grupo' title="Pulse para modificar el grupo actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modificar' type='hidden' value='<?php echo $id_grupo ?>' />
+                    <input class='oculto' name='modo' type='hidden' value='M' />
+                    <input class='oculto' name='id_grupo' type='hidden' value='<?php echo $id_grupo ?>' />
                 </form>
                 <form id="eliminar" action='grupo_detalle.php' method='post' >
-                    <input type='submit' tabindex="9" value='Eliminar Grupo' alt='Eliminar Grupo' title="Pulse para eliminar el grupo actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
-                    <input class='oculto' name='modo' type='text' value='E' />
-                    <input class='oculto' name='id_grupo' type='text' value='<?php echo $id_grupo ?>' />
+                    <input type='submit' tabindex="9" value='Eliminar Grupo' title="Pulse para eliminar el grupo actual"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
+                    <input class='oculto' name='modo' type='hidden' value='E' />
+                    <input class='oculto' name='id_grupo' type='hidden' value='<?php echo $id_grupo ?>' />
                 </form>
             </div>
             <div id="detalle">
                 <form action="grupo_detalle.php" method="post">
                     <input type='hidden' name='token' id='token' value='<?php echo $_SESSION["token"] ?>'/>
-                    <label id="lblNombre" for="nombre">Nombre&nbsp;</label>
+                    <label id="lblUser" for="user">Nombre&nbsp;</label>
                     <input tabindex="10" type="text" name="nombre" id="user" maxlength="30" value="<?php if ($grupo !== NULL) echo $grupo->getNombre() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblDescripcion" for="descripcion">Descripcion</label>
                     <input tabindex="11" type="text" name="descripcion" id="descripcion" maxlength="50" value="<?php if ($grupo !== NULL) echo $grupo->getDescripcion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
@@ -285,14 +285,14 @@ try {
                     if ($modo === "A" || $modo === "M") {
 
                         // Creamos el botón de aceptar
-                        echo "<input tabindex='13' name='boton' id='aceptar' type='submit' value='Aceptar' alt='Aceptar' title='Pulse para confirmar las modificaciones' />";
+                        echo "<input tabindex='13' name='boton' id='aceptar' type='submit' value='Aceptar' title='Pulse para confirmar las modificaciones' />";
 
                         // Creamos el botón de cancelar
-                        echo "<input tabindes='14' name='boton' id='cancelar 'type='submit' value='Cancelar' alt='Cancelar' title='Pulse para cancelar las modificaciones' />";
+                        echo "<input tabindex='14' name='boton' id='cancelar' type='submit' value='Cancelar' title='Pulse para cancelar las modificaciones' />";
 
                         // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del grupo
-                        echo "<input class='oculto' name='id_grupo' type='text' value='$id_grupo' />";
-                        echo "<input class='oculto' name='modo' type='text' value='$modo' />";
+                        echo "<input class='oculto' name='id_grupo' type='hidden' value='$id_grupo' />";
+                        echo "<input class='oculto' name='modo' type='hidden' value='$modo' />";
                     }
                     ?>      
                 </form>               

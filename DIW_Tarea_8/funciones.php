@@ -643,7 +643,7 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
 // Creamos un div y un formalario que contendrán el listado
     echo '<div class="listadoSel">';
 
-    echo '<h3>Empleados integrantes del grupo</h3>';
+    echo '<h2>Empleados integrantes del grupo</h2>';
 
     echo '<form action="grupo_detalle.php" method="post">';
 
@@ -692,11 +692,11 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
 
 // Añadimos una última fila con un botón un checkbox para marcar una relación con el grupo actual
             echo '<td>';
-            echo '<input type="checkbox" alt="Seleccionar empleado" name="seleccionadoEmpleado[]" title="Haga click para agregar el empleado al grupo" tabindex="20" ';
+            echo '<input type="checkbox" name="seleccionadoEmpleado[]" title="Haga click para agregar el empleado al grupo" tabindex="20" ';
             if (comprobarRelaccionEmpleadoGrupo($empleado->getId_empleado(), $grupoempleado)) {
                 echo 'checked="checked"';
             }
-            echo " value=" . $empleado->getId_empleado() . " />";
+            echo " value='" . $empleado->getId_empleado() . "' />";
             echo '</td>';
             echo '</tr>';
 
@@ -715,11 +715,11 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
 // se pulse el botón de actualizar las relaciones de los empleados y el 
 // identificador del grupo en el que estamos actualmente para que se 
 // refresquen sus datos
-    echo '<input class="oculto" name="modo" type="text" value="AE" />';
-    echo '<input class="oculto" name="id_grupo" type="text" value="' . $id_grupo . '" />';
+    echo '<input class="oculto" name="modo" type="hidden" value="AE" />';
+    echo '<input class="oculto" name="id_grupo" type="hidden" value="' . $id_grupo . '" />';
 
 // Creamos el botón de actualizar las relaciones con los empleados
-    echo '<input type="submit" id="actualizar_empleados" tabindex="21" value="Actualizar Relaciones Empleados" alt="Actualizar Relaciones Empleados" title="Pulse para actualizar la relación de los empleados con el grupo" />';
+    echo '<input type="submit" id="actualizar_empleados" tabindex="21" value="Actualizar Relaciones Empleados" title="Pulse para actualizar la relación de los empleados con el grupo" />';
 
 // Y finalmente cerramosel formulario
     echo '</form>';
@@ -899,9 +899,6 @@ function enviarCorreo(Email $email, Fichero $fichero, $empleados) {
 
         // Lo añadimos como adjunto
         $mail->addAttachment($fichero->getNombre());
-
-        xdebug_break();
-
 
         // Enviamos el mensaje
         if (!$mail->send()) {
