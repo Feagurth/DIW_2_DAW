@@ -129,6 +129,7 @@ class Usuario implements JsonSerializable {
      * @return Json Los datos de la clase en formato Json
      */
     public function jsonSerialize() {
+        // Creamos un array con la información que contiene el objeto
         $data = array(
             "id_usuario" => $this->id_usuario,
             "user" => $this->user,
@@ -136,6 +137,7 @@ class Usuario implements JsonSerializable {
             "nombre" => $this->nombre
             );
                 
+        // Devolvemos el array como resultado de la serialización
         return $data;
     }
 

@@ -664,24 +664,24 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
     echo '<tbody>';
 
 
-// Verificamos si tenemos algún tipo de error
+    // Verificamos si tenemos algún tipo de error
     if ($error === "") {
-// Inicializamos un contador para asignar los estilos a cada linea
+        // Inicializamos un contador para asignar los estilos a cada linea
         $i = 0;
 
-// Recorremos cada uno de los registros que hemos recuperado 
+        // Recorremos cada uno de los registros que hemos recuperado 
         foreach ($empleados as $empleado) {
 
-// Si el contador es un número par, le daremos un estilo y si 
-// es impar le daremos otro
+            // Si el contador es un número par, le daremos un estilo y si 
+            // es impar le daremos otro
             if ($i % 2 === 0) {
                 echo '<tr class="pijama1">';
             } else {
                 echo '<tr class="pijama2">';
             }
 
-// Imprimimos celda con los valores recuperados de cada objeto 
-// empleado que hay en los registros recuperados
+            // Imprimimos celda con los valores recuperados de cada objeto 
+            // empleado que hay en los registros recuperados
             echo '<td title="' . $empleado->getNombre() . '">' . textoElipsis($empleado->getNombre(), 15) . '</td>';
             echo '<td title="' . $empleado->getApellido() . '">' . textoElipsis($empleado->getApellido(), 15) . '</td>';
             echo '<td title="' . $empleado->getTelefono() . '">' . textoElipsis($empleado->getTelefono(), 15) . '</td>';
@@ -690,7 +690,7 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
             echo '<td title="' . $empleado->getDireccion() . '">' . textoElipsis($empleado->getDireccion(), 15) . '</td>';
             echo '<td title="' . $empleado->getEmail() . '">' . textoElipsis($empleado->getEmail(), 15) . '</td>';
 
-// Añadimos una última fila con un botón un checkbox para marcar una relación con el grupo actual
+            // Añadimos una última fila con un botón un checkbox para marcar una relación con el grupo actual
             echo '<td>';
             echo '<input type="checkbox" name="seleccionadoEmpleado[]" title="Haga click para agregar el empleado al grupo" tabindex="20" ';
             if (comprobarRelaccionEmpleadoGrupo($empleado->getId_empleado(), $grupoempleado)) {
@@ -700,28 +700,28 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
             echo '</td>';
             echo '</tr>';
 
-// Incrementamos el contador
+            // Incrementamos el contador
             $i++;
         }
     }
 
-// Cerramos el cuerpo de la tabla
+    // Cerramos el cuerpo de la tabla
     echo '</tbody>';
 
-// Cerramos la tabla
+    // Cerramos la tabla
     echo '</table>';
 
-// Creamos dos campos ocultos que enviarán el modo de la página cuando 
-// se pulse el botón de actualizar las relaciones de los empleados y el 
-// identificador del grupo en el que estamos actualmente para que se 
-// refresquen sus datos
+    // Creamos dos campos ocultos que enviarán el modo de la página cuando 
+    // se pulse el botón de actualizar las relaciones de los empleados y el 
+    // identificador del grupo en el que estamos actualmente para que se 
+    // refresquen sus datos
     echo '<input class="oculto" name="modo" type="hidden" value="AE" />';
     echo '<input class="oculto" name="id_grupo" type="hidden" value="' . $id_grupo . '" />';
 
-// Creamos el botón de actualizar las relaciones con los empleados
+    // Creamos el botón de actualizar las relaciones con los empleados
     echo '<input type="submit" id="actualizar_empleados" tabindex="21" value="Actualizar Relaciones Empleados" title="Pulse para actualizar la relación de los empleados con el grupo" />';
 
-// Y finalmente cerramosel formulario
+    // Y finalmente cerramosel formulario
     echo '</form>';
     echo '</div>';
 }

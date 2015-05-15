@@ -21,7 +21,7 @@
  *
  * @author Luis Cabrerizo Gómez
  */
-class Email {
+class Email implements JsonSerializable {
 
     /**
      * Identificador de la cuenta correo
@@ -64,7 +64,6 @@ class Email {
      * @var type 
      */
     private $autentificacion;
-
 
     /**
      * Descripción de la cuenta correo
@@ -134,7 +133,7 @@ class Email {
     public function getSeguridad() {
         return $this->seguridad;
     }
-    
+
     /**
      * Función para recuperar la necesidad de autentificaión de la cuenta de correo
      * @return string La necesidad de autentificaión de la cuenta de correo
@@ -143,7 +142,6 @@ class Email {
         return $this->autentificacion;
     }
 
-    
     /**
      * Función para recuperar la descripción de la cuenta de correo
      * @return string La descripción de la cuenta de correo
@@ -208,13 +206,34 @@ class Email {
         $this->autentificacion = $autentificacion;
     }
 
-        
     /**
      * Función para asignar la descripción de la cuenta de correo
      * @param string $descripcion La descripción de la cuenta de correo
      */
     public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
+    }
+
+    /**
+     * Función para serializar los datos en formato Json
+     * @return Json Los datos de la clase en formato Json
+     */
+    public function jsonSerialize() {
+
+        // Creamos un array con la información que contiene el objeto
+        $data = array(
+            "id_email" => $this->id_email,
+            "usuario" => $this->usuario,
+            "pass" => $this->pass,
+            "servidor" => $this->servidor,
+            "puerto" => $this->puerto,
+            "seguridad" => $this->seguridad,
+            "autentificacion" => $this->autentificacion,
+            "descripcion" => $this->descripcion
+        );
+
+        // Devolvemos el array como resultado de la serialización
+        return $data;
     }
 
 }

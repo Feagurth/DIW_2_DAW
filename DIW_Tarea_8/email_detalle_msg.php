@@ -17,76 +17,94 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+//Iniciamos la sesion
+session_start();
+
 // Instanciamos los ficheros necesarios
 require_once './funciones.php';
 require_once './configuracion.inc.php';
-require_once './objetos/Usuario.php';
+require_once './objetos/Email.php';
 
 try {
-    // Creamos un objeto Usuario
-    $usuario = new Usuario(array("id_usuario" => "", "user" => "", "pass" => "", "nombre" => ""));
+    // Inicializamos variables
+    $error = "";
 
-    // Recuperamos el valor del modo
+
+    // Creamos un objeto Email
+    $email = new Email(array("id_email" => "", "usuario" => "", "pass" => "", "servidor" => "", "puerto" => "", "seguridad" => "", "autentificacion" => "", "descripcion" => ""));
+
+    // Recuperamos los valores del modo 
     $modo = $_POST['modo'];
 
-    // Comprobamos el modo. Si es alta, cambiamos el id_usuario a 0 para poder 
+    // Comprobamos el modo. Si es alta, cambiamos el id_email a 0 para poder 
     // hacer una insercción, si no, cogemos el que se nos haya pasado
-    $id_usuario = $modo === "A" ? "0" : $_POST['id_usuario'];
+    $id_email = $modo === "A" ? "0" : $_POST['id_email'];
 
     // Creamos un nuevo objeto de acceso a base de datos
     $db = new DB();
 
     // Comprobamos el tipo de petición
     switch ($modo) {
-
         // Si la petición es un alta
         case "A": {
 
-                // Creamos un objeto con la información que tenemos
-                $usuario->setId_usuario($id_usuario);
-                $usuario->setUser($_POST['user']);
-                $usuario->setPass($_POST['pass']);
-                $usuario->setNombre($_POST['nombre']);
+                // Si es así, asignamos la informacón introducida en los inputs 
+                // y que se encuentra en post
+                $email->setId_email($id_email);
+                $email->setUsuario($_POST['usuario']);
+                $email->setPass($_POST['pass']);
+                $email->setServidor($_POST['servidor']);
+                $email->setPuerto($_POST['puerto']);
+                $email->setSeguridad($_POST['seguridad']);
+                $email->setAutentificacion((isset($_POST['autentificacion']) ? "1" : "0"));
+                $email->setDescripcion($_POST['descripcion']);
+
 
                 // Realizamos la insercción pasándo como 
-                // parámetro el objeto Usuario, dejando la gestión de 
+                // parámetro el objeto Email, dejando la gestión de 
                 // errores de la insercción a las excepciones que se 
                 // puedan lanzar. El id resultante de la insercción, lo 
-                // asignamos a la variable $id_usuario
-                $id_usuario = $db->insertarUsuario($usuario);
+                // asignamos a la variable $id_email
+                $id_email = $db->insertarEmail($email);
 
-                // Asignamos al objeto usuario el Id_usuario que 
+                // Asignamos al objeto Email el Id_email que 
                 // hemos recibido de la insercción
-                $usuario->setId_usuario($id_usuario);
+                $email->setId_email($id_email);
 
                 // Especificamos las cabeceras para que devuelvan en formato JSON
                 header('Content-Type: application/json');
 
-                // Devolvemos el objeto usuario serializado y codificado en formato JSON
-                echo json_encode($usuario);
+                // Devolvemos el objeto email serializado y codificado en formato JSON
+                echo json_encode($email);
 
                 break;
             }
+
+
         // Si la petición es una modificación
         case "M": {
 
                 // Asignamos la informacón introducida en los inputs 
                 // y que se encuentra en post
-                $usuario->setId_usuario($id_usuario);
-                $usuario->setUser($_POST['user']);
-                $usuario->setPass($_POST['pass']);
-                $usuario->setNombre($_POST['nombre']);
+                $email->setId_email($id_email);
+                $email->setUsuario($_POST['usuario']);
+                $email->setPass($_POST['pass']);
+                $email->setServidor($_POST['servidor']);
+                $email->setPuerto($_POST['puerto']);
+                $email->setSeguridad($_POST['seguridad']);
+                $email->setAutentificacion((isset($_POST['autentificacion']) ? "1" : "0"));
+                $email->setDescripcion($_POST['descripcion']);
 
                 // Realizamos la modificación pasándo como parámetro el 
-                // objeto Usuario, dejando la gestión de errores de la 
+                // objeto Email, dejando la gestión de errores de la 
                 // modificación a las excepciones que se puedan lanzar
-                $db->modificarUsuario($usuario);
+                $db->modificarEmail($email);
 
                 // Especificamos las cabeceras para que devuelvan en formato JSON
                 header('Content-Type: application/json');
 
-                // Devolvemos el objeto usuario serializado y codificado en formato JSON
-                echo json_encode($usuario);
+                // Devolvemos el objeto email serializado y codificado en formato JSON
+                echo json_encode($email);
 
                 break;
             }

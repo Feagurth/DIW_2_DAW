@@ -224,6 +224,10 @@ try {
         <title>Detalle E-Mail</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link type = "text/css" rel = "stylesheet" href = "./estilos.css"/>
+        <script type="text/javascript" src="HTTP://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="scripts/email_detalle.js"></script>
+        <script type="text/javascript" src="scripts/funciones.js"></script>
+        
     </head>
     <body>
         <div class="cabecera" id="index" >
@@ -275,7 +279,7 @@ try {
                     <input tabindex="14" title="Introduzca el puerto del servidor de E-Mail" type="text" name="puerto" id="puerto" maxlength="5" value="<?php if ($email !== NULL) echo $email->getPuerto() ?>" <?php echo deshabilitarPorModo($modo) ?> />                    
                     <label id="lblSeguridad" for="seguridad">Tipo de Seguridad&nbsp;</label>
                     <select tabindex="15" title="Seleccione el tipo de seguridad de la cuenta de E-Mail" name="seguridad" id="seguridad" <?php echo deshabilitarPorModo($modo) ?> >
-                        <option <?php if ($email->getSeguridad() === " ") echo "selected=\"selected\" " ?> value=" ">Ninguna</option>
+                        <option <?php if ($email->getSeguridad() === "NINGUNA") echo "selected=\"selected\" " ?> value="NINGUNA">Ninguna</option>
                         <option <?php if ($email->getSeguridad() === "TLS") echo "selected=\"selected\" " ?> value="TLS">TLS</option>
                         <option <?php if ($email->getSeguridad() === "SSL") echo "selected=\"selected\" " ?> value="SSL">SSL</option>
                     </select>     
@@ -305,5 +309,6 @@ try {
                 </div>
             </div>            
         </div>
+        <div class="modal" ><!-- Posicionar al final del cuerpo de la página --></div>
     </body>
 </html>
