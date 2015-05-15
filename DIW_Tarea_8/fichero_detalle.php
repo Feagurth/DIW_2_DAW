@@ -259,6 +259,10 @@ try {
         <title>Detalle Ficheros</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link type = "text/css" rel = "stylesheet" href = "./estilos.css"/>
+        <script type="text/javascript" src="HTTP://code.jquery.com/jquery-latest.js"></script>        
+        <script type="text/javascript" src="scripts/fichero_detalle.js"></script>
+        <script type="text/javascript" src="scripts/funciones.js"></script>        
+        
     </head>
     <body>
         <div class="cabecera" id="index" >
@@ -304,7 +308,7 @@ try {
                 }
                 ?>                    
 
-                <form action="fichero_detalle.php" method="post" enctype="multipart/form-data" >
+                <form action="fichero_detalle.php" id="formFichero" method="post" enctype="multipart/form-data" >
                     <input type='hidden' name='token' id='token' value='<?php echo $_SESSION["token"] ?>'/>
                     <label id="lblDescripcion" for="descripcion">Descripcion&nbsp;</label>
                     <input  tabindex="10" title="Introduzca la descripción del fichero" type="text" name="descripcion" id="descripcion" maxlength="50" value="<?php if ($fichero !== NULL) echo $fichero->getDescripcion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
@@ -312,7 +316,7 @@ try {
                     // Comprobamos si el modo de la página es el de añadir. En ese caso mostramos un botón para adjuntar el fichero
                     if ($modo === "A") {
                         //MAX_FILE_SIZE debe preceder el campo de entrada de archivo para limitar el tamaño del fichero a enviar
-                        echo '<input type="hidden" name="MAX_FILE_SIZE" value="' . $maxFileSize . '" />';
+                        echo '<input type="hidden" id="maxFileSize" name="MAX_FILE_SIZE" value="' . $maxFileSize . '" />';
                         echo '<input title="Haga click para seleccionar el fichero a insertar en la base de datos" tabindex ="11" type="file" id="addfile" name="addfile[]" readonly="readonly" value="" accept=".bmp,.jpg,.gif,.png,.pdf,.doc,.odt,.rtf"/>';
                     }
                     ?>
@@ -350,5 +354,6 @@ try {
                 </div>
             </div>            
         </div>
+        <div class="modal" ><!-- Posicionar al final del cuerpo de la página --></div>
     </body>
 </html>

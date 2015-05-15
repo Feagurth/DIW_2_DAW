@@ -86,6 +86,20 @@ function validarNumero(valor)
     return expresion.exec(valor);
 }
 
+/**
+ * Functión que nos permite validar una dirección
+ * @param {type} valor Cadena a validar
+ * @returns {Array} True si la validación es correcta, False en caso contrario
+ */
+function validarDireccion(valor)
+{
+    // Valida letras y números con espacios en blanco, vocales con acento, 
+    // la ñ, puntos y comas y los símbolos ºª
+    expresion = /^[a-zA-Z0-9ñÑ áéíóú.,ºª]+$/;
+        
+    return expresion.exec(valor);
+}
+
 
 /**
  * Función que nos permite validar un email
@@ -104,7 +118,7 @@ function validarEmail(valor)
     // La septima parte permite especificar la inclusion de cierre de corchetes para englobar el dominio: (\]?)$
     // Finalmente se anclan la expresion regular al principio y al final de la candena
     expresion = /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-
+                
     // Devolvemos el resultado de la validación del email
     return expresion.exec(valor);
 }
@@ -117,12 +131,9 @@ function validarEmail(valor)
 function validarTelefono(valor)
 {
     // Expresión que nos permite validar números de telefono fijos y móviles en España
-    // La primera parte nos permite definir el primer dígito del número especificando que debe empezar por 9 o por 6: ^[9|6]{1}
-    // La segunda parte nos permite especificar los siguientes seis dígitos del número de telfono agrupados de dos en dos, pudiendo estos grupos estar seguidos de un guión: ([\d]{2}[-]?){3}
-    // La tercera parte nos permite especificar los últimos dos números del teléfono: [\d]{2}$
-    // Finalmente se anclan la expresion regular al principio y al final de la candena
-    expresion = /^[9|6]{1}([\d]{2}[-]?){3}[\d]{2}$/;
-
+    // Valida los patrones  +34 [9|6|7]XX XX XX XX [9|6|7]XX XX XX XX [9|6|7]XX XX XX XX [9|6|7]XX-XX-XX-XX [9|6|7]XXXXXXXX
+    expresion = /^((\+?34([ \t|\-])?)?[9|6|7]((\d{1}([ \t|\-])?[0-9]{3})|(\d{2}([ \t|\-])?[0-9]{2}))([ \t|\-])?[0-9]{2}([ \t|\-])?[0-9]{2})$/;
+    
     // Devolvemos el resultado de la validación del telefono
     return expresion.exec(valor);
 }

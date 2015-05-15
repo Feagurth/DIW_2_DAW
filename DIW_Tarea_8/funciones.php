@@ -99,7 +99,7 @@ function validarDatosEmpleado($empleado) {
     if ($empleado->getEmail()) {
 // Validamos el email del empleado
 // Valida letras y números con espacios en blanco, vocales con acento y la ñ
-        if (!preg_match("/^(((([a-zA-Z\d][\.\-\+_]?)*)[a-zA-Z0-9])+)\@(((([a-zA-Z\d][\.\-_]?){0,62})[a-z\d])+)\.([a-zA-Z\d]{2,6})$/", $empleado->getEmail())) {
+        if (!preg_match("/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/", $empleado->getEmail())) {
 // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El E-Mail del empleado contiene carecteres inválidos.";
         }
@@ -523,46 +523,45 @@ function deshabilitarBotonesPorModo($modo) {
  * Función que nos permite estructurar los datos de un objeto fichero
  * @param type $registro El objeto fichero que deseamos estructurar
  */
-function crearObjetosInserccionFichero(&$registro) {
+function crearObjetosInserccionFichero(&$registro, $id_fichero) {
 
-// Si es una insercción, volcamos los valores a insertar en 
-// variables directamente desde el POST de la página
-    $id_fichero = $_POST['id_fichero'];
+    // Si es una insercción, volcamos los valores a insertar en 
+    // variables directamente desde el POST de la página
     $descripcion = $_POST['descripcion'];
 
-// Comprobamos si hay información en los ficheros subidos al 
-// servidor y si se ha producido algún error en la subida de 
-// los mismos
+    // Comprobamos si hay información en los ficheros subidos al 
+    // servidor y si se ha producido algún error en la subida de 
+    // los mismos
     if (isset($_FILES['addfile'])) {
 
-// Reordenamos los ficheros que hay en $_FILES para que 
-// nos sea más facil trabajar luego con ellos
+        // Reordenamos los ficheros que hay en $_FILES para que 
+        // nos sea más facil trabajar luego con ellos
         $archivos = ordenarFicheros($_FILES);
 
-// Recorremos todos los archivos para tratarlos
+        // Recorremos todos los archivos para tratarlos
         foreach ($archivos as $file) {
 
-// Asignamos el valor de id como valor para el id_fichero
-// al crear el objeto
+            // Asignamos el valor de id como valor para el id_fichero
+            // al crear el objeto
             $registro->setId_fichero($id_fichero);
 
-// Le asignamos el nombre recortandolo al tamaño máximo que 
-// permite la tabla donde se almacena
+            // Le asignamos el nombre recortandolo al tamaño máximo que 
+            // permite la tabla donde se almacena
             $registro->setNombre(recortaNombreFichero($file['name'], 50));
 
-// Le asignamos el tamaño
+            // Le asignamos el tamaño
             $registro->setTamanyo($file['size']);
 
-// Le asignamos el tipo
+            // Le asignamos el tipo
             $registro->setTipo($file['type']);
 
-// Asignamos la descripción
+            // Asignamos la descripción
             $registro->setDescripcion($descripcion);
 
-// Recuperamos la información del fichero con la función 
-// fopen especificando 'rb' como parámetro para que lea 
-// el fichero en binario, guardandolo en una variable 
-// tipo stream y lo asignamos al fichero
+            // Recuperamos la información del fichero con la función 
+            // fopen especificando 'rb' como parámetro para que lea 
+            // el fichero en binario, guardandolo en una variable 
+            // tipo stream y lo asignamos al fichero
             $registro->setFichero(fopen($file['tmp_name'], 'rb'));
         }
     }

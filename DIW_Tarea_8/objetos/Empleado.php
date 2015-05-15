@@ -22,7 +22,7 @@
  *
  * @author Luis Cabrerizo Gómez
  */
-class Empleado {
+class Empleado implements JsonSerializable {
 
     /**
      * Variable para almacenar el identificador del empleado
@@ -87,8 +87,6 @@ class Empleado {
         $this->email = $row['email'];
     }
 
-    
-    
     /**
      * Función que nos permite recuperar el id del empleado
      * @return int
@@ -215,6 +213,27 @@ class Empleado {
      */
     public function setEmail($email) {
         $this->email = $email;
+    }
+
+    /**
+     * Función para serializar los datos en formato Json
+     * @return Json Los datos de la clase en formato Json
+     */
+    public function jsonSerialize() {
+        // Creamos un array con la información que contiene el objeto
+        $data = array(
+            "id_empleado" => $this->id_empleado,
+            "nombre" => $this->nombre,
+            "apellido" => $this->apellido,
+            "telefono" => $this->telefono,
+            "especialidad" => $this->especialidad,
+            "cargo" => $this->cargo,
+            "direccion" => $this->direccion,
+            "email" => $this->email
+        );
+
+        // Devolvemos el array como resultado de la serialización
+        return $data;
     }
 
 }

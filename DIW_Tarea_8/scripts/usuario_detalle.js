@@ -71,7 +71,7 @@ function habilitarAñadirModificar()
     id_usuario;
 
     // Comprobamos si estamos haciendo una insercción o una modificación
-    if (this.value === "Añadir Usuario")
+    if (this.value.indexOf("Añadir") >= 0)
     {
         // Si es una insercción asignamos los valores del modo
         modo = "A";
@@ -193,7 +193,7 @@ function validarDatos()
     if (!validarCadena($("div#detalle form input#nombre").val()))
     {
         // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un nombre correcto";
+        salida = "Debe introducir un nombre válido";
     }
 
     // Validamos el usuario
@@ -243,8 +243,11 @@ function aceptarOperacion()
             // Especificamos la url donde se dirigirá la petición
             url: "usuario_detalle_msg.php",
             // Especificamos los datos que pasaremos como parámetros en el post
-            data: " user=" + $('div#detalle form input#user').val() + "&pass=" + $('div#detalle form input#pass').val() + "&nombre=" + $('div#detalle form input#nombre').val()
-                    + "&modo=" + modo + "&id_usuario=" + id_usuario,
+            data: " user=" + $('div#detalle form input#user').val() 
+                    + "&pass=" + $('div#detalle form input#pass').val() 
+                    + "&nombre=" + $('div#detalle form input#nombre').val()
+                    + "&modo=" + modo 
+                    + "&id_usuario=" + id_usuario,
             // Definimos el tipo de datos que se nos va a devolver
             dataType: "json",
             // Definimos que hacer en caso de petición exitosa
@@ -252,9 +255,11 @@ function aceptarOperacion()
 
                 // Asignamos los valores recuperados del usuario y los asignamos 
                 // las variables 
-                usuario = data.user;
+                id_usuario = data.id_usuario;
+                usuario = data.user;                
                 nombre = data.nombre;
                 contraseña = data.pass;
+                
 
                 // Llamamos a la función cancelarOperación para que deshabilite el 
                 // formulario, limpie mensajes de error, y asigne el valor de las 

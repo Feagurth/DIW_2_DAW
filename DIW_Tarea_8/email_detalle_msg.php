@@ -84,8 +84,7 @@ try {
         // Si la petición es una modificación
         case "M": {
 
-                // Asignamos la informacón introducida en los inputs 
-                // y que se encuentra en post
+                // Asignamos la informacón que se encuentra en post
                 $email->setId_email($id_email);
                 $email->setUsuario($_POST['usuario']);
                 $email->setPass($_POST['pass']);
@@ -113,7 +112,7 @@ try {
     // Recuperamos el mensaje de error
     $error = $ex->getMessage();
 
-    // Especificamos las cabeceras para que devuelvan en formato JSON
+   // Especificamos las cabeceras para que devuelvan en formato JSON
     header('Content-Type: application/json');
 
     // Devolvemos el error

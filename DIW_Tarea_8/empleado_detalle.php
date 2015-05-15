@@ -96,11 +96,11 @@ try {
                             // puedan lanzar. El id resultante de la insercción, lo 
                             // asignamos a la variable $id_empleado
                             $id_empleado = $db->insertarEmpleado($empleado);
-                            
+
                             // Asignamos tambien el id_empleado a la sesión para 
                             // prevenir inserciones extras por refrescos de página
                             $_SESSION['id_empleado'] = $id_empleado;
-                            
+
 
                             // Cambiamos el modo a visor
                             $modo = "V";
@@ -220,6 +220,9 @@ try {
         <title>Detalle Empleado</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link type = "text/css" rel = "stylesheet" href = "./estilos.css"/>
+        <script type="text/javascript" src="HTTP://code.jquery.com/jquery-latest.js"></script>        
+        <script type="text/javascript" src="scripts/empleado_detalle.js"></script>
+        <script type="text/javascript" src="scripts/funciones.js"></script>        
     </head>
     <body>
         <div class="cabecera" id="index" >
@@ -299,5 +302,6 @@ try {
                 </div>
             </div>            
         </div>
+        <div class="modal" ><!-- Posicionar al final del cuerpo de la página --></div>
     </body>
 </html>

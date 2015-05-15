@@ -70,8 +70,7 @@ try {
         // Si la petición es una modificación
         case "M": {
 
-                // Asignamos la informacón introducida en los inputs 
-                // y que se encuentra en post
+                // Asignamos la informacón que se encuentra en post
                 $usuario->setId_usuario($id_usuario);
                 $usuario->setUser($_POST['user']);
                 $usuario->setPass($_POST['pass']);

@@ -22,7 +22,7 @@
  *
  * @author Luis Cabrerizo Gómez
  */
-class Fichero {
+class Fichero implements JsonSerializable {
 
     /**
      * Identificador del fichero
@@ -170,4 +170,26 @@ class Fichero {
         $this->fichero = $fichero;
     }
 
+    /**
+     * Función para serializar los datos en formato Json
+     * @return Json Los datos de la clase en formato Json
+     */
+    public function jsonSerialize() {
+        // Creamos un array con la información que contiene el objeto
+        $data = array(
+            "id_fichero" => $this->id_fichero,
+            "nombre" => $this->nombre,
+            "tamanyo" => $this->tamanyo,
+            "tipo" => $this->tipo,
+            "descripcion" => $this->descripcion,
+            // Anulamos el resultado de la serialización del fichero puesto 
+            // que el contenido en raw del mismo no se va serializar en ningun 
+            // momento, puesto que no es necesario trasmitir esta información 
+            // en formato Json
+            "fichero" => ""
+        );
+
+        // Devolvemos el array como resultado de la serialización
+        return $data;
+    }
 }

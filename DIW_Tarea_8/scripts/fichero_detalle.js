@@ -30,27 +30,27 @@ function inicio()
     $("div#botonera form#modificar > input[type='submit']").click(habilitarAñadirModificar);
 
     // Recuperamos datos que tengamos en los controles
-    id_email = $("div#botonera form#eliminar > input[name='id_email']").val();
-    descripcion = $("div#detalle form input#descripcion").val();
-    usuario = $("div#detalle form input#usuario").val();
-    contraseña = $("div#detalle form input#pass").val();
-    servidor = $("div#detalle form input#servidor").val();
-    puerto = $("div#detalle form input#puerto").val();
-    seguridad = $("div#detalle form select#seguridad option:selected").val();
-    autentificacion = $("div#detalle form input#autentificacion").val() === "on" ? "1" : "0";
+    id_fichero = $("div#botonera form#eliminar > input[name='id_fichero']").val();
+    nombre = $("div#detalle form#formFichero input#nombre").val();
+    tamanyo = $("div#detalle form#formFichero input#tamaño").val();
+    tipo = $("div#detalle form#formFichero input#tipo").val();
+    descripcion = $("div#detalle form#formFichero input#descripcion").val();
+    fichero = $("div#detalle form#formFichero input#addfile").val();
+
+    maxFileSize = $("div#detalle form#formFichero input#maxFileSize").val();
 
     // Comprobamos si ya está creado el botón de cancelar. De ser así, la 
     // pantalla se ha cargado desde la ventana principal pulsando el botón de 
     // nuevo registro
-    if ($("#detalle form #cancelar").length)
+    if ($("#detalle form#formFichero #cancelar").length)
     {
         modo = "A";
 
         // Asignamos una función al evento click del botón de cancelar
-        $("#detalle form").on("click", "#cancelar", cancelarOperacion);
+        $("#detalle form#formFichero").on("click", "#cancelar", cancelarOperacion);
 
         // Asignamos una función al evento click del botón de aceptar
-        $("#detalle form").on("click", "#aceptar", aceptarOperacion);
+        $("#detalle form#formFichero").on("click", "#aceptar", aceptarOperacion);
 
     }
 
@@ -72,7 +72,7 @@ function inicio()
  */
 function habilitarAñadirModificar()
 {
-    id_email;
+    id_fichero;
 
     // Comprobamos si estamos haciendo una insercción o una modificación
     if (this.value.indexOf("Añadir") >= 0)
@@ -80,21 +80,26 @@ function habilitarAñadirModificar()
         // Si es una insercción asignamos los valores del modo
         modo = "A";
 
-        // Eliminamos los valores de los campos imput       
-        $("div#detalle form input#descripcion").val("");
-        $("div#detalle form input#usuario").val("");
-        $("div#detalle form input#pass").val("");
-        $("div#detalle form input#servidor").val("");
-        $("div#detalle form input#puerto").val("");
-        $("div#detalle form select#seguridad").val("");
-        $("div#detalle form select#seguridad").val($("div#detalle form select#seguridad option:first").val());
-        $("div#detalle form input#autentificacion").prop('checked', false);
+        // Eliminamos los valores de los campos imput
+        $("div#detalle form#formFichero input#nombre").val("");
+        $("div#detalle form#formFichero input#tamaño").val("");
+        $("div#detalle form#formFichero input#tipo").val("");
+        $("div#detalle form#formFichero input#descripcion").val("");
+
+        cadena = '<input type="hidden" id="maxFileSize" name="MAX_FILE_SIZE" value="' + maxFileSize + '" />';
+        cadena += '<input title="Haga click para seleccionar el fichero a insertar en la base de datos" tabindex ="11" type="file" id="addfile" name="addfile[]" readonly="readonly" value="" accept=".bmp,.jpg,.gif,.png,.pdf,.doc,.odt,.rtf"/>';
+        
+        $("div#detalle form#formFichero input#descripcion").after(cadena);
+        
+        $("div#detalle form#formFichero input#addfile").val("");
+        
+
 
     }
     else
     {
         // Si es una modificación asignamos el modo y dejamos el valor de 
-        // id_email que hemos recogido al cargar la página
+        // id_fichero que hemos recogido al cargar la página
         modo = "M";
     }
 
@@ -106,15 +111,9 @@ function habilitarAñadirModificar()
     $("div#botonera form#eliminar > input[type='submit']").attr("disabled", "disabled");
     $("div#botonera form#eliminar > input[type='submit']").addClass("deshabilitado");
 
-    // Habilitamos los campos para datos
-
-    $("div#detalle form input#descripcion").removeAttr("disabled");
-    $("div#detalle form input#usuario").removeAttr("disabled");
-    $("div#detalle form input#pass").removeAttr("disabled");
-    $("div#detalle form input#servidor").removeAttr("disabled");
-    $("div#detalle form input#puerto").removeAttr("disabled");
-    $("div#detalle form select#seguridad").removeAttr("disabled");
-    $("div#detalle form input#autentificacion").removeAttr("disabled");
+    // Habilitamos los campos para datos  
+    $("div#detalle form#formFichero input#descripcion").removeAttr("disabled");
+    $("div#detalle form#formFichero input#addfile").removeAttr("disabled");
 
 
     // Creamos el botón de aceptar
@@ -123,18 +122,21 @@ function habilitarAñadirModificar()
     // Creamos el botón de cancelar
     cadena += "<input tabindex='18' name='boton' id='cancelar' type='submit' value='Cancelar' title='Pulse para cancelar las modificaciones' />";
 
-    // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del email
-    cadena += "<input class='oculto' name='id_email' type='hidden' value='" + id_email + "' />";
+    // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del fichero
+    cadena += "<input class='oculto' name='id_fichero' type='hidden' value='" + id_fichero + "' />";
     cadena += "<input class='oculto' name='modo' type='hidden' value='" + modo + "' />";
 
     // Añadimos los botones de aceptar y cancelar al formulario
-    $("div#detalle form").append(cadena);
+    $("div#detalle form#formFichero").append(cadena);
 
     // Asignamos una función al evento click del botón de cancelar
-    $("#detalle form").on("click", "#cancelar", cancelarOperacion);
+    $("#detalle form#formFichero").on("click", "#cancelar", cancelarOperacion);
 
     // Asignamos una función al evento click del botón de aceptar
-    $("#detalle form").on("click", "#aceptar", aceptarOperacion);
+    $("#detalle form#formFichero").on("click", "#aceptar", aceptarOperacion);
+
+    // Ocultamos el botón del visor de documentos
+    $("#btnVisor").css('visibility', 'hidden');
 
     // Devolvemos falso para que no se envíe el formulario
     return false;
@@ -148,29 +150,22 @@ function habilitarAñadirModificar()
 function cancelarOperacion()
 {
 
+
+    // TODO: Implementar la desaparición del botón de seleccionar ficheros al deshabilitar campos
+
     // Comprobamos si estamos en modo modificación o si lo estamos en alta y 
-    // el id_email es distinto de 0. Esto implica que se ha cancelado la 
+    // el id_fichero es distinto de 0. Esto implica que se ha cancelado la 
     // operación tras pulsar los botones de acción de la pantalla de detalle y 
     // no se está dando un alta desde la pantalla de listado
-    if (modo !== "A" || (modo === "A" && id_email !== "0"))
+    if (modo !== "A" || (modo === "A" && id_fichero !== "0"))
     {
         // Recuperamos los valores memoria
-        $("div#detalle form input#descripcion").val(descripcion);
-        $("div#detalle form input#usuario").val(usuario);
-        $("div#detalle form input#pass").val(contraseña);
-        $("div#detalle form input#servidor").val(servidor);
-        $("div#detalle form input#puerto").val(puerto);
-        $("div#detalle form select#seguridad").val($('div#detalle form select#seguridad option[value="' + seguridad + '"]').val());
-        
+        $("div#detalle form#formFichero input#nombre").val(nombre);
+        $("div#detalle form#formFichero input#tamaño").val(tamanyo);
+        $("div#detalle form#formFichero input#tipo").val(tipo);
+        $("div#detalle form#formFichero input#descripcion").val(descripcion);
+        $("div#detalle form#formFichero input#addfile").val(fichero);
 
-        if (autentificacion === "1")
-        {
-            $("div#detalle form input#autentificacion").prop("checked", true);
-        }
-        else
-        {
-            $("div#detalle form input#autentificacion").prop("checked", false);
-        }
 
         // Habilitamos los botones
         $("div#botonera form#añadir > input[type='submit']").removeAttr("disabled");
@@ -181,30 +176,30 @@ function cancelarOperacion()
         $("div#botonera form#eliminar > input[type='submit']").removeClass("deshabilitado");
 
         // Deshabilitamos los campos para datos
-        $("div#detalle form input#descripcion").attr("disabled", "disabled");
-        $("div#detalle form input#usuario").attr("disabled", "disabled");
-        $("div#detalle form input#pass").attr("disabled", "disabled");
-        $("div#detalle form input#servidor").attr("disabled", "disabled");
-        $("div#detalle form input#puerto").attr("disabled", "disabled");
-        $("div#detalle form select#seguridad").attr("disabled", "disabled");
-        $("div#detalle form input#autentificacion").attr("disabled", "disabled");
+        $("div#detalle form#formFichero input#descripcion").attr("disabled", "disabled");
+        $("div#detalle form#formFichero input#addfile").attr("disabled", "disabled");
 
 
         // Eliminamos los botones de aceptar, cancelar y los inputs ocultos que 
         // habíamos creado anteriormente
-        $("div#detalle form input#aceptar").remove();
-        $("div#detalle form input#cancelar").remove();
-        $("div#detalle form input[name='id_email']").remove();
-        $("div#detalle form input[name='modo']").remove();
+        $("div#detalle form#formFichero input#aceptar").remove();
+        $("div#detalle form#formFichero input#cancelar").remove();
+        $("div#detalle form#formFichero input[name='id_fichero']").remove();
+        $("div#detalle form#formFichero input[name='modo']").remove();
 
         $(".error p").replaceWith("");
+
+        // Mostramos el botón del visor de documentos
+        $("#btnVisor").css('visibility', 'visible');
+        
+        $("div#detalle form#formFichero input#addfile").remove();
     }
     else
     {
         // Si es un alta iniciada desde el listado, usamos la función navegar y 
         // volvemos al index pasándole como parámetro el índice asignado a 
         // esta página
-        navegar(5);
+        navegar(3);
     }
 
     // Devolvemos false para anular eventos submit 
@@ -222,39 +217,22 @@ function validarDatos()
     // Inicializamos la variable de salida
     salida = "";
 
-    // Validamos el puerto
-    if (!validarNumero($("div#detalle form input#puerto").val()))
-    {
-        // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un puerto válido";
-    }
-
-    // Validamos el servidor
-    if (!validarSMTP($("div#detalle form input#servidor").val()))
-    {
-        // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un servidor válido";
-    }
-
-    // Validamos la contraseña
-    if (!validarPass($("div#detalle form input#pass").val()))
-    {
-        // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir una contraseña válida";
-    }
-
-    // Validamos el usuario
-    if (!validarUsuario($("div#detalle form input#usuario").val()))
-    {
-        // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un usuario válido";
-    }
-
     // Validamos la descripción
-    if (!validarCadena($("div#detalle form input#descripcion").val()))
+    if (!validarCadena($("div#detalle form#formFichero input#descripcion").val()))
     {
         // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir una descripción correcta";
+        salida = "Debe introducir una descripción válida";
+    }
+
+    // Comprobamos si el modo es de insercción
+    if (modo === "A")
+    {
+        // Comprobamos si se ha seleccionado un fichero para la insercción
+        if ($("div#detalle form#formFichero input#addfile").val() === "")
+        {
+            // Si no se ha seleccionado, modificamos la variable de salida con un mensaje de error
+            salida = "Debe seleccionar un fichero para poder realizar una insercción";
+        }
     }
 
     // Devolvemos la salida
@@ -281,37 +259,31 @@ function aceptarOperacion()
     if (resultado === "")
     {
 
-        // Si lo es, hacemos una petición AJAX a la página de mensajes de email detalle
+        // Si lo es, hacemos una petición AJAX a la página de mensajes de fichero detalle
         $.ajax({
             // La hacemos por post
             type: "POST",
             // sin cache
             cache: false,
             // Especificamos la url donde se dirigirá la petición
-            url: "email_detalle_msg.php",
+            url: "fichero_detalle_msg.php",
             // Especificamos los datos que pasaremos como parámetros en el post
-            data: " usuario=" + $('div#detalle form input#usuario').val() 
-                    + "&pass=" + $('div#detalle form input#pass').val() 
-                    + "&descripcion=" + $('div#detalle form input#descripcion').val()
-                    + "&servidor=" + $('div#detalle form input#servidor').val()
-                    + "&puerto=" + $('div#detalle form input#puerto').val()
-                    + "&seguridad=" + $("div#detalle form select#seguridad option:selected").val()
-                    + "&autentificacion=" + $('div#detalle form input#autentificacion').val()            
-                    + "&modo=" + modo + "&id_email=" + id_email,
+            data: new FormData($("div#detalle form#formFichero")[0]),
+            processData: false,
+            contentType: false,
             // Definimos el tipo de datos que se nos va a devolver
             dataType: "json",
             // Definimos que hacer en caso de petición exitosa
             success: function (data) {
 
-                // Asignamos los valores recuperados del email y los asignamos 
+                // Asignamos los valores recuperados del fichero y los asignamos 
                 // las variables 
-                id_email = data.id_email;
+                id_fichero = data.id_fichero;
+                nombre = data.nombre;
+                tamanyo = data.tamanyo;
+                tipo = data.tipo;
                 descripcion = data.descripcion;
-                usuario = data.usuario;
-                contraseña = data.pass;
-                servidor = data.servidor;
-                puerto = data.puerto;
-                seguridad = data.seguridad;
+                fichero = data.fichero;
 
                 // Llamamos a la función cancelarOperación para que deshabilite el 
                 // formulario, limpie mensajes de error, y asigne el valor de las 

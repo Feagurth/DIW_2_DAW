@@ -30,14 +30,15 @@ function inicio()
     $("div#botonera form#modificar > input[type='submit']").click(habilitarAñadirModificar);
 
     // Recuperamos datos que tengamos en los controles
-    id_email = $("div#botonera form#eliminar > input[name='id_email']").val();
-    descripcion = $("div#detalle form input#descripcion").val();
-    usuario = $("div#detalle form input#usuario").val();
-    contraseña = $("div#detalle form input#pass").val();
-    servidor = $("div#detalle form input#servidor").val();
-    puerto = $("div#detalle form input#puerto").val();
-    seguridad = $("div#detalle form select#seguridad option:selected").val();
-    autentificacion = $("div#detalle form input#autentificacion").val() === "on" ? "1" : "0";
+    id_empleado = $("div#botonera form#eliminar > input[name='id_empleado']").val();
+    nombre = $("div#detalle form input#nombre").val();
+    apellido = $("div#detalle form input#apellido").val();
+    telefono = $("div#detalle form input#telefono").val();
+    especialidad = $("div#detalle form input#especialidad").val();
+    cargo = $("div#detalle form input#cargo").val();
+    direccion = $("div#detalle form input#direccion").val();
+    email = $("div#detalle form input#email").val();
+
 
     // Comprobamos si ya está creado el botón de cancelar. De ser así, la 
     // pantalla se ha cargado desde la ventana principal pulsando el botón de 
@@ -72,7 +73,7 @@ function inicio()
  */
 function habilitarAñadirModificar()
 {
-    id_email;
+    id_empleado;
 
     // Comprobamos si estamos haciendo una insercción o una modificación
     if (this.value.indexOf("Añadir") >= 0)
@@ -80,21 +81,19 @@ function habilitarAñadirModificar()
         // Si es una insercción asignamos los valores del modo
         modo = "A";
 
-        // Eliminamos los valores de los campos imput       
-        $("div#detalle form input#descripcion").val("");
-        $("div#detalle form input#usuario").val("");
-        $("div#detalle form input#pass").val("");
-        $("div#detalle form input#servidor").val("");
-        $("div#detalle form input#puerto").val("");
-        $("div#detalle form select#seguridad").val("");
-        $("div#detalle form select#seguridad").val($("div#detalle form select#seguridad option:first").val());
-        $("div#detalle form input#autentificacion").prop('checked', false);
-
+        // Eliminamos los valores de los campos imput
+        $("div#detalle form input#nombre").val("");
+        $("div#detalle form input#apellido").val("");
+        $("div#detalle form input#telefono").val("");
+        $("div#detalle form input#especialidad").val("");
+        $("div#detalle form input#cargo").val("");
+        $("div#detalle form input#direccion").val("");
+        $("div#detalle form input#email").val("");
     }
     else
     {
         // Si es una modificación asignamos el modo y dejamos el valor de 
-        // id_email que hemos recogido al cargar la página
+        // id_empleado que hemos recogido al cargar la página
         modo = "M";
     }
 
@@ -107,15 +106,13 @@ function habilitarAñadirModificar()
     $("div#botonera form#eliminar > input[type='submit']").addClass("deshabilitado");
 
     // Habilitamos los campos para datos
-
-    $("div#detalle form input#descripcion").removeAttr("disabled");
-    $("div#detalle form input#usuario").removeAttr("disabled");
-    $("div#detalle form input#pass").removeAttr("disabled");
-    $("div#detalle form input#servidor").removeAttr("disabled");
-    $("div#detalle form input#puerto").removeAttr("disabled");
-    $("div#detalle form select#seguridad").removeAttr("disabled");
-    $("div#detalle form input#autentificacion").removeAttr("disabled");
-
+    $("div#detalle form input#nombre").removeAttr("disabled");
+    $("div#detalle form input#apellido").removeAttr("disabled");
+    $("div#detalle form input#telefono").removeAttr("disabled");
+    $("div#detalle form input#especialidad").removeAttr("disabled");
+    $("div#detalle form input#cargo").removeAttr("disabled");
+    $("div#detalle form input#direccion").removeAttr("disabled");
+    $("div#detalle form input#email").removeAttr("disabled");
 
     // Creamos el botón de aceptar
     cadena = "<input tabindex='17' name='boton' id='aceptar' type='submit' value='Aceptar' title='Pulse para confirmar las modificaciones' />";
@@ -123,8 +120,8 @@ function habilitarAñadirModificar()
     // Creamos el botón de cancelar
     cadena += "<input tabindex='18' name='boton' id='cancelar' type='submit' value='Cancelar' title='Pulse para cancelar las modificaciones' />";
 
-    // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del email
-    cadena += "<input class='oculto' name='id_email' type='hidden' value='" + id_email + "' />";
+    // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del empleado
+    cadena += "<input class='oculto' name='id_empleado' type='hidden' value='" + id_empleado + "' />";
     cadena += "<input class='oculto' name='modo' type='hidden' value='" + modo + "' />";
 
     // Añadimos los botones de aceptar y cancelar al formulario
@@ -149,28 +146,20 @@ function cancelarOperacion()
 {
 
     // Comprobamos si estamos en modo modificación o si lo estamos en alta y 
-    // el id_email es distinto de 0. Esto implica que se ha cancelado la 
+    // el id_empleado es distinto de 0. Esto implica que se ha cancelado la 
     // operación tras pulsar los botones de acción de la pantalla de detalle y 
     // no se está dando un alta desde la pantalla de listado
-    if (modo !== "A" || (modo === "A" && id_email !== "0"))
+    if (modo !== "A" || (modo === "A" && id_empleado !== "0"))
     {
         // Recuperamos los valores memoria
-        $("div#detalle form input#descripcion").val(descripcion);
-        $("div#detalle form input#usuario").val(usuario);
-        $("div#detalle form input#pass").val(contraseña);
-        $("div#detalle form input#servidor").val(servidor);
-        $("div#detalle form input#puerto").val(puerto);
-        $("div#detalle form select#seguridad").val($('div#detalle form select#seguridad option[value="' + seguridad + '"]').val());
-        
+        $("div#detalle form input#nombre").val(nombre);
+        $("div#detalle form input#apellido").val(apellido);
+        $("div#detalle form input#telefono").val(telefono);
+        $("div#detalle form input#especialidad").val(especialidad);
+        $("div#detalle form input#cargo").val(cargo);
+        $("div#detalle form input#direccion").val(direccion);
+        $("div#detalle form input#email").val(email);
 
-        if (autentificacion === "1")
-        {
-            $("div#detalle form input#autentificacion").prop("checked", true);
-        }
-        else
-        {
-            $("div#detalle form input#autentificacion").prop("checked", false);
-        }
 
         // Habilitamos los botones
         $("div#botonera form#añadir > input[type='submit']").removeAttr("disabled");
@@ -181,20 +170,20 @@ function cancelarOperacion()
         $("div#botonera form#eliminar > input[type='submit']").removeClass("deshabilitado");
 
         // Deshabilitamos los campos para datos
-        $("div#detalle form input#descripcion").attr("disabled", "disabled");
-        $("div#detalle form input#usuario").attr("disabled", "disabled");
-        $("div#detalle form input#pass").attr("disabled", "disabled");
-        $("div#detalle form input#servidor").attr("disabled", "disabled");
-        $("div#detalle form input#puerto").attr("disabled", "disabled");
-        $("div#detalle form select#seguridad").attr("disabled", "disabled");
-        $("div#detalle form input#autentificacion").attr("disabled", "disabled");
+        $("div#detalle form input#nombre").attr("disabled", "disabled");
+        $("div#detalle form input#apellido").attr("disabled", "disabled");
+        $("div#detalle form input#telefono").attr("disabled", "disabled");
+        $("div#detalle form input#especialidad").attr("disabled", "disabled");
+        $("div#detalle form input#cargo").attr("disabled", "disabled");
+        $("div#detalle form input#direccion").attr("disabled", "disabled");
+        $("div#detalle form input#email").attr("disabled", "disabled");
 
 
         // Eliminamos los botones de aceptar, cancelar y los inputs ocultos que 
         // habíamos creado anteriormente
         $("div#detalle form input#aceptar").remove();
         $("div#detalle form input#cancelar").remove();
-        $("div#detalle form input[name='id_email']").remove();
+        $("div#detalle form input[name='id_empleado']").remove();
         $("div#detalle form input[name='modo']").remove();
 
         $(".error p").replaceWith("");
@@ -204,7 +193,7 @@ function cancelarOperacion()
         // Si es un alta iniciada desde el listado, usamos la función navegar y 
         // volvemos al index pasándole como parámetro el índice asignado a 
         // esta página
-        navegar(5);
+        navegar(1);
     }
 
     // Devolvemos false para anular eventos submit 
@@ -222,39 +211,53 @@ function validarDatos()
     // Inicializamos la variable de salida
     salida = "";
 
-    // Validamos el puerto
-    if (!validarNumero($("div#detalle form input#puerto").val()))
+    // Validamos la dirección
+    if (!validarDireccion($("div#detalle form input#direccion").val()))
     {
         // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un puerto válido";
+        salida = "Debe introducir un cargo válido";
     }
 
-    // Validamos el servidor
-    if (!validarSMTP($("div#detalle form input#servidor").val()))
+    // Validamos el cargo
+    if (!validarCadena($("div#detalle form input#cargo").val()))
     {
         // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un servidor válido";
+        salida = "Debe introducir un cargo válido";
     }
 
-    // Validamos la contraseña
-    if (!validarPass($("div#detalle form input#pass").val()))
+    // Validamos la especialidad
+    if (!validarCadena($("div#detalle form input#especialidad").val()))
     {
         // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir una contraseña válida";
+        salida = "Debe introducir una especialidad válida";
     }
 
-    // Validamos el usuario
-    if (!validarUsuario($("div#detalle form input#usuario").val()))
+    // Validamos el E-Mail
+    if (!validarEmail($("div#detalle form input#email").val()))
     {
         // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un usuario válido";
+        salida = "Debe introducir una E-Mail válido";
     }
 
-    // Validamos la descripción
-    if (!validarCadena($("div#detalle form input#descripcion").val()))
+    // Validamos el telefono
+    if (!validarTelefono($("div#detalle form input#telefono").val()))
     {
         // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir una descripción correcta";
+        salida = "Debe introducir una telefono válido";
+    }
+
+    // Validamos el apellido
+    if (!validarCadena($("div#detalle form input#apellido").val()))
+    {
+        // Si no es válido, modificamos la variable de salida con un mensaje de error
+        salida = "Debe introducir un apelido válido";
+    }
+
+    // Validamos el nombre
+    if (!validarCadena($("div#detalle form input#nombre").val()))
+    {
+        // Si no es válido, modificamos la variable de salida con un mensaje de error
+        salida = "Debe introducir un nombre válido";
     }
 
     // Devolvemos la salida
@@ -281,37 +284,39 @@ function aceptarOperacion()
     if (resultado === "")
     {
 
-        // Si lo es, hacemos una petición AJAX a la página de mensajes de email detalle
+        // Si lo es, hacemos una petición AJAX a la página de mensajes de empleado detalle
         $.ajax({
             // La hacemos por post
             type: "POST",
             // sin cache
             cache: false,
             // Especificamos la url donde se dirigirá la petición
-            url: "email_detalle_msg.php",
+            url: "empleado_detalle_msg.php",
             // Especificamos los datos que pasaremos como parámetros en el post
-            data: " usuario=" + $('div#detalle form input#usuario').val() 
-                    + "&pass=" + $('div#detalle form input#pass').val() 
-                    + "&descripcion=" + $('div#detalle form input#descripcion').val()
-                    + "&servidor=" + $('div#detalle form input#servidor').val()
-                    + "&puerto=" + $('div#detalle form input#puerto').val()
-                    + "&seguridad=" + $("div#detalle form select#seguridad option:selected").val()
-                    + "&autentificacion=" + $('div#detalle form input#autentificacion').val()            
-                    + "&modo=" + modo + "&id_email=" + id_email,
+            data: " nombre=" + $('div#detalle form input#nombre').val()
+                    + "&apellido=" + $('div#detalle form input#apellido').val()
+                    + "&telefono=" + $('div#detalle form input#telefono').val()
+                    + "&especialidad=" + $('div#detalle form input#especialidad').val()
+                    + "&cargo=" + $('div#detalle form input#cargo').val()
+                    + "&direccion=" + $('div#detalle form input#direccion').val()
+                    + "&email=" + $('div#detalle form input#email').val()
+                    + "&modo=" + modo + "&id_empleado=" + id_empleado,
             // Definimos el tipo de datos que se nos va a devolver
             dataType: "json",
             // Definimos que hacer en caso de petición exitosa
             success: function (data) {
 
-                // Asignamos los valores recuperados del email y los asignamos 
+                // Asignamos los valores recuperados del empleado y los asignamos 
                 // las variables 
-                id_email = data.id_email;
-                descripcion = data.descripcion;
-                usuario = data.usuario;
-                contraseña = data.pass;
-                servidor = data.servidor;
-                puerto = data.puerto;
-                seguridad = data.seguridad;
+
+                id_empleado = data.id_empleado;
+                nombre = data.nombre;
+                apellido = data.apellido;
+                telefono = data.telefono;
+                especialidad = data.especialidad;
+                cargo = data.cargo;
+                direccion = data.direccion;
+                email = data.email;
 
                 // Llamamos a la función cancelarOperación para que deshabilite el 
                 // formulario, limpie mensajes de error, y asigne el valor de las 

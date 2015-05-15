@@ -70,6 +70,10 @@ if (isset($_POST['id_fichero']) && $_POST['id_fichero'] !== 0) {
                 
                 header("Content-Disposition: attachment; filename=" . $fila[0]['nombre']);
             }
+            else
+            {
+                header("Content-Disposition: inline; filename=" . $fila[0]['nombre']);
+            }
 
             // Finalmente mostrarmos el fichero
             echo $fila[0]['fichero'];
