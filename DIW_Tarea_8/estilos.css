@@ -640,3 +640,37 @@ div#detalle div#emailEnvio label, option
 .deshabilitado{
     background-color: darkgrey;
 }
+
+
+/* Estilos para el objeto de carga AJAX */
+
+/* 
+Comenzamos haciendo el objeto no visible. Despues lo posivionamos fijo respecto 
+al contenedor, haciendo que ocupe todo el espacio del body de la página. 
+Finalmente ponemos el fondo de color blanco a un 80% y la animacio´n centrada sin repetición
+*/
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('imagenes/ajax-loader.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* Cuando el cuerpo de la página contenga el clase loading ocultamos la barra 
+de desplazamiento que pudiese tener */
+body.loading {
+    overflow: hidden;   
+}
+
+/* En cualquier momento en el que el cuerpo tenga la clase loading, el 
+contenedor con clase modal será visible */
+body.loading .modal {
+    display: block;
+}

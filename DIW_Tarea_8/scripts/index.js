@@ -16,7 +16,7 @@
  */
 
 
-$('documento').ready(inicio);
+$('document').ready(inicio);
 
 /**
  * Función cuya finalidad es definir los eventos del formulario e inicializar 
@@ -35,7 +35,8 @@ function inicio()
     {
         // Al texto de cada una le quitamos los triángulos que pudiesen tener
         $(this).text($(this).text().replace("▲", "").replace("▼", ""));
-        
+
+        // Asignamos a cada una de las cabeceras un atributo title con información del uso de las mismas
         $(this).attr("title", "Pulse en esta cabecera para ordenar la lista por " + $(this).text());
     });    
 }

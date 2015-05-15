@@ -211,6 +211,9 @@ try {
         <title>Detalle Usuario</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link type = "text/css" rel = "stylesheet" href = "./estilos.css"/>
+        <script type="text/javascript" src="HTTP://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="scripts/usuario_detalle.js"></script>
+        <script type="text/javascript" src="scripts/funciones.js"></script>
     </head>
     <body>
         <div class="cabecera" id="index" >
@@ -278,5 +281,6 @@ try {
                 </div>
             </div>            
         </div>
+        <div class="modal" ><!-- Posicionar al final del cuerpo de la página --></div>
     </body>
 </html>

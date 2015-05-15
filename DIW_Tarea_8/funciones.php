@@ -261,7 +261,7 @@ function validarDatosUsuario($usuario) {
 // Validamos el nombre del usuario
 // Valida letras y números con espacios en blanco, vocales con acento, 
 // la ñ
-        if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú]+$/", $usuario->getNombre())) {
+        if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóúÁÉÍÓÚ]+$/", $usuario->getNombre())) {
 // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "La descripción del usuario contiene carecteres inválidos.";
         }
@@ -825,6 +825,15 @@ function grabarFichero($nombre, $datos) {
     return $salida;
 }
 
+/**
+ * Función que nos permite enviar un fichero por correo electrónico a varios empleados usando un email
+ * @global type $emailAdmin Email del administrador
+ * @global type $nameAdmin Nombre del administrador
+ * @param Email $email Objeto Email que contiene la información de configuracion del mismo
+ * @param Fichero $fichero Objeto Fichero con la información del fichero
+ * @param Array $empleados Array de objetos Empleado que contiene la información de los empleados
+ * @throws Exception Se lanza una excepción si se produce un error
+ */
 function enviarCorreo(Email $email, Fichero $fichero, $empleados) {
 
     try {

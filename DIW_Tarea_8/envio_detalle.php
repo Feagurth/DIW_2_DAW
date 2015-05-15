@@ -248,7 +248,7 @@ try {
                                 // en caso contrario mostramos el icono de detalle
                                 if ($modo === "A") {
                                     echo "<td title='Haga click para seleccionar el grupo'>";
-                                    echo '<input type="checkbox" name="gruposel[]" value="' . $grupo->getId_grupo() . '" id="gruposel' . $grupo->getId_grupo() . '"/>';
+                                    echo '<input tabindex="10" type="checkbox" name="gruposel[]" value="' . $grupo->getId_grupo() . '" id="gruposel' . $grupo->getId_grupo() . '"/>';
                                     echo '<label class="oculto" for="gruposel' . $grupo->getId_grupo() . '">';
                                     echo "Marque para seleccionar";
                                     echo '</label>';
@@ -257,7 +257,7 @@ try {
                                     echo '</td>';
                                     echo '<td>';
                                     echo "<form action='grupo_detalle.php' method='post' >";
-                                    echo "<button name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del grupo' /></button>";
+                                    echo "<button tabindex='10' name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del grupo' /></button>";
                                     echo "<input class='oculto' name='id_grupo' type='hidden' value='" . $grupo->getId_grupo() . "' />";
                                     echo "<input class='oculto' name='modo' type='hidden' value='V' />";
                                     echo "</form>";
@@ -300,7 +300,7 @@ try {
                                     if ($modo === "V") {
                                         echo '<td>';
                                         echo "<form action='empleado_detalle.php' method='post' >";
-                                        echo "<button name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del empleado' /></button>";
+                                        echo "<button tabindex='11' name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del empleado' /></button>";
                                         echo "<input class='oculto' name='id_empleado' type='hidden' value='" . $empleado->getId_empleado() . "' />";
                                         echo "<input class='oculto' name='modo' type='hidden' value='V' />";
                                         echo "</form>";
@@ -343,7 +343,7 @@ try {
                                 // en caso contrario mostramos el icono de detalle                                
                                 if ($modo === "A") {
                                     echo "<td title='Haga click para seleccionar el fichero'>";
-                                    echo '<input type="checkbox" name="ficherosel[]" value="' . $fichero->getId_fichero() . '" id="ficherosel' . $fichero->getId_fichero() . '"/>';
+                                    echo '<input tabindex="12" type="checkbox" name="ficherosel[]" value="' . $fichero->getId_fichero() . '" id="ficherosel' . $fichero->getId_fichero() . '"/>';
                                     echo '<label class="oculto" for="ficherosel' . $fichero->getId_fichero() . '">';
                                     echo "Marque para seleccionar";
                                     echo '</label>';
@@ -351,7 +351,7 @@ try {
                                 } else {
                                     echo '<td>';
                                     echo "<form action='fichero_detalle.php' method='post' >";
-                                    echo "<button name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del fichero' /></button>";
+                                    echo "<button tabindex='12' name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del fichero' /></button>";
                                     echo "<input class='oculto' name='id_fichero' type='hidden' value='" . $fichero->getId_fichero() . "' />";
                                     echo "<input class='oculto' name='modo' type='hidden' value='V' />";
                                     echo "</form>";

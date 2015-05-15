@@ -22,7 +22,7 @@
  *
  * @author Luis Cabrerizo Gómez
  */
-class Usuario {
+class Usuario implements JsonSerializable {
 
     /**
      * Identificador del usuario
@@ -122,6 +122,21 @@ class Usuario {
      */
     public function setNombre($nombre) {
         $this->nombre = $nombre;
+    }
+
+    /**
+     * Función para serializar los datos en formato Json
+     * @return Json Los datos de la clase en formato Json
+     */
+    public function jsonSerialize() {
+        $data = array(
+            "id_usuario" => $this->id_usuario,
+            "user" => $this->user,
+            "pass" => $this->pass,
+            "nombre" => $this->nombre
+            );
+                
+        return $data;
     }
 
 }
