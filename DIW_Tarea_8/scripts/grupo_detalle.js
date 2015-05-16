@@ -30,14 +30,9 @@ function inicio()
     $("div#botonera form#modificar > input[type='submit']").click(habilitarAñadirModificar);
 
     // Recuperamos datos que tengamos en los controles
-    id_empleado = $("div#botonera form#eliminar > input[name='id_empleado']").val();
+    id_grupo = $("div#botonera form#eliminar > input[name='id_grupo']").val();
     nombre = $("div#detalle form input#nombre").val();
-    apellido = $("div#detalle form input#apellido").val();
-    telefono = $("div#detalle form input#telefono").val();
-    especialidad = $("div#detalle form input#especialidad").val();
-    cargo = $("div#detalle form input#cargo").val();
-    direccion = $("div#detalle form input#direccion").val();
-    email = $("div#detalle form input#email").val();
+    descripcion = $("div#detalle form input#descripcion").val();
 
 
     // Comprobamos si ya está creado el botón de cancelar. De ser así, la 
@@ -53,6 +48,10 @@ function inicio()
         // Asignamos una función al evento click del botón de aceptar
         $("#detalle form").off("click", "#aceptar").on("click", "#aceptar", aceptarOperacion);
 
+    }
+    else
+    {
+        $("div#cuerpo div.listadoSel form").off("click", "input#actualizar_empleados").on("click", "input#actualizar_empleados", actualizarRelacionesEmpleados);
     }
 
     $(document).on({
@@ -73,7 +72,7 @@ function inicio()
  */
 function habilitarAñadirModificar()
 {
-    id_empleado;
+    id_grupo;
 
     // Comprobamos si estamos haciendo una insercción o una modificación
     if (this.value.indexOf("Añadir") >= 0)
@@ -83,17 +82,13 @@ function habilitarAñadirModificar()
 
         // Eliminamos los valores de los campos imput
         $("div#detalle form input#nombre").val("");
-        $("div#detalle form input#apellido").val("");
-        $("div#detalle form input#telefono").val("");
-        $("div#detalle form input#especialidad").val("");
-        $("div#detalle form input#cargo").val("");
-        $("div#detalle form input#direccion").val("");
-        $("div#detalle form input#email").val("");
+        $("div#detalle form input#descripcion").val("");
+
     }
     else
     {
         // Si es una modificación asignamos el modo y dejamos el valor de 
-        // id_empleado que hemos recogido al cargar la página
+        // id_usuario que hemos recogido al cargar la página
         modo = "M";
     }
 
@@ -107,21 +102,16 @@ function habilitarAñadirModificar()
 
     // Habilitamos los campos para datos
     $("div#detalle form input#nombre").removeAttr("disabled");
-    $("div#detalle form input#apellido").removeAttr("disabled");
-    $("div#detalle form input#telefono").removeAttr("disabled");
-    $("div#detalle form input#especialidad").removeAttr("disabled");
-    $("div#detalle form input#cargo").removeAttr("disabled");
-    $("div#detalle form input#direccion").removeAttr("disabled");
-    $("div#detalle form input#email").removeAttr("disabled");
+    $("div#detalle form input#descripcion").removeAttr("disabled");
 
     // Creamos el botón de aceptar
-    cadena = "<input tabindex='17' name='boton' id='aceptar' type='submit' value='Aceptar' title='Pulse para confirmar las modificaciones' />";
+    cadena = "<input tabindex='13' name='boton' id='aceptar' type='submit' value='Aceptar' title='Pulse para confirmar las modificaciones' />";
 
     // Creamos el botón de cancelar
-    cadena += "<input tabindex='18' name='boton' id='cancelar' type='submit' value='Cancelar' title='Pulse para cancelar las modificaciones' />";
+    cadena += "<input tabindex='14' name='boton' id='cancelar' type='submit' value='Cancelar' title='Pulse para cancelar las modificaciones' />";
 
-    // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del empleado
-    cadena += "<input class='oculto' name='id_empleado' type='hidden' value='" + id_empleado + "' />";
+    // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador del usuario
+    cadena += "<input class='oculto' name='id_grupo' type='hidden' value='" + id_grupo + "' />";
     cadena += "<input class='oculto' name='modo' type='hidden' value='" + modo + "' />";
 
     // Añadimos los botones de aceptar y cancelar al formulario
@@ -132,6 +122,8 @@ function habilitarAñadirModificar()
 
     // Asignamos una función al evento click del botón de aceptar
     $("#detalle form").off("click", "#aceptar").on("click", "#aceptar", aceptarOperacion);
+
+    $("div.listadoSel").remove();
 
     // Devolvemos falso para que no se envíe el formulario
     return false;
@@ -146,19 +138,14 @@ function cancelarOperacion()
 {
 
     // Comprobamos si estamos en modo modificación o si lo estamos en alta y 
-    // el id_empleado es distinto de 0. Esto implica que se ha cancelado la 
+    // el id_grupo es distinto de 0. Esto implica que se ha cancelado la 
     // operación tras pulsar los botones de acción de la pantalla de detalle y 
     // no se está dando un alta desde la pantalla de listado
-    if (modo !== "A" || (modo === "A" && id_empleado !== "0"))
+    if (modo !== "A" || (modo === "A" && id_grupo !== "0"))
     {
         // Recuperamos los valores memoria
         $("div#detalle form input#nombre").val(nombre);
-        $("div#detalle form input#apellido").val(apellido);
-        $("div#detalle form input#telefono").val(telefono);
-        $("div#detalle form input#especialidad").val(especialidad);
-        $("div#detalle form input#cargo").val(cargo);
-        $("div#detalle form input#direccion").val(direccion);
-        $("div#detalle form input#email").val(email);
+        $("div#detalle form input#descripcion").val(descripcion);
 
 
         // Habilitamos los botones
@@ -171,21 +158,20 @@ function cancelarOperacion()
 
         // Deshabilitamos los campos para datos
         $("div#detalle form input#nombre").attr("disabled", "disabled");
-        $("div#detalle form input#apellido").attr("disabled", "disabled");
-        $("div#detalle form input#telefono").attr("disabled", "disabled");
-        $("div#detalle form input#especialidad").attr("disabled", "disabled");
-        $("div#detalle form input#cargo").attr("disabled", "disabled");
-        $("div#detalle form input#direccion").attr("disabled", "disabled");
-        $("div#detalle form input#email").attr("disabled", "disabled");
-
+        $("div#detalle form input#descripcion").attr("disabled", "disabled");
 
         // Eliminamos los botones de aceptar, cancelar y los inputs ocultos que 
         // habíamos creado anteriormente
         $("div#detalle form input#aceptar").remove();
         $("div#detalle form input#cancelar").remove();
-        $("div#detalle form input[name='id_empleado']").remove();
+        $("div#detalle form input[name='id_usuario']").remove();
         $("div#detalle form input[name='modo']").remove();
 
+        // Eliminamos el listado de selección de empleados para volver a 
+        // recrearlo despues
+        $("div#cuerpo div.listadoSel").remove();
+
+        // Limpiamos los mensajes de error
         $(".error p").replaceWith("<p></p>");
     }
     else
@@ -193,8 +179,43 @@ function cancelarOperacion()
         // Si es un alta iniciada desde el listado, usamos la función navegar y 
         // volvemos al index pasándole como parámetro el índice asignado a 
         // esta página
-        navegar(1);
+        navegar(2);
     }
+
+    // Hacemos una petición AJAX a la página de mensajes de usuario detalle
+    $.ajax({
+        // La hacemos por post
+        type: "POST",
+        // sin cache
+        cache: false,
+        // Especificamos la url donde se dirigirá la petición
+        url: "grupo_detalle_msg.php",
+        // Especificamos los datos que pasaremos como parámetros en el post
+        data: " modo=GT"
+                + "&id_grupo=" + id_grupo,
+        // Definimos el tipo de datos que se nos va a devolver
+        dataType: "html",
+        // Definimos que hacer en caso de petición exitosa
+        success: function (data) {
+
+            // Asignamos la estructura html que devuelve la consulta y la 
+            // anexamos al cuerpo, creando así la lista de relaciones de empleados
+            $("div#cuerpo").append(data);
+
+            // Asignamos un evento para el botón de actualizar relaciones de empleados
+            $("div#cuerpo div.listadoSel form").off("click", "input#actualizar_empleados").on("click", "input#actualizar_empleados", actualizarRelacionesEmpleados);
+
+        },
+        // Definimos que hacer en caso de error
+        error: function (jqXHR, textStatus, errorThrown) {
+
+            // Creamos una cadena con el mensaje de respuesta
+            var cadena = "<p>" + jqXHR.responseText + "</p>";
+
+            // Lo ponemos en el div para mensajes de error
+            $(".error p").replaceWith(cadena);
+        }
+    });
 
     // Devolvemos false para anular eventos submit 
     return false;
@@ -211,53 +232,18 @@ function validarDatos()
     // Inicializamos la variable de salida
     salida = "";
 
-    // Validamos la dirección
-    if (!validarDireccion($("div#detalle form input#direccion").val()))
-    {
-        // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir una dirección válida";
-    }
-
-    // Validamos el cargo
-    if (!validarCadena($("div#detalle form input#cargo").val()))
-    {
-        // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un cargo válido";
-    }
-
-    // Validamos la especialidad
-    if (!validarCadena($("div#detalle form input#especialidad").val()))
-    {
-        // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir una especialidad válida";
-    }
-
-    // Validamos el E-Mail
-    if (!validarEmail($("div#detalle form input#email").val()))
-    {
-        // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un E-Mail válido";
-    }
-
-    // Validamos el telefono
-    if (!validarTelefono($("div#detalle form input#telefono").val()))
-    {
-        // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un teléfono válido";
-    }
-
-    // Validamos el apellido
-    if (!validarCadena($("div#detalle form input#apellido").val()))
-    {
-        // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir un apellido válido";
-    }
-
     // Validamos el nombre
     if (!validarCadena($("div#detalle form input#nombre").val()))
     {
         // Si no es válido, modificamos la variable de salida con un mensaje de error
         salida = "Debe introducir un nombre válido";
+    }
+
+    // Validamos el usuario
+    if (!validarCadena($("div#detalle form input#descripcion").val()))
+    {
+        // Si no es válido, modificamos la variable de salida con un mensaje de error
+        salida = "Debe introducir una descripción válida";
     }
 
     // Devolvemos la salida
@@ -282,39 +268,30 @@ function aceptarOperacion()
     if (resultado === "")
     {
 
-        // Si lo es, hacemos una petición AJAX a la página de mensajes de empleado detalle
+        // Si lo es, hacemos una petición AJAX a la página de mensajes de usuario detalle
         $.ajax({
             // La hacemos por post
             type: "POST",
             // sin cache
             cache: false,
             // Especificamos la url donde se dirigirá la petición
-            url: "empleado_detalle_msg.php",
+            url: "grupo_detalle_msg.php",
             // Especificamos los datos que pasaremos como parámetros en el post
             data: " nombre=" + $('div#detalle form input#nombre').val()
-                    + "&apellido=" + $('div#detalle form input#apellido').val()
-                    + "&telefono=" + $('div#detalle form input#telefono').val()
-                    + "&especialidad=" + $('div#detalle form input#especialidad').val()
-                    + "&cargo=" + $('div#detalle form input#cargo').val()
-                    + "&direccion=" + $('div#detalle form input#direccion').val()
-                    + "&email=" + $('div#detalle form input#email').val()
-                    + "&modo=" + modo + "&id_empleado=" + id_empleado,
+                    + "&descripcion=" + $('div#detalle form input#descripcion').val()
+                    + "&modo=" + modo
+                    + "&id_grupo=" + id_grupo,
             // Definimos el tipo de datos que se nos va a devolver
             dataType: "json",
             // Definimos que hacer en caso de petición exitosa
             success: function (data) {
 
-                // Asignamos los valores recuperados del empleado y los asignamos 
+                // Asignamos los valores recuperados del usuario y los asignamos 
                 // las variables 
-
-                id_empleado = data.id_empleado;
+                id_grupo = data.id_grupo;
                 nombre = data.nombre;
-                apellido = data.apellido;
-                telefono = data.telefono;
-                especialidad = data.especialidad;
-                cargo = data.cargo;
-                direccion = data.direccion;
-                email = data.email;
+                descripcion = data.descripcion;
+
 
                 // Llamamos a la función cancelarOperación para que deshabilite el 
                 // formulario, limpie mensajes de error, y asigne el valor de las 
@@ -344,4 +321,44 @@ function aceptarOperacion()
 
     // Devolvemos false para anular eventos submit 
     return false;
+}
+
+
+function actualizarRelacionesEmpleados()
+{
+
+    var datos = new Array();
+    $.each($("div#cuerpo div.listadoSel form table tbody input[name='seleccionadoEmpleado[]']:checked"), function () {
+        datos.push($(this).val());
+    });
+
+
+    // Si lo es, hacemos una petición AJAX a la página de mensajes de usuario detalle
+    $.ajax({
+        // La hacemos por post
+        type: "POST",
+        // sin cache
+        cache: false,
+        // Especificamos la url donde se dirigirá la petición
+        url: "grupo_detalle_msg.php",
+        // Especificamos los datos que pasaremos como parámetros en el post
+        data: " seleccionadoEmpleado=" + JSON.stringify(datos)
+                + "&modo=AE"
+                + "&id_grupo=" + id_grupo,
+        // Definimos el tipo de datos que se nos va a devolver
+        dataType: "html",
+        // Definimos que hacer en caso de error
+        error: function (jqXHR, textStatus, errorThrown) {
+
+            // Creamos una cadena con el mensaje de respuesta
+            var cadena = "<p>" + jqXHR.responseText + "</p>";
+
+            // Lo ponemos en el div para mensajes de error
+            $(".error p").replaceWith(cadena);
+        }
+    });
+
+    // Devolvemos false para que no se ejecuten eventos submit
+    return false;
+
 }

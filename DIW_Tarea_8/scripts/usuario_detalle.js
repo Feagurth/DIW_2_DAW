@@ -43,10 +43,10 @@ function inicio()
         modo = "A";
 
         // Asignamos una función al evento click del botón de cancelar
-        $("#detalle form").on("click", "#cancelar", cancelarOperacion);
+        $("#detalle form").off("click", "#cancelar").on("click", "#cancelar", cancelarOperacion);
 
         // Asignamos una función al evento click del botón de aceptar
-        $("#detalle form").on("click", "#aceptar", aceptarOperacion);
+        $("#detalle form").off("click", "#aceptar").on("click", "#aceptar", aceptarOperacion);
 
     }
 
@@ -116,10 +116,10 @@ function habilitarAñadirModificar()
     $("div#detalle form").append(cadena);
 
     // Asignamos una función al evento click del botón de cancelar
-    $("#detalle form").on("click", "#cancelar", cancelarOperacion);
+    $("#detalle form").off("click", "#cancelar").on("click", "#cancelar", cancelarOperacion);
 
     // Asignamos una función al evento click del botón de aceptar
-    $("#detalle form").on("click", "#aceptar", aceptarOperacion);
+    $("#detalle form").off("click", "#aceptar").on("click", "#aceptar", aceptarOperacion);
 
     // Devolvemos falso para que no se envíe el formulario
     return false;
@@ -134,7 +134,7 @@ function cancelarOperacion()
 {
 
     // Comprobamos si estamos en modo modificación o si lo estamos en alta y 
-    // el id_de usuario es distinto de 0. Esto implica que se ha cancelado la 
+    // el id_usuario es distinto de 0. Esto implica que se ha cancelado la 
     // operación tras pulsar los botones de acción de la pantalla de detalle y 
     // no se está dando un alta desde la pantalla de listado
     if (modo !== "A" || (modo === "A" && id_usuario !== "0"))
@@ -164,7 +164,7 @@ function cancelarOperacion()
         $("div#detalle form input[name='id_usuario']").remove();
         $("div#detalle form input[name='modo']").remove();
 
-        $(".error p").replaceWith("");
+        $(".error p").replaceWith("<p></p>");
     }
     else
     {
@@ -224,8 +224,6 @@ function validarDatos()
  */
 function aceptarOperacion()
 {
-    //$.getScript('validaciones.js');
-
     // Realizamos la validación del formulario y volcamos el resultado en 
     // una variable
     resultado = validarDatos();

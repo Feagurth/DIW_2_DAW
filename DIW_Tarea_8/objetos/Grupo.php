@@ -22,7 +22,7 @@
  *
  * @author Luis Cabrerizo Gómez
  */
-class Grupo {
+class Grupo implements JsonSerializable{
 
     /**
      * Identificador del grupo
@@ -98,6 +98,23 @@ class Grupo {
      */
     public function setDescripcion($descripcion) {
         $this->descripcion = $descripcion;
+    }
+
+    
+    /**
+     * Función para serializar los datos en formato Json
+     * @return Json Los datos de la clase en formato Json
+     */
+    public function jsonSerialize() {
+        // Creamos un array con la información que contiene el objeto
+        $data = array(
+            "id_grupo" => $this->id_grupo,
+            "nombre" => $this->nombre,
+            "descripcion" => $this->descripcion
+            );
+                
+        // Devolvemos el array como resultado de la serialización
+        return $data;
     }
 
 }

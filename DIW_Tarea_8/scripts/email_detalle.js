@@ -47,10 +47,10 @@ function inicio()
         modo = "A";
 
         // Asignamos una función al evento click del botón de cancelar
-        $("#detalle form").on("click", "#cancelar", cancelarOperacion);
+        $("#detalle form").off("click", "#cancelar").on("click", "#cancelar", cancelarOperacion);
 
         // Asignamos una función al evento click del botón de aceptar
-        $("#detalle form").on("click", "#aceptar", aceptarOperacion);
+        $("#detalle form").off("click", "#aceptar").on("click", "#aceptar", aceptarOperacion);
 
     }
 
@@ -131,10 +131,10 @@ function habilitarAñadirModificar()
     $("div#detalle form").append(cadena);
 
     // Asignamos una función al evento click del botón de cancelar
-    $("#detalle form").on("click", "#cancelar", cancelarOperacion);
+    $("#detalle form").off("click", "#cancelar").on("click", "#cancelar", cancelarOperacion);
 
     // Asignamos una función al evento click del botón de aceptar
-    $("#detalle form").on("click", "#aceptar", aceptarOperacion);
+    $("#detalle form").off("click", "#aceptar").on("click", "#aceptar", aceptarOperacion);
 
     // Devolvemos falso para que no se envíe el formulario
     return false;
@@ -197,7 +197,7 @@ function cancelarOperacion()
         $("div#detalle form input[name='id_email']").remove();
         $("div#detalle form input[name='modo']").remove();
 
-        $(".error p").replaceWith("");
+        $(".error p").replaceWith("<p></p>");
     }
     else
     {
@@ -254,7 +254,7 @@ function validarDatos()
     if (!validarCadena($("div#detalle form input#descripcion").val()))
     {
         // Si no es válido, modificamos la variable de salida con un mensaje de error
-        salida = "Debe introducir una descripción correcta";
+        salida = "Debe introducir una descripción válida";
     }
 
     // Devolvemos la salida
@@ -271,8 +271,6 @@ function validarDatos()
  */
 function aceptarOperacion()
 {
-    //$.getScript('validaciones.js');
-
     // Realizamos la validación del formulario y volcamos el resultado en 
     // una variable
     resultado = validarDatos();

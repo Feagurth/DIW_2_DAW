@@ -236,6 +236,9 @@ try {
         <title>Detalle Grupo</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link type = "text/css" rel = "stylesheet" href = "./estilos.css"/>
+        <script type="text/javascript" src="HTTP://code.jquery.com/jquery-latest.js"></script>        
+        <script type="text/javascript" src="scripts/grupo_detalle.js"></script>
+        <script type="text/javascript" src="scripts/funciones.js"></script>                
     </head>
     <body>
         <div class="cabecera" id="index" >
@@ -273,8 +276,8 @@ try {
             <div id="detalle">
                 <form action="grupo_detalle.php" method="post">
                     <input type='hidden' name='token' id='token' value='<?php echo $_SESSION["token"] ?>'/>
-                    <label id="lblUser" for="user">Nombre&nbsp;</label>
-                    <input tabindex="10" type="text" name="nombre" id="user" maxlength="30" value="<?php if ($grupo !== NULL) echo $grupo->getNombre() ?>" <?php echo deshabilitarPorModo($modo) ?> />
+                    <label id="lblNombre" for="nombre">Nombre&nbsp;</label>
+                    <input tabindex="10" type="text" name="nombre" id="nombre" maxlength="30" value="<?php if ($grupo !== NULL) echo $grupo->getNombre() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <label id="lblDescripcion" for="descripcion">Descripcion</label>
                     <input tabindex="11" type="text" name="descripcion" id="descripcion" maxlength="50" value="<?php if ($grupo !== NULL) echo $grupo->getDescripcion() ?>" <?php echo deshabilitarPorModo($modo) ?> />
                     <br />
@@ -310,5 +313,6 @@ try {
             ?>
 
         </div>
+         <div class="modal" ><!-- Posicionar al final del cuerpo de la página --></div>
     </body>
 </html>

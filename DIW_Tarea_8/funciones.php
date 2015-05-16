@@ -27,19 +27,19 @@ require './phpMailer/PHPMailerAutoload.php';
 // <editor-fold defaultstate="collapsed" desc=" Funciones de Validación de Datos ">
 
 function validarCadenaConNumeros($dato) {
-// Inicializamos la variable de salida al valor que tendría si 
-// toda la validación fuese correcta
+    // Inicializamos la variable de salida al valor que tendría si 
+    // toda la validación fuese correcta
     $salida = TRUE;
 
-// Verificamos con expresiones regulares que los caracteres 
-// introducidos para el remitente son los permitidos
+    // Verificamos con expresiones regulares que los caracteres 
+    // introducidos para el remitente son los permitidos
     if (!preg_match("/^[0-9a-zA-Z]+$/", $dato)) {
-// Si la validación no se cumple, asignamos el valor 
-// correspondiente a la variable de salida
+        // Si la validación no se cumple, asignamos el valor 
+        // correspondiente a la variable de salida
         $salida = FALSE;
     }
 
-// Devolvemos la variable con el resultado de la validación
+    // Devolvemos la variable con el resultado de la validación
     return $salida;
 }
 
@@ -51,104 +51,104 @@ function validarCadenaConNumeros($dato) {
  */
 function validarDatosEmpleado($empleado) {
 
-// Inicializamos una variable de salida
+    // Inicializamos una variable de salida
     $salida = "";
 
-// Comprobamos si tenemos información de dirección de usuario
+    // Comprobamos si tenemos información de dirección de usuario
     if ($empleado->getDireccion()) {
-// Validamos la dirección del empleado
-// Valida letras y números con espacios en blanco, vocales con acento, 
-// la ñ, puntos y comas y los símbolos ºª
+        // Validamos la dirección del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ, puntos y comas y los símbolos ºª
         if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú.,ºª]+$/", $empleado->getDireccion())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "La dirección del empleado contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir una dirección para el empleado.";
     }
 
-// Comprobamos si tenemos información de cargo de usuario
+    // Comprobamos si tenemos información de cargo de usuario
     if ($empleado->getCargo()) {
-// Validamos el cargo del empleado
-// Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        // Validamos el cargo del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
         if (!preg_match("/^[a-zA-ZñÑ áéíóú]+$/", $empleado->getCargo())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El cargo del empleado contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir un cargo para el empleado.";
     }
 
 
-// Comprobamos si tenemos información de especialidad de usuario
+    // Comprobamos si tenemos información de especialidad de usuario
     if ($empleado->getEspecialidad()) {
-// Validamos la especialidad del empleado
-// Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        // Validamos la especialidad del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
         if (!preg_match("/^[a-zA-ZñÑ áéíóú]+$/", $empleado->getEspecialidad())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "La especialidad del empleado contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir una especialidad para el empleado.";
     }
 
-// Comprobamos si tenemos información de email de usuario
+    // Comprobamos si tenemos información de email de usuario
     if ($empleado->getEmail()) {
-// Validamos el email del empleado
-// Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        // Validamos el email del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
         if (!preg_match("/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/", $empleado->getEmail())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El E-Mail del empleado contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir un E-Mail para el empleado.";
     }
 
 
-// Comprobamos si tenemos información de telefono de usuario
+    // Comprobamos si tenemos información de telefono de usuario
     if ($empleado->getTelefono()) {
-// Validamos el teléfono.
-// Valida los patrones  +34 [9|6|7]XX XX XX XX [9|6|7]XX XX XX XX [9|6|7]XX XX XX XX [9|6|7]XX-XX-XX-XX [9|6|7]XXXXXXXX
+        // Validamos el teléfono.
+        // Valida los patrones  +34 [9|6|7]XX XX XX XX [9|6|7]XX XX XX XX [9|6|7]XX XX XX XX [9|6|7]XX-XX-XX-XX [9|6|7]XXXXXXXX
         if (!preg_match("/^((\+?34([ \t|\-])?)?[9|6|7]((\d{1}([ \t|\-])?[0-9]{3})|(\d{2}([ \t|\-])?[0-9]{2}))([ \t|\-])?[0-9]{2}([ \t|\-])?[0-9]{2})$/", $empleado->getTelefono())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El teléfono del empleado contiene carecteres inválidos o no tiene el formato correcto.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir un telefono para el empleado.";
     }
 
-// Comprobamos si tenemos información de apellido de usuario
+    // Comprobamos si tenemos información de apellido de usuario
     if ($empleado->getApellido()) {
-// Validamos el apellido del empleado
-// Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        // Validamos el apellido del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
         if (!preg_match("/^[a-zA-ZñÑ áéíóú]+$/", $empleado->getApellido())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El apellido del empleado contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida        
+        // Si no se cumple, cambiamos el valor de la variable de salida        
         $salida = "Debe introducir un apellido para el empleado.";
     }
 
-// Comprobamos si tenemos información de nombre de usuario
+    // Comprobamos si tenemos información de nombre de usuario
     if ($empleado->getNombre()) {
-// Validamos el nombre del empleado
-// Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        // Validamos el nombre del empleado
+        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
         if (!preg_match("/^[a-zA-ZñÑ áéíóú]+$/", $empleado->getNombre())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El nombre del empleado contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir un nombre para el empleado.";
     }
 
-// Devolvemos el resultado de la validación
+    // Devolvemos el resultado de la validación
     return $salida;
 }
 
@@ -160,88 +160,88 @@ function validarDatosEmpleado($empleado) {
  */
 function validarDatosEmail($email) {
 
-// Inicializamos una variable de salida
+    // Inicializamos una variable de salida
     $salida = "";
 
-// Comprobamos si tenemos información del usuairo del email
+    // Comprobamos si tenemos información del usuairo del email
     if ($email->getUsuario()) {
-// Validamos el usuario del email
-// Valida letras y números, el punto y la arroba, sin espacios en blanco
+        // Validamos el usuario del email
+        // Valida letras y números, el punto y la arroba, sin espacios en blanco
         if (!preg_match("/^[a-zA-Z0-9@.]+$/", $email->getUsuario())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "La usuario del E-Mail contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir un usuario para el E-Mail.";
     }
 
-// Comprobamos si tenemos información de contraseña de email
+    // Comprobamos si tenemos información de contraseña de email
     if ($email->getPass()) {
-// Validamos la contraseña del email
-// Valida letras y números
+        // Validamos la contraseña del email
+        // Valida letras y números
         if (!preg_match("/^[a-zA-Z0-9]+$/", $email->getPass())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "La contraseña del E-MAil contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir una contraseña para el E-Mail.";
     }
 
-// Comprobamos si tenemos información del servidor del email
+    // Comprobamos si tenemos información del servidor del email
     if ($email->getServidor()) {
-// Validamos el servidor del email
-// Valida letras, números, el punto y el guión
+        // Validamos el servidor del email
+        // Valida letras, números, el punto y el guión
         if (!preg_match("/^[a-zA-Z0-9.-]+$/", $email->getServidor())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El servidor de salida del E-Mail contiene caracteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir un servidor de salida para el E-Mail.";
     }
 
-// Comprobamos si tenemos información del puerto del email
+    // Comprobamos si tenemos información del puerto del email
     if ($email->getPuerto()) {
-// Validamos el puerto del email
-// Valida solo números
+        // Validamos el puerto del email
+        // Valida solo números
         if (!preg_match("/^[0-9]+$/", $email->getPuerto())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El puerto del E-Mail contiene caracteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir un puerto para el E-Mail.";
     }
 
-// Comprobamos si tenemos información del tipo de seguridad del email
+    // Comprobamos si tenemos información del tipo de seguridad del email
     if ($email->getSeguridad()) {
-// Validamos el tipo de seguridad del email
-// Valida solo letras
+        // Validamos el tipo de seguridad del email
+        // Valida solo letras
         if (!preg_match("/^[a-zA-Z ]+$/", $email->getSeguridad())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El tipo de seguridad del E-Mail contiene caracteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir un tipo de seguridad para el E-Mail.";
     }
 
-// Comprobamos si tenemos información de la descripción del email
+    // Comprobamos si tenemos información de la descripción del email
     if ($email->getDescripcion()) {
-// Valida letras y números con espacios en blanco, vocales con acento, 
-// la ñ
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ
         if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú]+$/", $email->getDescripcion())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "La descripción del E-Mail contiene caracteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir una descripción para el E-Mail.";
     }
 
-// Devolvemos el resultado de la validación
+    // Devolvemos el resultado de la validación
     return $salida;
 }
 
@@ -253,50 +253,50 @@ function validarDatosEmail($email) {
  */
 function validarDatosUsuario($usuario) {
 
-// Inicializamos una variable de salida
+    // Inicializamos una variable de salida
     $salida = "";
 
-// Comprobamos si tenemos información de nombre de usuario
+    // Comprobamos si tenemos información de nombre de usuario
     if ($usuario->getNombre()) {
-// Validamos el nombre del usuario
-// Valida letras y números con espacios en blanco, vocales con acento, 
-// la ñ
+        // Validamos el nombre del usuario
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ
         if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóúÁÉÍÓÚ]+$/", $usuario->getNombre())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "La descripción del usuario contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir una descripción para el usuario.";
     }
 
-// Comprobamos si tenemos información de contraseña de usuario
+    // Comprobamos si tenemos información de contraseña de usuario
     if ($usuario->getPass()) {
-// Validamos la contraseña del usuario
-// Valida letras y números
+        // Validamos la contraseña del usuario
+        // Valida letras y números
         if (!preg_match("/^[a-zA-Z0-9]+$/", $usuario->getPass())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "La contraseña del usuario contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir una contraseña para el usuario.";
     }
 
-// Comprobamos si tenemos información del login del usuario
+    // Comprobamos si tenemos información del login del usuario
     if ($usuario->getUser()) {
-// Validamos la especialidad del empleado
-// Valida letras y números con espacios en blanco
+        // Validamos la especialidad del empleado
+        // Valida letras y números con espacios en blanco
         if (!preg_match("/^[a-zA-Z0-9]+$/", $usuario->getUser())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El login del usuario contiene caracteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir un login para el usuario.";
     }
 
-// Devolvemos el resultado de la validación
+    // Devolvemos el resultado de la validación
     return $salida;
 }
 
@@ -308,31 +308,31 @@ function validarDatosUsuario($usuario) {
  */
 function validarDatosFichero($fichero) {
 
-// Inicializamos una variable de salida
+    // Inicializamos una variable de salida
     $salida = "";
 
-// Comprobamos si tenemos información de la descripción del fichero
+    // Comprobamos si tenemos información de la descripción del fichero
     if ($fichero->getDescripcion()) {
-// Validamos la descripción
-// Valida letras y números con espacios en blanco, vocales con acento, 
-// la ñ y el punto
+        // Validamos la descripción
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ y el punto
         if (!preg_match("/^[0-9a-zA-ZñÑáÁéÉíÍóÓúÚ ]+$/", $fichero->getDescripcion())) {
 
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "La descripción del fichero contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir una descripción para el fichero.";
     }
 
-// Comprobamos que se haya seleccionado un fichero
+    // Comprobamos que se haya seleccionado un fichero
     if ($fichero->getFichero() === FALSE) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe seleccionar un fichero para poder insertarlo.";
     }
 
-// Devolvemos el resultado de la validación
+    // Devolvemos el resultado de la validación
     return $salida;
 }
 
@@ -344,38 +344,38 @@ function validarDatosFichero($fichero) {
  */
 function validarDatosGrupo($grupo) {
 
-// Inicializamos una variable de salida
+    // Inicializamos una variable de salida
     $salida = "";
 
-// Comprobamos si tenemos información de nombre de grupo
+    // Comprobamos si tenemos información de nombre de grupo
     if ($grupo->getNombre()) {
-// Validamos el nombre del grupo
-// Valida letras y números con espacios en blanco, vocales con acento, 
-// la ñ
+        // Validamos el nombre del grupo
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ
         if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú]+$/", $grupo->getNombre())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El nombre del grupo contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir un nombre para el grupo.";
     }
 
-// Comprobamos si tenemos información de descripción de grupo
+    // Comprobamos si tenemos información de descripción de grupo
     if ($grupo->getDescripcion()) {
-// Validamos la contraseña del grupo
-// Valida letras y números con espacios en blanco, vocales con acento, 
-// la ñ
+        // Validamos la contraseña del grupo
+        // Valida letras y números con espacios en blanco, vocales con acento, 
+        // la ñ
         if (!preg_match("/^[a-zA-Z0-9ñÑ áéíóú]+$/", $grupo->getDescripcion())) {
-// Si no se cumple, cambiamos el valor de la variable de salida
+            // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "La descripción del grupo contiene carecteres inválidos.";
         }
     } else {
-// Si no se cumple, cambiamos el valor de la variable de salida
+        // Si no se cumple, cambiamos el valor de la variable de salida
         $salida = "Debe introducir una descripción para el grupo.";
     }
 
-// Devolvemos el resultado de la validación
+    // Devolvemos el resultado de la validación
     return $salida;
 }
 
@@ -388,25 +388,25 @@ function validarDatosGrupo($grupo) {
  */
 function validarDatosEnvio($grupos, $ficheros, $id_email) {
 
-// Inicializamos una variable de salida
+    // Inicializamos una variable de salida
     $salida = "";
 
-// Comprobamos si hay seleccionado algún email.
+    // Comprobamos si hay seleccionado algún email.
     if ($id_email === 0) {
         $salida = "Debe seleccionar un email con el que enviar los ficheros.";
     }
 
-// Comprobamos si se ha seleccionado algún grupo
+    // Comprobamos si se ha seleccionado algún grupo
     if ($grupos === NULL) {
         $salida = "Debe seleccionar un grupo al que enviar los ficheros.";
     }
 
-// Comprobamos si se ha seleccionado algún fichero
+    // Comprobamos si se ha seleccionado algún fichero
     if ($ficheros === NULL) {
         $salida = "Debe seleccionar un fichero para enviar a los grupos.";
     }
 
-// Devolvemos el resultado de la validación
+    // Devolvemos el resultado de la validación
     return $salida;
 }
 
@@ -420,32 +420,33 @@ function validarDatosEnvio($grupos, $ficheros, $id_email) {
  * @throws Exception Se lanza una excepción si se ha producido un error
  */
 function validarUsuario($usuario, $password) {
-// Comprobamos si tenemos en sesión usuario y password
+
+    // Comprobamos si tenemos en sesión usuario y password
     if (!isset($usuario) || !isset($password)) {
-// De no ser así volvemos a la página login.php para pedirselos al usuario
+        // De no ser así volvemos a la página login.php para pedirselos al usuario
         header("location:login.php");
     } else {
-// En caso contrario crearemos una conexión con la base de datos para 
-// verificar el usuario y el password
+        // En caso contrario crearemos una conexión con la base de datos para 
+        // verificar el usuario y el password
         try {
             $db = new DB();
 
             if (!$db->validarUsuario($usuario, $password)) {
-// En el caso de que devuelva cualquier valor distinto de 1, eso 
-// quiere decir que el usuario y la contraseña son erróneos, 
-// por tanto volvemos a la página index.php tras limpiar la sesión
+                // En el caso de que devuelva cualquier valor distinto de 1, eso 
+                // quiere decir que el usuario y la contraseña son erróneos, 
+                // por tanto volvemos a la página index.php tras limpiar la sesión
                 session_unset();
 
-// volvemos a la página login.php para hacer que el usuario se valide
+                // volvemos a la página login.php para hacer que el usuario se valide
                 header("location:login.php");
             }
         } catch (Exception $ex) {
-// En el caso de que devuelva cualquier valor distinto de 1, eso 
-// quiere decir que el usuario y la contraseña son erróneos, 
-// por tanto volvemos a la página index.php tras limpiar la sesión
+            // En el caso de que devuelva cualquier valor distinto de 1, eso 
+            // quiere decir que el usuario y la contraseña son erróneos, 
+            // por tanto volvemos a la página index.php tras limpiar la sesión
             session_unset();
 
-// Lanzamos una excepción
+            // Lanzamos una excepción
             throw $ex;
         }
     }
@@ -460,19 +461,19 @@ function validarUsuario($usuario, $password) {
  */
 function textoElipsis($texto, $cantidad) {
 
-// Almacenamos el valor del nombre del usuario para trabajar con éñ.
+    // Almacenamos el valor del nombre del usuario para trabajar con éñ.
     $ret = $texto;
 
-// Comprobamos el tamaño del nombre del usuario, si es muy largo lo 
-// recortaremos, si no, lo dejaremos tal como está
+    // Comprobamos el tamaño del nombre del usuario, si es muy largo lo 
+    // recortaremos, si no, lo dejaremos tal como está
     if (strlen($ret) > $cantidad) {
 
-// Cogemos los primeros doce caracteres del nombre del usuario y le 
-// agregamos unos puntos suspensivos para que hagan de elipsis
+        // Cogemos los primeros doce caracteres del nombre del usuario y le 
+        // agregamos unos puntos suspensivos para que hagan de elipsis
         $ret = substr($ret, 0, ($cantidad - 3)) . "...";
     }
 
-// Devolvemos la cadena anexándole el nombre de usuario
+    // Devolvemos la cadena anexándole el nombre de usuario
     return $ret;
 }
 
@@ -485,16 +486,16 @@ function textoElipsis($texto, $cantidad) {
  */
 function deshabilitarPorModo($modo) {
 
-// Inicializamos la variable de salida
+    // Inicializamos la variable de salida
     $salida = "";
 
-// Comprobamos el modo
+    // Comprobamos el modo
     if ($modo !== "M" && $modo !== "A") {
-// Modificamos la variable de salida si la condición se cumple
+        // Modificamos la variable de salida si la condición se cumple
         $salida = "disabled = 'disabled'";
     }
 
-// Devolvemos el resultado
+    // Devolvemos el resultado
     return $salida;
 }
 
@@ -506,16 +507,16 @@ function deshabilitarPorModo($modo) {
  * para deshabilitar el botón si el modo de la página es A (Alta) o M (Modificación)
  */
 function deshabilitarBotonesPorModo($modo) {
-// Inicializamos la variable de salida
+    // Inicializamos la variable de salida
     $salida = "";
 
-// Comprobamos el modo
+    // Comprobamos el modo
     if ($modo === "M" || $modo === "A") {
-// Modificamos la variable de salida si la condición se cumple
+        // Modificamos la variable de salida si la condición se cumple
         $salida = "disabled = 'disabled' class='deshabilitado'";
     }
 
-// Devolvemos el resultado
+    // Devolvemos el resultado
     return $salida;
 }
 
@@ -574,29 +575,29 @@ function crearObjetosInserccionFichero(&$registro, $id_fichero) {
  * @return type Un array con la información de los ficheros ordenada por fichero
  */
 function ordenarFicheros($ficheros) {
-// Creamos un nuevo array para almacenar los datos y devolverlos 
-// posteriormente
+    // Creamos un nuevo array para almacenar los datos y devolverlos 
+    // posteriormente
     $salida = array();
 
-// Comprobamos y almacenamos el número de ficheros que se han subido
+    // Comprobamos y almacenamos el número de ficheros que se han subido
     $cuenta = count($ficheros['addfile']['name']);
 
-// Recuperamos las claves del array de ficheros
+    // Recuperamos las claves del array de ficheros
     $claves = array_keys($ficheros['addfile']);
 
-// Iteramos tantas veces como ficheros haya
+    // Iteramos tantas veces como ficheros haya
     for ($i = 0; $i < $cuenta; $i++) {
 
-// Iteramos por todas las claves que hay en el array de entrada
+        // Iteramos por todas las claves que hay en el array de entrada
         foreach ($claves as $clave) {
 
-// Asignamos al fichero de salida cada uno de las claves del 
-// array de entrada para cada iteración de ficheros
+            // Asignamos al fichero de salida cada uno de las claves del 
+            // array de entrada para cada iteración de ficheros
             $salida[$i][$clave] = $ficheros['addfile'][$clave][$i];
         }
     }
 
-// Finalmente devolvemos el resultado
+    // Finalmente devolvemos el resultado
     return $salida;
 }
 
@@ -608,45 +609,45 @@ function ordenarFicheros($ficheros) {
  */
 function comprobarRelaccionEmpleadoGrupo($id_empleado, $datosgrupoempleado) {
 
-// Buscamos en el array de objetos GrupoEmpleado usando una función que 
-// compara el id_empleado de cada objeto que forma parte del array con 
-// el id del empleado que estamos buscando
+    // Buscamos en el array de objetos GrupoEmpleado usando una función que 
+    // compara el id_empleado de cada objeto que forma parte del array con 
+    // el id del empleado que estamos buscando
     $salida = array_filter(
             $datosgrupoempleado, function ($e) use (&$id_empleado) {
         return $e->getId_empleado() == $id_empleado;
     }
     );
 
-// Como array_filter devuelve un array, comprobamos su tamaño, si es 0, 
-// no ha encontrado resultados, si es mayor que cero, tenemos resultados.
-// Tal como está diseñada la aplicación la cantidad de registros devueltos 
-// por la comparación tendrá un maximo de un registro
+    // Como array_filter devuelve un array, comprobamos su tamaño, si es 0, 
+    // no ha encontrado resultados, si es mayor que cero, tenemos resultados.
+    // Tal como está diseñada la aplicación la cantidad de registros devueltos 
+    // por la comparación tendrá un maximo de un registro
     return sizeof($salida) > 0 ? TRUE : FALSE;
 }
 
 function crearTablaRelacionesEmpleados($id_grupo, &$error) {
 
 
-// Creamos una instancia de la base de datos
+    // Creamos una instancia de la base de datos
     $db = new DB();
 
-// Recuperamos todos los empleados
+    // Recuperamos todos los empleados
     $empleados = $db->listarEmpleados("", "");
 
-// Recuperamos las relaciones de los empleados con el grupo que 
-// usaremos más adelante con la función comprobarRelaccionEmpleadoGrupo 
-// para marcar los checkboxes de los empleados que formen parte 
-// del grupo
+    // Recuperamos las relaciones de los empleados con el grupo que 
+    // usaremos más adelante con la función comprobarRelaccionEmpleadoGrupo 
+    // para marcar los checkboxes de los empleados que formen parte 
+    // del grupo
     $grupoempleado = $db->listarRelacionesGrupoEmpleados($id_grupo);
 
-// Creamos un div y un formalario que contendrán el listado
+    // Creamos un div y un formalario que contendrán el listado
     echo '<div class="listadoSel">';
 
     echo '<h2>Empleados integrantes del grupo</h2>';
 
     echo '<form action="grupo_detalle.php" method="post">';
 
-// A continuación definimos la estructura de la tabla y su cabecera
+    // A continuación definimos la estructura de la tabla y su cabecera
     echo '<table>';
     echo '<thead>';
     echo '<tr>';
@@ -740,19 +741,19 @@ function generarTokenSesion() {
  */
 function comprobarTokenSesion() {
 
-// Comprobamos que el token de sesión es el mismo que el token que se envía 
-// por post. Estos números serán iguales si en envío de los datos del post 
-// no es un refresco de página
+    // Comprobamos que el token de sesión es el mismo que el token que se envía 
+    // por post. Estos números serán iguales si en envío de los datos del post 
+    // no es un refresco de página
     if ($_SESSION['token'] == $_POST['token']) {
 
-// Se genera un nuevo número aleatorio de sesión con el fin que si ahora
-// se refresca la página no coincidirá el nuevo número con el recibido
+        // Se genera un nuevo número aleatorio de sesión con el fin que si ahora
+        // se refresca la página no coincidirá el nuevo número con el recibido
         $_SESSION['token'] = generarTokenSesion();
 
-// Si es todo correcto devolvemos True
+        // Si es todo correcto devolvemos True
         return TRUE;
     } else {
-// En caso contrario, False
+        // En caso contrario, False
         return FALSE;
     }
 }
@@ -766,22 +767,22 @@ function comprobarTokenSesion() {
  */
 function recortaNombreFichero($nombrefichero, $tamañoMax) {
 
-// Localizamos el primer punto que haya en la cadena empezando por detrás.
+    // Localizamos el primer punto que haya en la cadena empezando por detrás.
     $pos = strrpos($nombrefichero, '.', -1);
 
-// Todo lo que haya entre la posición siguiente al punto y el final de la 
-// cadena será la extensión del archivo
+    // Todo lo que haya entre la posición siguiente al punto y el final de la 
+    // cadena será la extensión del archivo
     $ext = substr($nombrefichero, $pos + 1, (strlen($nombrefichero) - $pos));
 
-// El nombre del fichero será desde el inicio de la cadena hasta la posición 
-// del punto
+    // El nombre del fichero será desde el inicio de la cadena hasta la posición 
+    // del punto
     $nombre = substr($nombrefichero, 0, $pos);
 
-// Recortamos el nombre del fichero hasta el tamaño máximo menos el tamaño 
-// de la extensión más uno, correspondiente al punto de la extensión
+    // Recortamos el nombre del fichero hasta el tamaño máximo menos el tamaño 
+    // de la extensión más uno, correspondiente al punto de la extensión
     $nombre = substr($nombre, 0, ($tamañoMax - (strlen($ext) + 1)));
 
-// Concatenamos todo y lo devolvemos como resultado
+    // Concatenamos todo y lo devolvemos como resultado
     return $nombre . '.' . $ext;
 }
 

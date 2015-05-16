@@ -472,7 +472,7 @@ clase */
 }
 
 /* Reducimos el margen del encabezado */
-div#cuerpo div.listadoSel h1 {
+div#cuerpo div.listadoSel h2 {
     margin: -2vmax 0 0 0;
     padding: 0;    
 }

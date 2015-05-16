@@ -47,10 +47,29 @@ function inicio()
         modo = "A";
 
         // Asignamos una función al evento click del botón de cancelar
-        $("#detalle form#formFichero").on("click", "#cancelar", cancelarOperacion);
+        $("#detalle form#formFichero").off("click", "#cancelar").on("click", "#cancelar", cancelarOperacion);
 
         // Asignamos una función al evento click del botón de aceptar
-        $("#detalle form#formFichero").on("click", "#aceptar", aceptarOperacion);
+        $("#detalle form#formFichero").off("click", "#aceptar").on("click", "#aceptar", aceptarOperacion);
+
+        // Como se inicial la pantalla directamente en alta, no se crea 
+        // mediante php el botón para visualizar fichero, por tanto creamos 
+        // manualmente una cadena con los elementos que conforman el botón de 
+        // visualizar ficheros
+        cadena = "<form id='btnVisor' action='visor.php' method='post' target='_blank'>";
+        cadena += "<button name='button' value='Ver Fichero' title='Pulse para ver el fichero'><img src='imagenes/download.png' alt='Ver fichero' title='Pulse para ver el fichero' /></button>";
+        cadena += "<input class='oculto' name='id_fichero' type='hidden' value='" + id_fichero + "' />";
+        cadena += "</form>";
+
+        // Asignamos la cadena al comiento del div de detalle, para tener los 
+        // elementos creados y poder hacer uso de ellos tras el alta del 
+        // fichero si fuese menester
+        $("div#cuerpo #detalle").prepend(cadena);
+
+        // Ocultamos el botón del visor de documentos para que no se vea en el 
+        // alta, pero se pueda mostrar al finalizarla
+        $("#btnVisor").css('visibility', 'hidden');
+
 
     }
 
@@ -88,11 +107,11 @@ function habilitarAñadirModificar()
 
         cadena = '<input type="hidden" id="maxFileSize" name="MAX_FILE_SIZE" value="' + maxFileSize + '" />';
         cadena += '<input title="Haga click para seleccionar el fichero a insertar en la base de datos" tabindex ="11" type="file" id="addfile" name="addfile[]" readonly="readonly" value="" accept=".bmp,.jpg,.gif,.png,.pdf,.doc,.odt,.rtf"/>';
-        
+
         $("div#detalle form#formFichero input#descripcion").after(cadena);
-        
+
         $("div#detalle form#formFichero input#addfile").val("");
-        
+
 
 
     }
@@ -130,10 +149,10 @@ function habilitarAñadirModificar()
     $("div#detalle form#formFichero").append(cadena);
 
     // Asignamos una función al evento click del botón de cancelar
-    $("#detalle form#formFichero").on("click", "#cancelar", cancelarOperacion);
+    $("#detalle form#formFichero").off("click", "#cancelar").on("click", "#cancelar", cancelarOperacion);
 
     // Asignamos una función al evento click del botón de aceptar
-    $("#detalle form#formFichero").on("click", "#aceptar", aceptarOperacion);
+    $("#detalle form#formFichero").off("click", "#aceptar").on("click", "#aceptar", aceptarOperacion);
 
     // Ocultamos el botón del visor de documentos
     $("#btnVisor").css('visibility', 'hidden');
@@ -149,10 +168,6 @@ function habilitarAñadirModificar()
  */
 function cancelarOperacion()
 {
-
-
-    // TODO: Implementar la desaparición del botón de seleccionar ficheros al deshabilitar campos
-
     // Comprobamos si estamos en modo modificación o si lo estamos en alta y 
     // el id_fichero es distinto de 0. Esto implica que se ha cancelado la 
     // operación tras pulsar los botones de acción de la pantalla de detalle y 
@@ -187,11 +202,11 @@ function cancelarOperacion()
         $("div#detalle form#formFichero input[name='id_fichero']").remove();
         $("div#detalle form#formFichero input[name='modo']").remove();
 
-        $(".error p").replaceWith("");
+        $(".error p").replaceWith("<p></p>");
 
         // Mostramos el botón del visor de documentos
         $("#btnVisor").css('visibility', 'visible');
-        
+
         $("div#detalle form#formFichero input#addfile").remove();
     }
     else
@@ -249,8 +264,6 @@ function validarDatos()
  */
 function aceptarOperacion()
 {
-    //$.getScript('validaciones.js');
-
     // Realizamos la validación del formulario y volcamos el resultado en 
     // una variable
     resultado = validarDatos();
