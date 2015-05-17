@@ -25,9 +25,10 @@ $('document').ready(inicio);
  */
 function inicio()
 {
-    // Definimos un evento los botones de añadir y modificar
+    // Definimos un evento los botones de añadir, modificar y eliminar
     $("div#botonera form#añadir > input[type='submit']").click(habilitarAñadirModificar);
     $("div#botonera form#modificar > input[type='submit']").click(habilitarAñadirModificar);
+    $("div#botonera form#eliminar > input[type='submit']").click(eliminarRegistro);
 
     // Recuperamos datos que tengamos en los controles
     id_email = $("div#botonera form#eliminar > input[name='id_email']").val();
@@ -161,7 +162,7 @@ function cancelarOperacion()
         $("div#detalle form input#servidor").val(servidor);
         $("div#detalle form input#puerto").val(puerto);
         $("div#detalle form select#seguridad").val($('div#detalle form select#seguridad option[value="' + seguridad + '"]').val());
-        
+
 
         if (autentificacion === "1")
         {
@@ -262,8 +263,6 @@ function validarDatos()
 }
 
 
-
-
 /**
  * Función que nos permite hacer una petición AJAX para insertar o modificar 
  * un registro
@@ -279,6 +278,9 @@ function aceptarOperacion()
     if (resultado === "")
     {
 
+        // Eliminamos los mensajes de errores que pudiese haber anteriormente
+        $(".error p").replaceWith("");
+
         // Si lo es, hacemos una petición AJAX a la página de mensajes de email detalle
         $.ajax({
             // La hacemos por post
@@ -288,13 +290,13 @@ function aceptarOperacion()
             // Especificamos la url donde se dirigirá la petición
             url: "email_detalle_msg.php",
             // Especificamos los datos que pasaremos como parámetros en el post
-            data: " usuario=" + $('div#detalle form input#usuario').val() 
-                    + "&pass=" + $('div#detalle form input#pass').val() 
+            data: " usuario=" + $('div#detalle form input#usuario').val()
+                    + "&pass=" + $('div#detalle form input#pass').val()
                     + "&descripcion=" + $('div#detalle form input#descripcion').val()
                     + "&servidor=" + $('div#detalle form input#servidor').val()
                     + "&puerto=" + $('div#detalle form input#puerto').val()
                     + "&seguridad=" + $("div#detalle form select#seguridad option:selected").val()
-                    + "&autentificacion=" + $('div#detalle form input#autentificacion').val()            
+                    + "&autentificacion=" + $('div#detalle form input#autentificacion').val()
                     + "&modo=" + modo + "&id_email=" + id_email,
             // Definimos el tipo de datos que se nos va a devolver
             dataType: "json",
@@ -339,4 +341,54 @@ function aceptarOperacion()
 
     // Devolvemos false para anular eventos submit 
     return false;
+}
+
+
+/**
+ * Función que nos permite eliminar un registro de usuario
+ * @returns {undefined}
+ */
+function eliminarRegistro()
+{
+    // Pedimos confirmación al usuario pare realizar el borrado
+    if (confirm("¿Desea realmente borrar el registro?"))
+    {
+        // Si lo es, hacemos una petición AJAX a la página de mensajes de usuario detalle
+        $.ajax({
+            // La hacemos por post
+            type: "POST",
+            // sin cache
+            cache: false,
+            // Especificamos la url donde se dirigirá la petición
+            url: "email_detalle_msg.php",
+            // Especificamos los datos que pasaremos como parámetros en el post
+            data: " modo=E"
+                    + "&id_email=" + id_email,
+            // Definimos el tipo de datos que se nos va a devolver
+            dataType: "json",
+            // Definimos que hacer en caso de petición exitosa
+            success: function () {
+
+                // Tras el borrado, navegamos de nuevo a la página inicial
+                navegar("5");
+            },
+            // Definimos que hacer en caso de error
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                // Creamos una cadena con el mensaje de respuesta
+                var cadena = "<p>" + jqXHR.responseText + "</p>";
+
+                // Lo ponemos en el div para mensajes de error
+                $(".error p").replaceWith(cadena);
+
+                // Devolvemos false para que no se ejecuten eventos submit
+                return false;
+            }
+        });
+    }
+    else
+    {
+        // Devolvemos false para que no se ejecuten eventos submit
+        return false;
+    }
 }

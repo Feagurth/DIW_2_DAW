@@ -28,33 +28,39 @@ class Email implements JsonSerializable {
      * @var int
      */
     private $id_email;
+    
+    /**
+     * Descripción de la cuenta correo
+     * @var type 
+     */
+    private $descripcion;    
 
     /**
-     * Nombre de usuario de cuenta de correo
+     * Nombre de usuario de la cuenta de correo
      * @var string
      */
     private $usuario;
 
     /**
-     * Contraseña de la cuenta correo
+     * Contraseña de la cuenta de correo
      * @var string
      */
     private $pass;
 
     /**
-     * Dirección smtp de la cuenta correo
+     * Dirección smtp de la cuenta de correo
      * @var string
      */
     private $servidor;
 
     /**
-     * Puerto de la cuenta correo
+     * Puerto de la cuenta de correo
      * @var int
      */
     private $puerto;
 
     /**
-     * Tipo de seguridad de la cuenta correo
+     * Tipo de seguridad de la cuenta de correo
      * @var string
      */
     private $seguridad;
@@ -66,24 +72,19 @@ class Email implements JsonSerializable {
     private $autentificacion;
 
     /**
-     * Descripción de la cuenta correo
-     * @var type 
-     */
-    private $descripcion;
-
-    /**
      * Constructor de la clase Email
      * @param array $row Array con los datos de email
      */
     public function __construct($row) {
         $this->id_email = $row['id_email'];
+        $this->descripcion = $row['descripcion'];
         $this->usuario = $row['usuario'];
         $this->pass = $row['pass'];
         $this->servidor = $row['servidor'];
         $this->puerto = $row['puerto'];
         $this->seguridad = $row['seguridad'];
         $this->autentificacion = $row['autentificacion'];
-        $this->descripcion = $row['descripcion'];
+        
     }
 
     /**
@@ -94,6 +95,14 @@ class Email implements JsonSerializable {
         return $this->id_email;
     }
 
+    /**
+     * Función para recuperar la descripción de la cuenta de correo
+     * @return string La descripción de la cuenta de correo
+     */
+    public function getDescripcion() {
+        return $this->descripcion;
+    }        
+    
     /**
      * Función para recuperar el usuario de la cuenta de correo
      * @return string El usuario de la cuenta de correo
@@ -143,14 +152,6 @@ class Email implements JsonSerializable {
     }
 
     /**
-     * Función para recuperar la descripción de la cuenta de correo
-     * @return string La descripción de la cuenta de correo
-     */
-    public function getDescripcion() {
-        return $this->descripcion;
-    }
-
-    /**
      * Función para asignar el identificador de la cuenta de correo
      * @param int $id_email El identificador del correo
      */
@@ -158,6 +159,14 @@ class Email implements JsonSerializable {
         $this->id_email = $id_email;
     }
 
+    /**
+     * Función para asignar la descripción de la cuenta de correo
+     * @param string $descripcion La descripción de la cuenta de correo
+     */
+    public function setDescripcion($descripcion) {
+        $this->descripcion = $descripcion;
+    }    
+    
     /**
      * Función para asignar el usuario de la cuenta de correo
      * @param string $usuario El usuario de la cuenta de correo
@@ -207,14 +216,6 @@ class Email implements JsonSerializable {
     }
 
     /**
-     * Función para asignar la descripción de la cuenta de correo
-     * @param string $descripcion La descripción de la cuenta de correo
-     */
-    public function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
-    }
-
-    /**
      * Función para serializar los datos en formato Json
      * @return Json Los datos de la clase en formato Json
      */
@@ -223,13 +224,13 @@ class Email implements JsonSerializable {
         // Creamos un array con la información que contiene el objeto
         $data = array(
             "id_email" => $this->id_email,
+            "descripcion" => $this->descripcion,
             "usuario" => $this->usuario,
             "pass" => $this->pass,
             "servidor" => $this->servidor,
             "puerto" => $this->puerto,
             "seguridad" => $this->seguridad,
-            "autentificacion" => $this->autentificacion,
-            "descripcion" => $this->descripcion
+            "autentificacion" => $this->autentificacion            
         );
 
         // Devolvemos el array como resultado de la serialización

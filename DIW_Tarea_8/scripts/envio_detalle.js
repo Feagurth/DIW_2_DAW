@@ -227,6 +227,41 @@ function validarDatos()
     // Inicializamos la variable de salida
     salida = "";
 
+    var datos = new Array();
+
+    // Itermaos por todos los checkboxes del listadado de grupos, y para cada uno de 
+    // ellos, recuperamos su valor y lo agregamos al array
+    $.each($("div#detalle div.tablaanidada.left table tbody tr.tablaCabecera td input[name='gruposel[]']:checked"), function () {
+        datos.push($(this).val());
+    });
+
+    // Si el tamaño del array es cero, no se ha seleccionado ningún grupo
+    if(datos.length === 0)
+    {
+        // Si no es asi creamos un mensaje que mostrar al usuario
+        salida = "Debe seleccionar un grupo para realizar un envio";
+    }
+
+    // Itermaos por todos los checkboxes del listadado de fichero, y para cada uno de 
+    // ellos, recuperamos su valor y lo agregamos al array
+    $.each($("div#detalle div.tablaanidada.left table tbody tr.tablaCabecera td input[name='ficherosel[]']:checked"), function () {
+        datos.push($(this).val());
+    });
+
+    // Si el tamaño del array es cero, no se ha seleccionado ningún fichero
+    if(datos.length === 0)
+    {
+        // Si no es asi creamos un mensaje que mostrar al usuario
+        salida = "Debe seleccionar un fichero para realizar un envio";
+    }
+
+    // Comprobamos si hay seleccionado una cuenta de email para realizar el envío
+    if($("div#detalle form select#email option:selected").val() === "")
+    {
+        // Si no es asi creamos un mensaje que mostrar al usuario
+        salida = "Debe seleccionar un E-Mail para realizar un envio";
+    }
+
     // Devolvemos la salida
     return salida;
 }
@@ -248,6 +283,8 @@ function aceptarOperacion()
     // Comprobamos si la validación es correcta
     if (resultado === "")
     {
+        // Eliminamos los mensajes de errores que pudiese haber anteriormente
+        $(".error p").replaceWith("");
 
         // Creamos un array para almacenar los grupos seleccionados y otro para 
         // los ficheros seleccionados
@@ -279,8 +316,8 @@ function aceptarOperacion()
             data: " id_email=" + id_email
                     + "&gruposel=" + JSON.stringify(gruposel)
                     + "&ficherosel=" + JSON.stringify(ficherosel)
-                    + "&peticion=A" 
-                    + "&modo=" + modo 
+                    + "&peticion=A"
+                    + "&modo=" + modo
                     + "&id_envio=" + id_envio,
             // Definimos el tipo de datos que se nos va a devolver
             dataType: "json",

@@ -584,7 +584,7 @@ class DB {
      */
     public function listarEmails($cadena, $tipoFiltro) {
         // Especificamos la consulta que vamos a realizar sobre la base de datos
-        $sql = "SELECT * FROM email";
+        $sql = "SELECT id_email, descripcion, usuario, pass, servidor, puerto, seguridad, autentificacion FROM email";
         $orden = " ORDER BY descripcion ASC";
 
         // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
@@ -594,28 +594,28 @@ class DB {
             // condición u otra
             switch ($tipoFiltro) {
                 case 1: {
+                        // Si se filtra por descripción
+                        $sql .= " WHERE descripcion LIKE '" . $cadena . "%'";
+                        break;
+                    }                
+                case 2: {
                         // Si se filtra por usuario
                         $sql .= " WHERE usuario LIKE '" . $cadena . "%'";
                         break;
                     }
-                case 2: {
+                case 3: {
                         // Si se filtra por servidor
                         $sql .= " WHERE servidor LIKE '" . $cadena . "%'";
                         break;
                     }
-                case 3: {
+                case 4: {
                         // Si se filtra por puerto
                         $sql .= " WHERE puerto LIKE '" . $cadena . "%'";
                         break;
                     }
-                case 4: {
+                case 5: {
                         // Si se filtra por seguridad
                         $sql .= " WHERE seguridad LIKE '" . $cadena . "%'";
-                        break;
-                    }
-                case 5: {
-                        // Si se filtra por descripción
-                        $sql .= " WHERE descripcion LIKE '" . $cadena . "%'";
                         break;
                     }
                 default:
@@ -1375,7 +1375,7 @@ class DB {
                 . "ee.id_empleado = emp.id_empleado AND "
                 . "e.id_email = em.id_email AND "
                 . "e.id_fichero = f.id_fichero";
-        $orden = " ORDER BY e.fecha_envio, f.descripcion DESC";
+        $orden = " ORDER BY e.fecha_envio ASC";
 
         // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
         // una condición a la sentencia sql original

@@ -25,9 +25,10 @@ $('document').ready(inicio);
  */
 function inicio()
 {
-    // Definimos un evento los botones de añadir y modificar
+    // Definimos un evento los botones de añadir, modificar y eliminar
     $("div#botonera form#añadir > input[type='submit']").click(habilitarAñadirModificar);
     $("div#botonera form#modificar > input[type='submit']").click(habilitarAñadirModificar);
+    $("div#botonera form#eliminar > input[type='submit']").click(eliminarRegistro);
 
     // Recuperamos datos que tengamos en los controles
     id_fichero = $("div#botonera form#eliminar > input[name='id_fichero']").val();
@@ -112,8 +113,6 @@ function habilitarAñadirModificar()
 
         $("div#detalle form#formFichero input#addfile").val("");
 
-
-
     }
     else
     {
@@ -180,7 +179,10 @@ function cancelarOperacion()
         $("div#detalle form#formFichero input#tipo").val(tipo);
         $("div#detalle form#formFichero input#descripcion").val(descripcion);
         $("div#detalle form#formFichero input#addfile").val(fichero);
-
+        
+        // Asginamos el valor de id fichero al campo oculto del formulario de visión de ficheros
+        $("div#detalle form#btnVisor input[name='id_fichero']").val(id_fichero);
+        
 
         // Habilitamos los botones
         $("div#botonera form#añadir > input[type='submit']").removeAttr("disabled");
@@ -254,9 +256,6 @@ function validarDatos()
     return salida;
 }
 
-
-
-
 /**
  * Función que nos permite hacer una petición AJAX para insertar o modificar 
  * un registro
@@ -271,6 +270,8 @@ function aceptarOperacion()
     // Comprobamos si la validación es correcta
     if (resultado === "")
     {
+        // Eliminamos los mensajes de errores que pudiese haber anteriormente
+        $(".error p").replaceWith("");
 
         // Si lo es, hacemos una petición AJAX a la página de mensajes de fichero detalle
         $.ajax({
@@ -326,4 +327,53 @@ function aceptarOperacion()
 
     // Devolvemos false para anular eventos submit 
     return false;
+}
+
+/**
+ * Función que nos permite eliminar un registro de fichero
+ * @returns {undefined}
+ */
+function eliminarRegistro()
+{
+    // Pedimos confirmación al usuario pare realizar el borrado
+    if (confirm("¿Desea realmente borrar el registro?"))
+    {
+        // Si lo es, hacemos una petición AJAX a la página de mensajes de usuario detalle
+        $.ajax({
+            // La hacemos por post
+            type: "POST",
+            // sin cache
+            cache: false,
+            // Especificamos la url donde se dirigirá la petición
+            url: "fichero_detalle_msg.php",
+            // Especificamos los datos que pasaremos como parámetros en el post
+            data: " modo=E"
+                    + "&id_fichero=" + id_fichero,
+            // Definimos el tipo de datos que se nos va a devolver
+            dataType: "json",
+            // Definimos que hacer en caso de petición exitosa
+            success: function () {
+
+                // Tras el borrado, navegamos de nuevo a la página inicial
+                navegar("3");
+            },
+            // Definimos que hacer en caso de error
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                // Creamos una cadena con el mensaje de respuesta
+                var cadena = "<p>" + jqXHR.responseText + "</p>";
+
+                // Lo ponemos en el div para mensajes de error
+                $(".error p").replaceWith(cadena);
+
+                // Devolvemos false para que no se ejecuten eventos submit
+                return false;
+            }
+        });
+    }
+    else
+    {
+        // Devolvemos false para que no se ejecuten eventos submit
+        return false;
+    }
 }

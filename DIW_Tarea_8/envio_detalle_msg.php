@@ -80,10 +80,16 @@ try {
 
                 break;
             }
+            
+        // Si la petición es generar la tabla de envios
         case "GT": {
-
+            
+                // Creamos una cadena para almacenar toda la estructura 
+                // HTML de la tabla
                 $cadena = "";
 
+                // Creamos un objeto div para la tabla que se situará a la 
+                // izquierda y que mostrará los grupos de usuario
                 $cadena .= '<div class="tablaanidada left">';
 
                 // Mostramos un encabezado u otro dependiendo del modo en el que se encuentre la página
@@ -95,8 +101,7 @@ try {
                     // Recuperamos los ficheros existentes
                     $ficheros = $db->listarFicheros("", "");
 
-
-
+                    // Definimos la cabecera
                     $cadena .= "<p>Seleccione un grupo de usuario para realizar el envío</p>";
                 } else {
 
@@ -106,7 +111,7 @@ try {
                     $cadena .= "<form action='grupo_detalle.php' method='post'>";
                     $cadena .= "</form>";
 
-
+                    // Definimos la cabecera
                     $cadena .= "<p>El envío se realizo al siguiente grupo, conteniendo los empleados que se muestran</p>";
 
                     // Creamos un nuevo objeto envío pasándole el identificador
@@ -120,6 +125,7 @@ try {
                     $ficheros = $envio->getFichero();
                 }
 
+                // Definimos el inicio de la tabla
                 $cadena .= "<table>";
 
 
@@ -135,6 +141,7 @@ try {
                         $empleadosEnGrupos = $envio->getEmpleados();
                     }
 
+                    // Creamos la fila que contiene el nombre del grupo
                     $cadena .= "<tr class='tablaCabecera'>";
                     $cadena .= "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
                     $cadena .= textoElipsis($grupo->getNombre(), 30);
@@ -164,9 +171,12 @@ try {
                         $cadena .= "<input class='oculto' name='modo' type='hidden' value='V' />";
                         $cadena .= "</form>";
                     }
+                    
+                    // Cerramos última columna y también la fila
                     $cadena .= "</td>";
                     $cadena .= "</tr>";
 
+                    // Creamos una variable para controlar el color de las filas
                     $i = 0;
 
                     // Iteramos por todos los empleados
@@ -181,6 +191,7 @@ try {
                             $cadena .= '<tr class="pijama2">';
                         }
 
+                        // Creamos la fila para el empleado
                         $cadena .= "<td title='" . textoElipsis($empleado->getNombre(), 30) . "' >";
                         $cadena .= textoElipsis($empleado->getNombre(), 30);
                         $cadena .= "</td>";
@@ -208,6 +219,7 @@ try {
                             $cadena .= '</td>';
                         }
 
+                        // Cerramos la fila
                         $cadena .= "</tr>";
 
                         // Incrementamos el contador
@@ -215,8 +227,14 @@ try {
                     }
                 }
 
+                // Cerramos la tabla
                 $cadena .= '</table>';
+                
+                // Cerramos el div que contiene la primera tabla
                 $cadena .= '</div>';
+                
+                // Creamos un div para contener la tabla que va a la derecha y 
+                // que contine los ficheros a enviar
                 $cadena .= '<div class="tablaanidada right">';
 
                 // Mostramos un encabezado u otro dependiendo del modo en el que se encuentre la página
@@ -226,11 +244,13 @@ try {
                     $cadena .= "<p>Se envió el siguiente fichero</p>";
                 }
 
+                // Abrimos la tabla
                 $cadena .= "<table>";
 
                 // Iteramos por todos los ficheros recuperados
                 foreach ($ficheros as $fichero) {
 
+                    // Creamos la fila de la cabecera que contendrá el nombre del fichero
                     $cadena .= "<tr class='tablaCabecera'>";
                     $cadena .= "<td title='" . textoElipsis($fichero->getDescripcion(), 50) . "'>";
                     $cadena .= textoElipsis($fichero->getDescripcion(), 50);
@@ -254,10 +274,12 @@ try {
                         $cadena .= "<input class='oculto' name='modo' type='hidden' value='V' />";
                         $cadena .= "</form>";
                     }
+                    
+                    // Cerramos la columna la linea
                     $cadena .= "</td>";
                     $cadena .= "</tr>";
 
-
+                    // Creamos otra linea para mostrar los datos del fichero
                     $cadena .= '<tr class="pijama1">';
 
                     $cadena .= "<td title='" . textoElipsis($fichero->getNombre(), 50) . "' >";
@@ -272,23 +294,33 @@ try {
                     $cadena .= "</tr>";
                 }
 
+                // Cerramos la tabla
                 $cadena .= '</table>';
+                
+                // Cerramos el div
                 $cadena .= '</div>';
 
+                // Si el modo de la página es el de añadir
                 if ($modo === "A") {
+                    
+                    // Creamos un div que contendrá los botones de aceptar y cancelar
                     $cadena .= '<div id="especial">';
 
+                    // Creamos el botón de cancelar
                     $cadena .= '<input class="especialbtn" tabindex="13" name="boton" id="aceptar" type="submit" value="Aceptar" title="Pulse para confirmar las modificaciones">';
 
+                    // Creamos el botón de aceptar
                     $cadena .= '<input class="especialbtn" tabindex="14" name="boton" id="cancelar" type="submit" value="Cancelar" title="Pulse para cancelar las modificaciones">';
 
                     // Creamos dos objetos ocultos para reenviar la información del modo de la página y del identificador de envio
                     $cadena .= "<input class='oculto' name='id_envio' type='hidden' value='" . $id_envio . "' />";
                     $cadena .= "<input class='oculto' name='modo' type='hidden' value='" . $modo . "' />";
 
+                    // Cerramos el div
                     $cadena .= '</div>';
                 }
 
+                // Devolvemos la cadena que contiene la tabla de envios
                 echo $cadena;
 
                 break;
@@ -297,5 +329,6 @@ try {
 } catch (Exception $ex) {
     $error = $ex->getMessage();
 
+    // Enviamos el error
     echo $error;
 }

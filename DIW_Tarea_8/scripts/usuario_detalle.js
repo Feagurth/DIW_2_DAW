@@ -25,9 +25,10 @@ $('document').ready(inicio);
  */
 function inicio()
 {
-    // Definimos un evento los botones de añadir y modificar
+    // Definimos un evento los botones de añadir, modificar y eliminar
     $("div#botonera form#añadir > input[type='submit']").click(habilitarAñadirModificar);
     $("div#botonera form#modificar > input[type='submit']").click(habilitarAñadirModificar);
+    $("div#botonera form#eliminar > input[type='submit']").click(eliminarRegistro);
 
     // Recuperamos datos que tengamos en los controles
     id_usuario = $("div#botonera form#eliminar > input[name='id_usuario']").val();
@@ -174,7 +175,7 @@ function cancelarOperacion()
         navegar(6);
     }
 
-   // Devolvemos false para anular eventos submit 
+    // Devolvemos false para anular eventos submit 
     return false;
 }
 
@@ -232,6 +233,10 @@ function aceptarOperacion()
     if (resultado === "")
     {
 
+        // Eliminamos los mensajes de errores que pudiese haber anteriormente
+        $(".error p").replaceWith("");
+
+
         // Si lo es, hacemos una petición AJAX a la página de mensajes de usuario detalle
         $.ajax({
             // La hacemos por post
@@ -241,10 +246,10 @@ function aceptarOperacion()
             // Especificamos la url donde se dirigirá la petición
             url: "usuario_detalle_msg.php",
             // Especificamos los datos que pasaremos como parámetros en el post
-            data: " user=" + $('div#detalle form input#user').val() 
-                    + "&pass=" + $('div#detalle form input#pass').val() 
+            data: " user=" + $('div#detalle form input#user').val()
+                    + "&pass=" + $('div#detalle form input#pass').val()
                     + "&nombre=" + $('div#detalle form input#nombre').val()
-                    + "&modo=" + modo 
+                    + "&modo=" + modo
                     + "&id_usuario=" + id_usuario,
             // Definimos el tipo de datos que se nos va a devolver
             dataType: "json",
@@ -254,10 +259,10 @@ function aceptarOperacion()
                 // Asignamos los valores recuperados del usuario y los asignamos 
                 // las variables 
                 id_usuario = data.id_usuario;
-                usuario = data.user;                
+                usuario = data.user;
                 nombre = data.nombre;
                 contraseña = data.pass;
-                
+
 
                 // Llamamos a la función cancelarOperación para que deshabilite el 
                 // formulario, limpie mensajes de error, y asigne el valor de las 
@@ -287,4 +292,55 @@ function aceptarOperacion()
 
     // Devolvemos false para anular eventos submit 
     return false;
+}
+
+/**
+ * Función que nos permite eliminar un registro de usuario
+ * @returns {undefined}
+ */
+function eliminarRegistro()
+{
+    
+    if (confirm("¿Realmente desea borrar el registro?"))
+    {
+        // Pedimos confirmación al usuario pare realizar el borrado
+        // Si lo es, hacemos una petición AJAX a la página de mensajes de usuario detalle
+        $.ajax({
+            // La hacemos por post
+            type: "POST",
+            // sin cache
+            cache: false,
+            // Especificamos la url donde se dirigirá la petición
+            url: "usuario_detalle_msg.php",
+            // Especificamos los datos que pasaremos como parámetros en el post
+            data: " modo=E"
+                    + "&id_usuario=" + id_usuario,
+            // Definimos el tipo de datos que se nos va a devolver
+            dataType: "json",
+            // Definimos que hacer en caso de petición exitosa
+            success: function () {
+
+                // Tras el borrado, navegamos de nuevo a la página inicial
+                navegar("6");
+            },
+            // Definimos que hacer en caso de error
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                // Creamos una cadena con el mensaje de respuesta
+                var cadena = "<p>" + jqXHR.responseText + "</p>";
+
+                // Lo ponemos en el div para mensajes de error
+                $(".error p").replaceWith(cadena);
+
+                // Devolvemos false para que no se ejecuten eventos submit
+                return false;
+            }
+        });
+    }
+    else
+    {
+        // Devolvemos false para que no se ejecuten eventos submit
+        return false;
+
+    }
 }

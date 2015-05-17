@@ -31,11 +31,11 @@ try {
         <form id="filtro" action='index.php' method='post' >
             <input type='submit' tabindex="11" value='Filtrar resultados' title="Pulse el botón para filtrar los resultados"/>            
             <select name="tipoFiltro" tabindex="10" title="Seleccione el tipo de filtro">
-                <option <?php if ($tipoFiltro === "1") echo "selected=\"selected\" " ?> value="1">Usuario</option>
-                <option <?php if ($tipoFiltro === "2") echo "selected=\"selected\" " ?> value="2">Servidor</option>
-                <option <?php if ($tipoFiltro === "3") echo "selected=\"selected\" " ?> value="3">Puerto</option>
-                <option <?php if ($tipoFiltro === "4") echo "selected=\"selected\" " ?> value="4">Seguridad</option>
-                <option <?php if ($tipoFiltro === "5") echo "selected=\"selected\" " ?> value="5">Descripción</option>
+                <option <?php if ($tipoFiltro === "1") echo "selected=\"selected\" " ?> value="5">Descripción</option>
+                <option <?php if ($tipoFiltro === "2") echo "selected=\"selected\" " ?> value="1">Usuario</option>
+                <option <?php if ($tipoFiltro === "3") echo "selected=\"selected\" " ?> value="2">Servidor</option>
+                <option <?php if ($tipoFiltro === "4") echo "selected=\"selected\" " ?> value="3">Puerto</option>
+                <option <?php if ($tipoFiltro === "5") echo "selected=\"selected\" " ?> value="4">Seguridad</option>                
             </select>
             <input id="textoFiltro" tabindex="9" type="text" maxlength="30" title="Introduzca la cadena por la que filtrar los resultados" name="filtro"  value="<?php echo $filtro ?>" />
             <input class='oculto' name='indice' type='hidden' value='5' />
@@ -47,11 +47,11 @@ try {
     <table>
         <thead>
             <tr>
+                <td class="listadoCabecera">Descripción</td>    
                 <td class="listadoCabecera">Usuario</td>    
                 <td class="listadoCabecera">Servidor</td>    
                 <td class="listadoCabecera">Puerto</td>    
-                <td class="listadoCabecera">Seguridad</td>    
-                <td class="listadoCabecera">Descripción</td>    
+                <td class="listadoCabecera">Seguridad</td>                    
                 <td>Detalles</td>    
             </tr>        
         </thead>    
@@ -77,12 +77,12 @@ try {
 
                     // Imprimimos celda con los valores recuperados de cada objeto 
                     // email que hay en los registros recuperados
+                    echo '<td title="'. $email->getDescripcion() .'">' . textoElipsis($email->getDescripcion(),50) . '</td>';
                     echo '<td title="'. $email->getUsuario() .'">' . textoElipsis($email->getUsuario(),32) . '</td>';
                     echo '<td title="'. $email->getServidor() .'">' . textoElipsis($email->getServidor(),30) . '</td>';
                     echo '<td title="'. $email->getPuerto() .'">' . textoElipsis($email->getPuerto(),11) . '</td>';
                     echo '<td title="'. $email->getSeguridad() .'">' . textoElipsis($email->getSeguridad(),10) . '</td>';
-                    echo '<td title="'. $email->getDescripcion() .'">' . textoElipsis($email->getDescripcion(),50) . '</td>';
-
+                    
                     // Añadimos una última fila con un botón con imagen para 
                     // acceder a los detalles del email.
                     echo '<td>';

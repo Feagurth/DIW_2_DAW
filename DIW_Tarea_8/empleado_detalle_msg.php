@@ -94,12 +94,25 @@ try {
                 // objeto Empleado, dejando la gestión de errores de la 
                 // modificación a las excepciones  que se puedan lanzar
                 $db->modificarEmpleado($empleado);
-                
+
                 // Especificamos las cabeceras para que devuelvan en formato JSON
                 header('Content-Type: application/json');
 
                 // Devolvemos el objeto empleado serializado y codificado en formato JSON
-                echo json_encode($empleado);                
+                echo json_encode($empleado);
+
+                break;
+            }
+
+        // Si la petición es una eliminación
+        case "E": {
+
+                // Eliminamos el empleado usando la función adecuada y 
+                // pasándo su id como paráemtro
+                $db->eliminarEmpleado($id_empleado);
+
+                // Devolvemos true si no ha saltado ningún error
+                echo true;
 
                 break;
             }
@@ -108,7 +121,7 @@ try {
     // Recuperamos el mensaje de error
     $error = $ex->getMessage();
 
-   // Especificamos las cabeceras para que devuelvan en formato JSON
+    // Especificamos las cabeceras para que devuelvan en formato JSON
     header('Content-Type: application/json');
 
     // Devolvemos el error

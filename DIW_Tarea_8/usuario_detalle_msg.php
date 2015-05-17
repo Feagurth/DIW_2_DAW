@@ -89,6 +89,17 @@ try {
 
                 break;
             }
+
+        case "E": {
+                // Eliminamos el usuario usando la función adecuada y 
+                // pasándo su id como paráemtro
+                $db->eliminarUsuario($id_usuario);
+                
+                // Devolvemos true si no ha saltado ningún error
+                echo true;
+                
+                break;
+            }
     }
 } catch (Exception $ex) {
     // Recuperamos el mensaje de error

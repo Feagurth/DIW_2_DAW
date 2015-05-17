@@ -29,16 +29,16 @@ function inicio()
     // Definimos un evento para los encabezados de las columnas de las tablas 
     // al hacer click en ellos
     $(".listado table tr td.listadoCabecera").click(ordenarLista);
-    
+
     // Iteramos por todas las cabeceras de la lista
-    $(".listado table tr td.listadoCabecera").each(function()
+    $(".listado table tr td.listadoCabecera").each(function ()
     {
         // Al texto de cada una le quitamos los triángulos que pudiesen tener
         $(this).text($(this).text().replace("▲", "").replace("▼", ""));
 
         // Asignamos a cada una de las cabeceras un atributo title con información del uso de las mismas
         $(this).attr("title", "Pulse en esta cabecera para ordenar la lista por " + $(this).text());
-    });    
+    });
 }
 
 /**
@@ -238,33 +238,33 @@ function ordenarLista()
         {
             switch (this.innerText.replace("▲", "").replace("▼", ""))
             {
-                case "Usuario":
+                case "Descripción":
                 {
-                    // La primera columna pulsada
+                    // La primera columna pulsada 
                     columnaPulsada = 1;
                     break;
-                }
-                case "Servidor":
+                }                
+                case "Usuario":
                 {
                     // La segunda columna pulsada
                     columnaPulsada = 2;
                     break;
                 }
-                case "Puerto":
+                case "Servidor":
                 {
                     // La tercera columna pulsada
                     columnaPulsada = 3;
                     break;
                 }
-                case "Seguridad":
+                case "Puerto":
                 {
                     // La cuarta columna pulsada
                     columnaPulsada = 4;
                     break;
                 }
-                case "Descripción":
+                case "Seguridad":
                 {
-                    // La quinta columna pulsada 
+                    // La quinta columna pulsada
                     columnaPulsada = 5;
                     break;
                 }
@@ -299,14 +299,14 @@ function ordenarLista()
     }
 
     // Iteramos por todas las cabeceras de la lista
-    $(".listado table tr td.listadoCabecera").each(function()
+    $(".listado table tr td.listadoCabecera").each(function ()
     {
         // Al texto de cada una le quitamos los triángulos que pudiesen tener
-        $(this).text($(this).text().replace("▲", "").replace("▼", ""));                
+        $(this).text($(this).text().replace("▲", "").replace("▼", ""));
     });
-    
+
     // Comprobamos el tipo de ordenación
-    if(order === "asc")
+    if (order === "asc")
     {
         // Añadimos el triángulo correspondiente
         this.innerText = this.innerText + "▲";
@@ -320,38 +320,6 @@ function ordenarLista()
     // Llamamos a la función de ordenación de tablas pasándole los parámetros 
     // necesarios
     sortTable($(".listado table"), order, columnaPulsada);
-
-}
-
-
-/**
- * Función que nos permite ordenar una tabla por sus columnas
- * @param {type} table Tabla a ordenar
- * @param {type} order Orden: asc - Ascendente desc - Descendent
- * @param {type} column El número de la columna por la que se ordenará la tabla
- * @returns {undefined} 
- * */
-function sortTable(table, order, column) {
-
-    // Comprobamos si la ordenación va a ser ascendente
-    var asc = order === 'asc';
-
-    // Recuperamos el cuerpo de la tabla
-    var tbody = table.find('tbody');
-
-    // Buscamos todas las filas de la tabla y las ordenamos de acuerdo a la 
-    // siguiente función
-    tbody.find('tr').sort(function (a, b) {
-        // Primero comprobamos el tipo de ordenación y despues comparamos las 
-        // filas entre si usando localCompare para saber que fila va antes o 
-        // despues que otra
-        if (asc) {
-            return $('td:nth-child(' + column + ')', a).text().localeCompare($('td:nth-child(' + column + ')', b).text());
-        } else {
-            return $('td:nth-child(' + column + ')', b).text().localeCompare($('td:nth-child(' + column + ')', a).text());
-        }
-        // Finalmente añadimos el nuevo orden de las filas al cuerpo de la tabla
-    }).appendTo(tbody);
 
     // Para finalizar buscamos todas las filas que contiene el cuerpo de la 
     // tabla y para cada una de ellas ejecutamos la siguiente función

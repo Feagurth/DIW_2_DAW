@@ -25,9 +25,11 @@ $('document').ready(inicio);
  */
 function inicio()
 {
-    // Definimos un evento los botones de añadir y modificar
+
+    // Definimos un evento los botones de añadir, modificar y eliminar
     $("div#botonera form#añadir > input[type='submit']").click(habilitarAñadirModificar);
     $("div#botonera form#modificar > input[type='submit']").click(habilitarAñadirModificar);
+    $("div#botonera form#eliminar > input[type='submit']").click(eliminarRegistro);
 
     // Recuperamos datos que tengamos en los controles
     id_grupo = $("div#botonera form#eliminar > input[name='id_grupo']").val();
@@ -47,11 +49,26 @@ function inicio()
 
         // Asignamos una función al evento click del botón de aceptar
         $("#detalle form").off("click", "#aceptar").on("click", "#aceptar", aceptarOperacion);
-
     }
     else
     {
         $("div#cuerpo div.listadoSel form").off("click", "input#actualizar_empleados").on("click", "input#actualizar_empleados", actualizarRelacionesEmpleados);
+
+
+        // Definimos un evento para los encabezados de las columnas de las tablas 
+        // al hacer click en ellos
+        $(".listadoSel table tr").off("click", "td.listadoCabecera").on("click", "td.listadoCabecera", ordenarLista);
+
+        // Iteramos por todas las cabeceras de la lista
+        $(".listadoSel table tr td.listadoCabecera").each(function ()
+        {
+            // Al texto de cada una le quitamos los triángulos que pudiesen tener
+            $(this).text($(this).text().replace("▲", "").replace("▼", ""));
+
+            // Asignamos a cada una de las cabeceras un atributo title con información del uso de las mismas
+            $(this).attr("title", "Pulse en esta cabecera para ordenar la lista por " + $(this).text());
+        });
+
     }
 
     $(document).on({
@@ -137,6 +154,10 @@ function habilitarAñadirModificar()
 function cancelarOperacion()
 {
 
+    // Eliminamos los mensajes de errores que pudiese haber anteriormente
+    $(".error p").replaceWith("");
+
+
     // Comprobamos si estamos en modo modificación o si lo estamos en alta y 
     // el id_grupo es distinto de 0. Esto implica que se ha cancelado la 
     // operación tras pulsar los botones de acción de la pantalla de detalle y 
@@ -205,6 +226,20 @@ function cancelarOperacion()
             // Asignamos un evento para el botón de actualizar relaciones de empleados
             $("div#cuerpo div.listadoSel form").off("click", "input#actualizar_empleados").on("click", "input#actualizar_empleados", actualizarRelacionesEmpleados);
 
+            // Definimos un evento para los encabezados de las columnas de las tablas 
+            // al hacer click en ellos
+            $(".listadoSel table tr").off("click", "td.listadoCabecera").on("click", "td.listadoCabecera", ordenarLista);
+
+            // Iteramos por todas las cabeceras de la lista
+            $(".listadoSel table tr td.listadoCabecera").each(function ()
+            {
+                // Al texto de cada una le quitamos los triángulos que pudiesen tener
+                $(this).text($(this).text().replace("▲", "").replace("▼", ""));
+
+                // Asignamos a cada una de las cabeceras un atributo title con información del uso de las mismas
+                $(this).attr("title", "Pulse en esta cabecera para ordenar la lista por " + $(this).text());
+            });
+
         },
         // Definimos que hacer en caso de error
         error: function (jqXHR, textStatus, errorThrown) {
@@ -251,8 +286,6 @@ function validarDatos()
 }
 
 
-
-
 /**
  * Función que nos permite hacer una petición AJAX para insertar o modificar 
  * un registro
@@ -267,6 +300,10 @@ function aceptarOperacion()
     // Comprobamos si la validación es correcta
     if (resultado === "")
     {
+
+        // Eliminamos los mensajes de errores que pudiese haber anteriormente
+        $(".error p").replaceWith("");
+
 
         // Si lo es, hacemos una petición AJAX a la página de mensajes de usuario detalle
         $.ajax({
@@ -323,18 +360,24 @@ function aceptarOperacion()
     return false;
 }
 
-
+/**
+ * Función que nos permite actualizar las relaciones del grupo con el empleado
+ * @returns {Boolean} False para evitar el lanzamiento de eventos submit
+ */
 function actualizarRelacionesEmpleados()
 {
 
     // Creamos un array 
     var datos = new Array();
-    
+
     // Itermaos por todos los checkboxes del listadado, y para cada uno de 
     // ellos, recuperamos su valor y lo agregamos al array
     $.each($("div#cuerpo div.listadoSel form table tbody input[name='seleccionadoEmpleado[]']:checked"), function () {
         datos.push($(this).val());
     });
+
+    // Eliminamos los mensajes de errores que pudiese haber anteriormente
+    $(".error p").replaceWith("");
 
 
     // Si lo es, hacemos una petición AJAX a la página de mensajes de usuario detalle
@@ -364,5 +407,173 @@ function actualizarRelacionesEmpleados()
 
     // Devolvemos false para que no se ejecuten eventos submit
     return false;
-
 }
+
+
+/**
+ * Función que nos permite eliminar un registro de grupo
+ * @returns {undefined}
+ */
+function eliminarRegistro()
+{
+    // Pedimos confirmación al usuario pare realizar el borrado
+    if (confirm("¿Desea realmente borrar el registro?"))
+    {
+        // Si lo es, hacemos una petición AJAX a la página de mensajes de usuario detalle
+        $.ajax({
+            // La hacemos por post
+            type: "POST",
+            // sin cache
+            cache: false,
+            // Especificamos la url donde se dirigirá la petición
+            url: "grupo_detalle_msg.php",
+            // Especificamos los datos que pasaremos como parámetros en el post
+            data: " modo=E"
+                    + "&id_grupo=" + id_grupo,
+            // Definimos el tipo de datos que se nos va a devolver
+            dataType: "json",
+            // Definimos que hacer en caso de petición exitosa
+            success: function () {
+
+                // Tras el borrado, navegamos de nuevo a la página inicial
+                navegar("2");
+            },
+            // Definimos que hacer en caso de error
+            error: function (jqXHR, textStatus, errorThrown) {
+
+                // Creamos una cadena con el mensaje de respuesta
+                var cadena = "<p>" + jqXHR.responseText + "</p>";
+
+                // Lo ponemos en el div para mensajes de error
+                $(".error p").replaceWith(cadena);
+                
+                // Devolvemos false para que no se ejecuten eventos submit
+                return false;
+            }
+        });
+    }
+    else
+    {
+        // Devolvemos false para que no se ejecuten eventos submit
+        return false;
+    }
+}
+
+
+/**
+ * Función que nos permite ordenar las listas pulsando en la cabecera de sus columnas
+ * @returns {undefined}
+ */
+function ordenarLista()
+{
+
+    // Iniciamos la variable
+    var columnaPulsada;
+
+    // Comprobamos el orden anterior que tenía la columna
+    if ((this.innerText.indexOf("▲") === -1))
+    {
+        // Si no tiene simbolo o el que tenia era el descendente, el orden 
+        // esta vez será ascendente
+        order = "asc";
+    }
+    else
+    {
+        // Si se encuentra el símbolo ascendente, la siguiente ordenación 
+        // será descenciente
+        order = "desc";
+    }
+
+    // Comprobamos el texto de la cabecera que hemos pulsado
+    switch (this.innerText.replace("▲", "").replace("▼", ""))
+    {
+        case "Nombre":
+        {
+            // La primera columna pulsada
+            columnaPulsada = 1;
+            break;
+        }
+        case "Apellido":
+        {
+            // La segunda columna pulsada
+            columnaPulsada = 2;
+            break;
+        }
+        case "Teléfono":
+        {
+            // La tercera columna pulsada
+            columnaPulsada = 3;
+            break;
+        }
+        case "Especialidad":
+        {
+            // La cuarta columna pulsada
+            columnaPulsada = 4;
+            break;
+        }
+        case "Cargo":
+        {
+            // La quinta columna pulsada
+            columnaPulsada = 5;
+            break;
+        }
+        case "Dirección":
+        {
+            // La sexta columna pulsada
+            columnaPulsada = 6;
+            break;
+        }
+        case "E-Mail":
+        {
+            // La septima columna pulsada
+            columnaPulsada = 7;
+            break;
+        }
+    }
+
+
+    // Iteramos por todas las cabeceras de la lista
+    $(".listadoSel table tr td.listadoCabecera").each(function ()
+    {
+        // Al texto de cada una le quitamos los triángulos que pudiesen tener
+        $(this).text($(this).text().replace("▲", "").replace("▼", ""));
+    });
+
+    // Comprobamos el tipo de ordenación
+    if (order === "asc")
+    {
+        // Añadimos el triángulo correspondiente
+        this.innerText = this.innerText + "▲";
+    }
+    else
+    {
+        // Añadimos el triángulo correspondiente
+        this.innerText = this.innerText + "▼";
+    }
+
+    // Llamamos a la función de ordenación de tablas pasándole los parámetros 
+    // necesarios
+    sortTable($(".listadoSel table"), order, columnaPulsada);
+
+    // Para finalizar buscamos todas las filas que contiene el cuerpo de la 
+    // tabla y para cada una de ellas ejecutamos la siguiente función
+    $("tr", ".listadoSel table tbody").each(function (i) {
+        // i, contiene el indice de la fila dentro de la tabla
+
+        // Quitamos las clases para pintar el pijama que pudiese tener con anterioridad
+        $(this).removeClass("pijama1");
+        $(this).removeClass("pijama2");
+
+        // Verificamos si la fila es par o impar
+        if (i % 2 === 0) {
+            // Si es par, le añadimos la clase pijama1 a la fila
+            $(this).addClass("pijama1");
+        } else {
+            // Si es impar, le añadimos la clase pijama2 a la fila
+            $(this).addClass("pijama2");
+        }
+    });
+}
+
+
+

@@ -49,6 +49,7 @@ try {
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link type = "text/css" rel = "stylesheet" href = "./estilos.css"/>
         <script type="text/javascript" src="HTTP://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="scripts/funciones.js"></script>                
         <script type="text/javascript" src="scripts/index.js"></script>                
     </head>
     <body>

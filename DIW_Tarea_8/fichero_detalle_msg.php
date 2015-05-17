@@ -142,6 +142,19 @@ try {
 
                 break;
             }
+
+        // Si la petición es una eliminación
+        case "E";
+            {
+                // Eliminamos el fichero usando la función adecuada y 
+                // pasándo su id como paráemtro
+                $db->eliminarFichero($id_fichero);
+
+                // Devolvemos true si no ha saltado ningún error
+                echo true;
+
+                break;
+            }
     }
 } catch (Exception $ex) {
     // Recuperamos el mensaje de error

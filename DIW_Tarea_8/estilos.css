@@ -512,7 +512,7 @@ div#cuerpo div.listadoSel h2 {
     display: block;
     float: left;    
     width: 49.5%;
-    height: 20vmax;
+    height: 10vmax;
     overflow-y: auto;
     margin-bottom: 0.5vmax;
 

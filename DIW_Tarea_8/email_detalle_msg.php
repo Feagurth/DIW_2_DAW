@@ -107,12 +107,22 @@ try {
 
                 break;
             }
+        case "E": {
+                // Eliminamos el email usando la función adecuada y 
+                // pasándo su id como paráemtro
+                $db->eliminarEmail($id_email);
+
+                // Devolvemos true si no ha ocurrido ningún error
+                echo true;
+
+                break;
+            }
     }
 } catch (Exception $ex) {
     // Recuperamos el mensaje de error
     $error = $ex->getMessage();
 
-   // Especificamos las cabeceras para que devuelvan en formato JSON
+    // Especificamos las cabeceras para que devuelvan en formato JSON
     header('Content-Type: application/json');
 
     // Devolvemos el error

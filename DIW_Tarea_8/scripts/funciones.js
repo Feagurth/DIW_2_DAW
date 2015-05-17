@@ -197,3 +197,33 @@ function navegar(valorNavegacion)
     // necesarios para navegar
     post('index.php', {indice: valorNavegacion});
 }
+
+/**
+ * Función que nos permite ordenar una tabla por sus columnas
+ * @param {type} table Tabla a ordenar
+ * @param {type} order Orden: asc - Ascendente desc - Descendent
+ * @param {type} column El número de la columna por la que se ordenará la tabla
+ * @returns {undefined} 
+ * */
+function sortTable(table, order, column) {
+
+    // Comprobamos si la ordenación va a ser ascendente
+    var asc = order === 'asc';
+
+    // Recuperamos el cuerpo de la tabla
+    var tbody = table.find('tbody');
+
+    // Buscamos todas las filas de la tabla y las ordenamos de acuerdo a la 
+    // siguiente función
+    tbody.find('tr').sort(function (a, b) {
+        // Primero comprobamos el tipo de ordenación y despues comparamos las 
+        // filas entre si usando localCompare para saber que fila va antes o 
+        // despues que otra
+        if (asc) {
+            return $('td:nth-child(' + column + ')', a).text().localeCompare($('td:nth-child(' + column + ')', b).text());
+        } else {
+            return $('td:nth-child(' + column + ')', b).text().localeCompare($('td:nth-child(' + column + ')', a).text());
+        }
+        // Finalmente añadimos el nuevo orden de las filas al cuerpo de la tabla
+    }).appendTo(tbody);
+}
