@@ -25,6 +25,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 @import url(http://fonts.googleapis.com/css?family=Anonymous+Pro);
 
 
+// Eliminamos los márgenes en los formularios y los posicionaremos en reglas 
+// posteriores si nos hiciese falta
+* form{
+    margin: 0;    
+}
+
 /* Espeficicamos la fuente, el tamaño de la página de forma general*/
 *{
     font-family: 'Adamina', sans-serif;
