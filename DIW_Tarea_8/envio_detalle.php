@@ -152,6 +152,9 @@ try {
         <title>Detalle Usuario</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link type = "text/css" rel = "stylesheet" href = "./estilos.css"/>
+        <script type="text/javascript" src="HTTP://code.jquery.com/jquery-latest.js"></script>        
+        <script type="text/javascript" src="scripts/envio_detalle.js"></script>
+        <script type="text/javascript" src="scripts/funciones.js"></script>                
     </head>
     <body>
         <div class="cabecera" id="index">
@@ -173,11 +176,11 @@ try {
                     <input type='submit' tabindex="8" value='Añadir Envio' title="Pulse para añadir un envio nuevo"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='añadir' type='hidden' value='0' />
                     <input class='oculto' name='modo' type='hidden' value='A' />
-                    <input class='oculto' name='id_envio' type='hidden' value='0' />
+                    <input class='oculto' name='id_envio' type='hidden' value='<?php echo $id_envio ?>' />
                 </form>                
             </div>            
             <div id="detalle">
-                <form action="envio_detalle.php" method="post">
+                <form id="formEnvio" action="envio_detalle.php" method="post">
                     <input type='hidden' name='token' id='token' value='<?php echo $_SESSION["token"] ?>'/>
                     <div id="emailEnvio">
                         <label id="lblEmail" for="email" title="E-Mail de Envío">E-Mail de Envío</label>
@@ -402,5 +405,6 @@ try {
                 </div>
             </div>                        
         </div>
+        <div class="modal" ><!-- Posicionar al final del cuerpo de la página --></div>
     </body>
 </html>

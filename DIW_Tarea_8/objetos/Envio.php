@@ -22,7 +22,7 @@
  *
  * @author Luis Cabrerizo Gómez
  */
-class Envio {
+class Envio implements JsonSerializable{
 
     /**
      * Variable que contiene el identificador del envío
@@ -127,4 +127,21 @@ class Envio {
         }
     }
 
+    /**
+     * Función para serializar los datos en formato Json
+     * @return Json Los datos de la clase en formato Json
+     */
+    public function jsonSerialize() {
+        // Creamos un array con la información que contiene el objeto
+        $data = array(
+            "id_envio" => $this->id_envio,
+            "email" => $this->email,
+            "fichero" => $this->fichero,
+            "grupo" => $this->grupo,
+            "empleados" => $this->empleados
+        );
+        
+        // Devolvemos el array como resultado de la serialización
+        return $data;
+    }
 }

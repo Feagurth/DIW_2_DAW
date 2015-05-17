@@ -182,7 +182,7 @@ function cancelarOperacion()
         navegar(2);
     }
 
-    // Hacemos una petición AJAX a la página de mensajes de usuario detalle
+    // Hacemos una petición AJAX a la página de mensajes de grupo detalle
     $.ajax({
         // La hacemos por post
         type: "POST",
@@ -327,7 +327,11 @@ function aceptarOperacion()
 function actualizarRelacionesEmpleados()
 {
 
+    // Creamos un array 
     var datos = new Array();
+    
+    // Itermaos por todos los checkboxes del listadado, y para cada uno de 
+    // ellos, recuperamos su valor y lo agregamos al array
     $.each($("div#cuerpo div.listadoSel form table tbody input[name='seleccionadoEmpleado[]']:checked"), function () {
         datos.push($(this).val());
     });
