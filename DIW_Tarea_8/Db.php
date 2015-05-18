@@ -302,7 +302,7 @@ class DB {
 
         // Creamos la consulta de insercción usando los valores del objeto 
         // Persona
-        $sql = "INSERT INTO USUARIO VALUES (0, "
+        $sql = "INSERT INTO usuario VALUES (0, "
                 . "'" . $usuario->getNombre() . "' , "
                 . "'" . $usuario->getPass() . "', "
                 . "'" . $usuario->getUser() . "');";
@@ -518,7 +518,7 @@ class DB {
 
         // Creamos la consulta de insercción usando los valores del objeto 
         // Persona
-        $sql = "INSERT INTO EMPLEADO VALUES (0, "
+        $sql = "INSERT INTO empleado VALUES (0, "
                 . "'" . $empleado->getNombre() . "' , "
                 . "'" . $empleado->getApellido() . "', "
                 . "'" . $empleado->getTelefono() . "', "
@@ -550,7 +550,7 @@ class DB {
 
         // Creamos la consulta de actualiazción usando los valores del objeto 
         // Persona
-        $sql = "UPDATE EMPLEADO SET "
+        $sql = "UPDATE empleado SET "
                 . "nombre='" . $empleado->getNombre() . "' , "
                 . "apellido='" . $empleado->getApellido() . "' , "
                 . "telefono='" . $empleado->getTelefono() . "' , "
@@ -730,7 +730,7 @@ class DB {
 
         // Creamos la consulta de insercción usando los valores del objeto 
         // Persona
-        $sql = "INSERT INTO EMAIL VALUES (0, "
+        $sql = "INSERT INTO email VALUES (0, "
                 . "'" . $email->getUsuario() . "' , "
                 . "'" . $email->getPass() . "', "
                 . "'" . $email->getServidor() . "', "
@@ -762,7 +762,7 @@ class DB {
 
         // Creamos la consulta de actualiazción usando los valores del objeto 
         // Persona
-        $sql = "UPDATE EMAIL SET "
+        $sql = "UPDATE email SET "
                 . "usuario='" . $email->getUsuario() . "' , "
                 . "pass='" . $email->getPass() . "' , "
                 . "servidor='" . $email->getServidor() . "' , "
@@ -874,7 +874,7 @@ class DB {
         try {
             // Especificamos la sentencia SQL que insertará los valores del 
             // fichero en la base de datos
-            $sql = "INSERT INTO FICHERO VALUES(?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO fichero VALUES(?, ?, ?, ?, ?, ?)";
 
             // Pasamos el objeto a un array
             $datos = (array) $fichero;
@@ -955,7 +955,7 @@ class DB {
 
         // Creamos la consulta de actualiazción usando los valores del objeto 
         // Persona
-        $sql = "UPDATE FICHERO SET "
+        $sql = "UPDATE fichero SET "
                 . "descripcion='" . $fichero->getDescripcion() . "' WHERE id_fichero=" .
                 $fichero->getId_fichero() . ";";
 
@@ -980,7 +980,7 @@ class DB {
      */
     public function eliminarFichero($id_fichero) {
         // Creamos la consulta de borrado usando el identificador del fichero
-        $sql = "DELETE FROM FICHERO where id_fichero = " . $id_fichero . ";";
+        $sql = "DELETE FROM fichero where id_fichero = " . $id_fichero . ";";
 
         // Llamamos la a la función protegida de la clase para realizar la consulta
         $resultado = self::ejecutaConsulta($sql);
@@ -1137,7 +1137,7 @@ class DB {
 
         // Creamos la consulta de insercción usando los valores del objeto 
         // Persona
-        $sql = "INSERT INTO GRUPO VALUES (0, "
+        $sql = "INSERT INTO grupo VALUES (0, "
                 . "'" . $grupo->getNombre() . "' , "
                 . "'" . $grupo->getDescripcion() . "');";
 
@@ -1316,7 +1316,7 @@ class DB {
             foreach ($ids_empleados as $id_empleado) {
 
                 // Creamos la sentencia slq
-                $sql = "INSERT INTO GRUPO_EMPLEADO VALUES(0, " . $id_grupo . ", " . $id_empleado . ")";
+                $sql = "INSERT INTO grupo_empleado VALUES(0, " . $id_grupo . ", " . $id_empleado . ")";
 
                 // La ejecutamos
                 $resultado = $this->diw->exec($sql);
@@ -1493,7 +1493,7 @@ class DB {
                     $datosFichero = new Fichero($this->diw->query($sql)->fetch());
 
                     // Construimos la sentencia sql para insertar el envío en la base de datos
-                    $sql = "INSERT INTO ENVIO VALUES(0, '" . $fecha . "', " . $id_email . ", " . $id_fichero . ", " . $id_grupo . ")";
+                    $sql = "INSERT INTO envio VALUES(0, '" . $fecha . "', " . $id_email . ", " . $id_fichero . ", " . $id_grupo . ")";
 
                     // Ejecutamos la consulta y recuperamos el resultado
                     $resultado = $this->diw->exec($sql);
@@ -1540,7 +1540,7 @@ class DB {
                         foreach ($empleados as $id_empleado) {
 
                             // Creamos la sentencia de insercción de los identificadores de los empleados en relación con el envío
-                            $sql = "INSERT INTO ENVIO_EMPLEADO VALUES(0, " . $id_envio . ", " . $id_empleado . ")";
+                            $sql = "INSERT INTO envio_empleado VALUES(0, " . $id_envio . ", " . $id_empleado . ")";
 
                             // Ejecutamos la consulta
                             $resultado = $this->diw->exec($sql);
@@ -1608,7 +1608,7 @@ class DB {
     }
 
     public function recuperarEmpleadosEnvio($id_envio) {
-        $sql = "SELECT id_empleado FROM ENVIO_EMPLEADO WHERE ID_ENVIO=" . $id_envio;
+        $sql = "SELECT id_empleado FROM envio_empleado WHERE id_envio=" . $id_envio;
 
         $resultado = $this->ejecutaConsulta($sql);
 

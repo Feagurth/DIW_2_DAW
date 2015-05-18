@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Eliminamos los márgenes en los formularios y los posicionaremos en reglas 
 // posteriores si nos hiciese falta
 * form{
-    margin: 0;    
+    margin-bottom: 0 !important;
 }
 
 /* Espeficicamos la fuente, el tamaño de la página de forma general*/
@@ -145,6 +145,7 @@ div ul li form{
     display:block;
     height: 1.5vmax;
     padding: 0.5vmax;
+    margin-bottom: 0;
 }
 div ul li form input{
     background:none;
@@ -288,6 +289,10 @@ clase */
 #cuerpo .listado td:last-child{
     width: 7vmax;
 }    
+
+#cuerpo .listado form{
+    margin-bottom: 0;
+}
 
 
 
