@@ -45,15 +45,13 @@ validarUsuario($_SESSION['user'], $_SESSION['pass']);
 
 try {
 
-
-
-// Creamos una isntacia de la base de datos
+    // Creamos una isntacia de la base de datos
     $db = new DB();
 
-// Listamos los emails
+    // Listamos los emails
     $emails = $db->listarEmails("", "");
 
-// Comprobamos el modo de la página
+    // Comprobamos el modo de la página
     switch ($modo) {
 
         case "A": {
@@ -128,8 +126,7 @@ try {
                 break;
             }
 
-        case "V";
-            {
+        case "V"; {
 
                 // Creamos un nuevo objeto envío pasándole el identificador
                 $envio = new Envio($id_envio);
@@ -203,180 +200,179 @@ try {
 
                     </div>
                     <div class="tablaanidada left">
-                        
 
-                            <?php
-                            // Mostramos un encabezado u otro dependiendo del modo en el que se encuentre la página
+
+                        <?php
+                        // Mostramos un encabezado u otro dependiendo del modo en el que se encuentre la página
+                        if ($modo === "A") {
+                            echo "<p>Seleccione un grupo de usuario para realizar el envío</p>";
+                        } else {
+
+                            // Creamos un formulario vación al principio de la tabla, 
+                            // para permitir la creación del resto de formularios que 
+                            // mostrarán despues los iconos de detalle
+                            echo "<form action='grupo_detalle.php' method='post'>";
+                            echo "</form>";
+
+
+                            echo "<p>El envío se realizo al siguiente grupo, conteniendo los empleados que se muestran</p>";
+                        }
+
+                        echo "<table>";
+
+
+                        // Iteramos por todos los grupos
+                        foreach ($grupos as $grupo) {
+
+                            // Si estamos en modo alta, mostramos toods los empleados en los grupos
                             if ($modo === "A") {
-                                echo "<p>Seleccione un grupo de usuario para realizar el envío</p>";
+                                $empleadosEnGrupos = $db->listarEmpleadosEnGrupo($grupo->getId_grupo());
                             } else {
-
-                                // Creamos un formulario vación al principio de la tabla, 
-                                // para permitir la creación del resto de formularios que 
-                                // mostrarán despues los iconos de detalle
-                                echo "<form action='grupo_detalle.php' method='post'>";
-                                echo "</form>";
-
-
-                                echo "<p>El envío se realizo al siguiente grupo, conteniendo los empleados que se muestran</p>";
+                                // Si no, recuperamos los empleados del objeto envío, 
+                                // donde solo están aquellos a los que se les envió el fichero
+                                $empleadosEnGrupos = $envio->getEmpleados();
                             }
-                            
-                            echo "<table>";
+
+                            echo "<tr class='tablaCabecera'>";
+                            echo "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
+                            echo textoElipsis($grupo->getNombre(), 30);
+                            echo "</td>";
+                            echo "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
+                            echo "</td>";
+                            echo "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
+                            echo "</td>";
+                            echo "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
+                            echo "</td>";
+
+                            // Si el modo es alta, mostramos checkboxex para marcar, 
+                            // en caso contrario mostramos el icono de detalle
+                            if ($modo === "A") {
+                                echo "<td title='Haga click para seleccionar el grupo'>";
+                                echo '<input tabindex="10" type="checkbox" name="gruposel[]" value="' . $grupo->getId_grupo() . '" id="gruposel' . $grupo->getId_grupo() . '"/>';
+                                echo '<label class="oculto" for="gruposel' . $grupo->getId_grupo() . '">';
+                                echo "Marque para seleccionar";
+                                echo '</label>';
+                            } else {
+                                echo "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
+                                echo '</td>';
+                                echo '<td>';
+                                echo "<form action='grupo_detalle.php' method='post' >";
+                                echo "<button tabindex='10' name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del grupo' /></button>";
+                                echo "<input class='oculto' name='id_grupo' type='hidden' value='" . $grupo->getId_grupo() . "' />";
+                                echo "<input class='oculto' name='modo' type='hidden' value='V' />";
+                                echo "</form>";
+                            }
+                            echo "</td>";
+                            echo "</tr>";
 
 
-                            // Iteramos por todos los grupos
-                            foreach ($grupos as $grupo) {
+                            $i = 0;
 
-                                // Si estamos en modo alta, mostramos toods los empleados en los grupos
-                                if ($modo === "A") {
-                                    $empleadosEnGrupos = $db->listarEmpleadosEnGrupo($grupo->getId_grupo());
+                            // Iteramos por todos los empleados
+                            foreach ($empleadosEnGrupos as $empleado) {
+
+
+                                // Si el contador es un número par, le daremos un estilo y si 
+                                // es impar le daremos otro
+                                if ($i % 2 === 0) {
+                                    echo '<tr class="pijama1">';
                                 } else {
-                                    // Si no, recuperamos los empleados del objeto envío, 
-                                    // donde solo están aquellos a los que se les envió el fichero
-                                    $empleadosEnGrupos = $envio->getEmpleados();
+                                    echo '<tr class="pijama2">';
                                 }
 
-                                echo "<tr class='tablaCabecera'>";
-                                echo "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
-                                echo textoElipsis($grupo->getNombre(), 30);
+                                echo "<td title='" . textoElipsis($empleado->getNombre(), 30) . "' >";
+                                echo textoElipsis($empleado->getNombre(), 30);
                                 echo "</td>";
-                                echo "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
+                                echo "<td title='" . textoElipsis($empleado->getApellido(), 30) . "' >";
+                                echo textoElipsis($empleado->getApellido(), 30);
                                 echo "</td>";
-                                echo "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
+                                echo "<td title='" . textoElipsis($empleado->getEmail(), 30) . "' >";
+                                echo textoElipsis($empleado->getEmail(), 30);
                                 echo "</td>";
-                                echo "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
+                                echo "<td title='" . textoElipsis($empleado->getEspecialidad(), 50) . "' >";
+                                echo textoElipsis($empleado->getEspecialidad(), 50);
+                                echo "</td>";
+                                echo "<td title='" . textoElipsis($empleado->getCargo(), 15) . "' >";
+                                echo textoElipsis($empleado->getCargo(), 15);
                                 echo "</td>";
 
-                                // Si el modo es alta, mostramos checkboxex para marcar, 
-                                // en caso contrario mostramos el icono de detalle
-                                if ($modo === "A") {
-                                    echo "<td title='Haga click para seleccionar el grupo'>";
-                                    echo '<input tabindex="10" type="checkbox" name="gruposel[]" value="' . $grupo->getId_grupo() . '" id="gruposel' . $grupo->getId_grupo() . '"/>';
-                                    echo '<label class="oculto" for="gruposel' . $grupo->getId_grupo() . '">';
-                                    echo "Marque para seleccionar";
-                                    echo '</label>';
-                                } else {
-                                    echo "<td title='" . textoElipsis($grupo->getDescripcion(), 50) . "'>";
-                                    echo '</td>';
+                                // Si el modo es visor mostramos el icono de detalle                                    
+                                if ($modo === "V") {
                                     echo '<td>';
-                                    echo "<form action='grupo_detalle.php' method='post' >";
-                                    echo "<button tabindex='10' name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del grupo' /></button>";
-                                    echo "<input class='oculto' name='id_grupo' type='hidden' value='" . $grupo->getId_grupo() . "' />";
+                                    echo "<form action='empleado_detalle.php' method='post' >";
+                                    echo "<button tabindex='11' name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del empleado' /></button>";
+                                    echo "<input class='oculto' name='id_empleado' type='hidden' value='" . $empleado->getId_empleado() . "' />";
                                     echo "<input class='oculto' name='modo' type='hidden' value='V' />";
                                     echo "</form>";
+                                    echo '</td>';
                                 }
-                                echo "</td>";
+
                                 echo "</tr>";
 
-
-                                $i = 0;
-
-                                // Iteramos por todos los empleados
-                                foreach ($empleadosEnGrupos as $empleado) {
-
-
-                                    // Si el contador es un número par, le daremos un estilo y si 
-                                    // es impar le daremos otro
-                                    if ($i % 2 === 0) {
-                                        echo '<tr class="pijama1">';
-                                    } else {
-                                        echo '<tr class="pijama2">';
-                                    }
-
-                                    echo "<td title='" . textoElipsis($empleado->getNombre(), 30) . "' >";
-                                    echo textoElipsis($empleado->getNombre(), 30);
-                                    echo "</td>";
-                                    echo "<td title='" . textoElipsis($empleado->getApellido(), 30) . "' >";
-                                    echo textoElipsis($empleado->getApellido(), 30);
-                                    echo "</td>";
-                                    echo "<td title='" . textoElipsis($empleado->getEmail(), 30) . "' >";
-                                    echo textoElipsis($empleado->getEmail(), 30);
-                                    echo "</td>";
-                                    echo "<td title='" . textoElipsis($empleado->getEspecialidad(), 50) . "' >";
-                                    echo textoElipsis($empleado->getEspecialidad(), 50);
-                                    echo "</td>";
-                                    echo "<td title='" . textoElipsis($empleado->getCargo(), 15) . "' >";
-                                    echo textoElipsis($empleado->getCargo(), 15);
-                                    echo "</td>";
-
-                                    // Si el modo es visor mostramos el icono de detalle                                    
-                                    if ($modo === "V") {
-                                        echo '<td>';
-                                        echo "<form action='empleado_detalle.php' method='post' >";
-                                        echo "<button tabindex='11' name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del empleado' /></button>";
-                                        echo "<input class='oculto' name='id_empleado' type='hidden' value='" . $empleado->getId_empleado() . "' />";
-                                        echo "<input class='oculto' name='modo' type='hidden' value='V' />";
-                                        echo "</form>";
-                                        echo '</td>';
-                                    }
-
-                                    echo "</tr>";
-
-                                    // Incrementamos el contador
-                                    $i++;
-                                }
+                                // Incrementamos el contador
+                                $i++;
                             }
-                            ?>
+                        }
+                        ?>
                         </table>
                     </div>
                     <div class="tablaanidada right">
-                        
 
-                            <?php
-                            // Mostramos un encabezado u otro dependiendo del modo en el que se encuentre la página
+
+                        <?php
+                        // Mostramos un encabezado u otro dependiendo del modo en el que se encuentre la página
+                        if ($modo === "A") {
+                            echo "<p>Seleccione los archivos a enviar</p>";
+                        } else {
+                            echo "<p>Se envió el siguiente fichero</p>";
+                        }
+
+                        echo "<table>";
+
+                        // Iteramos por todos los ficheros recuperados
+                        foreach ($ficheros as $fichero) {
+
+                            echo "<tr class='tablaCabecera'>";
+                            echo "<td title='" . textoElipsis($fichero->getDescripcion(), 50) . "'>";
+                            echo textoElipsis($fichero->getDescripcion(), 50);
+                            echo "</td>";
+                            echo "<td title='" . textoElipsis($fichero->getDescripcion(), 50) . "'>";
+                            echo "</td>";
+
+                            // Si el modo es alta, mostramos checkboxex para marcar, 
+                            // en caso contrario mostramos el icono de detalle                                
                             if ($modo === "A") {
-                                echo "<p>Seleccione los archivos a enviar</p>";
+                                echo "<td title='Haga click para seleccionar el fichero'>";
+                                echo '<input tabindex="12" type="checkbox" name="ficherosel[]" value="' . $fichero->getId_fichero() . '" id="ficherosel' . $fichero->getId_fichero() . '"/>';
+                                echo '<label class="oculto" for="ficherosel' . $fichero->getId_fichero() . '">';
+                                echo "Marque para seleccionar";
+                                echo '</label>';
                             } else {
-                                echo "<p>Se envió el siguiente fichero</p>";
+                                echo '<td>';
+                                echo "<form action='fichero_detalle.php' method='post' >";
+                                echo "<button tabindex='12' name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del fichero' /></button>";
+                                echo "<input class='oculto' name='id_fichero' type='hidden' value='" . $fichero->getId_fichero() . "' />";
+                                echo "<input class='oculto' name='modo' type='hidden' value='V' />";
+                                echo "</form>";
                             }
-
-                            echo "<table>";
-                            
-                            // Iteramos por todos los ficheros recuperados
-                            foreach ($ficheros as $fichero) {
-
-                                echo "<tr class='tablaCabecera'>";
-                                echo "<td title='" . textoElipsis($fichero->getDescripcion(), 50) . "'>";
-                                echo textoElipsis($fichero->getDescripcion(), 50);
-                                echo "</td>";
-                                echo "<td title='" . textoElipsis($fichero->getDescripcion(), 50) . "'>";
-                                echo "</td>";
-
-                                // Si el modo es alta, mostramos checkboxex para marcar, 
-                                // en caso contrario mostramos el icono de detalle                                
-                                if ($modo === "A") {
-                                    echo "<td title='Haga click para seleccionar el fichero'>";
-                                    echo '<input tabindex="12" type="checkbox" name="ficherosel[]" value="' . $fichero->getId_fichero() . '" id="ficherosel' . $fichero->getId_fichero() . '"/>';
-                                    echo '<label class="oculto" for="ficherosel' . $fichero->getId_fichero() . '">';
-                                    echo "Marque para seleccionar";
-                                    echo '</label>';
-                                    
-                                } else {
-                                    echo '<td>';
-                                    echo "<form action='fichero_detalle.php' method='post' >";
-                                    echo "<button tabindex='12' name='button' value='Detalles'><img src='imagenes/details.png' alt='Ver Detalles' title='Pulse para ver los detalles del fichero' /></button>";
-                                    echo "<input class='oculto' name='id_fichero' type='hidden' value='" . $fichero->getId_fichero() . "' />";
-                                    echo "<input class='oculto' name='modo' type='hidden' value='V' />";
-                                    echo "</form>";
-                                }
-                                echo "</td>";
-                                echo "</tr>";
+                            echo "</td>";
+                            echo "</tr>";
 
 
-                                echo '<tr class="pijama1">';
+                            echo '<tr class="pijama1">';
 
-                                echo "<td title='" . textoElipsis($fichero->getNombre(), 50) . "' >";
-                                echo textoElipsis($fichero->getNombre(), 50);
-                                echo "</td>";
-                                echo "<td title='" . textoElipsis($fichero->getTipo(), 30) . "' >";
-                                echo textoElipsis($fichero->getTipo(), 30);
-                                echo "</td>";
-                                echo "<td title='" . textoElipsis($fichero->getTamanyo(), 30) . "' >";
-                                echo textoElipsis($fichero->getTamanyo(), 30);
-                                echo "</td>";
-                                echo "</tr>";
-                            }
-                            ?>                            
+                            echo "<td title='" . textoElipsis($fichero->getNombre(), 50) . "' >";
+                            echo textoElipsis($fichero->getNombre(), 50);
+                            echo "</td>";
+                            echo "<td title='" . textoElipsis($fichero->getTipo(), 30) . "' >";
+                            echo textoElipsis($fichero->getTipo(), 30);
+                            echo "</td>";
+                            echo "<td title='" . textoElipsis($fichero->getTamanyo(), 30) . "' >";
+                            echo textoElipsis($fichero->getTamanyo(), 30);
+                            echo "</td>";
+                            echo "</tr>";
+                        }
+                        ?>                            
                         </table>                        
                     </div>
 
