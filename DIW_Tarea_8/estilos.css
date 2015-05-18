@@ -423,7 +423,7 @@ form#btnVisor button img
     -moz-border-radius: 15px;
     border-radius: 15px;
     width: 92.2%;
-    height: 10vmax;
+    height: 15vmax;
     overflow-y: scroll;
 
 }
@@ -523,7 +523,7 @@ div#cuerpo div.listadoSel h2 {
     display: block;
     float: left;    
     width: 49.5%;
-    height: 10vmax;
+    height: 15vmax;
     overflow-y: auto;
     margin-bottom: 0.5vmax;
 
