@@ -256,7 +256,7 @@ try {
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
     <head>
-        <title>Detalle Ficheros</title>
+        <title>Detalle de documentos</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link type = "text/css" rel = "stylesheet" href = "./estilos.css"/>
         <script type="text/javascript" src="HTTP://code.jquery.com/jquery-latest.js"></script>        
@@ -277,7 +277,7 @@ try {
         </div>
         <div id="cuerpo">      
             <div id="botonera">
-                <h2>Detalle de Ficheros</h2>
+                <h2>Detalle de documentos</h2>
                 <form id="añadir" action='fichero_detalle.php' method='post' >
                     <input type='submit' tabindex="8" value='Añadir Fichero' title="Pulse para anañadir un nuevo Fichero"  <?php echo deshabilitarBotonesPorModo($modo) ?> />
                     <input class='oculto' name='añadir' type='hidden' value='0' />

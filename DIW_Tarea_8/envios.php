@@ -28,6 +28,10 @@ try {
             <input class='oculto' name='id_envio' type='hidden' value='0' />
             <input class='oculto' name='modo' type='hidden' value='A' />
         </form>
+        <form id="informe" action='informes.php' method='post' target="_blank">
+            <input type='submit' tabindex="8" value='Generar Informe' title="Pulse el botón para generar un informa de usuarios" />
+            <input class='oculto' name='tipoInforme' type='hidden' value='envio' />
+        </form>               
         <form id="filtro" action='index.php' method='post' >
             <input type='submit' tabindex="11" value='Filtrar resultados' title="Pulse el botón para filtrar los resultados"/>            
             <select name="tipoFiltro" tabindex="10" title="Seleccione el tipo de filtro">

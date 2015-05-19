@@ -32,7 +32,7 @@
         </li>
         <li>
             <form action='index.php' method='post' title="Gestor de Accesos" id="accesos">
-                <input type='submit' value='Acceso' tabindex="6" title="Gestor de Accesos" />
+                <input type='submit' value='Usuarios' tabindex="6" title="Gestor de Usuarios" />
                 <input class="oculto" name='indice' type='hidden' value='6' />
             </form>                    
         </li>

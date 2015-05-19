@@ -208,7 +208,8 @@ div#botonera h2{
 div#botonera form#nuevo input,
 div#botonera form#añadir input,
 div#botonera form#modificar input,
-div#botonera form#eliminar input
+div#botonera form#eliminar input,
+div#botonera form#informe input
 {
     width: 15vmax;
     display: block;
@@ -228,7 +229,8 @@ div#botonera form#filtro input
     padding: 0;
 }
 
-div#botonera form#filtro select
+div#botonera form#filtro select,
+div#botonera form#filtro label
 {
     display: block;
     float: right;
@@ -237,9 +239,11 @@ div#botonera form#filtro select
     padding: 0;
 }
 
+
+
 /* Especificamos el margen y el tamaño de la tabla, así como el tipo de borde 
 que tendrá */
-#cuerpo div.listado table {
+div.listado table{
     margin: 0.5vmax;
     border-collapse: collapse;
     width: 98.7%;
@@ -249,24 +253,24 @@ que tendrá */
 
 /* Definimos el ancho, color y tipo de linea que tendrán los bordes de la tabla 
 así como el alineamiento del texto */
-#cuerpo #lista .listado table, th, td {
+#lista .listado table, th, td {
     border: 0.15vmax solid black;
     text-align: center;
 }
 
 /* Definimos el ancho de los encabezamientos de la tabla */
-#cuerpo .listado th
+.listado th
 {
     width: 10%;
 }
 
 /* Definimos los texto de la cabecera como negrita */ 
-#cuerpo .listado thead
+.listado thead
 {
     font-weight: bold;
 }
 
-#cuerpo .listado tbody button
+.listado tbody button
 {
     width: 100%;
     background-color: transparent;
@@ -276,21 +280,21 @@ así como el alineamiento del texto */
 
 /* Finalmente cambiamos el color de fondo de las filas dependiendo de la 
 clase */
-#cuerpo .listado tbody tr.pijama1{
+.listado tbody tr.pijama1{
     background-color: lightgrey;
 }
 
 /* Finalmente cambiamos el color de fondo de las filas dependiendo de la 
 clase */
-#cuerpo .listado tr.pijama2{
+.listado tr.pijama2{
     background-color: #EFE4B0;
 }    
 
-#cuerpo .listado td:last-child{
+.listado td:last-child{
     width: 7vmax;
 }    
 
-#cuerpo .listado form{
+.listado form{
     margin-bottom: 0;
 }
 
@@ -669,9 +673,9 @@ Finalmente ponemos el fondo de color blanco a un 80% y la animacio´n centrada s
     height:     100%;
     width:      100%;
     background: rgba( 255, 255, 255, .8 ) 
-                url('imagenes/ajax-loader.gif') 
-                50% 50% 
-                no-repeat;
+        url('imagenes/ajax-loader.gif') 
+        50% 50% 
+        no-repeat;
 }
 
 /* Cuando el cuerpo de la página contenga el clase loading ocultamos la barra 
@@ -684,4 +688,86 @@ body.loading {
 contenedor con clase modal será visible */
 body.loading .modal {
     display: block;
+}
+
+
+
+/* Estilos de la página de informes  */
+
+body#informe div#botonera
+{
+    text-align: center;
+}
+
+body#informe div#botonera form{
+    display: block;
+    float: right;
+    width: 99.8%;
+    border: 0.15vmax solid #000;
+    padding: 0;
+    margin: 0;
+}
+
+
+body#informe div#botonera div#tablas
+{
+    display: inline-block;
+    padding: 0;
+    margin : 0;
+
+}
+body#informe div#botonera div#controles
+{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+
+body#informe div#botonera div#tablas input[type="checkbox"]
+{
+    width: 1vmax;
+    height: 1vmax;
+    padding: 0;
+    margin: 0.25vmax;
+    display: block;
+    float: left;
+}
+
+body#informe div#botonera div#tablas label
+{
+    margin-right: 0.15vmax;
+    margin-left: 0.15vmax;
+    padding-top: 0.15vmax;
+    font-size: 0.9vmax;
+    display: block;
+    float: left;
+
+}
+
+body#informe div#botonera input[type="checkbox"]
+{
+    width: 1vmax;
+    height: 1vmax;
+    padding: 0;
+    margin: 0.25vmax;
+    display: block;
+    float: right;
+}
+
+body#informe div#botonera label
+{
+    margin-right: 0;
+    margin-left: 0;
+    font-size: 0.90vmax;
+    display: block;
+    float: right;
+
+}
+
+
+body#informe div#listadoInforme.listado td:last-child
+{
+    width: auto !important;
+    
 }
