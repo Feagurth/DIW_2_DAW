@@ -22,6 +22,8 @@ require './phpMailer/PHPMailerAutoload.php';
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * @package Funciones
  */
 
 // <editor-fold defaultstate="collapsed" desc=" Funciones de Validación de Datos ">

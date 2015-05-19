@@ -20,6 +20,7 @@
 /**
  * Clase para trabajar con la lista de envíos realizados
  *
+ * @package Objetos
  * @author Luis Cabrerizo Gómez
  */
 class ListaEnvio {

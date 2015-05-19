@@ -19,7 +19,8 @@
 
 /**
  * Clase para contener la información de los empleados
- *
+ * 
+ * @package Objetos
  * @author Luis Cabrerizo Gómez
  */
 class Empleado implements JsonSerializable {

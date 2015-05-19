@@ -20,6 +20,7 @@
 /**
  * Objeto para trabajar con grupos
  *
+ * @package Objetos
  * @author Luis Cabrerizo Gómez
  */
 class Grupo implements JsonSerializable{

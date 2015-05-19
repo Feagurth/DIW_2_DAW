@@ -20,6 +20,7 @@
 /**
  * Objeto para trabajar con usuarios
  *
+ * @package Objetos
  * @author Luis Cabrerizo Gómez
  */
 class Usuario implements JsonSerializable {

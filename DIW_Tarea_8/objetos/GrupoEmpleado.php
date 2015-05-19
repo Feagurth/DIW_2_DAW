@@ -20,6 +20,7 @@
 /**
  * Clase para almacenar las relaciones entre grupos y empleados
  *
+ * @package Objetos
  * @author Luis Cabrerizo Gómez
  */
 class GrupoEmpleado {

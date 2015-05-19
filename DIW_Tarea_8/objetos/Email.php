@@ -18,7 +18,8 @@
 
 /**
  * Clase para trabjar con los datos de email
- *
+ * 
+ * @package Objetos
  * @author Luis Cabrerizo Gómez
  */
 class Email implements JsonSerializable {

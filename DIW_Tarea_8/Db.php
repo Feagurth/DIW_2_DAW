@@ -7,6 +7,11 @@ require_once './objetos/Email.php';
 require_once './objetos/Fichero.php';
 require_once './objetos/ListaEnvio.php';
 
+/**
+ * Clase para trabajar con la base de datos
+ * 
+ * @package Db
+ */
 class DB {
 
     /**

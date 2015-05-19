@@ -19,7 +19,8 @@
 
 /**
  * Clase para trabajar con los envios
- *
+ * 
+ * @package Objetos
  * @author Luis Cabrerizo Gómez
  */
 class Envio implements JsonSerializable{

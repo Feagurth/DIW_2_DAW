@@ -19,7 +19,8 @@
 
 /**
  * Clase para almacenar los ficheros incluidos en la base de datos
- *
+ * 
+ * @package Objetos 
  * @author Luis Cabrerizo Gómez
  */
 class Fichero implements JsonSerializable {
