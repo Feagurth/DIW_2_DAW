@@ -85,7 +85,7 @@ class DB {
      * Función que nos permite realizar consultas a la base de datos en forma consulta preparada
      * @param type $sql Sentencia sql a ejecutar
      * @param array $datos Datos a almacenar en forma de array
-     * @return type El resultado de la operación
+     * @return string El resultado de la operación
      * @throws Exception Lanza una excepción si se produce un error
      */
     private function ejecutaConsultaPreparada($sql, array $datos) {
@@ -171,7 +171,7 @@ class DB {
      * Función que nos permite recuperar los usuarios de la base de datos usando un filtro
      * @param string $cadena Cadena por la que se va a filtrar
      * @param int $tipoFiltro Campo por el que se va a filtrar respecto al orden de la colunas en la base de datos
-     * @return \Usuario Array de usuarios con la información de los mismos
+     * @return Usuario[] Array de usuarios con la información de los mismos
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function listarUsuarios($cadena, $tipoFiltro) {
@@ -236,7 +236,7 @@ class DB {
     /**
      * Función que nos permite recuperar un usuario a partir de su identificador
      * @param int $id_usuario Identificador del usuario a recuperar
-     * @return \Usuario Datos del empleado en un objeto Usuario
+     * @return Usuario Datos del empleado en un objeto Usuario
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function recuperarUsuario($id_usuario) {
@@ -361,7 +361,7 @@ class DB {
      * Función que nos permite recuperar los Empleados de la base de datos usando un filtro
      * @param string $cadena Cadena por la que se va a filtrar
      * @param int $tipoFiltro Campo por el que se va a filtrar respecto al orden de la colunas en la base de datos
-     * @return \Empleado Array de Empleados con la información de los mismos
+     * @return Empleado[] Array de Empleados con la información de los mismos
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function listarEmpleados($cadena, $tipoFiltro) {
@@ -452,7 +452,7 @@ class DB {
     /**
      * Función que nos permite recuperar un empleado a partir de su identificador
      * @param int $id_empleado Identificador del empleado a recuperar
-     * @return \Empleado Datos del empleado en un objeto Empleado
+     * @return Empleado Datos del empleado en un objeto Empleado
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function recuperarEmpleado($id_empleado) {
@@ -584,7 +584,7 @@ class DB {
      * Función que nos permite recuperar los usuarios de la base de datos usando un filtro
      * @param string $cadena Cadena por la que se va a filtrar
      * @param int $tipoFiltro Campo por el que se va a filtrar respecto al orden de la colunas en la base de datos
-     * @return \Usuario Array de usuarios con la información de los mismos
+     * @return Usuario[] Array de usuarios con la información de los mismos
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function listarEmails($cadena, $tipoFiltro) {
@@ -664,7 +664,7 @@ class DB {
     /**
      * Función que nos permite recuperar un email a partir de su identificador
      * @param int $id_email Identificador del email a recuperar
-     * @return \Email Datos del email en un objeto Email
+     * @return Email Datos del email en un objeto Email
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function recuperarEmail($id_email) {
@@ -796,7 +796,7 @@ class DB {
      * Función que nos permite recuperar los fichero de la base de datos usando un filtro
      * @param string $cadena Cadena por la que se va a filtrar
      * @param int $tipoFiltro Campo por el que se va a filtrar respecto al orden de la colunas en la base de datos
-     * @return \Fichero Array de fichero con la información de los mismos
+     * @return Fichero[] Array de fichero con la información de los mismos
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function listarFicheros($cadena, $tipoFiltro) {
@@ -871,7 +871,7 @@ class DB {
     /**
      * Función que nos permite insertar un fichero en la base de datos
      * @param Fichero $fichero Objeto Fichero que contiene la información a almacenar
-     * @return type Resultado de la operación
+     * @return int El id del registro insertado
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function insertarFichero(Fichero $fichero) {
@@ -912,7 +912,7 @@ class DB {
     /**
      * Función que nos permite recuperar un fichero a partir de su identificador
      * @param int $id_fichero Identificador del fichero a recuperar
-     * @return \Fichero Datos del fichero en un objeto Fichero
+     * @return Fichero Datos del fichero en un objeto Fichero
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function recuperarFichero($id_fichero) {
@@ -1006,7 +1006,7 @@ class DB {
      * Función que nos permite recuperar los grupos de la base de datos usando un filtro
      * @param string $cadena Cadena por la que se va a filtrar
      * @param int $tipoFiltro Campo por el que se va a filtrar respecto al orden de la colunas en la base de datos
-     * @return \Grupo Array de grupos con la información de los mismos
+     * @return Grupo[] Array de grupos con la información de los mismos
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function listarGrupos($cadena, $tipoFiltro) {
@@ -1071,7 +1071,7 @@ class DB {
     /**
      * Función que nos permite recuperar un grupo a partir de su identificador
      * @param int $id_grupo Identificador del grupo a recuperar
-     * @return \Grupo Datos del grupo en un objeto Grupo
+     * @return Grupo Datos del grupo en un objeto Grupo
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function recuperarGrupo($id_grupo) {
@@ -1193,7 +1193,7 @@ class DB {
     /**
      * Función que nos permite recuperar los empleados pertenecientes a un grupo
      * @param int $id_grupo Identificador del grupo al que pertenecen los empleados     
-     * @return \GrupoEmpleado Array de gruposempleado con la información de los mismos
+     * @return GrupoEmpleado[] Array de gruposempleado con la información de los mismos
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function listarRelacionesGrupoEmpleados($id_grupo) {
@@ -1230,6 +1230,12 @@ class DB {
         }
     }
 
+    /**
+     * Función que nos permite listar los empleados que pertenecen a un grupo
+     * @param int $id_grupo Identificador del grupo
+     * @return Empleado[] Array de empleados pertenecientes al grupo especificado
+     * @throws Exception Se lanza una excepción si se produce un error
+     */
     public function listarEmpleadosEnGrupo($id_grupo) {
         // Especificamos la consulta que vamos a realizar sobre la base de datos
         $sql = "SELECT "
@@ -1355,7 +1361,7 @@ class DB {
      * Función que nos permite recuperar los envíos de la base de datos usando un filtro
      * @param string $cadena Cadena por la que se va a filtrar
      * @param int $tipoFiltro Campo por el que se va a filtrar respecto al orden de la colunas en la base de datos
-     * @return \Envio Array de envíos con la información de los mismos
+     * @return Envio[] Array de envíos con la información de los mismos
      * @throws Exception Lanza una excepción si se produce un error
      */
     public function listarEnvios($cadena, $tipoFiltro) {
@@ -1466,7 +1472,7 @@ class DB {
      * @param array $id_grupos Array con las id's de los grupos a los que enviar el fichero
      * @param array $id_ficheros Array con las id's de los ficheros que se enviarán a los grupos
      * @param int $id_email Id del email con el que se van a enviar los ficheros
-     * @return int
+     * @return int El identificador del envío insertado
      * @throws Exception Se lanza una excepción si se produce un error
      */
     public function insertarEnvio($id_grupos, $id_ficheros, $id_email) {
@@ -1612,6 +1618,13 @@ class DB {
         }
     }
 
+    /**
+     * Función que nos permite recuperar los empleados asociados a un envío
+     * @param int $id_envio Identificador del envío
+     * @return Empleado[] Array de empleados correspondiente a los empleados que 
+     * estén asociados al envío
+     * @throws Exception Se lanza una excepción si se produce un error
+     */
     public function recuperarEmpleadosEnvio($id_envio) {
         $sql = "SELECT id_empleado FROM envio_empleado WHERE id_envio=" . $id_envio;
 

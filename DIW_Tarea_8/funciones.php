@@ -23,11 +23,17 @@ require './phpMailer/PHPMailerAutoload.php';
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
- * @package Funciones
+ * 
  */
 
 // <editor-fold defaultstate="collapsed" desc=" Funciones de Validación de Datos ">
 
+/**
+ * Función que nos permite validar una cadena para que solo contenga letras y números
+ * @package Funciones
+ * @param string $dato Cadena a validar
+ * @return boolean True si la cadena es correcta, False en caso contrario
+ */
 function validarCadenaConNumeros($dato) {
     // Inicializamos la variable de salida al valor que tendría si 
     // toda la validación fuese correcta
@@ -47,6 +53,7 @@ function validarCadenaConNumeros($dato) {
 
 /**
  * Función para validar datos de un empleado
+ * @package Funciones
  * @param Empleado $empleado Objeto empleado
  * @return string Cadena vacía si la validación es correcta y un mensaje de 
  * error si no lo es
@@ -156,6 +163,7 @@ function validarDatosEmpleado($empleado) {
 
 /**
  * Función para validar datos de un usuario
+ * @package Funciones
  * @param Email $email Objeto Email
  * @return string Cadena vacía si la validación es correcta y un mensaje de 
  * error si no lo es
@@ -249,6 +257,7 @@ function validarDatosEmail($email) {
 
 /**
  * Función para validar datos de un usuario
+ * @package Funciones
  * @param Usuario $usuario Objeto usuario
  * @return string Cadena vacía si la validación es correcta y un mensaje de 
  * error si no lo es
@@ -305,6 +314,7 @@ function validarDatosUsuario($usuario) {
 /**
  * Función que nos permite validar los datos de un objeto Fichero antes de 
  * insertarlo en la base de datos
+ * @package Funciones
  * @param Fichero $fichero Objeto con la información del fichero a insertar
  * @return string Un mensaje de error si existe alguno y una cadena vacia en caso contrario
  */
@@ -340,6 +350,7 @@ function validarDatosFichero($fichero) {
 
 /**
  * Función para validar datos de un grupo
+ * @package Funciones
  * @param Grupo $grupo Objeto grupo
  * @return string Cadena vacía si la validación es correcta y un mensaje de 
  * error si no lo es
@@ -382,9 +393,11 @@ function validarDatosGrupo($grupo) {
 }
 
 /**
- * 
- * @param array $grupos Array con los identificadores de grupos seleccionados
- * @param type $ficheros Array con los identificadores de ficheros seleccionados
+ * Función que nos permite validar los datos de un envío
+ * @package Funciones
+ * @param Array $grupos Array con los identificadores de grupos seleccionados
+ * @param Array $ficheros Array con los identificadores de ficheros seleccionados
+ * @param int $id_email Identificador de la cuenta de email desde la que se realizará el envío
  * @return string Cadena vacía si la validación es correcta y un mensaje de 
  * error si no lo es
  */
@@ -417,6 +430,7 @@ function validarDatosEnvio($grupos, $ficheros, $id_email) {
 /**
  * Método para validar el usuario y la contraseña de un usuario logeado y actuar 
  * en consecuencia
+ * @package Funciones
  * @param type $usuario Usuario a validar
  * @param type $password Contraseña a validar
  * @throws Exception Se lanza una excepción si se ha producido un error
@@ -456,6 +470,7 @@ function validarUsuario($usuario, $password) {
 
 /**
  * Función que nos permite recortar el texto hasta una cantidad de valores establecidos
+ * @package Funciones
  * @param string $texto La descripción del nombre del usuario
  * @param int $cantidad La cantidad de caracteres permitidos
  * @return string Una cadena con tantos caracteres como se permitan menos 3 
@@ -482,6 +497,7 @@ function textoElipsis($texto, $cantidad) {
 /**
  * Función que sirve para habilitar o deshabilitar los controles input de texto 
  * en las páginas de detalle
+ * @package Funciones
  * @param string $modo El modo en el que se encuentra la página de detalle
  * @return string Devuelve la palabra disabled para deshabilitar el campo input 
  * si el modo de la página es A (Alta) o M (Modificación)
@@ -504,6 +520,7 @@ function deshabilitarPorModo($modo) {
 /**
  * Función que sirve para habilitar o deshabilitar los botnes
  * en las páginas de detalle
+ * @package Funciones
  * @param string $modo El modo en el que se encuentra la página de detalle
  * @return string Devuelve la palabra disabled y añade la clase deshabilitado al objeto 
  * para deshabilitar el botón si el modo de la página es A (Alta) o M (Modificación)
@@ -524,7 +541,9 @@ function deshabilitarBotonesPorModo($modo) {
 
 /**
  * Función que nos permite estructurar los datos de un objeto fichero
- * @param type $registro El objeto fichero que deseamos estructurar
+ * @package Funciones
+ * @param Fichero $registro El objeto fichero que deseamos estructurar
+ * @param id_fichero El identificador de ficher que se asignará al registro
  */
 function crearObjetosInserccionFichero(&$registro, $id_fichero) {
 
@@ -573,8 +592,9 @@ function crearObjetosInserccionFichero(&$registro, $id_fichero) {
 /**
  * Función que nos permite reordenar los ficheros subidos al servidor y 
  * alojados en $_FILES dandoles una estructura más comoda para procesarlos
- * @param type $ficheros Los ficheros alojados en $_FILES
- * @return type Un array con la información de los ficheros ordenada por fichero
+ * @package Funciones
+ * @param Array $ficheros Los ficheros alojados en $_FILES
+ * @return Array Un array con la información de los ficheros ordenada por fichero
  */
 function ordenarFicheros($ficheros) {
     // Creamos un nuevo array para almacenar los datos y devolverlos 
@@ -605,8 +625,9 @@ function ordenarFicheros($ficheros) {
 
 /**
  * Función que nos permite comprobar si un empleado forma parte de un grupo
+ * @package Funciones
  * @param string $id_empleado Identificador del empleado
- * @param array\GrupoEmpleado $datosgrupoempleado Array de objetos GrupoEmpleado con la información de las relaciones
+ * @param GrupoEmpleado[] $datosgrupoempleado Array de objetos GrupoEmpleado con la información de las relaciones
  * @return bool True si pertenece al grupo, False en caso contrario
  */
 function comprobarRelaccionEmpleadoGrupo($id_empleado, $datosgrupoempleado) {
@@ -627,6 +648,13 @@ function comprobarRelaccionEmpleadoGrupo($id_empleado, $datosgrupoempleado) {
     return sizeof($salida) > 0 ? TRUE : FALSE;
 }
 
+/**
+ * Función que nos permite crear de forma dinámica una tabla con la información 
+ * de las relaciones entre empleados y grupos
+ * @package Funciones
+ * @param type $id_grupo Identificador del grupo del que se mirarán las relacciones
+ * @param type $error Variable para almacenar los mensajes de error
+ */
 function crearTablaRelacionesEmpleados($id_grupo, &$error) {
 
 
@@ -730,6 +758,7 @@ function crearTablaRelacionesEmpleados($id_grupo, &$error) {
 
 /**
  * Función que nos permite generar un número aleatorio como indicador de la sesión.
+ * @package Funciones
  * @return int Un número aleatorio entre 1 y 100000
  */
 function generarTokenSesion() {
@@ -739,6 +768,7 @@ function generarTokenSesion() {
 /**
  * Función que nos permite comprobar la sesión en la que nos encontramos y 
  * de este modo poder controlar insercciones extras por refrescos de páginas
+ * @package Funciones
  * @return boolean True si la sesión es correcta, False si no lo es
  */
 function comprobarTokenSesion() {
@@ -763,6 +793,7 @@ function comprobarTokenSesion() {
 /**
  * Función que nos permite recortar el nombre de un fichero para ajustarlo al 
  * tamaño máximo especificado sin perder la extensión del mismo
+ * @package Funciones
  * @param string $nombrefichero Nombre del fichero a modificar
  * @param int $tamañoMax Tamaño máximo que puede tener el nombre del fichero
  * @return string El nombre del fichero reducido a su tamaño máximo
@@ -791,6 +822,7 @@ function recortaNombreFichero($nombrefichero, $tamañoMax) {
 /**
  * Función que nos permite grabar un fichero con un nombre y una extensión 
  * específica
+ * @package Funciones
  * @param type $nombre Nombre del fichero a grabar
  * @param type $datos Datos que contendrá el fichero codificados en binario
  * @return boolean TRUE si la operación es correcta, FALSE en caso contrario
@@ -829,11 +861,12 @@ function grabarFichero($nombre, $datos) {
 
 /**
  * Función que nos permite enviar un fichero por correo electrónico a varios empleados usando un email
+ * @package Funciones
  * @global type $emailAdmin Email del administrador
  * @global type $nameAdmin Nombre del administrador
  * @param Email $email Objeto Email que contiene la información de configuracion del mismo
  * @param Fichero $fichero Objeto Fichero con la información del fichero
- * @param Array $empleados Array de objetos Empleado que contiene la información de los empleados
+ * @param Empleado[] $empleados Array de objetos Empleado que contiene la información de los empleados
  * @throws Exception Se lanza una excepción si se produce un error
  */
 function enviarCorreo(Email $email, Fichero $fichero, $empleados) {
@@ -843,7 +876,6 @@ function enviarCorreo(Email $email, Fichero $fichero, $empleados) {
         // Recuperamos el los datos de contacto del administrador
         global $emailAdmin;
         global $nameAdmin;
-
 
         //Creamos una instacia de PHPMailer
         $mail = new PHPMailer;
