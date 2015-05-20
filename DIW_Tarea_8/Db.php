@@ -232,7 +232,7 @@ class DB {
             throw new Exception();
         }
     }
-    
+
     /**
      * Función qe nos permite recuperar datos de la base de datos para realizar un informa de usuarios
      * @param string $filtro Cadena por la que filtrar los valores de usuarios
@@ -243,49 +243,44 @@ class DB {
      * @return string[] Array de datos con los valores recuperados de la base de datos
      * @throws Exception Se lanza una excepción si se produce un error
      */
-    public function listarInformeUsuario($filtro, $tipoFiltro, $ordenacion, $ascendente,  $columnas) {
+    public function listarInformeUsuario($filtro, $tipoFiltro, $ordenacion, $ascendente, $columnas) {
 
         // Asignamos el principio de la consulta
         $sql = "SELECT ";
-        
+
         // Verificamos si tenemos valores de ordenación
-        if(isset($ordenacion))
-        {
+        if (isset($ordenacion)) {
             // Dependiendo del valor seguiremos una acción
-            switch ($ordenacion)
-            {
-                case 1:
-                {
-                    // Si se ordena por usuario
-                    $orden = " ORDER BY user";
-                    break;
-                }
-                case 2:
-                {
-                    // Si se ordena por nombre
-                    $orden = " ORDER BY nombre";
-                    break;
-                }
-                
+            switch ($ordenacion) {
+                case 1: {
+                        // Si se ordena por usuario
+                        $orden = " ORDER BY user";
+                        break;
+                    }
+                case 2: {
+                        // Si se ordena por nombre
+                        $orden = " ORDER BY nombre";
+                        break;
+                    }
             }
-            
+
             // Agregamos el tipo de orden
-            $orden .= $ascendente === "1" ? " ASC" : " DESC";            
+            $orden .= $ascendente === "1" ? " ASC" : " DESC";
         }
-        
-        
+
+
         // Iteramos por las columnas y las añadimos a la consulta
         foreach ($columnas as $columna) {
             $sql .= $columna . ", ";
         }
-        
+
         // Quitamos los dos últimos caracteres, un espacio en blanco y una coma
         $sql = substr($sql, 0, -2);
-        
+
         // Concatenamos la tabla en la que se va buscar
         $sql .= " FROM usuario";
-        
-        
+
+
         // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
         // una condición a la sentencia sql original
         if (($filtro !== NULL && $filtro !== "") && $tipoFiltro !== NULL) {
@@ -338,7 +333,7 @@ class DB {
             // Si no tenemos resultados lanzamos una excepción
             throw new Exception();
         }
-    }    
+    }
 
     /**
      * Función que nos permite recuperar un usuario a partir de su identificador
@@ -684,7 +679,7 @@ class DB {
             throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
         }
     }
-    
+
     /**
      * Función qe nos permite recuperar datos de la base de datos para realizar un informa de empleados
      * @param string $filtro Cadena por la que filtrar los valores de empleados
@@ -695,79 +690,69 @@ class DB {
      * @return string[] Array de datos con los valores recuperados de la base de datos
      * @throws Exception Se lanza una excepción si se produce un error
      */
-    public function listarInformeEmpleado($filtro, $tipoFiltro, $ordenacion, $ascendente,  $columnas) {
+    public function listarInformeEmpleado($filtro, $tipoFiltro, $ordenacion, $ascendente, $columnas) {
 
         // Asignamos el principio de la consulta
         $sql = "SELECT ";
-        
+
         // Verificamos si tenemos valores de ordenación
-        if(isset($ordenacion))
-        {
+        if (isset($ordenacion)) {
             // Dependiendo del valor seguiremos una acción
-            switch ($ordenacion)
-            {
-                case 1:
-                {
-                    // Si se ordena por nombre
-                    $orden = " ORDER BY nombre";
-                    break;
-                }
-                case 2:
-                {
-                    // Si se ordena por apellido
-                    $orden = " ORDER BY apellido";
-                    break;
-                }
-                case 3:
-                {
-                    // Si se ordena por teléfono
-                    $orden = " ORDER BY telefono";
-                    break;
-                }
-                case 4:
-                {
-                    // Si se ordena por especialidad
-                    $orden = " ORDER BY especialidad";
-                    break;
-                }
-                case 5:
-                {
-                    // Si se ordena por cargo
-                    $orden = " ORDER BY cargo";
-                    break;
-                }
-                case 6:
-                {
-                    // Si se ordena por dirección
-                    $orden = " ORDER BY direccion";
-                    break;
-                }
-                case 7:
-                {
-                    // Si se ordena por email
-                    $orden = " ORDER BY email";
-                    break;
-                }                
-                
+            switch ($ordenacion) {
+                case 1: {
+                        // Si se ordena por nombre
+                        $orden = " ORDER BY nombre";
+                        break;
+                    }
+                case 2: {
+                        // Si se ordena por apellido
+                        $orden = " ORDER BY apellido";
+                        break;
+                    }
+                case 3: {
+                        // Si se ordena por teléfono
+                        $orden = " ORDER BY telefono";
+                        break;
+                    }
+                case 4: {
+                        // Si se ordena por especialidad
+                        $orden = " ORDER BY especialidad";
+                        break;
+                    }
+                case 5: {
+                        // Si se ordena por cargo
+                        $orden = " ORDER BY cargo";
+                        break;
+                    }
+                case 6: {
+                        // Si se ordena por dirección
+                        $orden = " ORDER BY direccion";
+                        break;
+                    }
+                case 7: {
+                        // Si se ordena por email
+                        $orden = " ORDER BY email";
+                        break;
+                    }
             }
-            
+
             // Agregamos el tipo de orden
-            $orden .= $ascendente === "1" ? " ASC" : " DESC";            
+            $orden .= $ascendente === "1" ? " ASC" : " DESC";
         }
-        
-        
+
+
         // Iteramos por las columnas y las añadimos a la consulta
         foreach ($columnas as $columna) {
             $sql .= $columna . ", ";
         }
-        
+
         // Quitamos los dos últimos caracteres, un espacio en blanco y una coma
         $sql = substr($sql, 0, -2);
-        
+
         // Concatenamos la tabla en la que se va buscar
         $sql .= " FROM empleado";
-        
-        
+
+
         // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
         // una condición a la sentencia sql original
         if (($filtro !== NULL && $filtro !== "") && $tipoFiltro !== NULL) {
@@ -843,8 +828,7 @@ class DB {
             // Si no tenemos resultados lanzamos una excepción
             throw new Exception();
         }
-    }        
-    
+    }
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc=" Funciones para E-Mail ">
@@ -870,7 +854,7 @@ class DB {
                         // Si se filtra por descripción
                         $sql .= " WHERE descripcion LIKE '" . $cadena . "%'";
                         break;
-                    }                
+                    }
                 case 2: {
                         // Si se filtra por usuario
                         $sql .= " WHERE usuario LIKE '" . $cadena . "%'";
@@ -1057,7 +1041,7 @@ class DB {
             throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
         }
     }
-    
+
     /**
      * Función qe nos permite recuperar datos de la base de datos para realizar un informa de e-mails
      * @param string $filtro Cadena por la que filtrar los valores de e-mails
@@ -1068,67 +1052,59 @@ class DB {
      * @return string[] Array de datos con los valores recuperados de la base de datos
      * @throws Exception Se lanza una excepción si se produce un error
      */
-    public function listarInformeEmail($filtro, $tipoFiltro, $ordenacion, $ascendente,  $columnas) {
+    public function listarInformeEmail($filtro, $tipoFiltro, $ordenacion, $ascendente, $columnas) {
 
         // Asignamos el principio de la consulta
         $sql = "SELECT ";
-        
+
         // Verificamos si tenemos valores de ordenación
-        if(isset($ordenacion))
-        {
+        if (isset($ordenacion)) {
             // Dependiendo del valor seguiremos una acción
-            switch ($ordenacion)
-            {
-                case 1:
-                {
-                    // Si se ordena por descripción
-                    $orden = " ORDER BY descripcion";
-                    break;
-                }
-                case 2:
-                {
-                    // Si se ordena por usuario
-                    $orden = " ORDER BY usuario";
-                    break;
-                }
-                case 3:
-                {
-                    // Si se ordena por servidor
-                    $orden = " ORDER BY servidor";
-                    break;
-                }                
-                case 4:
-                {
-                    // Si se ordena por puerto
-                    $orden = " ORDER BY puerto";
-                    break;
-                }                
-                case 5:
-                {
-                    // Si se ordena por seguridad
-                    $orden = " ORDER BY seguridad";
-                    break;
-                }                
-                
+            switch ($ordenacion) {
+                case 1: {
+                        // Si se ordena por descripción
+                        $orden = " ORDER BY descripcion";
+                        break;
+                    }
+                case 2: {
+                        // Si se ordena por usuario
+                        $orden = " ORDER BY usuario";
+                        break;
+                    }
+                case 3: {
+                        // Si se ordena por servidor
+                        $orden = " ORDER BY servidor";
+                        break;
+                    }
+                case 4: {
+                        // Si se ordena por puerto
+                        $orden = " ORDER BY puerto";
+                        break;
+                    }
+                case 5: {
+                        // Si se ordena por seguridad
+                        $orden = " ORDER BY seguridad";
+                        break;
+                    }
             }
-            
+
             // Agregamos el tipo de orden
-            $orden .= $ascendente === "1" ? " ASC" : " DESC";            
+            $orden .= $ascendente === "1" ? " ASC" : " DESC";
         }
-        
-        
+
+
         // Iteramos por las columnas y las añadimos a la consulta
         foreach ($columnas as $columna) {
             $sql .= $columna . ", ";
         }
-        
+
         // Quitamos los dos últimos caracteres, un espacio en blanco y una coma
         $sql = substr($sql, 0, -2);
-        
+
         // Concatenamos la tabla en la que se va buscar
         $sql .= " FROM email";
-        
-        
+
+
         // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
         // una condición a la sentencia sql original
         if (($filtro !== NULL && $filtro !== "") && $tipoFiltro !== NULL) {
@@ -1139,7 +1115,7 @@ class DB {
                         // Si se filtra por descripción
                         $sql .= " WHERE descripcion LIKE '" . $filtro . "%'";
                         break;
-                    }                    
+                    }
                 case 2: {
                         // Si se filtra por usuario
                         $sql .= " WHERE usuario LIKE '" . $filtro . "%'";
@@ -1160,8 +1136,6 @@ class DB {
                         $sql .= " WHERE seguridad LIKE '" . $filtro . "%'";
                         break;
                     }
-                    
-                    
             }
         }
 
@@ -1196,8 +1170,7 @@ class DB {
             // Si no tenemos resultados lanzamos una excepción
             throw new Exception();
         }
-    }    
-    
+    }
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc=" Funciones de Ficheros ">
@@ -1408,9 +1381,8 @@ class DB {
             throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
         }
     }
-    
-    
-/**
+
+    /**
      * Función qe nos permite recuperar datos de la base de datos para realizar un informe de ficheros
      * @param string $filtro Cadena por la que filtrar los valores de ficheros
      * @param int $tipoFiltro Número de la columna de la tabla ficheros por la que se va a filtrar la consulta
@@ -1420,60 +1392,54 @@ class DB {
      * @return string[] Array de datos con los valores recuperados de la base de datos
      * @throws Exception Se lanza una excepción si se produce un error
      */
-    public function listarInformeFichero($filtro, $tipoFiltro, $ordenacion, $ascendente,  $columnas) {
+    public function listarInformeFichero($filtro, $tipoFiltro, $ordenacion, $ascendente, $columnas) {
 
         // Asignamos el principio de la consulta
         $sql = "SELECT ";
-        
+
         // Verificamos si tenemos valores de ordenación
-        if(isset($ordenacion))
-        {
+        if (isset($ordenacion)) {
             // Dependiendo del valor seguiremos una acción
-            switch ($ordenacion)
-            {
-                case 1:
-                {
-                    // Si se ordena por nombre
-                    $orden = " ORDER BY nombre";
-                    break;
-                }
-                case 2:
-                {
-                    // Si se ordena por tamaño
-                    $orden = " ORDER BY tamanyo";
-                    break;
-                }
-                case 3:
-                {
-                    // Si se ordena por tipo
-                    $orden = " ORDER BY tipo";
-                    break;
-                }                
-                case 4:
-                {
-                    // Si se ordena por descripción
-                    $orden = " ORDER BY descripcion";
-                    break;
-                }                
+            switch ($ordenacion) {
+                case 1: {
+                        // Si se ordena por nombre
+                        $orden = " ORDER BY nombre";
+                        break;
+                    }
+                case 2: {
+                        // Si se ordena por tamaño
+                        $orden = " ORDER BY tamanyo";
+                        break;
+                    }
+                case 3: {
+                        // Si se ordena por tipo
+                        $orden = " ORDER BY tipo";
+                        break;
+                    }
+                case 4: {
+                        // Si se ordena por descripción
+                        $orden = " ORDER BY descripcion";
+                        break;
+                    }
             }
-            
+
             // Agregamos el tipo de orden
-            $orden .= $ascendente === "1" ? " ASC" : " DESC";            
+            $orden .= $ascendente === "1" ? " ASC" : " DESC";
         }
-        
-        
+
+
         // Iteramos por las columnas y las añadimos a la consulta
         foreach ($columnas as $columna) {
             $sql .= $columna . ", ";
         }
-        
+
         // Quitamos los dos últimos caracteres, un espacio en blanco y una coma
         $sql = substr($sql, 0, -2);
-        
+
         // Concatenamos la tabla en la que se va buscar
         $sql .= " FROM fichero";
-        
-        
+
+
         // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
         // una condición a la sentencia sql original
         if (($filtro !== NULL && $filtro !== "") && $tipoFiltro !== NULL) {
@@ -1484,7 +1450,7 @@ class DB {
                         // Si se filtra por nombre
                         $sql .= " WHERE nombre LIKE '" . $filtro . "%'";
                         break;
-                    }                    
+                    }
                 case 2: {
                         // Si se filtra por tamaño
                         $sql .= " WHERE tamanyo LIKE '" . $filtro . "%'";
@@ -1534,7 +1500,7 @@ class DB {
             // Si no tenemos resultados lanzamos una excepción
             throw new Exception();
         }
-    }        
+    }
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc=" Funciones de Grupos ">
@@ -1720,6 +1686,179 @@ class DB {
         } else {
             // En caso contrario, lanzamos una excepción
             throw new Exception($this->diw->errorInfo()[2], $this->diw->errorInfo()[1]);
+        }
+    }
+
+    /**
+     * Función qe nos permite recuperar datos de la base de datos para realizar un informe de grupos
+     * @param string $filtro Cadena por la que filtrar los valores de grupos
+     * @param int $tipoFiltro Número de la columna de la tabla grupos por la que se va a filtrar la consulta
+     * @param int $ordenacion Número de la columna de la tabla grupos por la que se va a ordenar la consulta
+     * @param int $ascendente 0 si el orden de la consulta es descendente, 1 si es ascendente
+     * @param string[] $columnas Array que contiene el nombre de las columnas de la tabla grupos que se recuperarán en la consulta
+     * @return string[] Array de datos con los valores recuperados de la base de datos
+     * @throws Exception Se lanza una excepción si se produce un error
+     */
+    public function listarInformeGrupo($filtro, $tipoFiltro, $ordenacion, $ascendente, $columnas) {
+
+        // Asignamos el principio de la consulta
+        $sql = "SELECT ";
+
+        
+        // Verificamos si tenemos valores de ordenación
+        if (isset($ordenacion)) {
+            // Dependiendo del valor seguiremos una acción
+            switch ($ordenacion) {
+                case 1: {
+                        // Si se ordena por descripción de grupo
+                        $orden = " ORDER BY p.descripcion";
+                        break;
+                    }
+                case 2: {
+                        // Si se ordena por nombre de grupo
+                        $orden = " ORDER BY p.nombre";
+                        break;
+                    }
+                case 3: {
+                        // Si se ordena por nombre de empleado
+                        $orden = " ORDER BY e.nombre";
+                        break;
+                    }
+                case 4: {
+                        // Si se ordena por apellido de empleado
+                        $orden = " ORDER BY e.apellido";
+                        break;
+                    }
+                case 5: {
+                        // Si se ordena por teléfono de empleado
+                        $orden = " ORDER BY e.telefono";
+                        break;
+                    }
+                case 6: {
+                        // Si se ordena por especialidad de empleado
+                        $orden = " ORDER BY e.especialidad";
+                        break;
+                    }
+                case 7: {
+                        // Si se ordena por cargo del empleado
+                        $orden = " ORDER BY e.cargo";
+                        break;
+                    }
+                case 8: {
+                        // Si se ordena por dirección del empleado
+                        $orden = " ORDER BY e.direccion";
+                        break;
+                    }
+                case 9: {
+                        // Si se ordena por E-Mail del empleado
+                        $orden = " ORDER BY e.email";
+                        break;
+                    }
+            }
+
+            // Agregamos el tipo de orden
+            $orden .= $ascendente === "1" ? " ASC" : " DESC";
+        }
+
+
+        // Iteramos por las columnas y las añadimos a la consulta
+        foreach ($columnas as $columna) {
+            $sql .= $columna . ", ";
+        }
+
+        // Quitamos los dos últimos caracteres, un espacio en blanco y una coma
+        $sql = substr($sql, 0, -2);
+
+        // Concatenamos la tabla en la que se va buscar
+        $sql .= " FROM (SELECT ge.id_empleado, g.descripcion, g.nombre FROM grupo g "
+                . "LEFT OUTER JOIN grupo_empleado ge ON g.id_grupo = ge.id_grupo) p "
+                . "RIGHT OUTER JOIN empleado e ON p.id_empleado = e.id_empleado";
+
+
+        // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
+        // una condición a la sentencia sql original
+        if (($filtro !== NULL && $filtro !== "") && $tipoFiltro !== NULL) {
+            // Dependiendo del tipo de filtro, agregaremos a la cadena sql una 
+            // condición u otra
+            switch ($tipoFiltro) {
+                case 1: {
+                        // Si se filtra por descripción del grupo
+                        $sql .= " WHERE p.descripcion LIKE '" . $filtro . "%'";
+                        break;
+                    }
+                case 2: {
+                        // Si se filtra por nombre del grupo
+                        $sql .= " WHERE p.nombre LIKE '" . $filtro . "%'";
+                        break;
+                    }
+                case 3: {
+                        // Si se filtra por nombre del empleado
+                        $sql .= " WHERE e.nombre LIKE '" . $filtro . "%'";
+                        break;
+                    }
+                case 4: {
+                        // Si se filtra por apellido del empleado
+                        $sql .= " WHERE e.apellido LIKE '" . $filtro . "%'";
+                        break;
+                    }
+                case 5: {
+                        // Si se filtra por teléfono del empleado
+                        $sql .= " WHERE e.telefono LIKE '" . $filtro . "%'";
+                        break;
+                    }
+                case 6: {
+                        // Si se filtra por especialidad del empleado
+                        $sql .= " WHERE e.especialidad LIKE '" . $filtro . "%'";
+                        break;
+                    }
+                case 7: {
+                        // Si se filtra por cargo del empleado
+                        $sql .= " WHERE e.cargo LIKE '" . $filtro . "%'";
+                        break;
+                    }
+                case 8: {
+                        // Si se filtra por dirección del empleado
+                        $sql .= " WHERE e.direccion LIKE '" . $filtro . "%'";
+                        break;
+                    }
+                case 9: {
+                        // Si se filtra por E-Mail del empleado
+                        $sql .= " WHERE e.email '" . $filtro . "%'";
+                        break;
+                    }
+            }
+        }
+
+        // Concatenamos el orden a la cadena sql
+        $sql .= $orden;
+        
+        // Llamamos la a la función protegida de la clase para realizar la consulta
+        $resultado = $this->ejecutaConsulta($sql);
+
+        // Comprobamos si hemos obtenido algún resultado
+        if ($resultado) {
+
+            // Definimos un nuevo array para almacenar el resultado
+            $datos = array();
+
+            // Añadimos un elemento por cada registro de entrada obtenido
+            $row = $resultado->fetch(PDO::FETCH_NUM);
+
+            // Iteramos por los resultados obtenidos
+            while ($row != null) {
+
+                // Asignamos el resultado al array de resultados                
+                $datos[] = $row;
+
+                // Recuperamos una nueva fila
+                $row = $resultado->fetch(PDO::FETCH_NUM);
+            }
+
+            // Devolvemos el resultado
+            return $datos;
+        } else {
+            // Si no tenemos resultados lanzamos una excepción
+            throw new Exception();
         }
     }
 
@@ -2082,7 +2221,7 @@ class DB {
                         }
 
                         $datosEmpleado = array();
-                        
+
                         // Iteramos por todos los empleados que forman parte del grupo
                         foreach ($empleados as $id_empleado) {
 
@@ -2103,9 +2242,8 @@ class DB {
 
                             // Ejecutamos la consulta
                             $datosEmpleado[] = new Empleado($this->diw->query($sql)->fetch());
-                            
                         }
-                        
+
                         enviarCorreo($datosEmail, $datosFichero, $datosEmpleado);
                     }
                 }
@@ -2203,9 +2341,8 @@ class DB {
             throw new Exception();
         }
     }
-    
-    
-/**
+
+    /**
      * Función qe nos permite recuperar datos de la base de datos para realizar un informe de envíos
      * @param string $filtro Cadena por la que filtrar los valores de envíos
      * @param int $tipoFiltro Número de la columna de la tabla envíos por la que se va a filtrar la consulta
@@ -2215,82 +2352,70 @@ class DB {
      * @return string[] Array de datos con los valores recuperados de la base de datos
      * @throws Exception Se lanza una excepción si se produce un error
      */
-    public function listarInformeEnvio($filtro, $tipoFiltro, $ordenacion, $ascendente,  $columnas) {
+    public function listarInformeEnvio($filtro, $tipoFiltro, $ordenacion, $ascendente, $columnas) {
 
         // Asignamos el principio de la consulta
         $sql = "SELECT ";
-        
+
         // Verificamos si tenemos valores de ordenación
-        if(isset($ordenacion))
-        {
+        if (isset($ordenacion)) {
             // Dependiendo del valor seguiremos una acción
-            switch ($ordenacion)
-            {
-                case 1:
-                {
-                    // Si se ordena por fecha de envío
-                    $orden = " ORDER BY e.fecha_envio";
-                    break;
-                }
-                case 2:
-                {
-                    // Si se ordena por E-Mail de envío
-                    $orden = " ORDER BY em.descripcion";
-                    break;
-                }
-                case 3:
-                {
-                    // Si se ordena por nombre de empleado
-                    $orden = " ORDER BY emp.nombre";
-                    break;
-                }                
-                case 4:
-                {
-                    // Si se ordena por apellido de empleado
-                    $orden = " ORDER BY emp.apellido";
-                    break;
-                }                
-                case 5:
-                {
-                    // Si se ordena por E-Mail de empleado
-                    $orden = " ORDER BY emp.email";
-                    break;
-                }                
-                case 6:
-                {
-                    // Si se ordena por cargo de empleado
-                    $orden = " ORDER BY emp.cargo";
-                    break;
-                }                
-                case 7:
-                {
-                    // Si se ordena por descripción del fichero
-                    $orden = " ORDER BY f.descripcion";
-                    break;
-                }                
-                case 8:
-                {
-                    // Si se ordena por grupo
-                    $orden = " ORDER BY g.nombre";
-                    break;
-                }                
-                
-                
+            switch ($ordenacion) {
+                case 1: {
+                        // Si se ordena por fecha de envío
+                        $orden = " ORDER BY e.fecha_envio";
+                        break;
+                    }
+                case 2: {
+                        // Si se ordena por E-Mail de envío
+                        $orden = " ORDER BY em.descripcion";
+                        break;
+                    }
+                case 3: {
+                        // Si se ordena por nombre de empleado
+                        $orden = " ORDER BY emp.nombre";
+                        break;
+                    }
+                case 4: {
+                        // Si se ordena por apellido de empleado
+                        $orden = " ORDER BY emp.apellido";
+                        break;
+                    }
+                case 5: {
+                        // Si se ordena por E-Mail de empleado
+                        $orden = " ORDER BY emp.email";
+                        break;
+                    }
+                case 6: {
+                        // Si se ordena por cargo de empleado
+                        $orden = " ORDER BY emp.cargo";
+                        break;
+                    }
+                case 7: {
+                        // Si se ordena por descripción del fichero
+                        $orden = " ORDER BY f.descripcion";
+                        break;
+                    }
+                case 8: {
+                        // Si se ordena por grupo
+                        $orden = " ORDER BY g.nombre";
+                        break;
+                    }
             }
-            
+
             // Agregamos el tipo de orden
-            $orden .= $ascendente === "1" ? " ASC" : " DESC";            
+            $orden .= $ascendente === "1" ? " ASC" : " DESC";
         }
-        
-        
+
+
         // Iteramos por las columnas y las añadimos a la consulta
         foreach ($columnas as $columna) {
             $sql .= $columna . ", ";
         }
-        
+
         // Quitamos los dos últimos caracteres, un espacio en blanco y una coma
         $sql = substr($sql, 0, -2);
-        
+
         // Concatenamos la tabla en la que se va buscar
         $sql .= " FROM envio e, envio_empleado ee, empleado emp, email em, fichero f, grupo g "
                 . "WHERE "
@@ -2299,9 +2424,9 @@ class DB {
                 . "e.id_email = em.id_email AND "
                 . "e.id_fichero = f.id_fichero AND "
                 . "e.id_grupo = g.id_grupo";
-        
-        
-                // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
+
+
+        // Comprobamos que tenemos datos de filtro. De ser así, concatenamos 
         // una condición a la sentencia sql original
         if (($filtro !== NULL && $filtro !== "") && $tipoFiltro !== NULL) {
             // Dependiendo del tipo de filtro, agregaremos a la cadena sql una 
@@ -2346,7 +2471,7 @@ class DB {
                         // Si se filtra por grupo
                         $sql .= " AND g.nombre LIKE '" . $filtro . "%'";
                         break;
-                    }                    
+                    }
             }
         }
 
@@ -2381,7 +2506,7 @@ class DB {
             // Si no tenemos resultados lanzamos una excepción
             throw new Exception();
         }
-    }           
+    }
 
 // </editor-fold>
 }
