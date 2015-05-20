@@ -137,9 +137,9 @@ class DB {
 
     /**
      * Función que nos permite validar un usuario contra la base de datos
-     * @param type $usuario Usuario a validar
-     * @param type $password Contraseña a validar
-     * @return type True si es un usuario correcto, False si no lo es
+     * @param string $usuario Usuario a validar
+     * @param string $password Contraseña a validar
+     * @return bool True si es un usuario correcto, False si no lo es
      * @throws Exception Se lanza una excepción si se produce un error
      */
     public function validarUsuario($usuario, $password) {
