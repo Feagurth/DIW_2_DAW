@@ -234,7 +234,7 @@ class DB {
     }
 
     /**
-     * Función qe nos permite recuperar datos de la base de datos para realizar un informa de usuarios
+     * Función qe nos permite recuperar datos de la base de datos para realizar un informe de usuarios
      * @param string $filtro Cadena por la que filtrar los valores de usuarios
      * @param int $tipoFiltro Número de la columna de la tabla usuarios por la que se va a filtrar la consulta
      * @param int $ordenacion Número de la columna de la tabla usuarios por la que se va a ordenar la consulta
@@ -681,7 +681,7 @@ class DB {
     }
 
     /**
-     * Función qe nos permite recuperar datos de la base de datos para realizar un informa de empleados
+     * Función qe nos permite recuperar datos de la base de datos para realizar un informe de empleados
      * @param string $filtro Cadena por la que filtrar los valores de empleados
      * @param int $tipoFiltro Número de la columna de la tabla empleados por la que se va a filtrar la consulta
      * @param int $ordenacion Número de la columna de la tabla empleados por la que se va a ordenar la consulta
@@ -1043,7 +1043,7 @@ class DB {
     }
 
     /**
-     * Función qe nos permite recuperar datos de la base de datos para realizar un informa de e-mails
+     * Función qe nos permite recuperar datos de la base de datos para realizar un informe de e-mails
      * @param string $filtro Cadena por la que filtrar los valores de e-mails
      * @param int $tipoFiltro Número de la columna de la tabla e-mails por la que se va a filtrar la consulta
      * @param int $ordenacion Número de la columna de la tabla e-mails por la que se va a ordenar la consulta
@@ -1980,7 +1980,7 @@ class DB {
     /**
      * Función que nos permite almacenar en la base de datos las relaciones entre grupos y empleados
      * @param int $id_grupo Id del grupo
-     * @param int $ids_empleados Array de id de empleados
+     * @param int[] $ids_empleados Array de id de empleados
      * @return int 0 si todo ha salido correcto
      * @throws Exception Se lanza una excepción si se produce un error
      */
@@ -2144,8 +2144,8 @@ class DB {
 
     /**
      * Función que nos permite insertar un envío
-     * @param array $id_grupos Array con las id's de los grupos a los que enviar el fichero
-     * @param array $id_ficheros Array con las id's de los ficheros que se enviarán a los grupos
+     * @param int[] $id_grupos Array con las id's de los grupos a los que enviar el fichero
+     * @param int[] $id_ficheros Array con las id's de los ficheros que se enviarán a los grupos
      * @param int $id_email Id del email con el que se van a enviar los ficheros
      * @return int El identificador del envío insertado
      * @throws Exception Se lanza una excepción si se produce un error
