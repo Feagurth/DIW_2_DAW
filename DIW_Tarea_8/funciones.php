@@ -107,7 +107,7 @@ function validarDatosEmpleado($empleado) {
     // Comprobamos si tenemos información de email de usuario
     if ($empleado->getEmail()) {
         // Validamos el email del empleado
-        // Valida letras y números con espacios en blanco, vocales con acento y la ñ
+        // Valida patrones como aaaaa@bbbb.com aaa12@bbb.edu   aaaaa.bbbb@ccc.tv
         if (!preg_match("/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/", $empleado->getEmail())) {
             // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El E-Mail del empleado contiene carecteres inválidos.";
@@ -202,8 +202,8 @@ function validarDatosEmail($email) {
     // Comprobamos si tenemos información del servidor del email
     if ($email->getServidor()) {
         // Validamos el servidor del email
-        // Valida letras, números, el punto y el guión
-        if (!preg_match("/^[a-zA-Z0-9.-]+$/", $email->getServidor())) {
+        // Valida direcciones smpt con el formato smtp.azAz.abc o smtp.azAz.ab    
+        if (!preg_match("/^(smtp)\.([\w\-]+)\.[\w\-]{2,3}$/", $email->getServidor())) {
             // Si no se cumple, cambiamos el valor de la variable de salida
             $salida = "El servidor de salida del E-Mail contiene caracteres inválidos.";
         }

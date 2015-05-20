@@ -67,8 +67,8 @@ function validarPass(valor)
  */
 function validarSMTP(valor)
 {
-    // Validamos que solo puedan introducirse letras, en mayuscula o minúscula, 
-    // y números
+    // Validamos que solo puedan introducirse direcciones smpt con el formato 
+    // smtp.azAz.abc o smtp.azAz.ab    
     expresion = /^(smtp)\.([\w\-]+)\.[\w\-]{2,3}$/;
 
     return expresion.exec(valor);
