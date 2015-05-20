@@ -540,7 +540,7 @@ try {
 
                         // Creamos el checkbox dentro de una etiqueta
                         echo "<label title='Seleccione la tabla para que se muestre en el informe'>"
-                        . "<input tabindex='3' type='checkbox' name='columnas[]' title='Seleccione la tabla para que se muestre en el informe' value='" . $i . "'";
+                        . "<input tabindex='3' type='checkbox' name='columnas[]' title='Seleccione la tabla para que se muestre en el informe' value='" . $i . "' ";
 
                         // Comprobamos si el valor del checkbox creado se 
                         // corresponde con el valor de columnas que se nos 
