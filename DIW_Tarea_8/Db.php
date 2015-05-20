@@ -234,7 +234,7 @@ class DB {
     }
 
     /**
-     * Función qe nos permite recuperar datos de la base de datos para realizar un informe de usuarios
+     * Función que nos permite recuperar datos de la base de datos para realizar un informe de usuarios
      * @param string $filtro Cadena por la que filtrar los valores de usuarios
      * @param int $tipoFiltro Número de la columna de la tabla usuarios por la que se va a filtrar la consulta
      * @param int $ordenacion Número de la columna de la tabla usuarios por la que se va a ordenar la consulta
@@ -681,7 +681,7 @@ class DB {
     }
 
     /**
-     * Función qe nos permite recuperar datos de la base de datos para realizar un informe de empleados
+     * Función que nos permite recuperar datos de la base de datos para realizar un informe de empleados
      * @param string $filtro Cadena por la que filtrar los valores de empleados
      * @param int $tipoFiltro Número de la columna de la tabla empleados por la que se va a filtrar la consulta
      * @param int $ordenacion Número de la columna de la tabla empleados por la que se va a ordenar la consulta
@@ -1043,7 +1043,7 @@ class DB {
     }
 
     /**
-     * Función qe nos permite recuperar datos de la base de datos para realizar un informe de e-mails
+     * Función que nos permite recuperar datos de la base de datos para realizar un informe de e-mails
      * @param string $filtro Cadena por la que filtrar los valores de e-mails
      * @param int $tipoFiltro Número de la columna de la tabla e-mails por la que se va a filtrar la consulta
      * @param int $ordenacion Número de la columna de la tabla e-mails por la que se va a ordenar la consulta
@@ -1383,7 +1383,7 @@ class DB {
     }
 
     /**
-     * Función qe nos permite recuperar datos de la base de datos para realizar un informe de ficheros
+     * Función que nos permite recuperar datos de la base de datos para realizar un informe de ficheros
      * @param string $filtro Cadena por la que filtrar los valores de ficheros
      * @param int $tipoFiltro Número de la columna de la tabla ficheros por la que se va a filtrar la consulta
      * @param int $ordenacion Número de la columna de la tabla ficheros por la que se va a ordenar la consulta
@@ -1690,7 +1690,7 @@ class DB {
     }
 
     /**
-     * Función qe nos permite recuperar datos de la base de datos para realizar un informe de grupos
+     * Función que nos permite recuperar datos de la base de datos para realizar un informe de grupos
      * @param string $filtro Cadena por la que filtrar los valores de grupos
      * @param int $tipoFiltro Número de la columna de la tabla grupos por la que se va a filtrar la consulta
      * @param int $ordenacion Número de la columna de la tabla grupos por la que se va a ordenar la consulta
@@ -2343,7 +2343,7 @@ class DB {
     }
 
     /**
-     * Función qe nos permite recuperar datos de la base de datos para realizar un informe de envíos
+     * Función que nos permite recuperar datos de la base de datos para realizar un informe de envíos
      * @param string $filtro Cadena por la que filtrar los valores de envíos
      * @param int $tipoFiltro Número de la columna de la tabla envíos por la que se va a filtrar la consulta
      * @param int $ordenacion Número de la columna de la tabla envíos por la que se va a ordenar la consulta
