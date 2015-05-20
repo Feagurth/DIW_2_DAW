@@ -431,8 +431,8 @@ function validarDatosEnvio($grupos, $ficheros, $id_email) {
  * Método para validar el usuario y la contraseña de un usuario logeado y actuar 
  * en consecuencia
  * @package Funciones
- * @param type $usuario Usuario a validar
- * @param type $password Contraseña a validar
+ * @param string $usuario Usuario a validar
+ * @param string $password Contraseña a validar
  * @throws Exception Se lanza una excepción si se ha producido un error
  */
 function validarUsuario($usuario, $password) {
@@ -652,8 +652,8 @@ function comprobarRelaccionEmpleadoGrupo($id_empleado, $datosgrupoempleado) {
  * Función que nos permite crear de forma dinámica una tabla con la información 
  * de las relaciones entre empleados y grupos
  * @package Funciones
- * @param type $id_grupo Identificador del grupo del que se mirarán las relacciones
- * @param type $error Variable para almacenar los mensajes de error
+ * @param int $id_grupo Identificador del grupo del que se mirarán las relacciones
+ * @param string $error Variable para almacenar los mensajes de error
  */
 function crearTablaRelacionesEmpleados($id_grupo, &$error) {
 
@@ -823,8 +823,8 @@ function recortaNombreFichero($nombrefichero, $tamañoMax) {
  * Función que nos permite grabar un fichero con un nombre y una extensión 
  * específica
  * @package Funciones
- * @param type $nombre Nombre del fichero a grabar
- * @param type $datos Datos que contendrá el fichero codificados en binario
+ * @param string $nombre Nombre del fichero a grabar
+ * @param stream $datos Datos que contendrá el fichero codificados en binario
  * @return boolean TRUE si la operación es correcta, FALSE en caso contrario
  */
 function grabarFichero($nombre, $datos) {
@@ -862,8 +862,8 @@ function grabarFichero($nombre, $datos) {
 /**
  * Función que nos permite enviar un fichero por correo electrónico a varios empleados usando un email
  * @package Funciones
- * @global type $emailAdmin Email del administrador
- * @global type $nameAdmin Nombre del administrador
+ * @global string $emailAdmin Email del administrador
+ * @global string $nameAdmin Nombre del administrador
  * @param Email $email Objeto Email que contiene la información de configuracion del mismo
  * @param Fichero $fichero Objeto Fichero con la información del fichero
  * @param Empleado[] $empleados Array de objetos Empleado que contiene la información de los empleados

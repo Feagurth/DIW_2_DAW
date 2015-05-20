@@ -59,10 +59,11 @@ function validarPass(valor)
     return expresion.exec(valor);
 }
 
-/**
+/*
  * Functión que nos permite validar un servidor de correo SMTP
- * @param {type} valor Cadena a validar
+ * @param {string} valor Cadena a validar
  * @returns {Array} True si la validación es correcta, False en caso contrario
+
  */
 function validarSMTP(valor)
 {
@@ -75,7 +76,7 @@ function validarSMTP(valor)
 
 /**
  * Functión que nos permite validar un número
- * @param {type} valor Cadena a validar
+ * @param {string} valor Cadena a validar
  * @returns {Array} True si la validación es correcta, False en caso contrario
  */
 function validarNumero(valor)
@@ -88,7 +89,7 @@ function validarNumero(valor)
 
 /**
  * Functión que nos permite validar una dirección
- * @param {type} valor Cadena a validar
+ * @param {string} valor Cadena a validar
  * @returns {Array} True si la validación es correcta, False en caso contrario
  */
 function validarDireccion(valor)
@@ -103,7 +104,7 @@ function validarDireccion(valor)
 
 /**
  * Función que nos permite validar un email
- * @param {type} valor Cadena a validar
+ * @param {string} valor Cadena a validar
  * @returns {Array} True si la validación es correcta, False en caso contrario
  */
 function validarEmail(valor)
@@ -125,7 +126,7 @@ function validarEmail(valor)
 
 /**
  * Función que nos permite validar un número de teléfono fijo o movil en España
- * @param {type} valor Cadena a validar
+ * @param {string} valor Cadena a validar
  * @returns {undefined} True si la validación es correcta, False en caso contrario
  */
 function validarTelefono(valor)
@@ -144,9 +145,9 @@ function validarTelefono(valor)
 
 /**
  * Método que nos permite realizar un envio de información al servidor
- * @param {type} path Ruta a donde vamos a enviar la información
- * @param {type} params Parametros a enviar
- * @param {type} method Método de envio: POST (default) o GET
+ * @param {string} path Ruta a donde vamos a enviar la información
+ * @param {string[]} params Parametros a enviar
+ * @param {string} method Método de envio: POST (default) o GET
  * @returns {undefined}
  */
 function post(path, params, method) {
@@ -188,7 +189,7 @@ function post(path, params, method) {
 
 /**
  * Método para navegar entre los distintos menús de la página
- * @param {type} valorNavegacion Valor de navegación
+ * @param {string} valorNavegacion Valor de navegación
  * @returns {undefined}
  */
 function navegar(valorNavegacion)
@@ -200,9 +201,9 @@ function navegar(valorNavegacion)
 
 /**
  * Función que nos permite ordenar una tabla por sus columnas
- * @param {type} table Tabla a ordenar
- * @param {type} order Orden: asc - Ascendente desc - Descendent
- * @param {type} column El número de la columna por la que se ordenará la tabla
+ * @param {object} table Tabla a ordenar
+ * @param {string} order Orden: asc - Ascendente desc - Descendent
+ * @param {string} column El número de la columna por la que se ordenará la tabla
  * @returns {undefined} 
  * */
 function sortTable(table, order, column) {

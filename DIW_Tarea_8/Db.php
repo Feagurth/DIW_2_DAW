@@ -24,10 +24,10 @@ class DB {
 
     /**
      * Constructor de la base de datos
-     * @global type $serv Servidor donde está alojada el servidor de base de datos
-     * @global type $base Nombre de la base de datos
-     * @global type $usu Usuario de acceso a la base de datos
-     * @global type $pas Contraseña para acceder a la base de datos
+     * @global string $serv Servidor donde está alojada el servidor de base de datos
+     * @global string $base Nombre de la base de datos
+     * @global string $usu Usuario de acceso a la base de datos
+     * @global string $pas Contraseña para acceder a la base de datos
      * @throws Exception Se lanza una excepción si se produce algún error
      */
     public function __construct() {

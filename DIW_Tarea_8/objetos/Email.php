@@ -32,7 +32,7 @@ class Email implements JsonSerializable {
     
     /**
      * Descripción de la cuenta correo
-     * @var type 
+     * @var string 
      */
     private $descripcion;    
 
@@ -68,7 +68,7 @@ class Email implements JsonSerializable {
 
     /**
      * Especifica si la cuenta requiere autentificacion
-     * @var type 
+     * @var string 
      */
     private $autentificacion;
 
