@@ -35,11 +35,11 @@ try {
         <form id="filtro" action='index.php' method='post' >
             <input type='submit' tabindex="11" value='Filtrar resultados' title="Pulse el botón para filtrar los resultados"/>            
             <select name="tipoFiltro" tabindex="10" title="Seleccione el tipo de filtro">
-                <option <?php if ($tipoFiltro === "1") echo "selected=\"selected\" " ?> value="5">Descripción</option>
-                <option <?php if ($tipoFiltro === "2") echo "selected=\"selected\" " ?> value="1">Usuario</option>
-                <option <?php if ($tipoFiltro === "3") echo "selected=\"selected\" " ?> value="2">Servidor</option>
-                <option <?php if ($tipoFiltro === "4") echo "selected=\"selected\" " ?> value="3">Puerto</option>
-                <option <?php if ($tipoFiltro === "5") echo "selected=\"selected\" " ?> value="4">Seguridad</option>                
+                <option <?php if ($tipoFiltro === "1") echo "selected=\"selected\" " ?> value="1">Descripción</option>
+                <option <?php if ($tipoFiltro === "2") echo "selected=\"selected\" " ?> value="2">Usuario</option>
+                <option <?php if ($tipoFiltro === "3") echo "selected=\"selected\" " ?> value="3">Servidor</option>
+                <option <?php if ($tipoFiltro === "4") echo "selected=\"selected\" " ?> value="4">Puerto</option>
+                <option <?php if ($tipoFiltro === "5") echo "selected=\"selected\" " ?> value="5">Seguridad</option>                
             </select>
             <input id="textoFiltro" tabindex="9" type="text" maxlength="30" title="Introduzca la cadena por la que filtrar los resultados" name="filtro"  value="<?php echo $filtro ?>" />
             <input class='oculto' name='indice' type='hidden' value='5' />

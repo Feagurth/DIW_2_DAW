@@ -884,7 +884,7 @@ function enviarCorreo(Email $email, Fichero $fichero, $empleados) {
         // 0 -> Producción
         // 1 -> Mensajes Cliente
         // 2 -> Mensajes Servidor
-        $mail->SMTPDebug = 0;
+        $mail->SMTPDebug = 2;
 
         // Salida de debug en modo html
         $mail->Debugoutput = 'html';
