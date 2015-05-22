@@ -2477,7 +2477,7 @@ class DB {
 
         // Concatenamos el orden a la cadena sql
         $sql .= $orden;
-
+        
         // Llamamos la a la función protegida de la clase para realizar la consulta
         $resultado = $this->ejecutaConsulta($sql);
 
@@ -2497,7 +2497,7 @@ class DB {
                 $datos[] = $row;
 
                 // Recuperamos una nueva fila
-                $row = $resultado->fetch(PDO::FETCH_ASSOC);
+                $row = $resultado->fetch(PDO::FETCH_NUM);
             }
 
             // Devolvemos el resultado
