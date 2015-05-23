@@ -40,7 +40,7 @@ try {
                 <option <?php if ($tipoFiltro === "3") echo "selected=\"selected\" " ?> value="3">Nombre de Empleado</option>
                 <option <?php if ($tipoFiltro === "4") echo "selected=\"selected\" " ?> value="4">Apellido de Empleado</option>
                 <option <?php if ($tipoFiltro === "5") echo "selected=\"selected\" " ?> value="5">E-Mail de Empleado</option>
-                <option <?php if ($tipoFiltro === "6") echo "selected=\"selected\" " ?> value="6">Nombre de Fichero</option>
+                <option <?php if ($tipoFiltro === "6") echo "selected=\"selected\" " ?> value="6">Cargo de Empleado</option>
                 <option <?php if ($tipoFiltro === "7") echo "selected=\"selected\" " ?> value="7">Descripción de Fichero</option>
             </select>
             <input id="textoFiltro" tabindex="9" type="text" maxlength="30" title="Introduzca la cadena por la que filtrar los resultados" name="filtro"  value="<?php echo $filtro ?>" />
